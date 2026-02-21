@@ -1,0 +1,423 @@
+/* ── Wrapper global ────────────────────────────── */
+.wrapper {
+  font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif;
+  background: #fafafa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ────────────────────────────────────── */
+.header {
+  padding: 24px 32px 0;
+  border-bottom: 1px solid #e8e8e8;
+  background: #fff;
+}
+
+.semestre {
+  font-size: 11px;
+  color: #aaa;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+.titulo {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+  margin: 4px 0 20px;
+}
+
+/* ── Full-width content area ───────────────────── */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.buscaRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 16px 0 12px;
+}
+
+.busca {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  background: #fafafa;
+  color: #1a1a1a;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.busca:focus {
+  border-color: #6366f1;
+}
+
+/* ── Filter toggle button ──────────────────────── */
+.filtroToggle {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: inherit;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.filtroToggle:hover {
+  border-color: #ccc;
+  background: #f9f9f9;
+}
+
+.filtroToggleAberto {
+  border-color: #6366f1;
+  color: #6366f1;
+  background: #f5f3ff;
+}
+
+.chevron {
+  font-size: 10px;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.filtroToggleAberto .chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Collapsible filter panel ──────────────────── */
+.filtroPanel {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.2s ease;
+}
+
+.filtroPanelAberto {
+  max-height: 200px;
+  opacity: 1;
+  margin-bottom: 4px;
+}
+
+.filtroGrupo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.filtroLabel {
+  font-size: 11px;
+  color: #aaa;
+  width: 42px;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.filtroChips {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.filtroChip {
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  background: #f4f4f5;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.12s;
+}
+
+.filtroChip:hover {
+  background: #eeecf9;
+  color: #6366f1;
+}
+
+.filtroChipAtivo {
+  background: #ede9fe;
+  color: #6366f1;
+  border-color: #c4b5fd;
+}
+
+.statusBar {
+  padding: 0 0 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statusTxt {
+  font-size: 11px;
+  color: #aaa;
+  font-variant-numeric: tabular-nums;
+}
+
+.limpar {
+  font-size: 11px;
+  color: #6366f1;
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* ── Lista de matérias (grid full-width) ───────── */
+.lista {
+  list-style: none;
+  padding: 0 0 100px; /* bottom padding so widget doesn't overlap last cards */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 8px;
+  align-content: start;
+}
+
+.item {
+  padding: 10px 16px;
+  border: 1px solid #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  cursor: pointer;
+  transition: background 0.12s;
+  background: #fff;
+}
+
+.item:hover {
+  background: #f5f5f5;
+}
+
+.itemSel {
+  background: #f5f3ff;
+  border-color: #ddd8ff;
+}
+
+.itemSel:hover {
+  background: #ede9fe;
+}
+
+.itemConflito {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.checkbox {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  border: 1.5px solid #ddd;
+  background: transparent;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkmark {
+  color: #fff;
+  font-size: 9px;
+  line-height: 1;
+}
+
+.itemInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemNome {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chips {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  background: #f4f4f5;
+  color: #666;
+  letter-spacing: 0.02em;
+}
+
+/* ── Floating grade widget ─────────────────────── */
+.widget {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 50;
+  width: 560px;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+
+/* Grade content — transitions on expand/collapse */
+.gradeContent {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+.gradeContentExpanded {
+  max-height: 440px;
+  overflow-y: auto;
+  opacity: 1;
+}
+
+/* Handle — always visible */
+.handle {
+  padding: 10px 16px;
+  background: #fff;
+  border-top: 1px solid #e8e8e8;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.handle:hover {
+  background: #f5f5f5;
+}
+
+/* ── Grade grid ────────────────────────────────── */
+.grade {
+  padding: 12px 16px;
+}
+
+.gradeHeader {
+  display: grid;
+  grid-template-columns: 52px repeat(6, 1fr);
+  margin-bottom: 0;
+}
+
+.eixoSpacer {
+  /* empty cell above time axis */
+}
+
+.diaHeader {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  color: #bbb;
+  letter-spacing: 0.1em;
+  padding-bottom: 8px;
+}
+
+.gradeCols {
+  display: grid;
+  grid-template-columns: 52px repeat(6, 1fr);
+}
+
+/* ── Eixo de horas ─────────────────────────────── */
+.eixo {
+  position: relative;
+  height: 380px;
+}
+
+.horaLabel {
+  position: absolute;
+  right: 8px;
+  font-size: 9px;
+  color: #ccc;
+  transform: translateY(-50%);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Colunas de dias ───────────────────────────── */
+.coluna {
+  position: relative;
+  height: 380px;
+  border-left: 1px solid #f0f0f0;
+}
+
+.linhaHora {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed #f0f0f0;
+}
+
+/* ── Bloco de matéria ──────────────────────────── */
+.bloco {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  border-radius: 4px;
+  padding: 4px 6px;
+  overflow: hidden;
+  border-left: 3px solid;
+  transition: opacity 0.15s;
+}
+
+.bloco:hover {
+  opacity: 0.85;
+}
+
+.blocoHora {
+  font-size: 9px;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.blocoNome {
+  font-size: 10px;
+  font-weight: 600;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.blocoTurma {
+  font-size: 9px;
+  opacity: 0.7;
+}

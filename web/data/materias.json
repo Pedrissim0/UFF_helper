@@ -1,0 +1,1832 @@
+[
+  {
+    "codigo": "GGE00125",
+    "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-22:00",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GGE00125",
+    "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
+    "turma": "J1",
+    "modulo": 62,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "18:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00160",
+    "nome": "ADMINISTRAÇÃO PÚBLICA",
+    "turma": "P1",
+    "modulo": 83,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "18:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00191",
+    "nome": "ALOCAÇÃO DE ATIVOS DE RISCO",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STC00116",
+    "nome": "ANÁLISE DE BALANÇO",
+    "turma": "P2",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "18:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00214",
+    "nome": "ANÁLISE DE SÉRIES TEMPORAIS I",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": "09:00-13:00"
+    }
+  },
+  {
+    "codigo": "SEN00186",
+    "nome": "ANÁLISE ECONÔMICA DE POLÍTICAS SOCIAIS",
+    "turma": "A1",
+    "modulo": 53,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "09:00-13:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GCV00160",
+    "nome": "CINEMA E ESTÉTICA I",
+    "turma": "C2",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GCV00270",
+    "nome": "CINEMA, ESTÉTICA E POLÍTICA",
+    "turma": "C1",
+    "modulo": 62,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-22:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STC00115",
+    "nome": "CONTABILIDADE GERAL",
+    "turma": "P1",
+    "modulo": 61,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "14:00-18:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SDB00171",
+    "nome": "DIREITO FINANCEIRO E TRIBUTÁRIO I",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "07:00-09:00",
+      "qua": "",
+      "qui": "07:00-09:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00244",
+    "nome": "ECOLOGICAL ECONOMICS",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "14:00-18:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00176",
+    "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-11:00",
+      "ter": "",
+      "qua": "09:00-11:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00176",
+    "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "20:00-22:00",
+      "ter": "",
+      "qua": "20:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00259",
+    "nome": "ECONOMETRIA",
+    "turma": "A1",
+    "modulo": 40,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "07:00-09:00",
+      "ter": "",
+      "qua": "07:00-09:00",
+      "qui": "",
+      "sex": "07:00-09:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00259",
+    "nome": "ECONOMETRIA",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "18:00-20:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00121",
+    "nome": "ECONOMETRIA II",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "11:00-13:00",
+      "qua": "",
+      "qui": "11:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00260",
+    "nome": "ECONOMIA BRASILEIRA I",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-11:00",
+      "ter": "",
+      "qua": "09:00-11:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00260",
+    "nome": "ECONOMIA BRASILEIRA I",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00261",
+    "nome": "ECONOMIA BRASILEIRA II",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-11:00",
+      "ter": "",
+      "qua": "09:00-11:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00261",
+    "nome": "ECONOMIA BRASILEIRA II",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00149",
+    "nome": "ECONOMIA DA ENERGIA",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "11:00-13:00",
+      "qua": "",
+      "qui": "11:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00229",
+    "nome": "ECONOMIA DO SETOR PÚBLICO E REGULAÇÃO",
+    "turma": "P1",
+    "modulo": 47,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-22:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00133",
+    "nome": "ECONOMIA DO TRABALHO",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00258",
+    "nome": "ECONOMIA FINANCEIRA",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "11:00-13:00",
+      "qua": "",
+      "qui": "11:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00258",
+    "nome": "ECONOMIA FINANCEIRA",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00111",
+    "nome": "ECONOMIA INTERNACIONAL",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "20:00-22:00",
+      "ter": "",
+      "qua": "20:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00178",
+    "nome": "ECONOMIA MATEMATICA",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "14:00-16:00,11:00-13:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00118",
+    "nome": "ECONOMIA MONETÁRIA",
+    "turma": "P1",
+    "modulo": 53,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GCV00304",
+    "nome": "ECONOMIA POLÍTICA DO AUDIOVISUAL",
+    "turma": "C1",
+    "modulo": 45,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "09:00-13:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00227",
+    "nome": "ECONOMIA POLÍTICA DO MEIO AMBIENTE",
+    "turma": "P1",
+    "modulo": 53,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00086",
+    "nome": "ECONOMIA POLÍTICA II",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00156",
+    "nome": "ELABORACAO E ANALISE DE PROJETOS",
+    "turma": "A1",
+    "modulo": 53,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00195",
+    "nome": "EXPERIÊNCIAS INDUSTRIAIS COMPARADAS",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "09:00-13:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00103",
+    "nome": "FINANCAS INTERNACIONAIS",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "07:00-09:00",
+      "ter": "",
+      "qua": "07:00-09:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00162",
+    "nome": "FINANÇAS PÚBLICAS",
+    "turma": "P1",
+    "modulo": 81,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00200",
+    "nome": "FINANÇAS PÚBLICAS NO BRASIL",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "11:00-13:00",
+      "ter": "",
+      "qua": "11:00-13:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00256",
+    "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I",
+    "turma": "A1",
+    "modulo": 67,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-11:00",
+      "ter": "",
+      "qua": "09:00-11:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00256",
+    "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I",
+    "turma": "P1",
+    "modulo": 67,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GGE00138",
+    "nome": "GEOGRAFIA DA INDUSTRIA",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00175",
+    "nome": "GESTÃO DE PROJETOS",
+    "turma": "P1",
+    "modulo": 53,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "18:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00158",
+    "nome": "GESTÃO FINANCEIRA",
+    "turma": "P1",
+    "modulo": 84,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-22:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00189",
+    "nome": "GESTÃO FINANCEIRA",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00261",
+    "nome": "GESTÃO FINANCEIRA DE LONGO PRAZO",
+    "turma": "P1",
+    "modulo": 55,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-22:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GHT00313",
+    "nome": "HISTORIA ECONOMICA GERAL I",
+    "turma": "H1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-11:00",
+      "ter": "",
+      "qua": "09:00-11:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GHT00313",
+    "nome": "HISTORIA ECONOMICA GERAL I",
+    "turma": "H2",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00128",
+    "nome": "INTRODUÇÃO A ADMINISTRAÇÃO",
+    "turma": "C1",
+    "modulo": 61,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-13:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STE00058",
+    "nome": "INTRODUÇÃO AO EMPREENDEDORISMO",
+    "turma": "A1",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": "08:00-10:00"
+    }
+  },
+  {
+    "codigo": "SEN00245",
+    "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00245",
+    "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-20:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GFL00024",
+    "nome": "INTRODUÇÃO À FILOSOFIA",
+    "turma": "B1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "14:00-18:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GFL00024",
+    "nome": "INTRODUÇÃO À FILOSOFIA",
+    "turma": "D1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "14:00-18:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00015",
+    "nome": "LABORATORIO DE MACROECONOMIA II",
+    "turma": "AA",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "11:00-13:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00015",
+    "nome": "LABORATORIO DE MACROECONOMIA II",
+    "turma": "PP",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "20:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00012",
+    "nome": "LABORATORIO DE MICROECONOMIA I",
+    "turma": "AA",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "09:00-11:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00012",
+    "nome": "LABORATORIO DE MICROECONOMIA I",
+    "turma": "AB",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "09:00-11:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00012",
+    "nome": "LABORATORIO DE MICROECONOMIA I",
+    "turma": "PP",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-20:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00012",
+    "nome": "LABORATORIO DE MICROECONOMIA I",
+    "turma": "PQ",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-20:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00013",
+    "nome": "LABORATORIO DE MICROECONOMIA II",
+    "turma": "AA",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "09:00-11:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00013",
+    "nome": "LABORATORIO DE MICROECONOMIA II",
+    "turma": "PP",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-20:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00014",
+    "nome": "LABORATORIO DE MICROECONOMIA III",
+    "turma": "AA",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "09:00-11:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00014",
+    "nome": "LABORATORIO DE MICROECONOMIA III",
+    "turma": "PP",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-20:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00026",
+    "nome": "LABORATÓRIO DE MACROECONOMIA I",
+    "turma": "AA",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "11:00-13:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00026",
+    "nome": "LABORATÓRIO DE MACROECONOMIA I",
+    "turma": "PP",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "20:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00207",
+    "nome": "MACROECONOMIA INTERTEMPORAL I",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00156",
+    "nome": "MARKETING",
+    "turma": "P1",
+    "modulo": 51,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "18:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GAN00146",
+    "nome": "MATEMÁTICA PARA ECONOMIA II",
+    "turma": "E1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-13:00",
+      "ter": "09:00-13:00",
+      "qua": "09:00-13:00",
+      "qui": "10:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00188",
+    "nome": "MERCADOS DE CAPITAIS",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-11:00",
+      "ter": "",
+      "qua": "09:00-11:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GET00118",
+    "nome": "METOD ESTAT APLICADOS A ECONOMIA II",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GET00118",
+    "nome": "METOD ESTAT APLICADOS A ECONOMIA II",
+    "turma": "B1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GET00117",
+    "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GET00117",
+    "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
+    "turma": "B1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00084",
+    "nome": "METODOL E TEC DE PESQUISA EM ECONOMIA",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "09:00-13:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00084",
+    "nome": "METODOL E TEC DE PESQUISA EM ECONOMIA",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00091",
+    "nome": "METODOLOGIA DA ANALISE ECONOMICA",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "09:00-11:00",
+      "ter": "",
+      "qua": "09:00-11:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00206",
+    "nome": "MODELOS DE CRESCIMENTO E DISTRIBUIÇÃO DE RENDA",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "11:00-13:00",
+      "ter": "",
+      "qua": "11:00-13:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00209",
+    "nome": "MODELOS DE PREVISÃO MACROECONÔMICA",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00067",
+    "nome": "PENSAMENTO ECONOMICO I",
+    "turma": "A1",
+    "modulo": 70,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "11:00-13:00",
+      "ter": "",
+      "qua": "11:00-13:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00067",
+    "nome": "PENSAMENTO ECONOMICO I",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "20:00-22:00",
+      "ter": "",
+      "qua": "20:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00068",
+    "nome": "PENSAMENTO ECONOMICO II",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "11:00-13:00",
+      "ter": "",
+      "qua": "11:00-13:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00068",
+    "nome": "PENSAMENTO ECONOMICO II",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "20:00-22:00",
+      "ter": "",
+      "qua": "20:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00081",
+    "nome": "PENSAMENTO ECONOMICO IV",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "11:00-13:00",
+      "ter": "",
+      "qua": "11:00-13:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00081",
+    "nome": "PENSAMENTO ECONOMICO IV",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "20:00-22:00",
+      "ter": "",
+      "qua": "20:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00080",
+    "nome": "PENSAMENTO ECONÔMICO III",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "11:00-13:00",
+      "ter": "",
+      "qua": "11:00-13:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00080",
+    "nome": "PENSAMENTO ECONÔMICO III",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "20:00-22:00",
+      "ter": "",
+      "qua": "20:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00231",
+    "nome": "PLANEJAMENTO E DECISÃO GOVERNAMENTAIS",
+    "turma": "P1",
+    "modulo": 40,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-22:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00263",
+    "nome": "POLÍTICA DE DEFESA DA CONCORRÊNCIA",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "18:00-22:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00184",
+    "nome": "POLÍTICA FISCAL KEYNESIANA",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "STA00232",
+    "nome": "POLÍTICAS PÚBLICAS: ELABORAÇÃO, EXECUÇÃO E AVALIAÇÃO",
+    "turma": "P1",
+    "modulo": 40,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-22:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00143",
+    "nome": "TEORIA DO COMERCIO INTERNACIONAL I",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00137",
+    "nome": "TEORIA DOS JOGOS",
+    "turma": "A1",
+    "modulo": 53,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "16:00-18:00",
+      "qua": "",
+      "qui": "16:00-18:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00076",
+    "nome": "TEORIA MACROECONOMICA I",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "11:00-13:00",
+      "qua": "",
+      "qui": "11:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00076",
+    "nome": "TEORIA MACROECONOMICA I",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00077",
+    "nome": "TEORIA MACROECONOMICA II",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "11:00-13:00",
+      "qua": "",
+      "qui": "11:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00077",
+    "nome": "TEORIA MACROECONOMICA II",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00078",
+    "nome": "TEORIA MACROECONOMICA III",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "11:00-13:00",
+      "qua": "",
+      "qui": "11:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00078",
+    "nome": "TEORIA MACROECONOMICA III",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00079",
+    "nome": "TEORIA MACROECONÔMICA IV",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "11:00-13:00",
+      "qua": "",
+      "qui": "11:00-13:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00079",
+    "nome": "TEORIA MACROECONÔMICA IV",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00073",
+    "nome": "TEORIA MICROECONOMICA II",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00073",
+    "nome": "TEORIA MICROECONOMICA II",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00074",
+    "nome": "TEORIA MICROECONOMICA III",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00074",
+    "nome": "TEORIA MICROECONOMICA III",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00075",
+    "nome": "TEORIA MICROECONOMICA IV",
+    "turma": "A1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00075",
+    "nome": "TEORIA MICROECONOMICA IV",
+    "turma": "P1",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00072",
+    "nome": "TEORIA MICROECONÔMICA I",
+    "turma": "A1",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00072",
+    "nome": "TEORIA MICROECONÔMICA I",
+    "turma": "A2",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00072",
+    "nome": "TEORIA MICROECONÔMICA I",
+    "turma": "P1",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00072",
+    "nome": "TEORIA MICROECONÔMICA I",
+    "turma": "P2",
+    "modulo": 32,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00119",
+    "nome": "TEORIA MONETÁRIA",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-11:00",
+      "qua": "",
+      "qui": "09:00-11:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00114",
+    "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO I",
+    "turma": "A1",
+    "modulo": 15,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "14:00-18:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00115",
+    "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO II",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "20:00-22:00",
+      "ter": "",
+      "qua": "20:00-22:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00088",
+    "nome": "TOP ESPEC EM ECONOMIA POLÍTICA I",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "18:00-20:00",
+      "ter": "",
+      "qua": "18:00-20:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00122",
+    "nome": "TOPICOS ESPECIAIS EM ECONOMETRIA I",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "16:00-18:00",
+      "ter": "",
+      "qua": "16:00-18:00",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "GGE00168",
+    "nome": "TOPICOS ESPECIAIS EM GEOGRAFIA URBANA",
+    "turma": "A1",
+    "modulo": 45,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "14:00-18:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00107",
+    "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA I",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "20:00-22:00",
+      "qua": "",
+      "qui": "20:00-22:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00108",
+    "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA II",
+    "turma": "P1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "18:00-20:00",
+      "qua": "",
+      "qui": "18:00-20:00",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SGE00018",
+    "nome": "TRABALHO DE CONCLUSAO DE CURSO",
+    "turma": "AA",
+    "modulo": 60,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "14:00-16:00",
+      "sex": "",
+      "sab": "11:00-18:00"
+    }
+  },
+  {
+    "codigo": "SGE00018",
+    "nome": "TRABALHO DE CONCLUSAO DE CURSO",
+    "turma": "AB",
+    "modulo": 75,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "13:00-20:00",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00203",
+    "nome": "TÓPICOS EM TEORIA MACROECONÔMICA E ANÁLISE EMPÍRICA",
+    "turma": "A1",
+    "modulo": 50,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "07:00-11:00",
+      "ter": "",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00154",
+    "nome": "TÓPICOS ESPECIAIS DE ECONOM DO MEIO AMBIENTE",
+    "turma": "A1",
+    "modulo": 15,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "14:00-18:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  },
+  {
+    "codigo": "SEN00090",
+    "nome": "TÓPICOS ESPECIAIS EM ECONOMIA POLÍTICA III",
+    "turma": "A1",
+    "modulo": 15,
+    "tipo": "Presencial",
+    "horarios": {
+      "seg": "",
+      "ter": "09:00-13:00",
+      "qua": "",
+      "qui": "",
+      "sex": "",
+      "sab": ""
+    }
+  }
+]
