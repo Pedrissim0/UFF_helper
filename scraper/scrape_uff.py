@@ -5,6 +5,7 @@ import re
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
+import parse_csv
 
 def main():
     load_dotenv()
@@ -156,6 +157,10 @@ def main():
                 
         print(f"Dados extraídos com sucesso para {csv_filename}!")
         browser.close()
+
+        print("\nConvertendo CSV para JSON...")
+        parse_csv.run(csv_path=csv_filename)
+        print("Pipeline completo! ✅")
 
 if __name__ == "__main__":
     main()

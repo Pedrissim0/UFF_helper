@@ -6,8 +6,10 @@ export interface Materia {
   codigo: string;
   nome: string;
   turma: string;
+  professor: string;
   modulo: number;
   tipo: string;
+  link: string;
   horarios: {
     seg: string;
     ter: string;

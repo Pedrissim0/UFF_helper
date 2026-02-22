@@ -1,5 +1,5 @@
 """
-parse_csv.py — converte docs/amostra.csv para web/data/materias.json
+parse_csv.py — converte CSV para web/data/materias.json
 seguindo o contrato de dados definido em CLAUDE.md.
 """
 
@@ -8,9 +8,6 @@ import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).parent.parent
-CSV_PATH = ROOT / "docs" / "amostra.csv"
-OUT_PATH = ROOT / "web" / "data" / "materias.json"
-
 DIAS = ["seg", "ter", "qua", "qui", "sex", "sab"]
 
 
@@ -20,17 +17,30 @@ def parse_row(row: dict) -> dict:
         "codigo": row["Código"].strip(),
         "nome": row["Nome"].strip(),
         "turma": row["Turma"].strip(),
+        "professor": row.get("Professor", "").strip(),
         "modulo": int(row["Módulo"].strip()),
         "tipo": row["Tipo de Oferta"].strip(),
+        "link": row.get("Link para disciplina", "").strip(),
         "horarios": horarios,
     }
 
 
-def main():
-    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+def run(csv_path=None, out_path=None):
+    """Converte CSV em JSON. Se paths não forem fornecidos, usa defaults."""
+    if csv_path is None:
+        csv_path = ROOT / "docs" / "amostra.csv"
+    else:
+        csv_path = pathlib.Path(csv_path)
+
+    if out_path is None:
+        out_path = ROOT / "web" / "data" / "materias.json"
+    else:
+        out_path = pathlib.Path(out_path)
+
+    out_path.parent.mkdir(parents=True, exist_ok=True)
 
     materias = []
-    with CSV_PATH.open(encoding="utf-8-sig") as f:
+    with csv_path.open(encoding="utf-8-sig") as f:
         reader = csv.DictReader(f, delimiter=";")
         for row in reader:
             # ignora linhas em branco
@@ -38,10 +48,14 @@ def main():
                 continue
             materias.append(parse_row(row))
 
-    with OUT_PATH.open("w", encoding="utf-8") as f:
+    with out_path.open("w", encoding="utf-8") as f:
         json.dump(materias, f, ensure_ascii=False, indent=2)
 
-    print(f"OK — {len(materias)} matérias escritas em {OUT_PATH}")
+    print(f"OK — {len(materias)} matérias escritas em {out_path}")
+
+
+def main():
+    run()
 
 
 if __name__ == "__main__":

@@ -145,6 +145,23 @@
   color: #666;
 }
 
+.professor {
+  font-size: 0.8rem;
+  color: #555;
+  font-style: italic;
+  margin-left: auto;
+}
+
+.nomeLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.nomeLink:hover {
+  text-decoration: underline;
+  color: #3a86ff;
+}
+
 .horarios {
   display: flex;
   flex-wrap: wrap;

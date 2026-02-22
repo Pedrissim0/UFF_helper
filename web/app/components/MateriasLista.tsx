@@ -103,10 +103,19 @@ export default function MateriasLista({ materias }: Props) {
               <span className={styles.codigo}>{m.codigo}</span>
               <span className={styles.turma}>Turma {m.turma}</span>
             </div>
-            <h2 className={styles.nome}>{m.nome}</h2>
+            <h2 className={styles.nome}>
+              {m.link ? (
+                <a href={m.link} target="_blank" rel="noopener noreferrer" className={styles.nomeLink}>
+                  {m.nome}
+                </a>
+              ) : (
+                m.nome
+              )}
+            </h2>
             <div className={styles.meta}>
               <span className={styles.badge}>{m.tipo}</span>
               <span className={styles.modulo}>{m.modulo}h</span>
+              {m.professor && <span className={styles.professor}>{m.professor}</span>}
             </div>
             <div className={styles.horarios}>
               {DIAS.map((dia) => {

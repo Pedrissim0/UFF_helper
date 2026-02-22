@@ -21,8 +21,10 @@ Todo dado de matéria deve seguir este schema:
   "codigo": "ECO00101",
   "nome": "MICROECONOMIA I",
   "turma": "A1",
+  "professor": "NOME DO PROFESSOR",
   "modulo": 60,
   "tipo": "Presencial",
+  "link": "https://app.uff.br/graduacao/quadrodehorarios/...",
   "horarios": {
     "seg": "14:00-18:00",
     "ter": "",

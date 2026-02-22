@@ -73,6 +73,7 @@ export default function GradeHoraria({ materias }: Props) {
   const [diasFiltro, setDiasFiltro] = useState<Set<Dia>>(new Set());
   const [turnosFiltro, setTurnosFiltro] = useState<Set<Turno>>(new Set());
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
+  const [profsFiltro, setProfsFiltro] = useState<Set<string>>(new Set());
 
   const colorMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -95,7 +96,13 @@ export default function GradeHoraria({ materias }: Props) {
       .map(([depto, count]) => ({ depto, count }));
   }, [materias]);
 
-  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size;
+  const professores = useMemo(() => {
+    const set = new Set<string>();
+    materias.forEach((m) => { if (m.professor) set.add(m.professor); });
+    return Array.from(set).sort();
+  }, [materias]);
+
+  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + profsFiltro.size;
 
   const filtradas = useMemo(() => {
     let result = materias;
@@ -134,6 +141,10 @@ export default function GradeHoraria({ materias }: Props) {
         const depto = m.codigo.replace(/[0-9]/g, "");
         return deptosFiltro.has(depto);
       });
+    }
+
+    if (profsFiltro.size > 0) {
+      result = result.filter((m) => profsFiltro.has(m.professor));
     }
 
     return result;
@@ -246,6 +257,23 @@ export default function GradeHoraria({ materias }: Props) {
               ))}
             </div>
           </div>
+
+          {professores.length > 0 && (
+            <div className={styles.filtroGrupo}>
+              <span className={styles.filtroLabel}>Prof.</span>
+              <div className={`${styles.filtroChips} ${styles.filtroChipsScroll}`}>
+                {professores.map((prof) => (
+                  <button
+                    key={prof}
+                    className={`${styles.filtroChip} ${profsFiltro.has(prof) ? styles.filtroChipAtivo : ""}`}
+                    onClick={() => setProfsFiltro((prev) => toggleSet(prev, prof))}
+                  >
+                    {prof}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         <div className={styles.statusBar}>
@@ -281,24 +309,45 @@ export default function GradeHoraria({ materias }: Props) {
                 </div>
 
                 <div className={styles.itemInfo}>
-                  <div className={styles.itemNome}>
-                    {m.nome.length > 42 ? m.nome.slice(0, 42) + "…" : m.nome}
-                  </div>
-                  <div className={styles.chips}>
-                    <span className={styles.chip}>{m.codigo}</span>
-                    <span
-                      className={styles.chip}
-                      style={sel ? { background: color + "22", color } : undefined}
-                    >
-                      T. {m.turma}
+                  <div className={styles.itemNomeRow}>
+                    <span className={styles.itemNome}>
+                      {m.nome.length > 36 ? m.nome.slice(0, 36) + "…" : m.nome}
                     </span>
-                    <span className={styles.chip}>{m.modulo}h</span>
+                    {m.professor && (
+                      <span className={styles.profTag}>{m.professor}</span>
+                    )}
+                  </div>
+                  <div className={styles.itemMeta}>
+                    <div className={styles.metaRow}>
+                      <span className={styles.metaKey}>Cód.</span>
+                      <span>{m.codigo}</span>
+                    </div>
+                    <div className={styles.metaRow}>
+                      <span className={styles.metaKey}>Turma</span>
+                      <span>{m.turma}</span>
+                    </div>
+                    <div className={styles.metaRow}>
+                      <span className={styles.metaKey}>CH</span>
+                      <span>{m.modulo}h</span>
+                    </div>
                     {diasAtivos.map((d) => (
-                      <span key={d} className={styles.chip}>
-                        {DIAS_LABEL[d]} {m.horarios[d].split("-")[0]}
-                      </span>
+                      <div key={d} className={styles.metaRow}>
+                        <span className={styles.metaKey}>{DIAS_LABEL[d]}</span>
+                        <span>{m.horarios[d]}</span>
+                      </div>
                     ))}
                   </div>
+                  {m.link && (
+                    <a
+                      href={m.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.itemLinkBtn}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Ver no quadro de horários ↗
+                    </a>
+                  )}
                 </div>
               </li>
             );
