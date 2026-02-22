@@ -1,11 +1,48 @@
 import os
 import time
 import csv
+import json
+import pathlib
 import re
 from dotenv import load_dotenv
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 import parse_csv
+
+ROOT = pathlib.Path(__file__).parent.parent
+
+def _write_amostra_csv():
+    """Gera docs/amostra.csv a partir do JSON final, com CH_total e sem Modulo/Tipo."""
+    json_path = ROOT / "web" / "data" / "materias.json"
+    out_path = ROOT / "docs" / "amostra.csv"
+
+    with json_path.open(encoding="utf-8") as f:
+        materias = json.load(f)
+
+    headers = ["Codigo", "Nome", "Turma", "Professor", "CH_total",
+               "Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Link"]
+
+    with out_path.open("w", newline="", encoding="utf-8-sig") as f:
+        writer = csv.writer(f, delimiter=";")
+        writer.writerow(headers)
+        for m in materias:
+            h = m.get("horarios", {})
+            writer.writerow([
+                m.get("codigo", ""),
+                m.get("nome", ""),
+                m.get("turma", ""),
+                m.get("professor", ""),
+                m.get("ch", ""),
+                h.get("seg", ""),
+                h.get("ter", ""),
+                h.get("qua", ""),
+                h.get("qui", ""),
+                h.get("sex", ""),
+                h.get("sab", ""),
+                m.get("link", ""),
+            ])
+
+    print(f"  {len(materias)} linhas escritas em {out_path}")
 
 def main():
     load_dotenv()
@@ -158,17 +195,15 @@ def main():
         print(f"Dados extraídos com sucesso para {csv_filename}!")
         browser.close()
 
-        import shutil
-        amostra_path = "docs/amostra.csv"
-        shutil.copy(csv_filename, amostra_path)
-        print(f"Cópia salva em {amostra_path}")
-
         print("\nConvertendo CSV para JSON...")
         parse_csv.run(csv_path=csv_filename)
 
         import scrape_ch
         print("\nBuscando Carga Horaria (CH) das disciplinas...")
         scrape_ch.run()
+
+        print("\nGerando docs/amostra.csv a partir do JSON final...")
+        _write_amostra_csv()
         print("Pipeline completo!")
 
 if __name__ == "__main__":
