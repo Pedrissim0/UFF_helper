@@ -148,7 +148,7 @@ export default function GradeHoraria({ materias }: Props) {
     }
 
     return result;
-  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro]);
+  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, profsFiltro]);
 
   function isSelecionada(m: Materia) {
     return selecionadas.some((s) => s.codigo === m.codigo && s.turma === m.turma);
