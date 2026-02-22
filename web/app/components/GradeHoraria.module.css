@@ -140,11 +140,6 @@
   flex-wrap: wrap;
 }
 
-.filtroChipsScroll {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding-bottom: 2px;
-}
 
 .filtroChip {
   padding: 3px 10px;
@@ -331,7 +326,6 @@
 .widget {
   position: fixed;
   bottom: 16px;
-  right: 16px;
   z-index: 50;
   width: 560px;
   border-radius: 10px;
@@ -339,6 +333,20 @@
   background: #fff;
   border: 1px solid #e8e8e8;
   overflow: hidden;
+  transition: left 0.3s ease, right 0.3s ease, transform 0.3s ease;
+}
+
+.widget_center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.widget_left {
+  left: 16px;
+}
+
+.widget_right {
+  right: 16px;
 }
 
 /* Grade content — transitions on expand/collapse */
@@ -372,6 +380,42 @@
 
 .handle:hover {
   background: #f5f5f5;
+}
+
+.handleSpacer {
+  flex: 1;
+}
+
+.posBtns {
+  display: flex;
+  gap: 2px;
+}
+
+.posBtn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #999;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.posBtn:hover {
+  background: #ede9fe;
+  color: #6366f1;
+}
+
+.posBtnAtivo {
+  background: #ede9fe;
+  color: #6366f1;
 }
 
 /* ── Grade grid ────────────────────────────────── */
@@ -466,4 +510,121 @@
 .blocoTurma {
   font-size: 9px;
   opacity: 0.7;
+}
+
+/* ── Responsividade mobile ────────────────────── */
+@media (max-width: 640px) {
+  .header {
+    padding: 16px 16px 0;
+  }
+
+  .titulo {
+    font-size: 18px;
+    margin: 4px 0 14px;
+  }
+
+  .content {
+    padding: 0 12px;
+  }
+
+  .buscaRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 12px 0 8px;
+  }
+
+  .busca {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .filtroToggle {
+    align-self: flex-start;
+  }
+
+  .filtroGrupo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .filtroLabel {
+    width: auto;
+  }
+
+  .lista {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding-bottom: 80px;
+  }
+
+  .item {
+    padding: 8px 12px;
+  }
+
+  .widget {
+    width: auto;
+    left: 8px;
+    right: 8px;
+    transform: none;
+  }
+
+  .posBtns {
+    display: none;
+  }
+
+  .handleSpacer {
+    display: none;
+  }
+
+  .grade {
+    padding: 8px 10px;
+  }
+
+  .gradeHeader {
+    grid-template-columns: 36px repeat(6, 1fr);
+  }
+
+  .gradeCols {
+    grid-template-columns: 36px repeat(6, 1fr);
+  }
+
+  .eixo {
+    height: 320px;
+  }
+
+  .coluna {
+    height: 320px;
+  }
+
+  .horaLabel {
+    font-size: 8px;
+    right: 4px;
+  }
+
+  .diaHeader {
+    font-size: 9px;
+    padding-bottom: 4px;
+  }
+
+  .bloco {
+    padding: 2px 3px;
+  }
+
+  .blocoHora {
+    font-size: 7px;
+  }
+
+  .blocoNome {
+    font-size: 8px;
+  }
+
+  .blocoTurma {
+    font-size: 7px;
+  }
+
+  .gradeContentExpanded {
+    max-height: 380px;
+  }
 }

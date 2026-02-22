@@ -68,12 +68,12 @@ interface Props {
 export default function GradeHoraria({ materias }: Props) {
   const [busca, setBusca] = useState("");
   const [selecionadas, setSelecionadas] = useState<Materia[]>([]);
-  const [isHovering, setIsHovering] = useState(false);
+  const [gradeAberta, setGradeAberta] = useState(false);
   const [filtrosAberto, setFiltrosAberto] = useState(false);
   const [diasFiltro, setDiasFiltro] = useState<Set<Dia>>(new Set());
   const [turnosFiltro, setTurnosFiltro] = useState<Set<Turno>>(new Set());
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
-  const [profsFiltro, setProfsFiltro] = useState<Set<string>>(new Set());
+  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('center');
 
   const colorMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -96,13 +96,7 @@ export default function GradeHoraria({ materias }: Props) {
       .map(([depto, count]) => ({ depto, count }));
   }, [materias]);
 
-  const professores = useMemo(() => {
-    const set = new Set<string>();
-    materias.forEach((m) => { if (m.professor) set.add(m.professor); });
-    return Array.from(set).sort();
-  }, [materias]);
-
-  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + profsFiltro.size;
+  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size;
 
   const filtradas = useMemo(() => {
     let result = materias;
@@ -113,7 +107,8 @@ export default function GradeHoraria({ materias }: Props) {
         (m) =>
           m.nome.toLowerCase().includes(q) ||
           m.codigo.toLowerCase().includes(q) ||
-          m.turma.toLowerCase().includes(q)
+          m.turma.toLowerCase().includes(q) ||
+          m.professor.toLowerCase().includes(q)
       );
     }
 
@@ -143,12 +138,8 @@ export default function GradeHoraria({ materias }: Props) {
       });
     }
 
-    if (profsFiltro.size > 0) {
-      result = result.filter((m) => profsFiltro.has(m.professor));
-    }
-
     return result;
-  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, profsFiltro]);
+  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro]);
 
   function isSelecionada(m: Materia) {
     return selecionadas.some((s) => s.codigo === m.codigo && s.turma === m.turma);
@@ -179,11 +170,16 @@ export default function GradeHoraria({ materias }: Props) {
   }
 
   const totalHoras = selecionadas.reduce((acc, m) => acc + m.modulo, 0);
-  const expanded = selecionadas.length > 0 || isHovering;
+  const expanded = gradeAberta;
   const handleLabel =
     selecionadas.length > 0
       ? `📅 ${selecionadas.length} mat. · ${totalHoras}h`
       : "📅 Grade";
+
+  const widgetPosClass =
+    widgetPos === 'center' ? styles.widget_center
+    : widgetPos === 'left' ? styles.widget_left
+    : styles.widget_right;
 
   return (
     <div className={styles.wrapper}>
@@ -200,7 +196,7 @@ export default function GradeHoraria({ materias }: Props) {
             className={styles.busca}
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar por nome, código ou turma..."
+            placeholder="Buscar por nome, código, turma ou professor..."
           />
           <button
             className={`${styles.filtroToggle} ${filtrosAberto ? styles.filtroToggleAberto : ""}`}
@@ -258,22 +254,6 @@ export default function GradeHoraria({ materias }: Props) {
             </div>
           </div>
 
-          {professores.length > 0 && (
-            <div className={styles.filtroGrupo}>
-              <span className={styles.filtroLabel}>Prof.</span>
-              <div className={`${styles.filtroChips} ${styles.filtroChipsScroll}`}>
-                {professores.map((prof) => (
-                  <button
-                    key={prof}
-                    className={`${styles.filtroChip} ${profsFiltro.has(prof) ? styles.filtroChipAtivo : ""}`}
-                    onClick={() => setProfsFiltro((prev) => toggleSet(prev, prof))}
-                  >
-                    {prof}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
         <div className={styles.statusBar}>
@@ -356,11 +336,7 @@ export default function GradeHoraria({ materias }: Props) {
       </div>
 
       {/* Floating grade widget */}
-      <div
-        className={styles.widget}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
+      <div className={`${styles.widget} ${widgetPosClass}`}>
         {/* Grade content — animates in/out */}
         <div
           className={`${styles.gradeContent} ${expanded ? styles.gradeContentExpanded : ""}`}
@@ -436,9 +412,27 @@ export default function GradeHoraria({ materias }: Props) {
         {/* Handle — always visible */}
         <div
           className={styles.handle}
-          onClick={() => setIsHovering((h) => !h)}
+          onClick={() => setGradeAberta((prev) => !prev)}
         >
           {handleLabel}
+          <span className={styles.handleSpacer} />
+          <div className={styles.posBtns}>
+            <button
+              className={`${styles.posBtn} ${widgetPos === 'left' ? styles.posBtnAtivo : ''}`}
+              onClick={(e) => { e.stopPropagation(); setWidgetPos('left'); }}
+              aria-label="Mover para esquerda"
+            >←</button>
+            <button
+              className={`${styles.posBtn} ${widgetPos === 'center' ? styles.posBtnAtivo : ''}`}
+              onClick={(e) => { e.stopPropagation(); setWidgetPos('center'); }}
+              aria-label="Centralizar"
+            >·</button>
+            <button
+              className={`${styles.posBtn} ${widgetPos === 'right' ? styles.posBtnAtivo : ''}`}
+              onClick={(e) => { e.stopPropagation(); setWidgetPos('right'); }}
+              aria-label="Mover para direita"
+            >→</button>
+          </div>
         </div>
       </div>
     </div>
