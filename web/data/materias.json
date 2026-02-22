@@ -4,8 +4,7 @@
     "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
     "turma": "A1",
     "professor": "LUIS",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449123",
     "horarios": {
       "seg": "18:00-22:00",
@@ -21,8 +20,7 @@
     "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
     "turma": "J1",
     "professor": "TIMO",
-    "modulo": 62,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449119",
     "horarios": {
       "seg": "",
@@ -38,8 +36,7 @@
     "nome": "ADMINISTRAÇÃO PÚBLICA",
     "turma": "P1",
     "professor": "FREDERICO",
-    "modulo": 83,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440932",
     "horarios": {
       "seg": "",
@@ -55,8 +52,7 @@
     "nome": "ALOCAÇÃO DE ATIVOS DE RISCO",
     "turma": "P1",
     "professor": "ANDRE",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447991",
     "horarios": {
       "seg": "",
@@ -72,8 +68,7 @@
     "nome": "ANÁLISE DE BALANÇO",
     "turma": "P2",
     "professor": "ROBERTO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448514",
     "horarios": {
       "seg": "",
@@ -89,8 +84,7 @@
     "nome": "ANÁLISE DE SÉRIES TEMPORAIS I",
     "turma": "A1",
     "professor": "ANTONIO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447822",
     "horarios": {
       "seg": "",
@@ -106,8 +100,7 @@
     "nome": "ANÁLISE ECONÔMICA DE POLÍTICAS SOCIAIS",
     "turma": "A1",
     "professor": "FABIO",
-    "modulo": 53,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447820",
     "horarios": {
       "seg": "",
@@ -123,8 +116,7 @@
     "nome": "CINEMA E ESTÉTICA I",
     "turma": "C2",
     "professor": "CEZAR",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440539",
     "horarios": {
       "seg": "",
@@ -140,8 +132,7 @@
     "nome": "CINEMA, ESTÉTICA E POLÍTICA",
     "turma": "C1",
     "professor": "CEZAR",
-    "modulo": 62,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440569",
     "horarios": {
       "seg": "",
@@ -157,8 +148,7 @@
     "nome": "CONTABILIDADE GERAL",
     "turma": "P1",
     "professor": "LUCIANA",
-    "modulo": 61,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448515",
     "horarios": {
       "seg": "",
@@ -174,8 +164,7 @@
     "nome": "DIREITO FINANCEIRO E TRIBUTÁRIO I",
     "turma": "A1",
     "professor": "PAULO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000446241",
     "horarios": {
       "seg": "",
@@ -191,8 +180,7 @@
     "nome": "ECOLOGICAL ECONOMICS",
     "turma": "A1",
     "professor": "ROLDAN",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447826",
     "horarios": {
       "seg": "",
@@ -208,8 +196,7 @@
     "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
     "turma": "A1",
     "professor": "TIAGO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447812",
     "horarios": {
       "seg": "09:00-11:00",
@@ -225,8 +212,7 @@
     "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
     "turma": "P1",
     "professor": "CARLOS",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448900",
     "horarios": {
       "seg": "20:00-22:00",
@@ -242,8 +228,7 @@
     "nome": "ECONOMETRIA",
     "turma": "A1",
     "professor": "JESUS",
-    "modulo": 40,
-    "tipo": "Presencial",
+    "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447785",
     "horarios": {
       "seg": "07:00-09:00",
@@ -259,8 +244,7 @@
     "nome": "ECONOMETRIA",
     "turma": "P1",
     "professor": "DIOGO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447950",
     "horarios": {
       "seg": "",
@@ -276,8 +260,7 @@
     "nome": "ECONOMETRIA II",
     "turma": "A1",
     "professor": "DANIELLE",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447819",
     "horarios": {
       "seg": "",
@@ -293,8 +276,7 @@
     "nome": "ECONOMIA BRASILEIRA I",
     "turma": "A1",
     "professor": "JULIANE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447790",
     "horarios": {
       "seg": "09:00-11:00",
@@ -310,8 +292,7 @@
     "nome": "ECONOMIA BRASILEIRA I",
     "turma": "P1",
     "professor": "CARLOS",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447953",
     "horarios": {
       "seg": "18:00-20:00",
@@ -327,8 +308,7 @@
     "nome": "ECONOMIA BRASILEIRA II",
     "turma": "A1",
     "professor": "VICTOR",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447794",
     "horarios": {
       "seg": "09:00-11:00",
@@ -344,8 +324,7 @@
     "nome": "ECONOMIA BRASILEIRA II",
     "turma": "P1",
     "professor": "FERNANDO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447954",
     "horarios": {
       "seg": "18:00-20:00",
@@ -361,8 +340,7 @@
     "nome": "ECONOMIA DA ENERGIA",
     "turma": "A1",
     "professor": "NIAGARA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447818",
     "horarios": {
       "seg": "",
@@ -378,8 +356,7 @@
     "nome": "ECONOMIA DO SETOR PÚBLICO E REGULAÇÃO",
     "turma": "P1",
     "professor": "DENISE",
-    "modulo": 47,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440946",
     "horarios": {
       "seg": "",
@@ -395,8 +372,7 @@
     "nome": "ECONOMIA DO TRABALHO",
     "turma": "P1",
     "professor": "JORGE",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449154",
     "horarios": {
       "seg": "",
@@ -412,8 +388,7 @@
     "nome": "ECONOMIA FINANCEIRA",
     "turma": "A1",
     "professor": "REGIS",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447789",
     "horarios": {
       "seg": "",
@@ -429,8 +404,7 @@
     "nome": "ECONOMIA FINANCEIRA",
     "turma": "P1",
     "professor": "LILIAN",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447952",
     "horarios": {
       "seg": "",
@@ -446,8 +420,7 @@
     "nome": "ECONOMIA INTERNACIONAL",
     "turma": "P1",
     "professor": "ANDRE",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447968",
     "horarios": {
       "seg": "20:00-22:00",
@@ -463,8 +436,7 @@
     "nome": "ECONOMIA MATEMATICA",
     "turma": "A1",
     "professor": "JESUS",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447823",
     "horarios": {
       "seg": "",
@@ -480,8 +452,7 @@
     "nome": "ECONOMIA MONETÁRIA",
     "turma": "P1",
     "professor": "LUIZ",
-    "modulo": 53,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447962",
     "horarios": {
       "seg": "18:00-20:00",
@@ -497,8 +468,7 @@
     "nome": "ECONOMIA POLÍTICA DO AUDIOVISUAL",
     "turma": "C1",
     "professor": "LIA",
-    "modulo": 45,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440556",
     "horarios": {
       "seg": "",
@@ -514,8 +484,7 @@
     "nome": "ECONOMIA POLÍTICA DO MEIO AMBIENTE",
     "turma": "P1",
     "professor": "EDUARDO",
-    "modulo": 53,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447982",
     "horarios": {
       "seg": "",
@@ -531,8 +500,7 @@
     "nome": "ECONOMIA POLÍTICA II",
     "turma": "P1",
     "professor": "FILIPE",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447957",
     "horarios": {
       "seg": "18:00-20:00",
@@ -548,8 +516,7 @@
     "nome": "ELABORACAO E ANALISE DE PROJETOS",
     "turma": "A1",
     "professor": "REGIS",
-    "modulo": 53,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447814",
     "horarios": {
       "seg": "",
@@ -565,8 +532,7 @@
     "nome": "EXPERIÊNCIAS INDUSTRIAIS COMPARADAS",
     "turma": "A1",
     "professor": "MATHEUS",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447821",
     "horarios": {
       "seg": "",
@@ -582,8 +548,7 @@
     "nome": "FINANCAS INTERNACIONAIS",
     "turma": "A1",
     "professor": "LUIS",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447800",
     "horarios": {
       "seg": "07:00-09:00",
@@ -599,8 +564,7 @@
     "nome": "FINANÇAS PÚBLICAS",
     "turma": "P1",
     "professor": "RENATO",
-    "modulo": 81,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440931",
     "horarios": {
       "seg": "",
@@ -616,8 +580,7 @@
     "nome": "FINANÇAS PÚBLICAS NO BRASIL",
     "turma": "A1",
     "professor": "VICTOR",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447817",
     "horarios": {
       "seg": "11:00-13:00",
@@ -633,8 +596,7 @@
     "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I",
     "turma": "A1",
     "professor": "Sem professor alocado",
-    "modulo": 67,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447786",
     "horarios": {
       "seg": "09:00-11:00",
@@ -650,8 +612,7 @@
     "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I",
     "turma": "P1",
     "professor": "MATHEUS",
-    "modulo": 67,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447946",
     "horarios": {
       "seg": "18:00-20:00",
@@ -667,8 +628,7 @@
     "nome": "GEOGRAFIA DA INDUSTRIA",
     "turma": "A1",
     "professor": "LETHICIA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449124",
     "horarios": {
       "seg": "",
@@ -684,8 +644,7 @@
     "nome": "GESTÃO DE PROJETOS",
     "turma": "P1",
     "professor": "JOAO",
-    "modulo": 53,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440953",
     "horarios": {
       "seg": "",
@@ -701,8 +660,7 @@
     "nome": "GESTÃO FINANCEIRA",
     "turma": "P1",
     "professor": "IVANDO",
-    "modulo": 84,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440928",
     "horarios": {
       "seg": "",
@@ -718,8 +676,7 @@
     "nome": "GESTÃO FINANCEIRA",
     "turma": "P1",
     "professor": "LILIAN",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447965",
     "horarios": {
       "seg": "",
@@ -735,8 +692,7 @@
     "nome": "GESTÃO FINANCEIRA DE LONGO PRAZO",
     "turma": "P1",
     "professor": "ARIEL",
-    "modulo": 55,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440941",
     "horarios": {
       "seg": "",
@@ -752,8 +708,7 @@
     "nome": "HISTORIA ECONOMICA GERAL I",
     "turma": "H1",
     "professor": "CARLOS",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449074",
     "horarios": {
       "seg": "09:00-11:00",
@@ -769,8 +724,7 @@
     "nome": "HISTORIA ECONOMICA GERAL I",
     "turma": "H2",
     "professor": "MANOELA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449075",
     "horarios": {
       "seg": "18:00-20:00",
@@ -786,8 +740,7 @@
     "nome": "INTRODUÇÃO A ADMINISTRAÇÃO",
     "turma": "C1",
     "professor": "MARIANA",
-    "modulo": 61,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440933",
     "horarios": {
       "seg": "",
@@ -803,8 +756,7 @@
     "nome": "INTRODUÇÃO AO EMPREENDEDORISMO",
     "turma": "A1",
     "professor": "EDISON",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448352",
     "horarios": {
       "seg": "18:00-20:00",
@@ -820,8 +772,7 @@
     "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
     "turma": "A1",
     "professor": "CLAUDE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447755",
     "horarios": {
       "seg": "",
@@ -837,8 +788,7 @@
     "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
     "turma": "P1",
     "professor": "BIANCA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447926",
     "horarios": {
       "seg": "",
@@ -854,8 +804,7 @@
     "nome": "INTRODUÇÃO À FILOSOFIA",
     "turma": "B1",
     "professor": "PATRICK",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000443827",
     "horarios": {
       "seg": "",
@@ -871,8 +820,7 @@
     "nome": "INTRODUÇÃO À FILOSOFIA",
     "turma": "D1",
     "professor": "CELSO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000443831",
     "horarios": {
       "seg": "",
@@ -888,8 +836,7 @@
     "nome": "LABORATORIO DE MACROECONOMIA II",
     "turma": "AA",
     "professor": "LEONARDO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447763",
     "horarios": {
       "seg": "",
@@ -905,8 +852,7 @@
     "nome": "LABORATORIO DE MACROECONOMIA II",
     "turma": "PP",
     "professor": "LUCIANO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447937",
     "horarios": {
       "seg": "",
@@ -922,8 +868,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "AA",
     "professor": "ANA",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447760",
     "horarios": {
       "seg": "",
@@ -939,8 +884,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "AB",
     "professor": "Sem professor alocado",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447762",
     "horarios": {
       "seg": "",
@@ -956,8 +900,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "PP",
     "professor": "WELINTON",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447935",
     "horarios": {
       "seg": "",
@@ -973,8 +916,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "PQ",
     "professor": "ROSANE",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447936",
     "horarios": {
       "seg": "",
@@ -990,8 +932,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA II",
     "turma": "AA",
     "professor": "WELINTON",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447776",
     "horarios": {
       "seg": "",
@@ -1007,8 +948,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA II",
     "turma": "PP",
     "professor": "MARCOS",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447940",
     "horarios": {
       "seg": "",
@@ -1024,8 +964,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA III",
     "turma": "AA",
     "professor": "NIAGARA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447787",
     "horarios": {
       "seg": "",
@@ -1041,8 +980,7 @@
     "nome": "LABORATORIO DE MICROECONOMIA III",
     "turma": "PP",
     "professor": "Sem professor alocado",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447944",
     "horarios": {
       "seg": "",
@@ -1058,8 +996,7 @@
     "nome": "LABORATÓRIO DE MACROECONOMIA I",
     "turma": "AA",
     "professor": "LUCILENE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447754",
     "horarios": {
       "seg": "",
@@ -1075,8 +1012,7 @@
     "nome": "LABORATÓRIO DE MACROECONOMIA I",
     "turma": "PP",
     "professor": "LEON",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447924",
     "horarios": {
       "seg": "",
@@ -1092,8 +1028,7 @@
     "nome": "MACROECONOMIA INTERTEMPORAL I",
     "turma": "P1",
     "professor": "ANTONIO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447987",
     "horarios": {
       "seg": "",
@@ -1109,8 +1044,7 @@
     "nome": "MARKETING",
     "turma": "P1",
     "professor": "MIGUEL",
-    "modulo": 51,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440937",
     "horarios": {
       "seg": "",
@@ -1126,8 +1060,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "A1",
     "professor": "YURI",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450707",
     "horarios": {
       "seg": "",
@@ -1143,8 +1076,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "B1",
     "professor": "DANILO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450708",
     "horarios": {
       "seg": "",
@@ -1160,8 +1092,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "C1",
     "professor": "THIAGO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450709",
     "horarios": {
       "seg": "",
@@ -1177,8 +1108,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "D1",
     "professor": "GIUSEPPE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450712",
     "horarios": {
       "seg": "",
@@ -1194,8 +1124,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA II",
     "turma": "A2",
     "professor": "SLOBODAN",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450716",
     "horarios": {
       "seg": "",
@@ -1211,8 +1140,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA II",
     "turma": "B2",
     "professor": "PAULO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450714",
     "horarios": {
       "seg": "18:00-20:00",
@@ -1228,8 +1156,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA II",
     "turma": "E1",
     "professor": "ALEX",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000439670",
     "horarios": {
       "seg": "09:00-13:00",
@@ -1245,8 +1172,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA III",
     "turma": "A3",
     "professor": "ALEX",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450724",
     "horarios": {
       "seg": "",
@@ -1262,8 +1188,7 @@
     "nome": "MATEMÁTICA PARA ECONOMIA III",
     "turma": "B3",
     "professor": "RICARDO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450718",
     "horarios": {
       "seg": "20:00-22:00",
@@ -1279,8 +1204,7 @@
     "nome": "MERCADOS DE CAPITAIS",
     "turma": "A1",
     "professor": "LUIS",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447811",
     "horarios": {
       "seg": "09:00-11:00",
@@ -1296,8 +1220,7 @@
     "nome": "METOD ESTAT APLICADOS A ECONOMIA II",
     "turma": "A1",
     "professor": "RAFAEL",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449865",
     "horarios": {
       "seg": "09:00-11:00",
@@ -1313,8 +1236,7 @@
     "nome": "METOD ESTAT APLICADOS A ECONOMIA II",
     "turma": "B1",
     "professor": "JOSE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449866",
     "horarios": {
       "seg": "18:00-20:00",
@@ -1330,8 +1252,7 @@
     "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
     "turma": "A1",
     "professor": "VICTOR",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449862",
     "horarios": {
       "seg": "09:00-11:00",
@@ -1347,8 +1268,7 @@
     "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
     "turma": "B1",
     "professor": "VALENTIN",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449864",
     "horarios": {
       "seg": "18:00-20:00",
@@ -1364,8 +1284,7 @@
     "nome": "METODOL E TEC DE PESQUISA EM ECONOMIA",
     "turma": "A1",
     "professor": "NAZIRA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447795",
     "horarios": {
       "seg": "",
@@ -1381,8 +1300,7 @@
     "nome": "METODOL E TEC DE PESQUISA EM ECONOMIA",
     "turma": "P1",
     "professor": "NAZIRA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447956",
     "horarios": {
       "seg": "",
@@ -1398,8 +1316,7 @@
     "nome": "METODOLOGIA DA ANALISE ECONOMICA",
     "turma": "A1",
     "professor": "ANDRE",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447810",
     "horarios": {
       "seg": "09:00-11:00",
@@ -1415,8 +1332,7 @@
     "nome": "MODELOS DE CRESCIMENTO E DISTRIBUIÇÃO DE RENDA",
     "turma": "A1",
     "professor": "CAIO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447816",
     "horarios": {
       "seg": "11:00-13:00",
@@ -1432,8 +1348,7 @@
     "nome": "MODELOS DE PREVISÃO MACROECONÔMICA",
     "turma": "P1",
     "professor": "LUCIANO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447964",
     "horarios": {
       "seg": "",
@@ -1449,8 +1364,7 @@
     "nome": "PENSAMENTO ECONOMICO I",
     "turma": "A1",
     "professor": "Ian",
-    "modulo": 70,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447751",
     "horarios": {
       "seg": "11:00-13:00",
@@ -1466,8 +1380,7 @@
     "nome": "PENSAMENTO ECONOMICO I",
     "turma": "P1",
     "professor": "ALOYSIO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447923",
     "horarios": {
       "seg": "20:00-22:00",
@@ -1483,8 +1396,7 @@
     "nome": "PENSAMENTO ECONOMICO II",
     "turma": "A1",
     "professor": "PAULO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447759",
     "horarios": {
       "seg": "11:00-13:00",
@@ -1500,8 +1412,7 @@
     "nome": "PENSAMENTO ECONOMICO II",
     "turma": "P1",
     "professor": "FILIPE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447928",
     "horarios": {
       "seg": "20:00-22:00",
@@ -1517,8 +1428,7 @@
     "nome": "PENSAMENTO ECONOMICO IV",
     "turma": "A1",
     "professor": "MARCELO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447783",
     "horarios": {
       "seg": "11:00-13:00",
@@ -1534,8 +1444,7 @@
     "nome": "PENSAMENTO ECONOMICO IV",
     "turma": "P1",
     "professor": "EMMANOEL",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447947",
     "horarios": {
       "seg": "20:00-22:00",
@@ -1551,8 +1460,7 @@
     "nome": "PENSAMENTO ECONÔMICO III",
     "turma": "A1",
     "professor": "ANDRE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447770",
     "horarios": {
       "seg": "11:00-13:00",
@@ -1568,8 +1476,7 @@
     "nome": "PENSAMENTO ECONÔMICO III",
     "turma": "P1",
     "professor": "Ian",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447941",
     "horarios": {
       "seg": "20:00-22:00",
@@ -1585,8 +1492,7 @@
     "nome": "PLANEJAMENTO E DECISÃO GOVERNAMENTAIS",
     "turma": "P1",
     "professor": "RENATO",
-    "modulo": 40,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440949",
     "horarios": {
       "seg": "",
@@ -1602,8 +1508,7 @@
     "nome": "POLÍTICA DE DEFESA DA CONCORRÊNCIA",
     "turma": "P1",
     "professor": "RUY",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447989",
     "horarios": {
       "seg": "",
@@ -1619,8 +1524,7 @@
     "nome": "POLÍTICA FISCAL KEYNESIANA",
     "turma": "P1",
     "professor": "CAIO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447960",
     "horarios": {
       "seg": "18:00-20:00",
@@ -1636,8 +1540,7 @@
     "nome": "POLÍTICAS PÚBLICAS: ELABORAÇÃO, EXECUÇÃO E AVALIAÇÃO",
     "turma": "P1",
     "professor": "ANDREA",
-    "modulo": 40,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440952",
     "horarios": {
       "seg": "",
@@ -1653,8 +1556,7 @@
     "nome": "TEORIA DO COMERCIO INTERNACIONAL I",
     "turma": "P1",
     "professor": "TIAGO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447978",
     "horarios": {
       "seg": "",
@@ -1670,8 +1572,7 @@
     "nome": "TEORIA DOS JOGOS",
     "turma": "A1",
     "professor": "MARCOS",
-    "modulo": 53,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447829",
     "horarios": {
       "seg": "",
@@ -1687,8 +1588,7 @@
     "nome": "TEORIA MACROECONOMICA I",
     "turma": "A1",
     "professor": "LUCILENE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447748",
     "horarios": {
       "seg": "",
@@ -1704,8 +1604,7 @@
     "nome": "TEORIA MACROECONOMICA I",
     "turma": "P1",
     "professor": "LEON",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447922",
     "horarios": {
       "seg": "",
@@ -1721,8 +1620,7 @@
     "nome": "TEORIA MACROECONOMICA II",
     "turma": "A1",
     "professor": "LEONARDO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447758",
     "horarios": {
       "seg": "",
@@ -1738,8 +1636,7 @@
     "nome": "TEORIA MACROECONOMICA II",
     "turma": "P1",
     "professor": "LUCIANO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447933",
     "horarios": {
       "seg": "",
@@ -1755,8 +1652,7 @@
     "nome": "TEORIA MACROECONOMICA III",
     "turma": "A1",
     "professor": "HELDER",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447766",
     "horarios": {
       "seg": "",
@@ -1772,8 +1668,7 @@
     "nome": "TEORIA MACROECONOMICA III",
     "turma": "P1",
     "professor": "JULIO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447939",
     "horarios": {
       "seg": "",
@@ -1789,8 +1684,7 @@
     "nome": "TEORIA MACROECONÔMICA IV",
     "turma": "A1",
     "professor": "LUCAS",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447782",
     "horarios": {
       "seg": "",
@@ -1806,8 +1700,7 @@
     "nome": "TEORIA MACROECONÔMICA IV",
     "turma": "P1",
     "professor": "GABRIEL",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447943",
     "horarios": {
       "seg": "",
@@ -1823,8 +1716,7 @@
     "nome": "TEORIA MICROECONOMICA II",
     "turma": "A1",
     "professor": "WELINTON",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447764",
     "horarios": {
       "seg": "",
@@ -1840,8 +1732,7 @@
     "nome": "TEORIA MICROECONOMICA II",
     "turma": "P1",
     "professor": "MARCOS",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447938",
     "horarios": {
       "seg": "",
@@ -1857,8 +1748,7 @@
     "nome": "TEORIA MICROECONOMICA III",
     "turma": "A1",
     "professor": "NIAGARA",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447780",
     "horarios": {
       "seg": "",
@@ -1874,8 +1764,7 @@
     "nome": "TEORIA MICROECONOMICA III",
     "turma": "P1",
     "professor": "FELIPE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447942",
     "horarios": {
       "seg": "",
@@ -1891,8 +1780,7 @@
     "nome": "TEORIA MICROECONOMICA IV",
     "turma": "A1",
     "professor": "TIAGO",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447792",
     "horarios": {
       "seg": "",
@@ -1908,8 +1796,7 @@
     "nome": "TEORIA MICROECONOMICA IV",
     "turma": "P1",
     "professor": "JORGE",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447949",
     "horarios": {
       "seg": "",
@@ -1925,8 +1812,7 @@
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "A1",
     "professor": "ANA",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447756",
     "horarios": {
       "seg": "",
@@ -1942,8 +1828,7 @@
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "A2",
     "professor": "Sem professor alocado",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447757",
     "horarios": {
       "seg": "",
@@ -1959,8 +1844,7 @@
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "P1",
     "professor": "WELINTON",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447929",
     "horarios": {
       "seg": "",
@@ -1976,8 +1860,7 @@
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "P2",
     "professor": "ROSANE",
-    "modulo": 32,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447930",
     "horarios": {
       "seg": "",
@@ -1993,8 +1876,7 @@
     "nome": "TEORIA MONETÁRIA",
     "turma": "A1",
     "professor": "LUCAS",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447813",
     "horarios": {
       "seg": "",
@@ -2010,8 +1892,7 @@
     "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO I",
     "turma": "A1",
     "professor": "ANDRE",
-    "modulo": 15,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447824",
     "horarios": {
       "seg": "",
@@ -2027,8 +1908,7 @@
     "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO II",
     "turma": "P1",
     "professor": "FERNANDO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447975",
     "horarios": {
       "seg": "20:00-22:00",
@@ -2044,8 +1924,7 @@
     "nome": "TOP ESPEC EM ECONOMIA POLÍTICA I",
     "turma": "P1",
     "professor": "PAULO",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447958",
     "horarios": {
       "seg": "18:00-20:00",
@@ -2061,8 +1940,7 @@
     "nome": "TOPICOS ESPECIAIS EM ECONOMETRIA I",
     "turma": "A1",
     "professor": "LUIZ",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447828",
     "horarios": {
       "seg": "16:00-18:00",
@@ -2078,8 +1956,7 @@
     "nome": "TOPICOS ESPECIAIS EM GEOGRAFIA URBANA",
     "turma": "A1",
     "professor": "LEDA",
-    "modulo": 45,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449134",
     "horarios": {
       "seg": "",
@@ -2095,8 +1972,7 @@
     "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA I",
     "turma": "P1",
     "professor": "VINICIUS",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447981",
     "horarios": {
       "seg": "",
@@ -2112,8 +1988,7 @@
     "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA II",
     "turma": "P1",
     "professor": "LEON",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447963",
     "horarios": {
       "seg": "",
@@ -2129,8 +2004,7 @@
     "nome": "TRABALHO DE CONCLUSAO DE CURSO",
     "turma": "AA",
     "professor": "JAVIER",
-    "modulo": 60,
-    "tipo": "Presencial",
+    "ch": 240,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450075",
     "horarios": {
       "seg": "",
@@ -2146,8 +2020,7 @@
     "nome": "TRABALHO DE CONCLUSAO DE CURSO",
     "turma": "AB",
     "professor": "JAVIER",
-    "modulo": 75,
-    "tipo": "Presencial",
+    "ch": 240,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450076",
     "horarios": {
       "seg": "",
@@ -2163,8 +2036,7 @@
     "nome": "TÓPICOS EM TEORIA MACROECONÔMICA E ANÁLISE EMPÍRICA",
     "turma": "A1",
     "professor": "GABRIEL",
-    "modulo": 50,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447798",
     "horarios": {
       "seg": "07:00-11:00",
@@ -2180,8 +2052,7 @@
     "nome": "TÓPICOS ESPECIAIS DE ECONOM DO MEIO AMBIENTE",
     "turma": "A1",
     "professor": "CLAUDE",
-    "modulo": 15,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447827",
     "horarios": {
       "seg": "",
@@ -2197,8 +2068,7 @@
     "nome": "TÓPICOS ESPECIAIS EM ECONOMIA POLÍTICA III",
     "turma": "A1",
     "professor": "BIANCA",
-    "modulo": 15,
-    "tipo": "Presencial",
+    "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447830",
     "horarios": {
       "seg": "",

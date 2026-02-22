@@ -18,8 +18,7 @@ def parse_row(row: dict) -> dict:
         "nome": row["Nome"].strip(),
         "turma": row["Turma"].strip(),
         "professor": row.get("Professor", "").strip(),
-        "modulo": int(row["Módulo"].strip()),
-        "tipo": row["Tipo de Oferta"].strip(),
+        "ch": None,
         "link": row.get("Link para disciplina", "").strip(),
         "horarios": horarios,
     }

@@ -158,9 +158,18 @@ def main():
         print(f"Dados extraídos com sucesso para {csv_filename}!")
         browser.close()
 
+        import shutil
+        amostra_path = "docs/amostra.csv"
+        shutil.copy(csv_filename, amostra_path)
+        print(f"Cópia salva em {amostra_path}")
+
         print("\nConvertendo CSV para JSON...")
         parse_csv.run(csv_path=csv_filename)
-        print("Pipeline completo! ✅")
+
+        import scrape_ch
+        print("\nBuscando Carga Horaria (CH) das disciplinas...")
+        scrape_ch.run()
+        print("Pipeline completo!")
 
 if __name__ == "__main__":
     main()

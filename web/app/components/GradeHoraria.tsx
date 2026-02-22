@@ -169,7 +169,7 @@ export default function GradeHoraria({ materias }: Props) {
     }
   }
 
-  const totalHoras = selecionadas.reduce((acc, m) => acc + m.modulo, 0);
+  const totalHoras = selecionadas.reduce((acc, m) => acc + (m.ch ?? 0), 0);
   const expanded = gradeAberta;
   const handleLabel =
     selecionadas.length > 0
@@ -308,7 +308,7 @@ export default function GradeHoraria({ materias }: Props) {
                     </div>
                     <div className={styles.metaRow}>
                       <span className={styles.metaKey}>CH</span>
-                      <span>{m.modulo}h</span>
+                      <span>{m.ch != null ? `${m.ch}h` : "—"}</span>
                     </div>
                     {diasAtivos.map((d) => (
                       <div key={d} className={styles.metaRow}>

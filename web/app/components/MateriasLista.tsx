@@ -113,8 +113,7 @@ export default function MateriasLista({ materias }: Props) {
               )}
             </h2>
             <div className={styles.meta}>
-              <span className={styles.badge}>{m.tipo}</span>
-              <span className={styles.modulo}>{m.modulo}h</span>
+              <span className={styles.modulo}>{m.ch != null ? `${m.ch}h` : "—"}</span>
               {m.professor && <span className={styles.professor}>{m.professor}</span>}
             </div>
             <div className={styles.horarios}>

@@ -22,8 +22,7 @@ Todo dado de matéria deve seguir este schema:
   "nome": "MICROECONOMIA I",
   "turma": "A1",
   "professor": "NOME DO PROFESSOR",
-  "modulo": 60,
-  "tipo": "Presencial",
+  "ch": 60,
   "link": "https://app.uff.br/graduacao/quadrodehorarios/...",
   "horarios": {
     "seg": "14:00-18:00",
