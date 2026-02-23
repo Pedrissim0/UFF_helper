@@ -699,6 +699,12 @@
 
 /* ── Responsividade mobile ────────────────────── */
 @media (max-width: 640px) {
+  /* Prevent inline lateral padding from squeezing the page */
+  .wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   .header {
     padding: 16px 16px 0;
   }
@@ -738,6 +744,16 @@
     width: auto;
   }
 
+  /* Stack name and profTag vertically on mobile */
+  .itemNomeRow {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .profTag {
+    align-self: flex-start;
+  }
+
   .lista {
     grid-template-columns: 1fr;
     gap: 6px;
@@ -750,8 +766,8 @@
 
   .widget {
     width: auto !important;
-    left: 8px !important;
-    right: 8px !important;
+    left: 0 !important;
+    right: 0 !important;
     bottom: 0 !important;
     border-radius: 10px 10px 0 0 !important;
   }
@@ -762,6 +778,8 @@
   .widgetCollapsed,
   .widgetExpanded {
     transform: none !important;
+    top: auto !important;
+    bottom: 0 !important;
   }
 
   .resizeHandle {
@@ -772,24 +790,35 @@
     display: none;
   }
 
-  .handleSpacer {
-    display: none;
+  .handle {
+    padding: 10px 12px;
+    font-size: 12px;
+    gap: 4px;
   }
 
-  .gradeLegenda {
-    display: none;
+  .actionBtns {
+    margin-right: 0;
+  }
+
+  /* Grade grid: allow horizontal scroll for breathing room */
+  .gradeInner {
+    flex-direction: column;
   }
 
   .grade {
     padding: 6px 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .gradeHeader {
-    grid-template-columns: 30px repeat(6, 1fr);
+    grid-template-columns: 30px repeat(6, minmax(48px, 1fr));
+    min-width: 360px;
   }
 
   .gradeCols {
-    grid-template-columns: 30px repeat(6, 1fr);
+    grid-template-columns: 30px repeat(6, minmax(48px, 1fr));
+    min-width: 360px;
   }
 
   .eixo {
@@ -826,7 +855,23 @@
     font-size: 7px;
   }
 
+  /* Legend below the grid as a horizontal strip */
+  .gradeLegenda {
+    width: auto;
+    border-left: none;
+    border-top: 1px solid #f0f0f0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    padding: 8px 10px;
+    justify-content: flex-start;
+  }
+
+  .legendaItem {
+    flex: 0 0 auto;
+  }
+
   .gradeContentExpanded {
-    max-height: 380px;
+    max-height: 60vh;
   }
 }
