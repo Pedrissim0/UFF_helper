@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import type { Materia } from "../page";
 import styles from "./GradeHoraria.module.css";
 
@@ -43,9 +43,9 @@ const PALETTE = [
 ];
 
 const MIN_TIME = 7 * 60;
-const MAX_TIME = 23 * 60;
+const MAX_TIME = 24 * 60;
 const TOTAL = MAX_TIME - MIN_TIME;
-const HOUR_MARKS = [8, 10, 12, 14, 16, 18, 20, 22];
+const HOUR_MARKS = [8, 10, 12, 14, 16, 18, 20, 22, 23];
 
 function parseTime(str: string): { start: number; end: number; label: string } | null {
   if (!str) return null;
@@ -73,7 +73,61 @@ export default function GradeHoraria({ materias }: Props) {
   const [diasFiltro, setDiasFiltro] = useState<Set<Dia>>(new Set());
   const [turnosFiltro, setTurnosFiltro] = useState<Set<Turno>>(new Set());
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
-  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('center');
+  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('right');
+  const [widgetWidth, setWidgetWidth] = useState(500);
+  const [copiado, setCopiado] = useState(false);
+  const [legendaVisivel, setLegendaVisivel] = useState(true);
+  const resizingRef = useRef(false);
+
+  const isLateral = widgetPos === 'left' || widgetPos === 'right';
+  const showLegenda = legendaVisivel && selecionadas.length > 0;
+
+  const handleCopiar = useCallback(() => {
+    const text = selecionadas.map((m) => {
+      const horarios = DIAS
+        .filter((d) => m.horarios[d])
+        .map((d) => `${d}: ${m.horarios[d]}`)
+        .join(", ");
+      return `${m.codigo} - ${m.nome} - Turma ${m.turma} - ${horarios}`;
+    }).join("\n");
+    navigator.clipboard.writeText(text);
+    setCopiado(true);
+    setTimeout(() => setCopiado(false), 2000);
+  }, [selecionadas]);
+
+  const handleExportarPDF = useCallback(() => {
+    window.print();
+  }, []);
+
+  const handleResizeStart = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    resizingRef.current = true;
+    const startX = e.clientX;
+    const startWidth = widgetWidth;
+
+    const onMouseMove = (ev: MouseEvent) => {
+      if (!resizingRef.current) return;
+      const delta = widgetPos === 'right'
+        ? startX - ev.clientX
+        : ev.clientX - startX;
+      const newWidth = Math.max(360, Math.min(window.innerWidth * 0.6, startWidth + delta));
+      setWidgetWidth(newWidth);
+    };
+
+    const onMouseUp = () => {
+      resizingRef.current = false;
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  }, [widgetWidth, widgetPos]);
 
   const colorMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -182,7 +236,13 @@ export default function GradeHoraria({ materias }: Props) {
     : styles.widget_right;
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      style={isLateral && expanded ? {
+        paddingRight: widgetPos === 'right' ? widgetWidth + 16 : undefined,
+        paddingLeft: widgetPos === 'left' ? widgetWidth + 16 : undefined,
+      } : undefined}
+    >
       {/* Header */}
       <header className={styles.header}>
         <span className={styles.semestre}>ECONOMIA · 2026.1</span>
@@ -291,10 +351,10 @@ export default function GradeHoraria({ materias }: Props) {
                 <div className={styles.itemInfo}>
                   <div className={styles.itemNomeRow}>
                     <span className={styles.itemNome}>
-                      {m.nome.length > 36 ? m.nome.slice(0, 36) + "…" : m.nome}
+                      {m.nome}
                     </span>
                     {m.professor && (
-                      <span className={styles.profTag}>{m.professor}</span>
+                      <span className={styles.profTag}>Prof. {m.professor}</span>
                     )}
                   </div>
                   <div className={styles.itemMeta}>
@@ -336,78 +396,17 @@ export default function GradeHoraria({ materias }: Props) {
       </div>
 
       {/* Floating grade widget */}
-      <div className={`${styles.widget} ${widgetPosClass}`}>
-        {/* Grade content — animates in/out */}
-        <div
-          className={`${styles.gradeContent} ${expanded ? styles.gradeContentExpanded : ""}`}
-        >
-          <div className={styles.grade}>
-            <div className={styles.gradeHeader}>
-              <div className={styles.eixoSpacer} />
-              {DIAS.map((d) => (
-                <div key={d} className={styles.diaHeader}>
-                  {DIAS_LABEL[d]}
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.gradeCols}>
-              <div className={styles.eixo}>
-                {HOUR_MARKS.map((h) => (
-                  <div
-                    key={h}
-                    className={styles.horaLabel}
-                    style={{ top: `${toPercent(h * 60)}%` }}
-                  >
-                    {h}:00
-                  </div>
-                ))}
-              </div>
-
-              {DIAS.map((dia) => (
-                <div key={dia} className={styles.coluna}>
-                  {HOUR_MARKS.map((h) => (
-                    <div
-                      key={h}
-                      className={styles.linhaHora}
-                      style={{ top: `${toPercent(h * 60)}%` }}
-                    />
-                  ))}
-
-                  {selecionadas
-                    .filter((m) => m.horarios[dia])
-                    .map((m) => {
-                      const key = `${m.codigo}-${m.turma}`;
-                      const time = parseTime(m.horarios[dia]);
-                      if (!time) return null;
-                      const top = toPercent(time.start);
-                      const height = toPercent(time.end) - top;
-                      const color = colorMap[key];
-                      return (
-                        <div
-                          key={key}
-                          className={styles.bloco}
-                          style={{
-                            top: `${top}%`,
-                            height: `${height}%`,
-                            background: color + "18",
-                            borderLeftColor: color,
-                            color,
-                          }}
-                        >
-                          <div className={styles.blocoHora}>{time.label}</div>
-                          <div className={styles.blocoNome}>
-                            {m.nome.split(" ").slice(0, 3).join(" ")}
-                          </div>
-                          <div className={styles.blocoTurma}>T. {m.turma}</div>
-                        </div>
-                      );
-                    })}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      <div
+        className={`${styles.widget} ${widgetPosClass} ${!expanded ? styles.widgetCollapsed : styles.widgetExpanded}`}
+        style={isLateral ? { width: widgetWidth } : undefined}
+      >
+        {/* Resize handle for lateral mode */}
+        {isLateral && (
+          <div
+            className={`${styles.resizeHandle} ${widgetPos === 'left' ? styles.resizeHandleRight : styles.resizeHandleLeft}`}
+            onMouseDown={handleResizeStart}
+          />
+        )}
 
         {/* Handle — always visible */}
         <div
@@ -416,6 +415,58 @@ export default function GradeHoraria({ materias }: Props) {
         >
           {handleLabel}
           <span className={styles.handleSpacer} />
+          {selecionadas.length > 0 && (
+            <div className={styles.actionBtns}>
+              <button
+                className={`${styles.posBtn} ${legendaVisivel ? styles.posBtnAtivo : ''}`}
+                onClick={(e) => { e.stopPropagation(); setLegendaVisivel((v) => !v); }}
+                aria-label={legendaVisivel ? "Ocultar legenda" : "Exibir legenda"}
+                title={legendaVisivel ? "Ocultar legenda" : "Exibir legenda"}
+              >
+                {legendaVisivel ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" />
+                    <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" />
+                    <line x1="1" y1="1" x2="23" y2="23" />
+                  </svg>
+                )}
+              </button>
+              <button
+                className={styles.posBtn}
+                onClick={(e) => { e.stopPropagation(); handleCopiar(); }}
+                aria-label="Copiar grade"
+                title="Copiar grade"
+              >
+                {copiado ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+                  </svg>
+                )}
+              </button>
+              <button
+                className={styles.posBtn}
+                onClick={(e) => { e.stopPropagation(); handleExportarPDF(); }}
+                aria-label="Imprimir grade"
+                title="Imprimir grade"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" />
+                  <polyline points="16 6 12 2 8 6" />
+                  <line x1="12" y1="2" x2="12" y2="15" />
+                </svg>
+              </button>
+            </div>
+          )}
           <div className={styles.posBtns}>
             <button
               className={`${styles.posBtn} ${widgetPos === 'left' ? styles.posBtnAtivo : ''}`}
@@ -432,6 +483,102 @@ export default function GradeHoraria({ materias }: Props) {
               onClick={(e) => { e.stopPropagation(); setWidgetPos('right'); }}
               aria-label="Mover para direita"
             >→</button>
+          </div>
+        </div>
+
+        {/* Grade content — animates in/out */}
+        <div
+          className={`${styles.gradeContent} ${expanded ? styles.gradeContentExpanded : ""}`}
+        >
+          <div className={styles.gradeInner}>
+            <div className={styles.grade}>
+              <div className={styles.gradeHeader}>
+                <div className={styles.eixoSpacer} />
+                {DIAS.map((d) => (
+                  <div key={d} className={styles.diaHeader}>
+                    {DIAS_LABEL[d]}
+                  </div>
+                ))}
+              </div>
+
+              <div className={styles.gradeCols}>
+                <div className={styles.eixo}>
+                  {HOUR_MARKS.map((h) => (
+                    <div
+                      key={h}
+                      className={styles.horaLabel}
+                      style={{ top: `${toPercent(h * 60)}%` }}
+                    >
+                      {h}:00
+                    </div>
+                  ))}
+                </div>
+
+                {DIAS.map((dia) => (
+                  <div key={dia} className={styles.coluna}>
+                    {HOUR_MARKS.map((h) => (
+                      <div
+                        key={h}
+                        className={styles.linhaHora}
+                        style={{ top: `${toPercent(h * 60)}%` }}
+                      />
+                    ))}
+
+                    {selecionadas
+                      .filter((m) => m.horarios[dia])
+                      .map((m) => {
+                        const key = `${m.codigo}-${m.turma}`;
+                        const time = parseTime(m.horarios[dia]);
+                        if (!time) return null;
+                        const top = toPercent(time.start);
+                        const height = toPercent(time.end) - top;
+                        const color = colorMap[key];
+                        return (
+                          <div
+                            key={key}
+                            className={`${styles.bloco} ${!showLegenda ? styles.blocoExpanded : ''}`}
+                            style={{
+                              top: `${top}%`,
+                              height: `${height}%`,
+                              background: color + "18",
+                              borderLeftColor: color,
+                              color,
+                            }}
+                          >
+                            <div className={styles.blocoHora}>{time.label}</div>
+                            <div className={styles.blocoNome}>
+                              {showLegenda ? m.nome.split(" ").slice(0, 3).join(" ") : m.nome}
+                            </div>
+                            {!showLegenda && m.professor && (
+                              <div className={styles.blocoProf}>{m.professor}</div>
+                            )}
+                            <div className={styles.blocoTurma}>T. {m.turma}</div>
+                          </div>
+                        );
+                      })}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Legend */}
+            {showLegenda && (
+              <div className={styles.gradeLegenda}>
+                {selecionadas.map((m) => {
+                  const key = `${m.codigo}-${m.turma}`;
+                  const color = colorMap[key];
+                  return (
+                    <div key={key} className={styles.legendaItem}>
+                      <div className={styles.legendaCor} style={{ background: color }} />
+                      <div className={styles.legendaTexto}>
+                        <span className={styles.legendaNome} style={{ color }}>{m.nome}</span>
+                        <span className={styles.legendaProf}>{m.professor}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

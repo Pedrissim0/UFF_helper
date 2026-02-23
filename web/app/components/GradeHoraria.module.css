@@ -5,6 +5,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: padding 0.3s ease;
+  box-sizing: border-box;
 }
 
 /* ── Header ────────────────────────────────────── */
@@ -193,7 +195,7 @@
   list-style: none;
   padding: 0 0 100px; /* bottom padding so widget doesn't overlap last cards */
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
   gap: 8px;
   align-content: start;
 }
@@ -255,7 +257,7 @@
 
 .itemNomeRow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   min-width: 0;
 }
@@ -265,9 +267,8 @@
   font-weight: 500;
   color: #1a1a1a;
   line-height: 1.4;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
   flex: 1;
   min-width: 0;
 }
@@ -325,7 +326,7 @@
 /* ── Floating grade widget ─────────────────────── */
 .widget {
   position: fixed;
-  bottom: 16px;
+  bottom: 24px;
   z-index: 50;
   width: 560px;
   border-radius: 10px;
@@ -333,20 +334,102 @@
   background: #fff;
   border: 1px solid #e8e8e8;
   overflow: hidden;
-  transition: left 0.3s ease, right 0.3s ease, transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
+/* ── Center position ──────────────────────────── */
 .widget_center {
   left: 50%;
   transform: translateX(-50%);
 }
 
-.widget_left {
-  left: 16px;
+.widget_center.widgetCollapsed {
+  transform: translateX(-50%) translateY(0);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
+.widget_center.widgetCollapsed:hover {
+  transform: translateX(-50%) translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+}
+
+.widget_center.widgetExpanded {
+  transform: translateX(-50%);
+}
+
+/* ── Left position (drawer) ───────────────────── */
+.widget_left {
+  left: 0;
+  bottom: 24px;
+}
+
+.widget_left .handle {
+  flex-direction: row-reverse;
+}
+
+.widget_left.widgetCollapsed {
+  transform: translateX(calc(-100% + 44px));
+}
+
+.widget_left.widgetCollapsed:hover {
+  transform: translateX(calc(-100% + 72px));
+  box-shadow: 4px 4px 24px rgba(0, 0, 0, 0.14);
+}
+
+.widget_left.widgetExpanded {
+  left: 24px;
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ── Right position (drawer) ──────────────────── */
 .widget_right {
-  right: 16px;
+  right: 0;
+  bottom: 24px;
+}
+
+.widget_right.widgetCollapsed {
+  transform: translateX(calc(100% - 44px));
+}
+
+.widget_right.widgetCollapsed:hover {
+  transform: translateX(calc(100% - 72px));
+  box-shadow: -4px 4px 24px rgba(0, 0, 0, 0.14);
+}
+
+.widget_right.widgetExpanded {
+  right: 24px;
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ── Resize handle ────────────────────────────── */
+.resizeHandle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  z-index: 10;
+  background: transparent;
+  transition: background 0.15s;
+}
+
+.resizeHandle:hover,
+.resizeHandle:active {
+  background: #6366f133;
+}
+
+.resizeHandleLeft {
+  left: 0;
+}
+
+.resizeHandleRight {
+  right: 0;
 }
 
 /* Grade content — transitions on expand/collapse */
@@ -367,7 +450,7 @@
 .handle {
   padding: 10px 16px;
   background: #fff;
-  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
   font-size: 13px;
   font-weight: 500;
   color: #444;
@@ -376,6 +459,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
 }
 
 .handle:hover {
@@ -384,6 +468,12 @@
 
 .handleSpacer {
   flex: 1;
+}
+
+.actionBtns {
+  display: flex;
+  gap: 2px;
+  margin-right: 4px;
 }
 
 .posBtns {
@@ -418,14 +508,70 @@
   color: #6366f1;
 }
 
+/* ── Grade inner layout (grid + legend) ───────── */
+.gradeInner {
+  display: flex;
+  gap: 0;
+  min-height: 0;
+}
+
 /* ── Grade grid ────────────────────────────────── */
 .grade {
-  padding: 12px 16px;
+  padding: 8px 8px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ── Legend ─────────────────────────────────────── */
+.gradeLegenda {
+  width: 140px;
+  flex-shrink: 0;
+  padding: 12px 10px;
+  overflow-y: auto;
+  border-left: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.legendaItem {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.legendaCor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legendaTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.legendaNome {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.legendaProf {
+  font-size: 9px;
+  color: #999;
+  line-height: 1.3;
 }
 
 .gradeHeader {
   display: grid;
-  grid-template-columns: 52px repeat(6, 1fr);
+  grid-template-columns: 38px repeat(6, 1fr);
   margin-bottom: 0;
 }
 
@@ -444,7 +590,7 @@
 
 .gradeCols {
   display: grid;
-  grid-template-columns: 52px repeat(6, 1fr);
+  grid-template-columns: 38px repeat(6, 1fr);
 }
 
 /* ── Eixo de horas ─────────────────────────────── */
@@ -455,8 +601,8 @@
 
 .horaLabel {
   position: absolute;
-  right: 8px;
-  font-size: 9px;
+  right: 4px;
+  font-size: 8px;
   color: #ccc;
   transform: translateY(-50%);
   font-variant-numeric: tabular-nums;
@@ -479,10 +625,10 @@
 /* ── Bloco de matéria ──────────────────────────── */
 .bloco {
   position: absolute;
-  left: 2px;
-  right: 2px;
-  border-radius: 4px;
-  padding: 4px 6px;
+  left: 1px;
+  right: 1px;
+  border-radius: 3px;
+  padding: 2px 4px;
   overflow: hidden;
   border-left: 3px solid;
   transition: opacity 0.15s;
@@ -507,9 +653,48 @@
   text-overflow: ellipsis;
 }
 
+.blocoExpanded .blocoNome {
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.blocoProf {
+  font-size: 8px;
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .blocoTurma {
   font-size: 9px;
   opacity: 0.7;
+}
+
+/* ── Print ─────────────────────────────────────── */
+@media print {
+  .header, .content, .handle, .resizeHandle {
+    display: none !important;
+  }
+
+  .widget {
+    position: static !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  .gradeContent {
+    max-height: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+
+  .gradeLegenda {
+    width: 160px;
+  }
 }
 
 /* ── Responsividade mobile ────────────────────── */
@@ -564,10 +749,23 @@
   }
 
   .widget {
-    width: auto;
-    left: 8px;
-    right: 8px;
-    transform: none;
+    width: auto !important;
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 0 !important;
+    border-radius: 10px 10px 0 0 !important;
+  }
+
+  .widget_center,
+  .widget_left,
+  .widget_right,
+  .widgetCollapsed,
+  .widgetExpanded {
+    transform: none !important;
+  }
+
+  .resizeHandle {
+    display: none;
   }
 
   .posBtns {
@@ -578,16 +776,20 @@
     display: none;
   }
 
+  .gradeLegenda {
+    display: none;
+  }
+
   .grade {
-    padding: 8px 10px;
+    padding: 6px 6px;
   }
 
   .gradeHeader {
-    grid-template-columns: 36px repeat(6, 1fr);
+    grid-template-columns: 30px repeat(6, 1fr);
   }
 
   .gradeCols {
-    grid-template-columns: 36px repeat(6, 1fr);
+    grid-template-columns: 30px repeat(6, 1fr);
   }
 
   .eixo {
