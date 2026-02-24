@@ -34,9 +34,11 @@ export default function Home() {
   const apelidosPath = path.join(process.cwd(), "data", "nomes_professores.json");
   const apelidosList: ApelidoEntry[] = JSON.parse(fs.readFileSync(apelidosPath, "utf-8"));
   const apelidosMap = new Map<string, string>();
+  const nomeCompletoMap: Record<string, string> = {};
   for (const entry of apelidosList) {
     if (entry.apelido) {
       apelidosMap.set(entry.nome_exibicao, entry.apelido);
+      nomeCompletoMap[entry.apelido] = entry.nome_exibicao;
     }
   }
 
@@ -47,5 +49,5 @@ export default function Home() {
     }
   }
 
-  return <GradeHoraria materias={materias} />;
+  return <GradeHoraria materias={materias} nomeCompletoMap={nomeCompletoMap} />;
 }

@@ -6,9 +6,86 @@
   padding: 0;
 }
 
+:root {
+  --bg-page: #fafafa;
+  --bg-card: #fff;
+  --bg-input: #fafafa;
+  --bg-hover: #f5f5f5;
+  --bg-chip: #f4f4f5;
+  --bg-chip-hover: #eeecf9;
+  --bg-btn: #f0f0f0;
+  --bg-badge: rgba(0, 0, 0, 0.04);
+
+  --text-primary: #1a1a1a;
+  --text-secondary: #444;
+  --text-muted: #666;
+  --text-subtle: #888;
+  --text-faint: #999;
+  --text-placeholder: #aaa;
+  --text-dim: #bbb;
+  --text-ghost: #ccc;
+
+  --border-light: #f0f0f0;
+  --border-medium: #e4e4e4;
+  --border-strong: #e8e8e8;
+  --border-input: #e4e4e4;
+  --border-checkbox: #ddd;
+
+  --accent: #6366f1;
+  --accent-bg: #ede9fe;
+  --accent-bg-light: #f5f3ff;
+  --accent-bg-hover: #eeecf9;
+  --accent-border: #c4b5fd;
+  --accent-sel-border: #ddd8ff;
+
+  --shadow-widget: rgba(0, 0, 0, 0.12);
+  --shadow-widget-hover: rgba(0, 0, 0, 0.16);
+  --shadow-widget-lateral: rgba(0, 0, 0, 0.14);
+  --shadow-mobile: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+  --bg-page: #121218;
+  --bg-card: #1a1a24;
+  --bg-input: #1e1e2a;
+  --bg-hover: #252532;
+  --bg-chip: #252532;
+  --bg-chip-hover: #2a2840;
+  --bg-btn: #2a2a3a;
+  --bg-badge: rgba(255, 255, 255, 0.06);
+
+  --text-primary: #e8e8f0;
+  --text-secondary: #c0c0cc;
+  --text-muted: #9a9ab0;
+  --text-subtle: #7a7a90;
+  --text-faint: #6a6a80;
+  --text-placeholder: #5a5a70;
+  --text-dim: #4a4a60;
+  --text-ghost: #3a3a50;
+
+  --border-light: #2a2a3a;
+  --border-medium: #333346;
+  --border-strong: #333346;
+  --border-input: #333346;
+  --border-checkbox: #444460;
+
+  --accent: #818cf8;
+  --accent-bg: #2a2450;
+  --accent-bg-light: #1e1a38;
+  --accent-bg-hover: #2a2450;
+  --accent-border: #4338ca;
+  --accent-sel-border: #3730a3;
+
+  --shadow-widget: rgba(0, 0, 0, 0.4);
+  --shadow-widget-hover: rgba(0, 0, 0, 0.5);
+  --shadow-widget-lateral: rgba(0, 0, 0, 0.45);
+  --shadow-mobile: rgba(0, 0, 0, 0.4);
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #f4f6f9;
-  color: #1a1a2e;
+  background: var(--bg-page);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
+  transition: background 0.3s, color 0.3s;
 }

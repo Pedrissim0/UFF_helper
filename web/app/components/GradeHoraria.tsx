@@ -63,9 +63,10 @@ function toPercent(min: number) {
 
 interface Props {
   materias: Materia[];
+  nomeCompletoMap?: Record<string, string>;
 }
 
-export default function GradeHoraria({ materias }: Props) {
+export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) {
   const [busca, setBusca] = useState("");
   const [selecionadas, setSelecionadas] = useState<Materia[]>([]);
   const [gradeAberta, setGradeAberta] = useState(false);
@@ -79,9 +80,27 @@ export default function GradeHoraria({ materias }: Props) {
   const [widgetWidth, setWidgetWidth] = useState(500);
   const [copiado, setCopiado] = useState(false);
   const [legendaVisivel, setLegendaVisivel] = useState(true);
+  const [tema, setTema] = useState<'light' | 'dark'>('light');
   const resizingRef = useRef(false);
 
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('tema') as 'light' | 'dark' | null;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = saved || (prefersDark ? 'dark' : 'light');
+    setTema(initial);
+    document.documentElement.setAttribute('data-theme', initial);
+  }, []);
+
+  const toggleTema = useCallback(() => {
+    setTema((prev) => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('tema', next);
+      return next;
+    });
+  }, []);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 640);
@@ -292,8 +311,34 @@ export default function GradeHoraria({ materias }: Props) {
     >
       {/* Header */}
       <header className={styles.header}>
-        <span className={styles.semestre}>ECONOMIA · 2026.1</span>
-        <h1 className={styles.titulo}>Montador de Grade</h1>
+        <div className={styles.headerLeft}>
+          <span className={styles.semestre}>ECONOMIA · 2026.1</span>
+          <h1 className={styles.titulo}>Montador de Grade</h1>
+        </div>
+        <button
+          className={styles.themeToggle}
+          onClick={toggleTema}
+          aria-label={tema === 'light' ? 'Ativar modo noturno' : 'Ativar modo claro'}
+          title={tema === 'light' ? 'Modo noturno' : 'Modo claro'}
+        >
+          {tema === 'light' ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+          )}
+        </button>
       </header>
 
       {/* Full-width content */}
@@ -362,7 +407,7 @@ export default function GradeHoraria({ materias }: Props) {
                 className={`${styles.filtroChip} ${periodosFiltro.has("np") ? styles.filtroChipAtivo : ""}`}
                 onClick={() => setPeriodosFiltro((prev) => toggleSet(prev, "np"))}
               >
-                S/ período
+                Não Periodizada
               </button>
             </div>
           </div>
@@ -445,7 +490,16 @@ export default function GradeHoraria({ materias }: Props) {
                       {m.nome}
                     </span>
                     {m.nome_exibicao && (
-                      <span className={styles.profTag}>Prof. {m.nome_exibicao}</span>
+                      <span
+                        className={styles.profTag}
+                        title={nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigator.clipboard.writeText(nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao);
+                        }}
+                      >
+                        Prof. {m.nome_exibicao}
+                      </span>
                     )}
                   </div>
                   <div className={styles.itemMetaWrapper}>
