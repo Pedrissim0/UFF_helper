@@ -23,6 +23,7 @@ export interface Materia {
 }
 
 interface ApelidoEntry {
+  docente: string;
   nome_exibicao: string;
   apelido: string | null;
 }
@@ -36,9 +37,12 @@ export default function Home() {
   const apelidosMap = new Map<string, string>();
   const nomeCompletoMap: Record<string, string> = {};
   for (const entry of apelidosList) {
+    // Map nome_exibicao -> docente (full name) for all professors
+    nomeCompletoMap[entry.nome_exibicao] = entry.docente;
     if (entry.apelido) {
       apelidosMap.set(entry.nome_exibicao, entry.apelido);
-      nomeCompletoMap[entry.apelido] = entry.nome_exibicao;
+      // Also map apelido -> docente (full name)
+      nomeCompletoMap[entry.apelido] = entry.docente;
     }
   }
 
