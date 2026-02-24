@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, useRef } from "react";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import type { Materia } from "../page";
 import styles from "./GradeHoraria.module.css";
 
@@ -73,11 +73,20 @@ export default function GradeHoraria({ materias }: Props) {
   const [diasFiltro, setDiasFiltro] = useState<Set<Dia>>(new Set());
   const [turnosFiltro, setTurnosFiltro] = useState<Set<Turno>>(new Set());
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
-  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('right');
+  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('center');
   const [widgetWidth, setWidgetWidth] = useState(500);
   const [copiado, setCopiado] = useState(false);
   const [legendaVisivel, setLegendaVisivel] = useState(true);
   const resizingRef = useRef(false);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 640);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const isLateral = widgetPos === 'left' || widgetPos === 'right';
   const showLegenda = legendaVisivel && selecionadas.length > 0;
@@ -195,6 +204,24 @@ export default function GradeHoraria({ materias }: Props) {
     return result;
   }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro]);
 
+  // Agrupa materias filtradas por periodo
+  const periodoGroups = useMemo(() => {
+    const groups: Map<number | null, Materia[]> = new Map();
+    filtradas.forEach((m) => {
+      const key = m.periodo;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key)!.push(m);
+    });
+    return Array.from(groups.entries())
+      .sort(([a], [b]) => {
+        if (a === null && b === null) return 0;
+        if (a === null) return 1;
+        if (b === null) return -1;
+        return a - b;
+      })
+      .map(([periodo, materias]) => ({ periodo, materias }));
+  }, [filtradas]);
+
   function isSelecionada(m: Materia) {
     return selecionadas.some((s) => s.codigo === m.codigo && s.turma === m.turma);
   }
@@ -238,7 +265,7 @@ export default function GradeHoraria({ materias }: Props) {
   return (
     <div
       className={styles.wrapper}
-      style={isLateral && expanded ? {
+      style={isLateral && expanded && !isMobile ? {
         paddingRight: widgetPos === 'right' ? widgetWidth + 16 : undefined,
         paddingLeft: widgetPos === 'left' ? widgetWidth + 16 : undefined,
       } : undefined}
@@ -328,7 +355,12 @@ export default function GradeHoraria({ materias }: Props) {
         </div>
 
         <ul className={styles.lista}>
-          {filtradas.map((m) => {
+          {periodoGroups.map(({ periodo, materias }) => (
+            <React.Fragment key={periodo ?? "sem"}>
+              <li className={styles.periodSeparator}>
+                {periodo ? `${periodo}° Período` : "Optativas"}
+              </li>
+              {materias.map((m) => {
             const key = `${m.codigo}-${m.turma}`;
             const sel = isSelecionada(m);
             const conflito = !sel && temConflito(m);
@@ -352,6 +384,15 @@ export default function GradeHoraria({ materias }: Props) {
                   <div className={styles.itemNomeRow}>
                     <span className={styles.itemNome}>
                       {m.nome}
+                    </span>
+                    <span
+                      className={`${styles.tipoBadge} ${
+                        m.tipo === "obrigatoria"
+                          ? styles.tipoBadgeObrigatoria
+                          : styles.tipoBadgeOptativa
+                      }`}
+                    >
+                      {m.tipo === "obrigatoria" ? "Obrig." : "Opt."}
                     </span>
                     {m.professor && (
                       <span className={styles.profTag}>Prof. {m.professor}</span>
@@ -391,7 +432,9 @@ export default function GradeHoraria({ materias }: Props) {
                 </div>
               </li>
             );
-          })}
+              })}
+            </React.Fragment>
+          ))}
         </ul>
       </div>
 

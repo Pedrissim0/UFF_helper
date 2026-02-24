@@ -58,13 +58,13 @@ def main():
     os.makedirs("docs", exist_ok=True)
     csv_filename = "docs/turmas_uff_final.csv"
 
-    print("Iniciando Playwright...")
+    print("[1/5] Iniciando automação com Playwright...")
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
         
-        print(f"Navegando para a Grade para iniciar o login SSO...")
+        print(f"[2/5] Navegando para o portal da UFF para iniciar o login SSO...")
         page.goto(SEARCH_URL, wait_until="networkidle")
         time.sleep(2)
         
@@ -78,7 +78,7 @@ def main():
         
         # Now at idUFF login page:
         if page.locator("input[type='password']").count() > 0:
-            print("Página de login detectada. Inserindo credenciais...")
+            print("[3/5] Página de login detectada. Inserindo credenciais...")
             page.locator("input[type='text']").first.fill(CPF)
             page.locator("input[type='password']").first.fill(SENHA)
             
@@ -91,11 +91,11 @@ def main():
             page.wait_for_load_state("networkidle")
             time.sleep(3)
         
-        print(f"Navegando para a Grade novamente com os filtros aplicados...")
+        print(f"[4/5] Login concluído. Navegando para a Grade com os filtros aplicados...")
         page.goto(SEARCH_URL, wait_until="networkidle")
         time.sleep(2)
             
-        print("Buscando turmas...")
+        print("[->] Buscando turmas na tabela de resultados...")
         btn = page.locator("text='Buscar Turmas'")
         if btn.count() > 0:
             btn.first.click()
@@ -117,18 +117,19 @@ def main():
             writer.writerow(out_headers)
             
             page_num = 1
+            total_rows_extracted = 0
             while True:
-                print(f"Extraindo dados da tabela - Página {page_num}...")
+                print(f"  [-] Lendo Página {page_num}...")
                 html = page.content()
                 soup = BeautifulSoup(html, "html.parser")
                 
                 table = soup.find("table")
                 if not table:
-                    print("Nenhuma tabela encontrada nesta página.")
+                    print("  [x] Nenhuma tabela encontrada nesta página.")
                     break
                     
                 rows = table.find("tbody").find_all("tr", recursive=False)
-                print(f"Encontradas {len(rows)} turmas na página {page_num}.")
+                total_rows_extracted += len(rows)
                 
                 for row in rows:
                     cells = row.find_all("td", recursive=False)
@@ -183,28 +184,39 @@ def main():
                     
                 next_btn = page.locator("li.page-item:not(.disabled) a:has-text('Próxima')")
                 if next_btn.count() > 0:
-                    print("Indo para a próxima página...")
                     next_btn.first.click()
                     page.wait_for_selector("table", timeout=15000)
                     time.sleep(3)
                     page_num += 1
                 else:
-                    print("Última página alcançada ou sem paginação.")
+                    print("  [OK] Fim da paginação. " + str(total_rows_extracted) + " turmas lidas.")
                     break
                 
-        print(f"Dados extraídos com sucesso para {csv_filename}!")
+        print(f"[5/5] Tabela extraída com sucesso para {csv_filename}!")
+        
+        # Coleta os cookies da sessão atual do Playwright (após o login ter funcionado perfeitamente)
+        playwright_cookies = context.cookies()
+        
         browser.close()
 
-        print("\nConvertendo CSV para JSON...")
+        print("\n[->] Convertendo CSV de resultados para matérias aglomeradas no materias.json...")
         parse_csv.run(csv_path=csv_filename)
 
         import scrape_ch
-        print("\nBuscando Carga Horaria (CH) das disciplinas...")
-        scrape_ch.run()
+        print("\n[->] Buscando Carga Horaria (CH) e Docentes paralelizados...")
+        scrape_ch.run(cookies=playwright_cookies)
 
-        print("\nGerando docs/amostra.csv a partir do JSON final...")
+        import parse_matriz
+        print("\n[->] Parseando Matriz Curricular (PDF)...")
+        parse_matriz.run()
+
+        import enrich_materias
+        print("\n[->] Enriquecendo materias.json com dados da matriz...")
+        enrich_materias.run()
+
+        print("\n[OK] Gerando docs/amostra.csv final para validação...")
         _write_amostra_csv()
-        print("Pipeline completo!")
+        print("Pipeline otimizado concluído com sucesso! [OK]")
 
 if __name__ == "__main__":
     main()

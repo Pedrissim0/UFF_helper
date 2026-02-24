@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(vercel:*)",
+      "WebFetch(domain:web-wine-ten-17.vercel.app)",
+      "Bash(cd /c/Users/pedro/Desktop/projeto_uff_helper/web && npm run dev 2>&1)",
+      "Bash(cd /c/Users/pedro/Desktop/projeto_uff_helper/web && npm run build 2>&1)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

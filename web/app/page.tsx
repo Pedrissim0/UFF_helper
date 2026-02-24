@@ -17,6 +17,9 @@ export interface Materia {
     sex: string;
     sab: string;
   };
+  periodo: number | null;
+  tipo: "obrigatoria" | "optativa";
+  prerequisitos: string[];
 }
 
 export default function Home() {
