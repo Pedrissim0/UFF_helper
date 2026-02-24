@@ -116,7 +116,7 @@
 }
 
 .filtroPanelAberto {
-  max-height: 280px;
+  max-height: 360px;
   opacity: 1;
   margin-bottom: 4px;
 }
@@ -285,11 +285,20 @@
   letter-spacing: 0.02em;
 }
 
+.itemMetaWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 7px;
+}
+
 .itemMeta {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  margin-top: 7px;
+  min-width: 0;
+  flex: 1;
 }
 
 .metaRow {
@@ -347,22 +356,15 @@
 
 /* ── Type badge ────────────────────────────────────── */
 .tipoBadge {
-  font-size: 0.65rem;
-  padding: 2px 6px;
+  font-size: 0.6rem;
+  padding: 2px 7px;
   border-radius: 4px;
   font-weight: 500;
   white-space: nowrap;
   flex-shrink: 0;
-}
-
-.tipoBadgeObrigatoria {
-  background: #dbeafe;
-  color: #2563eb;
-}
-
-.tipoBadgeOptativa {
-  background: #f0fdf4;
-  color: #16a34a;
+  background: rgba(0, 0, 0, 0.04);
+  color: #bbb;
+  margin-top: 1px;
 }
 
 /* ── Floating grade widget ─────────────────────── */

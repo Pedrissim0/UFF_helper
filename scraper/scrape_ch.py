@@ -14,7 +14,7 @@ import requests
 from bs4 import BeautifulSoup
 
 ROOT = pathlib.Path(__file__).parent.parent
-DEFAULT_JSON = ROOT / "web" / "data" / "materias.json"
+DEFAULT_JSON = ROOT / "web" / "data" / "db_disciplinas.json"
 
 
 def _parse_page(html: str) -> dict:
@@ -149,9 +149,9 @@ def run(json_path=None, cookies=None, **_kwargs):
                 if len(partes_nome) > 1:
                     primeiro_nome = partes_nome[0].capitalize()
                     ultimo_nome = partes_nome[-1].capitalize()
-                    m["professor"] = f"{primeiro_nome} {ultimo_nome}"
+                    m["nome_exibicao"] = f"{primeiro_nome} {ultimo_nome}"
                 elif len(partes_nome) == 1:
-                    m["professor"] = partes_nome[0].capitalize()
+                    m["nome_exibicao"] = partes_nome[0].capitalize()
 
     with json_path.open("w", encoding="utf-8") as f:
         json.dump(materias, f, ensure_ascii=False, indent=2)

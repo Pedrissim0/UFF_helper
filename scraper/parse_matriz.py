@@ -41,49 +41,86 @@ def run():
 
     with pdfplumber.open(str(pdf_path)) as pdf:
         for page_idx, page in enumerate(pdf.pages):
-            text = page.extract_text() or ""
+            # Coleta marcadores de período com posição Y para ordenação
+            # Cada marcador: (y, periodo_int_or_None)
+            markers: list[tuple[float, int | None]] = []
 
-            # Detecta período no texto da página
-            period_match = PERIOD_RE.search(text)
-            if period_match:
-                current_periodo = int(period_match.group(1))
+            words = page.extract_words()
+            page_text_items = []
+            for w in words:
+                page_text_items.append(w)
 
-            # Detecta seção "Não periodizada" (optativas)
-            if "Não periodizada" in text or "N�o periodizada" in text:
-                current_periodo = None
+            # Busca headers de período por posição Y
+            full_text = page.extract_text() or ""
+            for m in PERIOD_RE.finditer(full_text):
+                periodo_val = int(m.group(1))
+                # Localiza a posição Y buscando a palavra do período no PDF
+                keyword = m.group(0).split()[0]  # ex: "7º"
+                for w in words:
+                    if keyword in w["text"]:
+                        markers.append((w["top"], periodo_val))
+                        break
 
-            # Extrai tabelas da página
-            tables = page.extract_tables()
-            for table in tables:
-                for row in table:
-                    # Pula linhas vazias ou cabeçalhos
+            # Busca "Não periodizada" por posição Y
+            nao_period_re = re.compile(r"[Nn]ão\s+periodizada|N.o\s+periodizada")
+            for w in words:
+                if nao_period_re.search(w["text"]):
+                    markers.append((w["top"], None))
+                    break
+            # Fallback: check combined text for "Não periodizada"
+            if not any(v is None for _, v in markers):
+                if "Não periodizada" in full_text or "N\udce3o periodizada" in full_text:
+                    # Tenta achar a posição Y via busca de "periodizada"
+                    for w in words:
+                        if "periodizada" in w["text"].lower():
+                            markers.append((w["top"], None))
+                            break
+
+            # Ordena marcadores por posição Y (topo → baixo)
+            markers.sort(key=lambda x: x[0])
+
+            # Extrai tabelas com bounding boxes para saber posição Y das linhas
+            table_settings = {}
+            found_tables = page.find_tables(table_settings)
+            extracted_tables = page.extract_tables(table_settings)
+
+            for t_idx, (tbl_obj, table) in enumerate(
+                zip(found_tables, extracted_tables)
+            ):
+                bbox = tbl_obj.bbox  # (x0, top, x1, bottom)
+                row_count = len(table) if table else 0
+                if row_count == 0:
+                    continue
+
+                # Estima posição Y de cada linha distribuindo uniformemente
+                tbl_top = bbox[1]
+                tbl_bottom = bbox[3]
+                row_height = (tbl_bottom - tbl_top) / row_count
+
+                for row_idx, row in enumerate(table):
                     if not row or not row[0]:
                         continue
 
                     codigo = row[0].strip()
-
-                    # Pula linhas que não começam com código disciplina
                     if not CODE_RE.match(codigo):
                         continue
 
-                    # Pula linhas com apenas "Código" (header)
-                    if codigo == "Código":
-                        continue
+                    row_y = tbl_top + row_idx * row_height
 
-                    # Parse dos campos
+                    # Determina período desta linha baseado nos marcadores
+                    # Usa o último marcador com Y <= row_y, ou herda da página anterior
+                    periodo_for_row = current_periodo
+                    for marker_y, marker_val in markers:
+                        if marker_y <= row_y:
+                            periodo_for_row = marker_val
+                        else:
+                            break
+
                     nome = (row[1] or "").strip()
-                    # Remove quebras de linha do nome
                     nome = re.sub(r"\s*[\n\r]+\s*", " ", nome).strip()
                     tipo_raw = (row[2] or "").strip()
-
-                    # Colunas 9 e 10 contêm pré-requisitos e co-requisitos
-                    prereq_text = (row[9] or "") + " " + (row[10] or "")
-
-                    # Determina tipo
                     tipo = "obrigatoria" if tipo_raw == "OB" else "optativa"
 
-                    # Extrai códigos de pré-requisitos (coluna 9)
-                    # Ignora co-requisitos (coluna 10)
                     prereq_col = row[9] or ""
                     prereqs = list(
                         dict.fromkeys(PREREQ_CODE_RE.findall(prereq_col))
@@ -93,11 +130,16 @@ def run():
                         {
                             "codigo": codigo,
                             "nome": nome,
-                            "periodo": current_periodo,
+                            "periodo": periodo_for_row,
                             "tipo": tipo,
                             "prerequisitos": prereqs,
                         }
                     )
+
+            # Atualiza current_periodo para a próxima página
+            # Usa o último marcador da página atual
+            if markers:
+                current_periodo = markers[-1][1]
 
     # Deduplica por código (mantém primeira ocorrência)
     seen = set()

@@ -1,0 +1,4 @@
+{
+  "_comentario": "Mapa de equivalências: código no quadro de horários -> código na matriz curricular. Usado pelo enrich_materias.py quando o código direto não tem match.",
+  "SEN00084": "SEN00257"
+}

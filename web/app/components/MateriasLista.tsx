@@ -114,7 +114,7 @@ export default function MateriasLista({ materias }: Props) {
             </h2>
             <div className={styles.meta}>
               <span className={styles.modulo}>{m.ch != null ? `${m.ch}h` : "—"}</span>
-              {m.professor && <span className={styles.professor}>{m.professor}</span>}
+              {m.nome_exibicao && <span className={styles.professor}>{m.nome_exibicao}</span>}
             </div>
             <div className={styles.horarios}>
               {DIAS.map((dia) => {

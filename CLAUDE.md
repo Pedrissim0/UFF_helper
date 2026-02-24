@@ -6,7 +6,7 @@ MVP: lista de matérias com filtros + visualização semanal de grade.
 
 ## Estrutura do Projeto
 - /web       → frontend em Next.js (App Router)
-- /scraper   → scripts Python para gerar materias.json
+- /scraper   → scripts Python para gerar db_disciplinas.json
 - /docs      → decisões de arquitetura e exemplos de dados
 
 ## Stack
@@ -14,14 +14,14 @@ MVP: lista de matérias com filtros + visualização semanal de grade.
 - Scraping: Python 3, requests, BeautifulSoup4
 - Sem backend próprio — dados servidos via JSON estático
 
-## Contrato de Dados (materias.json)
+## Contrato de Dados (db_disciplinas.json)
 Todo dado de matéria deve seguir este schema:
 
 {
   "codigo": "ECO00101",
   "nome": "MICROECONOMIA I",
   "turma": "A1",
-  "professor": "NOME DO PROFESSOR",
+  "nome_exibicao": "NOME DO PROFESSOR",
   "ch": 60,
   "link": "https://app.uff.br/graduacao/quadrodehorarios/...",
   "horarios": {
@@ -42,12 +42,12 @@ Todo dado de matéria deve seguir este schema:
 
 ## Arquivos Importantes
 - /docs/amostra.csv     → amostra real dos dados da universidade
-- /web/data/mock.json   → dados mock no formato do contrato acima
+- /web/data/db_disciplinas.json → dados no formato do contrato acima
 
 ## Status do MVP
-- [ ] Parser do CSV para JSON
-- [ ] Lista de matérias com busca
-- [ ] Filtro por dia/horário
-- [ ] Visualização da grade semanal
-- [ ] Detecção de conflitos de horário
-- [ ] Deploy na Vercel
+- [x] Parser do CSV para JSON
+- [x] Lista de matérias com busca
+- [x] Filtro por dia/horário
+- [x] Visualização da grade semanal
+- [x] Detecção de conflitos de horário
+- [x] Deploy na Vercel

@@ -3,7 +3,6 @@
     "codigo": "GGE00125",
     "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
     "turma": "A1",
-    "professor": "Luis Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449123",
     "horarios": {
@@ -20,13 +19,13 @@
     "prerequisitos": [
       "SEN00077",
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Luis Silva"
   },
   {
     "codigo": "GGE00125",
     "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
     "turma": "J1",
-    "professor": "Timo Bartholl",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449119",
     "horarios": {
@@ -43,13 +42,13 @@
     "prerequisitos": [
       "SEN00077",
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Timo Bartholl"
   },
   {
     "codigo": "STA00160",
     "nome": "ADMINISTRAÇÃO PÚBLICA",
     "turma": "P1",
-    "professor": "Frederico Costa",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440932",
     "horarios": {
@@ -63,13 +62,13 @@
     "docente": "Frederico Jose Lustosa da Costa",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Frederico Costa"
   },
   {
     "codigo": "SEN00191",
     "nome": "ALOCAÇÃO DE ATIVOS DE RISCO",
     "turma": "P1",
-    "professor": "Andre Oliveira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447991",
     "horarios": {
@@ -85,13 +84,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00258"
-    ]
+    ],
+    "nome_exibicao": "Andre Oliveira"
   },
   {
     "codigo": "STC00116",
     "nome": "ANÁLISE DE BALANÇO",
     "turma": "P2",
-    "professor": "Roberto Vieira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448514",
     "horarios": {
@@ -107,13 +106,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Roberto Vieira"
   },
   {
     "codigo": "SEN00214",
     "nome": "ANÁLISE DE SÉRIES TEMPORAIS I",
     "turma": "A1",
-    "professor": "Antonio Cunha",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447822",
     "horarios": {
@@ -127,13 +126,13 @@
     "docente": "Antonio Carlos Fiorencio Soares da Cunha",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Antonio Cunha"
   },
   {
     "codigo": "SEN00186",
     "nome": "ANÁLISE ECONÔMICA DE POLÍTICAS SOCIAIS",
     "turma": "A1",
-    "professor": "Fabio Waltenberg",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447820",
     "horarios": {
@@ -149,13 +148,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00074"
-    ]
+    ],
+    "nome_exibicao": "Fabio Waltenberg"
   },
   {
     "codigo": "GCV00160",
     "nome": "CINEMA E ESTÉTICA I",
     "turma": "C2",
-    "professor": "Cezar Migliorin",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440539",
     "horarios": {
@@ -169,13 +168,13 @@
     "docente": "Cezar Avila Migliorin",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Cezar Migliorin"
   },
   {
     "codigo": "GCV00270",
     "nome": "CINEMA, ESTÉTICA E POLÍTICA",
     "turma": "C1",
-    "professor": "Cezar Migliorin",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440569",
     "horarios": {
@@ -189,13 +188,13 @@
     "docente": "Cezar Avila Migliorin",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Cezar Migliorin"
   },
   {
     "codigo": "STC00115",
     "nome": "CONTABILIDADE GERAL",
     "turma": "P1",
-    "professor": "Luciana Santos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448515",
     "horarios": {
@@ -211,13 +210,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Luciana Santos"
   },
   {
     "codigo": "SDB00171",
     "nome": "DIREITO FINANCEIRO E TRIBUTÁRIO I",
     "turma": "A1",
-    "professor": "Paulo Corval",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000446241",
     "horarios": {
@@ -231,13 +230,13 @@
     "docente": "Paulo Roberto dos Santos Corval",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Paulo Corval"
   },
   {
     "codigo": "SEN00244",
     "nome": "ECOLOGICAL ECONOMICS",
     "turma": "A1",
-    "professor": "Roldan Sarache",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447826",
     "horarios": {
@@ -251,13 +250,13 @@
     "docente": "Roldan Petros Muradian Sarache",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Roldan Sarache"
   },
   {
     "codigo": "SEN00176",
     "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
     "turma": "A1",
-    "professor": "Tiago Oliveira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447812",
     "horarios": {
@@ -271,13 +270,13 @@
     "docente": "Tiago Oliveira",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Tiago Oliveira"
   },
   {
     "codigo": "SEN00176",
     "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
     "turma": "P1",
-    "professor": "Carlos Vidotto",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448900",
     "horarios": {
@@ -291,13 +290,13 @@
     "docente": "Carlos Augusto Vidotto",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Carlos Vidotto"
   },
   {
     "codigo": "SEN00259",
     "nome": "ECONOMETRIA",
     "turma": "A1",
-    "professor": "Jesus Obregon",
     "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447785",
     "horarios": {
@@ -309,18 +308,18 @@
       "sab": ""
     },
     "docente": "Jesus Alexei Luizar Obregon",
-    "periodo": 5,
+    "periodo": 4,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00147",
       "GET00118"
-    ]
+    ],
+    "nome_exibicao": "Jesus Obregon"
   },
   {
     "codigo": "SEN00259",
     "nome": "ECONOMETRIA",
     "turma": "P1",
-    "professor": "Diogo Braga",
     "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447950",
     "horarios": {
@@ -332,18 +331,18 @@
       "sab": ""
     },
     "docente": "Diogo Bravo Marinho Braga",
-    "periodo": 5,
+    "periodo": 4,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00147",
       "GET00118"
-    ]
+    ],
+    "nome_exibicao": "Diogo Braga"
   },
   {
     "codigo": "SEN00121",
     "nome": "ECONOMETRIA II",
     "turma": "A1",
-    "professor": "Danielle Machado",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447819",
     "horarios": {
@@ -359,13 +358,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00259"
-    ]
+    ],
+    "nome_exibicao": "Danielle Machado"
   },
   {
     "codigo": "SEN00260",
     "nome": "ECONOMIA BRASILEIRA I",
     "turma": "A1",
-    "professor": "Juliane Furno",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447790",
     "horarios": {
@@ -381,13 +380,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00256"
-    ]
+    ],
+    "nome_exibicao": "Juliane Furno"
   },
   {
     "codigo": "SEN00260",
     "nome": "ECONOMIA BRASILEIRA I",
     "turma": "P1",
-    "professor": "Carlos Vidotto",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447953",
     "horarios": {
@@ -403,13 +402,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00256"
-    ]
+    ],
+    "nome_exibicao": "Carlos Vidotto"
   },
   {
     "codigo": "SEN00261",
     "nome": "ECONOMIA BRASILEIRA II",
     "turma": "A1",
-    "professor": "Victor Araujo",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447794",
     "horarios": {
@@ -421,17 +420,17 @@
       "sab": ""
     },
     "docente": "Victor Leonardo Figueiredo Carvalho de Araujo",
-    "periodo": 5,
+    "periodo": 6,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00260"
-    ]
+    ],
+    "nome_exibicao": "Victor Araujo"
   },
   {
     "codigo": "SEN00261",
     "nome": "ECONOMIA BRASILEIRA II",
     "turma": "P1",
-    "professor": "Fernando Mattos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447954",
     "horarios": {
@@ -443,17 +442,17 @@
       "sab": ""
     },
     "docente": "Fernando Augusto Mansor de Mattos",
-    "periodo": 5,
+    "periodo": 6,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00260"
-    ]
+    ],
+    "nome_exibicao": "Fernando Mattos"
   },
   {
     "codigo": "SEN00149",
     "nome": "ECONOMIA DA ENERGIA",
     "turma": "A1",
-    "professor": "Niagara Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447818",
     "horarios": {
@@ -469,13 +468,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00074"
-    ]
+    ],
+    "nome_exibicao": "Niagara Silva"
   },
   {
     "codigo": "STA00229",
     "nome": "ECONOMIA DO SETOR PÚBLICO E REGULAÇÃO",
     "turma": "P1",
-    "professor": "Denise Almeida",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440946",
     "horarios": {
@@ -489,13 +488,13 @@
     "docente": "Denise Ribeiro Almeida",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Denise Almeida"
   },
   {
     "codigo": "SEN00133",
     "nome": "ECONOMIA DO TRABALHO",
     "turma": "P1",
-    "professor": "Jorge Britto",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449154",
     "horarios": {
@@ -512,13 +511,13 @@
     "prerequisitos": [
       "SEN00077",
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Jorge Britto"
   },
   {
     "codigo": "SEN00258",
     "nome": "ECONOMIA FINANCEIRA",
     "turma": "A1",
-    "professor": "Regis Motta",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447789",
     "horarios": {
@@ -532,13 +531,13 @@
     "docente": "Regis da Rocha Motta",
     "periodo": 5,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Regis Motta"
   },
   {
     "codigo": "SEN00258",
     "nome": "ECONOMIA FINANCEIRA",
     "turma": "P1",
-    "professor": "Lilian Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447952",
     "horarios": {
@@ -552,13 +551,13 @@
     "docente": "Lilian Simone Aguiar da Silva",
     "periodo": 5,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Lilian Silva"
   },
   {
     "codigo": "SEN00111",
     "nome": "ECONOMIA INTERNACIONAL",
     "turma": "P1",
-    "professor": "Andre Nassif",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447968",
     "horarios": {
@@ -574,13 +573,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00077"
-    ]
+    ],
+    "nome_exibicao": "Andre Nassif"
   },
   {
     "codigo": "SEN00178",
     "nome": "ECONOMIA MATEMATICA",
     "turma": "A1",
-    "professor": "Jesus Obregon",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447823",
     "horarios": {
@@ -596,13 +595,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "GAN00147"
-    ]
+    ],
+    "nome_exibicao": "Jesus Obregon"
   },
   {
     "codigo": "SEN00118",
     "nome": "ECONOMIA MONETÁRIA",
     "turma": "P1",
-    "professor": "Luiz Fonseca",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447962",
     "horarios": {
@@ -618,13 +617,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00078"
-    ]
+    ],
+    "nome_exibicao": "Luiz Fonseca"
   },
   {
     "codigo": "GCV00304",
     "nome": "ECONOMIA POLÍTICA DO AUDIOVISUAL",
     "turma": "C1",
-    "professor": "Lia Cesario",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440556",
     "horarios": {
@@ -638,13 +637,13 @@
     "docente": "Lia Bahia Cesario",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Lia Cesario"
   },
   {
     "codigo": "SEN00227",
     "nome": "ECONOMIA POLÍTICA DO MEIO AMBIENTE",
     "turma": "P1",
-    "professor": "Eduardo Cruz",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447982",
     "horarios": {
@@ -660,13 +659,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Eduardo Cruz"
   },
   {
     "codigo": "SEN00086",
     "nome": "ECONOMIA POLÍTICA II",
     "turma": "P1",
-    "professor": "Filipe Pinheiro",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447957",
     "horarios": {
@@ -682,13 +681,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Filipe Pinheiro"
   },
   {
     "codigo": "SEN00156",
     "nome": "ELABORACAO E ANALISE DE PROJETOS",
     "turma": "A1",
-    "professor": "Regis Motta",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447814",
     "horarios": {
@@ -704,13 +703,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00158"
-    ]
+    ],
+    "nome_exibicao": "Regis Motta"
   },
   {
     "codigo": "SEN00195",
     "nome": "EXPERIÊNCIAS INDUSTRIAIS COMPARADAS",
     "turma": "A1",
-    "professor": "Matheus Coelho",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447821",
     "horarios": {
@@ -724,13 +723,13 @@
     "docente": "Matheus Sinder Nunes Herdy Coelho",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Matheus Coelho"
   },
   {
     "codigo": "SEN00103",
     "nome": "FINANCAS INTERNACIONAIS",
     "turma": "A1",
-    "professor": "Luis Rossi",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447800",
     "horarios": {
@@ -746,13 +745,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00258"
-    ]
+    ],
+    "nome_exibicao": "Luis Rossi"
   },
   {
     "codigo": "STA00162",
     "nome": "FINANÇAS PÚBLICAS",
     "turma": "P1",
-    "professor": "Renato Miranda",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440931",
     "horarios": {
@@ -766,13 +765,13 @@
     "docente": "Renato Luis Pinto Miranda",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Renato Miranda"
   },
   {
     "codigo": "SEN00200",
     "nome": "FINANÇAS PÚBLICAS NO BRASIL",
     "turma": "A1",
-    "professor": "Victor Araujo",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447817",
     "horarios": {
@@ -786,13 +785,13 @@
     "docente": "Victor Leonardo Figueiredo Carvalho de Araujo",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Victor Araujo"
   },
   {
     "codigo": "SEN00256",
     "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I",
     "turma": "A1",
-    "professor": "Sem professor alocado",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447786",
     "horarios": {
@@ -805,13 +804,13 @@
     },
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Sem professor alocado"
   },
   {
     "codigo": "SEN00256",
     "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I",
     "turma": "P1",
-    "professor": "Matheus Coelho",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447946",
     "horarios": {
@@ -825,13 +824,13 @@
     "docente": "Matheus Sinder Nunes Herdy Coelho",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Matheus Coelho"
   },
   {
     "codigo": "GGE00138",
     "nome": "GEOGRAFIA DA INDUSTRIA",
     "turma": "A1",
-    "professor": "Lethicia Machado",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449124",
     "horarios": {
@@ -848,13 +847,13 @@
     "prerequisitos": [
       "SEN00077",
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Lethicia Machado"
   },
   {
     "codigo": "STA00175",
     "nome": "GESTÃO DE PROJETOS",
     "turma": "P1",
-    "professor": "Joao Santos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440953",
     "horarios": {
@@ -868,13 +867,13 @@
     "docente": "Joao Alberto Neves dos Santos",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Joao Santos"
   },
   {
     "codigo": "STA00158",
     "nome": "GESTÃO FINANCEIRA",
     "turma": "P1",
-    "professor": "Ivando Faria",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440928",
     "horarios": {
@@ -888,13 +887,13 @@
     "docente": "Ivando Silva de Faria",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Ivando Faria"
   },
   {
     "codigo": "SEN00189",
     "nome": "GESTÃO FINANCEIRA",
     "turma": "P1",
-    "professor": "Lilian Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447965",
     "horarios": {
@@ -910,13 +909,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00258"
-    ]
+    ],
+    "nome_exibicao": "Lilian Silva"
   },
   {
     "codigo": "STA00261",
     "nome": "GESTÃO FINANCEIRA DE LONGO PRAZO",
     "turma": "P1",
-    "professor": "Ariel Levy",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440941",
     "horarios": {
@@ -930,13 +929,13 @@
     "docente": "Ariel Levy",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Ariel Levy"
   },
   {
     "codigo": "GHT00313",
     "nome": "HISTORIA ECONOMICA GERAL I",
     "turma": "H1",
-    "professor": "Carlos Guimaraes",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449074",
     "horarios": {
@@ -950,13 +949,13 @@
     "docente": "Carlos Gabriel Guimaraes",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Carlos Guimaraes"
   },
   {
     "codigo": "GHT00313",
     "nome": "HISTORIA ECONOMICA GERAL I",
     "turma": "H2",
-    "professor": "Manoela Pedroza",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449075",
     "horarios": {
@@ -970,13 +969,13 @@
     "docente": "Manoela da Silva Pedroza",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Manoela Pedroza"
   },
   {
     "codigo": "STA00128",
     "nome": "INTRODUÇÃO A ADMINISTRAÇÃO",
     "turma": "C1",
-    "professor": "Mariana Peixoto",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440933",
     "horarios": {
@@ -992,13 +991,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Mariana Peixoto"
   },
   {
     "codigo": "STE00058",
     "nome": "INTRODUÇÃO AO EMPREENDEDORISMO",
     "turma": "A1",
-    "professor": "Edison Junior",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000448352",
     "horarios": {
@@ -1012,13 +1011,13 @@
     "docente": "Edison Rodrigues Barreto Junior",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Edison Junior"
   },
   {
     "codigo": "SEN00245",
     "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
     "turma": "A1",
-    "professor": "Claude Cohen",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447755",
     "horarios": {
@@ -1032,13 +1031,13 @@
     "docente": "Claude Adelia Moema Jeanne Cohen",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Claude Cohen"
   },
   {
     "codigo": "SEN00245",
     "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
     "turma": "P1",
-    "professor": "Bianca Bonente",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447926",
     "horarios": {
@@ -1052,13 +1051,13 @@
     "docente": "Bianca Aires Imbiriba Di Maio Bonente",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Bianca Bonente"
   },
   {
     "codigo": "GFL00024",
     "nome": "INTRODUÇÃO À FILOSOFIA",
     "turma": "B1",
-    "professor": "Patrick Pessoa",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000443827",
     "horarios": {
@@ -1074,13 +1073,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Patrick Pessoa"
   },
   {
     "codigo": "GFL00024",
     "nome": "INTRODUÇÃO À FILOSOFIA",
     "turma": "D1",
-    "professor": "Celso Filho",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000443831",
     "horarios": {
@@ -1096,13 +1095,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Celso Filho"
   },
   {
     "codigo": "SGE00015",
     "nome": "LABORATORIO DE MACROECONOMIA II",
     "turma": "AA",
-    "professor": "Leonardo Muls",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447763",
     "horarios": {
@@ -1116,13 +1115,13 @@
     "docente": "Leonardo Marco Muls",
     "periodo": 2,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Leonardo Muls"
   },
   {
     "codigo": "SGE00015",
     "nome": "LABORATORIO DE MACROECONOMIA II",
     "turma": "PP",
-    "professor": "Luciano Oliveira",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447937",
     "horarios": {
@@ -1136,13 +1135,13 @@
     "docente": "Luciano Vereda Oliveira",
     "periodo": 2,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Luciano Oliveira"
   },
   {
     "codigo": "SGE00012",
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "AA",
-    "professor": "Ana Ruiz",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447760",
     "horarios": {
@@ -1156,13 +1155,13 @@
     "docente": "Ana Urraca Ruiz",
     "periodo": 2,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Ana Ruiz"
   },
   {
     "codigo": "SGE00012",
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "AB",
-    "professor": "Sem professor alocado",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447762",
     "horarios": {
@@ -1175,13 +1174,13 @@
     },
     "periodo": 2,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Sem professor alocado"
   },
   {
     "codigo": "SGE00012",
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "PP",
-    "professor": "Welinton Ferreira",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447935",
     "horarios": {
@@ -1195,13 +1194,13 @@
     "docente": "Welinton Conte Ferreira",
     "periodo": 2,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Welinton Ferreira"
   },
   {
     "codigo": "SGE00012",
     "nome": "LABORATORIO DE MICROECONOMIA I",
     "turma": "PQ",
-    "professor": "Rosane Mendonca",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447936",
     "horarios": {
@@ -1215,13 +1214,13 @@
     "docente": "Rosane Silva Pinto de Mendonca",
     "periodo": 2,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Rosane Mendonca"
   },
   {
     "codigo": "SGE00013",
     "nome": "LABORATORIO DE MICROECONOMIA II",
     "turma": "AA",
-    "professor": "Welinton Ferreira",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447776",
     "horarios": {
@@ -1233,15 +1232,15 @@
       "sab": ""
     },
     "docente": "Welinton Conte Ferreira",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Welinton Ferreira"
   },
   {
     "codigo": "SGE00013",
     "nome": "LABORATORIO DE MICROECONOMIA II",
     "turma": "PP",
-    "professor": "Marcos Lyra",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447940",
     "horarios": {
@@ -1253,15 +1252,15 @@
       "sab": ""
     },
     "docente": "Marcos Puccioni de Oliveira Lyra",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Marcos Lyra"
   },
   {
     "codigo": "SGE00014",
     "nome": "LABORATORIO DE MICROECONOMIA III",
     "turma": "AA",
-    "professor": "Niagara Silva",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447787",
     "horarios": {
@@ -1273,15 +1272,15 @@
       "sab": ""
     },
     "docente": "Niagara Rodrigues da Silva",
-    "periodo": 5,
+    "periodo": 4,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Niagara Silva"
   },
   {
     "codigo": "SGE00014",
     "nome": "LABORATORIO DE MICROECONOMIA III",
     "turma": "PP",
-    "professor": "Sem professor alocado",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447944",
     "horarios": {
@@ -1292,15 +1291,15 @@
       "sex": "18:00-20:00",
       "sab": ""
     },
-    "periodo": 5,
+    "periodo": 4,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Sem professor alocado"
   },
   {
     "codigo": "SGE00026",
     "nome": "LABORATÓRIO DE MACROECONOMIA I",
     "turma": "AA",
-    "professor": "Lucilene Morandi",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447754",
     "horarios": {
@@ -1314,13 +1313,13 @@
     "docente": "Lucilene Morandi",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Lucilene Morandi"
   },
   {
     "codigo": "SGE00026",
     "nome": "LABORATÓRIO DE MACROECONOMIA I",
     "turma": "PP",
-    "professor": "Leon Esquierro",
     "ch": 30,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447924",
     "horarios": {
@@ -1334,13 +1333,13 @@
     "docente": "Leon Cardoso Esquierro",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Leon Esquierro"
   },
   {
     "codigo": "SEN00207",
     "nome": "MACROECONOMIA INTERTEMPORAL I",
     "turma": "P1",
-    "professor": "Antonio Cunha",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447987",
     "horarios": {
@@ -1357,13 +1356,13 @@
     "prerequisitos": [
       "GAN00147",
       "SEN00079"
-    ]
+    ],
+    "nome_exibicao": "Antonio Cunha"
   },
   {
     "codigo": "STA00156",
     "nome": "MARKETING",
     "turma": "P1",
-    "professor": "Miguel Lima",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440937",
     "horarios": {
@@ -1377,13 +1376,13 @@
     "docente": "Miguel Ferreira Lima",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Miguel Lima"
   },
   {
     "codigo": "GAN00145",
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "A1",
-    "professor": "Yuri Ki",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450707",
     "horarios": {
@@ -1397,13 +1396,13 @@
     "docente": "Yuri Ki",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Yuri Ki"
   },
   {
     "codigo": "GAN00145",
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "B1",
-    "professor": "Danilo Avelar",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450708",
     "horarios": {
@@ -1417,13 +1416,13 @@
     "docente": "Danilo Vilela Avelar",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Danilo Avelar"
   },
   {
     "codigo": "GAN00145",
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "C1",
-    "professor": "Thiago Pires",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450709",
     "horarios": {
@@ -1437,13 +1436,13 @@
     "docente": "Thiago Lourenco Pires",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Thiago Pires"
   },
   {
     "codigo": "GAN00145",
     "nome": "MATEMÁTICA PARA ECONOMIA I",
     "turma": "D1",
-    "professor": "Giuseppe Borrelli",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450712",
     "horarios": {
@@ -1457,13 +1456,13 @@
     "docente": "Giuseppe Borrelli",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Giuseppe Borrelli"
   },
   {
     "codigo": "GAN00146",
     "nome": "MATEMÁTICA PARA ECONOMIA II",
     "turma": "A2",
-    "professor": "Slobodan Tanushevski",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450716",
     "horarios": {
@@ -1479,13 +1478,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Slobodan Tanushevski"
   },
   {
     "codigo": "GAN00146",
     "nome": "MATEMÁTICA PARA ECONOMIA II",
     "turma": "B2",
-    "professor": "Paulo Gusmao",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450714",
     "horarios": {
@@ -1501,13 +1500,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Paulo Gusmao"
   },
   {
     "codigo": "GAN00146",
     "nome": "MATEMÁTICA PARA ECONOMIA II",
     "turma": "E1",
-    "professor": "Alex Pereira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000439670",
     "horarios": {
@@ -1523,13 +1522,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Alex Pereira"
   },
   {
     "codigo": "GAN00147",
     "nome": "MATEMÁTICA PARA ECONOMIA III",
     "turma": "A3",
-    "professor": "Alex Pereira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450724",
     "horarios": {
@@ -1541,17 +1540,17 @@
       "sab": ""
     },
     "docente": "Alex Farah Pereira",
-    "periodo": 2,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00146"
-    ]
+    ],
+    "nome_exibicao": "Alex Pereira"
   },
   {
     "codigo": "GAN00147",
     "nome": "MATEMÁTICA PARA ECONOMIA III",
     "turma": "B3",
-    "professor": "Ricardo Apolaya",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450718",
     "horarios": {
@@ -1563,17 +1562,17 @@
       "sab": ""
     },
     "docente": "Ricardo Eleodoro Fuentes Apolaya",
-    "periodo": 2,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00146"
-    ]
+    ],
+    "nome_exibicao": "Ricardo Apolaya"
   },
   {
     "codigo": "SEN00188",
     "nome": "MERCADOS DE CAPITAIS",
     "turma": "A1",
-    "professor": "Luis Rossi",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447811",
     "horarios": {
@@ -1589,13 +1588,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00258"
-    ]
+    ],
+    "nome_exibicao": "Luis Rossi"
   },
   {
     "codigo": "GET00118",
     "nome": "METOD ESTAT APLICADOS A ECONOMIA II",
     "turma": "A1",
-    "professor": "Rafael Erbisti",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449865",
     "horarios": {
@@ -1607,15 +1606,17 @@
       "sab": ""
     },
     "docente": "Rafael Santos Erbisti",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
+    "periodo": 2,
+    "tipo": "obrigatoria",
+    "prerequisitos": [
+      "GAN00145"
+    ],
+    "nome_exibicao": "Rafael Erbisti"
   },
   {
     "codigo": "GET00118",
     "nome": "METOD ESTAT APLICADOS A ECONOMIA II",
     "turma": "B1",
-    "professor": "Jose Saraiva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449866",
     "horarios": {
@@ -1627,15 +1628,17 @@
       "sab": ""
     },
     "docente": "Jose Murilo Ferraz Saraiva",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
+    "periodo": 2,
+    "tipo": "obrigatoria",
+    "prerequisitos": [
+      "GAN00145"
+    ],
+    "nome_exibicao": "Jose Saraiva"
   },
   {
     "codigo": "GET00117",
     "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
     "turma": "A1",
-    "professor": "Victor Matos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449862",
     "horarios": {
@@ -1651,13 +1654,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Victor Matos"
   },
   {
     "codigo": "GET00117",
     "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
     "turma": "B1",
-    "professor": "Valentin Sisko",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449864",
     "horarios": {
@@ -1673,13 +1676,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Valentin Sisko"
   },
   {
     "codigo": "SEN00084",
     "nome": "METODOL E TEC DE PESQUISA EM ECONOMIA",
     "turma": "A1",
-    "professor": "Nazira Camely",
     "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447795",
     "horarios": {
@@ -1691,15 +1694,21 @@
       "sab": ""
     },
     "docente": "Nazira Correia Camely",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
+    "periodo": 7,
+    "tipo": "obrigatoria",
+    "prerequisitos": [
+      "SEN00074",
+      "SEN00079",
+      "SEN00081",
+      "SEN00259",
+      "SEN00075"
+    ],
+    "nome_exibicao": "Nazira Camely"
   },
   {
     "codigo": "SEN00084",
     "nome": "METODOL E TEC DE PESQUISA EM ECONOMIA",
     "turma": "P1",
-    "professor": "Nazira Camely",
     "ch": 90,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447956",
     "horarios": {
@@ -1711,15 +1720,21 @@
       "sab": ""
     },
     "docente": "Nazira Correia Camely",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
+    "periodo": 7,
+    "tipo": "obrigatoria",
+    "prerequisitos": [
+      "SEN00074",
+      "SEN00079",
+      "SEN00081",
+      "SEN00259",
+      "SEN00075"
+    ],
+    "nome_exibicao": "Nazira Camely"
   },
   {
     "codigo": "SEN00091",
     "nome": "METODOLOGIA DA ANALISE ECONOMICA",
     "turma": "A1",
-    "professor": "Andre Augusto",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447810",
     "horarios": {
@@ -1733,13 +1748,13 @@
     "docente": "Andre Guimaraes Augusto",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Andre Augusto"
   },
   {
     "codigo": "SEN00206",
     "nome": "MODELOS DE CRESCIMENTO E DISTRIBUIÇÃO DE RENDA",
     "turma": "A1",
-    "professor": "Caio Vilella",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447816",
     "horarios": {
@@ -1755,13 +1770,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00079"
-    ]
+    ],
+    "nome_exibicao": "Caio Vilella"
   },
   {
     "codigo": "SEN00209",
     "nome": "MODELOS DE PREVISÃO MACROECONÔMICA",
     "turma": "P1",
-    "professor": "Luciano Oliveira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447964",
     "horarios": {
@@ -1775,13 +1790,13 @@
     "docente": "Luciano Vereda Oliveira",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Luciano Oliveira"
   },
   {
     "codigo": "SEN00067",
     "nome": "PENSAMENTO ECONOMICO I",
     "turma": "A1",
-    "professor": "Ian Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447751",
     "horarios": {
@@ -1795,13 +1810,13 @@
     "docente": "Ian José Horta Gois da Silva",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Ian Silva"
   },
   {
     "codigo": "SEN00067",
     "nome": "PENSAMENTO ECONOMICO I",
     "turma": "P1",
-    "professor": "Aloysio Carvalho",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447923",
     "horarios": {
@@ -1815,13 +1830,13 @@
     "docente": "Aloysio Henrique Castelo de Carvalho",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Aloysio Carvalho"
   },
   {
     "codigo": "SEN00068",
     "nome": "PENSAMENTO ECONOMICO II",
     "turma": "A1",
-    "professor": "Paulo Araujo",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447759",
     "horarios": {
@@ -1837,13 +1852,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00067"
-    ]
+    ],
+    "nome_exibicao": "Paulo Araujo"
   },
   {
     "codigo": "SEN00068",
     "nome": "PENSAMENTO ECONOMICO II",
     "turma": "P1",
-    "professor": "Filipe Pinheiro",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447928",
     "horarios": {
@@ -1859,13 +1874,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00067"
-    ]
+    ],
+    "nome_exibicao": "Filipe Pinheiro"
   },
   {
     "codigo": "SEN00081",
     "nome": "PENSAMENTO ECONOMICO IV",
     "turma": "A1",
-    "professor": "Marcelo Carcanholo",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447783",
     "horarios": {
@@ -1881,13 +1896,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00080"
-    ]
+    ],
+    "nome_exibicao": "Marcelo Carcanholo"
   },
   {
     "codigo": "SEN00081",
     "nome": "PENSAMENTO ECONOMICO IV",
     "turma": "P1",
-    "professor": "Emmanoel Boff",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447947",
     "horarios": {
@@ -1903,13 +1918,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00080"
-    ]
+    ],
+    "nome_exibicao": "Emmanoel Boff"
   },
   {
     "codigo": "SEN00080",
     "nome": "PENSAMENTO ECONÔMICO III",
     "turma": "A1",
-    "professor": "Andre Augusto",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447770",
     "horarios": {
@@ -1921,17 +1936,17 @@
       "sab": ""
     },
     "docente": "Andre Guimaraes Augusto",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Andre Augusto"
   },
   {
     "codigo": "SEN00080",
     "nome": "PENSAMENTO ECONÔMICO III",
     "turma": "P1",
-    "professor": "Ian Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447941",
     "horarios": {
@@ -1943,17 +1958,17 @@
       "sab": ""
     },
     "docente": "Ian José Horta Gois da Silva",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Ian Silva"
   },
   {
     "codigo": "STA00231",
     "nome": "PLANEJAMENTO E DECISÃO GOVERNAMENTAIS",
     "turma": "P1",
-    "professor": "Renato Miranda",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440949",
     "horarios": {
@@ -1967,13 +1982,13 @@
     "docente": "Renato Luis Pinto Miranda",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Renato Miranda"
   },
   {
     "codigo": "SEN00263",
     "nome": "POLÍTICA DE DEFESA DA CONCORRÊNCIA",
     "turma": "P1",
-    "professor": "Ruy Lima",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447989",
     "horarios": {
@@ -1987,13 +2002,13 @@
     "docente": "Ruy Afonso de Santacruz Lima",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Ruy Lima"
   },
   {
     "codigo": "SEN00184",
     "nome": "POLÍTICA FISCAL KEYNESIANA",
     "turma": "P1",
-    "professor": "Caio Vilella",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447960",
     "horarios": {
@@ -2007,13 +2022,13 @@
     "docente": "Caio Vinicius Fernandes Vilella",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Caio Vilella"
   },
   {
     "codigo": "STA00232",
     "nome": "POLÍTICAS PÚBLICAS: ELABORAÇÃO, EXECUÇÃO E AVALIAÇÃO",
     "turma": "P1",
-    "professor": "Andrea Ribeiro",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000440952",
     "horarios": {
@@ -2027,13 +2042,13 @@
     "docente": "Andrea Oliveira Ribeiro",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Andrea Ribeiro"
   },
   {
     "codigo": "SEN00143",
     "nome": "TEORIA DO COMERCIO INTERNACIONAL I",
     "turma": "P1",
-    "professor": "Tiago Barcelos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447978",
     "horarios": {
@@ -2049,13 +2064,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Tiago Barcelos"
   },
   {
     "codigo": "SEN00137",
     "nome": "TEORIA DOS JOGOS",
     "turma": "A1",
-    "professor": "Marcos Lyra",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447829",
     "horarios": {
@@ -2071,13 +2086,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Marcos Lyra"
   },
   {
     "codigo": "SEN00076",
     "nome": "TEORIA MACROECONOMICA I",
     "turma": "A1",
-    "professor": "Lucilene Morandi",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447748",
     "horarios": {
@@ -2091,13 +2106,13 @@
     "docente": "Lucilene Morandi",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Lucilene Morandi"
   },
   {
     "codigo": "SEN00076",
     "nome": "TEORIA MACROECONOMICA I",
     "turma": "P1",
-    "professor": "Leon Esquierro",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447922",
     "horarios": {
@@ -2111,13 +2126,13 @@
     "docente": "Leon Cardoso Esquierro",
     "periodo": 1,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Leon Esquierro"
   },
   {
     "codigo": "SEN00077",
     "nome": "TEORIA MACROECONOMICA II",
     "turma": "A1",
-    "professor": "Leonardo Muls",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447758",
     "horarios": {
@@ -2133,13 +2148,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00076"
-    ]
+    ],
+    "nome_exibicao": "Leonardo Muls"
   },
   {
     "codigo": "SEN00077",
     "nome": "TEORIA MACROECONOMICA II",
     "turma": "P1",
-    "professor": "Luciano Oliveira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447933",
     "horarios": {
@@ -2155,13 +2170,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00076"
-    ]
+    ],
+    "nome_exibicao": "Luciano Oliveira"
   },
   {
     "codigo": "SEN00078",
     "nome": "TEORIA MACROECONOMICA III",
     "turma": "A1",
-    "professor": "Helder Mendonca",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447766",
     "horarios": {
@@ -2173,17 +2188,17 @@
       "sab": ""
     },
     "docente": "Helder Ferreira de Mendonca",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00077"
-    ]
+    ],
+    "nome_exibicao": "Helder Mendonca"
   },
   {
     "codigo": "SEN00078",
     "nome": "TEORIA MACROECONOMICA III",
     "turma": "P1",
-    "professor": "Julio Bastos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447939",
     "horarios": {
@@ -2195,17 +2210,17 @@
       "sab": ""
     },
     "docente": "Julio Cesar Albuquerque Bastos",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00077"
-    ]
+    ],
+    "nome_exibicao": "Julio Bastos"
   },
   {
     "codigo": "SEN00079",
     "nome": "TEORIA MACROECONÔMICA IV",
     "turma": "A1",
-    "professor": "Lucas Póvoa",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447782",
     "horarios": {
@@ -2221,13 +2236,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00078"
-    ]
+    ],
+    "nome_exibicao": "Lucas Póvoa"
   },
   {
     "codigo": "SEN00079",
     "nome": "TEORIA MACROECONÔMICA IV",
     "turma": "P1",
-    "professor": "Gabriel Montes",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447943",
     "horarios": {
@@ -2243,13 +2258,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00078"
-    ]
+    ],
+    "nome_exibicao": "Gabriel Montes"
   },
   {
     "codigo": "SEN00073",
     "nome": "TEORIA MICROECONOMICA II",
     "turma": "A1",
-    "professor": "Welinton Ferreira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447764",
     "horarios": {
@@ -2261,17 +2276,17 @@
       "sab": ""
     },
     "docente": "Welinton Conte Ferreira",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00072"
-    ]
+    ],
+    "nome_exibicao": "Welinton Ferreira"
   },
   {
     "codigo": "SEN00073",
     "nome": "TEORIA MICROECONOMICA II",
     "turma": "P1",
-    "professor": "Marcos Lyra",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447938",
     "horarios": {
@@ -2283,17 +2298,17 @@
       "sab": ""
     },
     "docente": "Marcos Puccioni de Oliveira Lyra",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00072"
-    ]
+    ],
+    "nome_exibicao": "Marcos Lyra"
   },
   {
     "codigo": "SEN00074",
     "nome": "TEORIA MICROECONOMICA III",
     "turma": "A1",
-    "professor": "Niagara Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447780",
     "horarios": {
@@ -2309,13 +2324,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Niagara Silva"
   },
   {
     "codigo": "SEN00074",
     "nome": "TEORIA MICROECONOMICA III",
     "turma": "P1",
-    "professor": "Felipe Silva",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447942",
     "horarios": {
@@ -2331,13 +2346,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Felipe Silva"
   },
   {
     "codigo": "SEN00075",
     "nome": "TEORIA MICROECONOMICA IV",
     "turma": "A1",
-    "professor": "Tiago Barcelos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447792",
     "horarios": {
@@ -2353,13 +2368,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Tiago Barcelos"
   },
   {
     "codigo": "SEN00075",
     "nome": "TEORIA MICROECONOMICA IV",
     "turma": "P1",
-    "professor": "Jorge Britto",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447949",
     "horarios": {
@@ -2375,13 +2390,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00073"
-    ]
+    ],
+    "nome_exibicao": "Jorge Britto"
   },
   {
     "codigo": "SEN00072",
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "A1",
-    "professor": "Ana Ruiz",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447756",
     "horarios": {
@@ -2397,13 +2412,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Ana Ruiz"
   },
   {
     "codigo": "SEN00072",
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "A2",
-    "professor": "Sem professor alocado",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447757",
     "horarios": {
@@ -2418,13 +2433,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Sem professor alocado"
   },
   {
     "codigo": "SEN00072",
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "P1",
-    "professor": "Welinton Ferreira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447929",
     "horarios": {
@@ -2440,13 +2455,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Welinton Ferreira"
   },
   {
     "codigo": "SEN00072",
     "nome": "TEORIA MICROECONÔMICA I",
     "turma": "P2",
-    "professor": "Rosane Mendonca",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447930",
     "horarios": {
@@ -2462,13 +2477,13 @@
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00145"
-    ]
+    ],
+    "nome_exibicao": "Rosane Mendonca"
   },
   {
     "codigo": "SEN00119",
     "nome": "TEORIA MONETÁRIA",
     "turma": "A1",
-    "professor": "Lucas Póvoa",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447813",
     "horarios": {
@@ -2484,13 +2499,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00078"
-    ]
+    ],
+    "nome_exibicao": "Lucas Póvoa"
   },
   {
     "codigo": "SEN00114",
     "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO I",
     "turma": "A1",
-    "professor": "Andre Nassif",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447824",
     "horarios": {
@@ -2506,13 +2521,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00079"
-    ]
+    ],
+    "nome_exibicao": "Andre Nassif"
   },
   {
     "codigo": "SEN00115",
     "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO II",
     "turma": "P1",
-    "professor": "Fernando Mattos",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447975",
     "horarios": {
@@ -2526,13 +2541,13 @@
     "docente": "Fernando Augusto Mansor de Mattos",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Fernando Mattos"
   },
   {
     "codigo": "SEN00088",
     "nome": "TOP ESPEC EM ECONOMIA POLÍTICA I",
     "turma": "P1",
-    "professor": "Paulo Araujo",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447958",
     "horarios": {
@@ -2548,13 +2563,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Paulo Araujo"
   },
   {
     "codigo": "SEN00122",
     "nome": "TOPICOS ESPECIAIS EM ECONOMETRIA I",
     "turma": "A1",
-    "professor": "Luiz Fonseca",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447828",
     "horarios": {
@@ -2570,13 +2585,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00259"
-    ]
+    ],
+    "nome_exibicao": "Luiz Fonseca"
   },
   {
     "codigo": "GGE00168",
     "nome": "TOPICOS ESPECIAIS EM GEOGRAFIA URBANA",
     "turma": "A1",
-    "professor": "Leda Buonfiglio",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000449134",
     "horarios": {
@@ -2590,13 +2605,13 @@
     "docente": "Leda Velloso Buonfiglio",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Leda Buonfiglio"
   },
   {
     "codigo": "SEN00107",
     "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA I",
     "turma": "P1",
-    "professor": "Vinicius Pereira",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447981",
     "horarios": {
@@ -2612,13 +2627,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00079"
-    ]
+    ],
+    "nome_exibicao": "Vinicius Pereira"
   },
   {
     "codigo": "SEN00108",
     "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA II",
     "turma": "P1",
-    "professor": "Leon Esquierro",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447963",
     "horarios": {
@@ -2634,13 +2649,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00079"
-    ]
+    ],
+    "nome_exibicao": "Leon Esquierro"
   },
   {
     "codigo": "SGE00018",
     "nome": "TRABALHO DE CONCLUSAO DE CURSO",
     "turma": "AA",
-    "professor": "Javier Ghibaudi",
     "ch": 240,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450075",
     "horarios": {
@@ -2652,15 +2667,15 @@
       "sab": "11:00-18:00"
     },
     "docente": "Javier Walter Ghibaudi",
-    "periodo": null,
+    "periodo": 8,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Javier Ghibaudi"
   },
   {
     "codigo": "SGE00018",
     "nome": "TRABALHO DE CONCLUSAO DE CURSO",
     "turma": "AB",
-    "professor": "Javier Ghibaudi",
     "ch": 240,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000450076",
     "horarios": {
@@ -2672,15 +2687,15 @@
       "sab": ""
     },
     "docente": "Javier Walter Ghibaudi",
-    "periodo": null,
+    "periodo": 8,
     "tipo": "obrigatoria",
-    "prerequisitos": []
+    "prerequisitos": [],
+    "nome_exibicao": "Javier Ghibaudi"
   },
   {
     "codigo": "SEN00203",
     "nome": "TÓPICOS EM TEORIA MACROECONÔMICA E ANÁLISE EMPÍRICA",
     "turma": "A1",
-    "professor": "Gabriel Montes",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447798",
     "horarios": {
@@ -2696,13 +2711,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00079"
-    ]
+    ],
+    "nome_exibicao": "Gabriel Montes"
   },
   {
     "codigo": "SEN00154",
     "nome": "TÓPICOS ESPECIAIS DE ECONOM DO MEIO AMBIENTE",
     "turma": "A1",
-    "professor": "Claude Cohen",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447827",
     "horarios": {
@@ -2718,13 +2733,13 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00153"
-    ]
+    ],
+    "nome_exibicao": "Claude Cohen"
   },
   {
     "codigo": "SEN00090",
     "nome": "TÓPICOS ESPECIAIS EM ECONOMIA POLÍTICA III",
     "turma": "A1",
-    "professor": "Bianca Bonente",
     "ch": 60,
     "link": "https://app.uff.br/graduacao/quadrodehorarios/turmas/100000447830",
     "horarios": {
@@ -2740,6 +2755,7 @@
     "tipo": "optativa",
     "prerequisitos": [
       "SEN00068"
-    ]
+    ],
+    "nome_exibicao": "Bianca Bonente"
   }
 ]

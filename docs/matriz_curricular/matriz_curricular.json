@@ -103,7 +103,7 @@
   {
     "codigo": "GAN00147",
     "nome": "MATEMÁTICA PARA ECONOMIA III",
-    "periodo": 2,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00146"
@@ -112,7 +112,7 @@
   {
     "codigo": "SEN00073",
     "nome": "TEORIA MICROECONOMICA II",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00072"
@@ -121,7 +121,7 @@
   {
     "codigo": "SEN00078",
     "nome": "TEORIA MACROECONOMICA III",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00077"
@@ -130,7 +130,7 @@
   {
     "codigo": "SEN00080",
     "nome": "PENSAMENTO ECONÔMICO III",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00068"
@@ -139,7 +139,7 @@
   {
     "codigo": "SGE00013",
     "nome": "LABORATORIO DE MICROECONOMIA II",
-    "periodo": 4,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": []
   },
@@ -173,7 +173,7 @@
   {
     "codigo": "SEN00259",
     "nome": "ECONOMETRIA",
-    "periodo": 5,
+    "periodo": 4,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "GAN00147",
@@ -183,7 +183,7 @@
   {
     "codigo": "SGE00014",
     "nome": "LABORATORIO DE MICROECONOMIA III",
-    "periodo": 5,
+    "periodo": 4,
     "tipo": "obrigatoria",
     "prerequisitos": []
   },
@@ -215,7 +215,7 @@
   {
     "codigo": "SEN00261",
     "nome": "ECONOMIA BRASILEIRA II",
-    "periodo": 5,
+    "periodo": 6,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00260"
@@ -224,7 +224,7 @@
   {
     "codigo": "SEN00257",
     "nome": "METODOLOGIA E TÉCNICAS DE PESQUISA EM ECONOMIA I",
-    "periodo": null,
+    "periodo": 7,
     "tipo": "obrigatoria",
     "prerequisitos": [
       "SEN00074",
@@ -237,7 +237,7 @@
   {
     "codigo": "SGE00018",
     "nome": "TRABALHO DE CONCLUSAO DE CURSO",
-    "periodo": null,
+    "periodo": 8,
     "tipo": "obrigatoria",
     "prerequisitos": []
   },

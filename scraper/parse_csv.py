@@ -1,5 +1,5 @@
 """
-parse_csv.py — converte CSV para web/data/materias.json
+parse_csv.py — converte CSV para web/data/db_disciplinas.json
 seguindo o contrato de dados definido em CLAUDE.md.
 """
 
@@ -17,7 +17,7 @@ def parse_row(row: dict) -> dict:
         "codigo": row["Código"].strip(),
         "nome": row["Nome"].strip(),
         "turma": row["Turma"].strip(),
-        "professor": row.get("Professor", "").strip(),
+        "nome_exibicao": row.get("Professor", "").strip(),
         "ch": None,
         "link": row.get("Link para disciplina", "").strip(),
         "horarios": horarios,
@@ -32,7 +32,7 @@ def run(csv_path=None, out_path=None):
         csv_path = pathlib.Path(csv_path)
 
     if out_path is None:
-        out_path = ROOT / "web" / "data" / "materias.json"
+        out_path = ROOT / "web" / "data" / "db_disciplinas.json"
     else:
         out_path = pathlib.Path(out_path)
 

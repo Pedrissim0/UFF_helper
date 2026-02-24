@@ -6,7 +6,7 @@ export interface Materia {
   codigo: string;
   nome: string;
   turma: string;
-  professor: string;
+  nome_exibicao: string;
   ch: number | null;
   link: string;
   horarios: {
@@ -23,7 +23,7 @@ export interface Materia {
 }
 
 export default function Home() {
-  const filePath = path.join(process.cwd(), "data", "materias.json");
+  const filePath = path.join(process.cwd(), "data", "db_disciplinas.json");
   const materias: Materia[] = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
   return <GradeHoraria materias={materias} />;

@@ -13,13 +13,13 @@ ROOT = pathlib.Path(__file__).parent.parent
 
 def _write_amostra_csv():
     """Gera docs/amostra.csv a partir do JSON final, com CH_total e sem Modulo/Tipo."""
-    json_path = ROOT / "web" / "data" / "materias.json"
+    json_path = ROOT / "web" / "data" / "db_disciplinas.json"
     out_path = ROOT / "docs" / "amostra.csv"
 
     with json_path.open(encoding="utf-8") as f:
         materias = json.load(f)
 
-    headers = ["Codigo", "Nome", "Turma", "Professor", "CH_total",
+    headers = ["Codigo", "Nome", "Turma", "Nome_exibicao", "CH_total",
                "Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Link"]
 
     with out_path.open("w", newline="", encoding="utf-8-sig") as f:
@@ -31,7 +31,7 @@ def _write_amostra_csv():
                 m.get("codigo", ""),
                 m.get("nome", ""),
                 m.get("turma", ""),
-                m.get("professor", ""),
+                m.get("nome_exibicao", ""),
                 m.get("ch", ""),
                 h.get("seg", ""),
                 h.get("ter", ""),
@@ -199,7 +199,7 @@ def main():
         
         browser.close()
 
-        print("\n[->] Convertendo CSV de resultados para matérias aglomeradas no materias.json...")
+        print("\n[->] Convertendo CSV de resultados para matérias aglomeradas no db_disciplinas.json...")
         parse_csv.run(csv_path=csv_filename)
 
         import scrape_ch
@@ -211,7 +211,7 @@ def main():
         parse_matriz.run()
 
         import enrich_materias
-        print("\n[->] Enriquecendo materias.json com dados da matriz...")
+        print("\n[->] Enriquecendo db_disciplinas.json com dados da matriz...")
         enrich_materias.run()
 
         print("\n[OK] Gerando docs/amostra.csv final para validação...")

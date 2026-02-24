@@ -73,6 +73,8 @@ export default function GradeHoraria({ materias }: Props) {
   const [diasFiltro, setDiasFiltro] = useState<Set<Dia>>(new Set());
   const [turnosFiltro, setTurnosFiltro] = useState<Set<Turno>>(new Set());
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
+  const [periodosFiltro, setPeriodosFiltro] = useState<Set<string>>(new Set());
+  const [tipoFiltro, setTipoFiltro] = useState<"obrigatoria" | "optativa" | null>(null);
   const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('center');
   const [widgetWidth, setWidgetWidth] = useState(500);
   const [copiado, setCopiado] = useState(false);
@@ -159,7 +161,13 @@ export default function GradeHoraria({ materias }: Props) {
       .map(([depto, count]) => ({ depto, count }));
   }, [materias]);
 
-  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size;
+  const periodos = useMemo(() => {
+    const s = new Set<number>();
+    materias.forEach((m) => { if (m.periodo !== null) s.add(m.periodo); });
+    return Array.from(s).sort((a, b) => a - b);
+  }, [materias]);
+
+  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + periodosFiltro.size + (tipoFiltro ? 1 : 0);
 
   const filtradas = useMemo(() => {
     let result = materias;
@@ -171,7 +179,7 @@ export default function GradeHoraria({ materias }: Props) {
           m.nome.toLowerCase().includes(q) ||
           m.codigo.toLowerCase().includes(q) ||
           m.turma.toLowerCase().includes(q) ||
-          m.professor.toLowerCase().includes(q)
+          m.nome_exibicao.toLowerCase().includes(q)
       );
     }
 
@@ -201,25 +209,37 @@ export default function GradeHoraria({ materias }: Props) {
       });
     }
 
-    return result;
-  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro]);
+    if (periodosFiltro.size > 0) {
+      result = result.filter((m) => {
+        const key = m.periodo !== null ? String(m.periodo) : "np";
+        return periodosFiltro.has(key);
+      });
+    }
 
-  // Agrupa materias filtradas por periodo
+    if (tipoFiltro) {
+      result = result.filter((m) => m.tipo === tipoFiltro);
+    }
+
+    return result;
+  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, periodosFiltro, tipoFiltro]);
+
+  // Agrupa materias filtradas por periodo (chave composta)
   const periodoGroups = useMemo(() => {
-    const groups: Map<number | null, Materia[]> = new Map();
+    const groups: Map<string, Materia[]> = new Map();
     filtradas.forEach((m) => {
-      const key = m.periodo;
+      const key = m.periodo !== null
+        ? String(m.periodo)
+        : m.tipo === "obrigatoria" ? "obrig-np" : "optativas";
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key)!.push(m);
     });
     return Array.from(groups.entries())
       .sort(([a], [b]) => {
-        if (a === null && b === null) return 0;
-        if (a === null) return 1;
-        if (b === null) return -1;
-        return a - b;
+        const order = (k: string) =>
+          k.match(/^\d+$/) ? parseInt(k) : k === "obrig-np" ? 9998 : 9999;
+        return order(a) - order(b);
       })
-      .map(([periodo, materias]) => ({ periodo, materias }));
+      .map(([key, materias]) => ({ key, materias }));
   }, [filtradas]);
 
   function isSelecionada(m: Materia) {
@@ -327,6 +347,45 @@ export default function GradeHoraria({ materias }: Props) {
           </div>
 
           <div className={styles.filtroGrupo}>
+            <span className={styles.filtroLabel}>Período</span>
+            <div className={styles.filtroChips}>
+              {periodos.map((p) => (
+                <button
+                  key={p}
+                  className={`${styles.filtroChip} ${periodosFiltro.has(String(p)) ? styles.filtroChipAtivo : ""}`}
+                  onClick={() => setPeriodosFiltro((prev) => toggleSet(prev, String(p)))}
+                >
+                  {p}°
+                </button>
+              ))}
+              <button
+                className={`${styles.filtroChip} ${periodosFiltro.has("np") ? styles.filtroChipAtivo : ""}`}
+                onClick={() => setPeriodosFiltro((prev) => toggleSet(prev, "np"))}
+              >
+                S/ período
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.filtroGrupo}>
+            <span className={styles.filtroLabel}>Tipo</span>
+            <div className={styles.filtroChips}>
+              <button
+                className={`${styles.filtroChip} ${tipoFiltro === "obrigatoria" ? styles.filtroChipAtivo : ""}`}
+                onClick={() => setTipoFiltro((prev) => prev === "obrigatoria" ? null : "obrigatoria")}
+              >
+                Obrigatória
+              </button>
+              <button
+                className={`${styles.filtroChip} ${tipoFiltro === "optativa" ? styles.filtroChipAtivo : ""}`}
+                onClick={() => setTipoFiltro((prev) => prev === "optativa" ? null : "optativa")}
+              >
+                Optativa
+              </button>
+            </div>
+          </div>
+
+          <div className={styles.filtroGrupo}>
             <span className={styles.filtroLabel}>Depto</span>
             <div className={styles.filtroChips}>
               {departamentos.map(({ depto, count }) => (
@@ -355,10 +414,10 @@ export default function GradeHoraria({ materias }: Props) {
         </div>
 
         <ul className={styles.lista}>
-          {periodoGroups.map(({ periodo, materias }) => (
-            <React.Fragment key={periodo ?? "sem"}>
+          {periodoGroups.map(({ key: gKey, materias }) => (
+            <React.Fragment key={gKey}>
               <li className={styles.periodSeparator}>
-                {periodo ? `${periodo}° Período` : "Optativas"}
+                {gKey.match(/^\d+$/) ? `${gKey}° Período` : gKey === "obrig-np" ? "Obrigatórias — Sem Período" : "Optativas"}
               </li>
               {materias.map((m) => {
             const key = `${m.codigo}-${m.turma}`;
@@ -385,20 +444,12 @@ export default function GradeHoraria({ materias }: Props) {
                     <span className={styles.itemNome}>
                       {m.nome}
                     </span>
-                    <span
-                      className={`${styles.tipoBadge} ${
-                        m.tipo === "obrigatoria"
-                          ? styles.tipoBadgeObrigatoria
-                          : styles.tipoBadgeOptativa
-                      }`}
-                    >
-                      {m.tipo === "obrigatoria" ? "Obrig." : "Opt."}
-                    </span>
-                    {m.professor && (
-                      <span className={styles.profTag}>Prof. {m.professor}</span>
+                    {m.nome_exibicao && (
+                      <span className={styles.profTag}>Prof. {m.nome_exibicao}</span>
                     )}
                   </div>
-                  <div className={styles.itemMeta}>
+                  <div className={styles.itemMetaWrapper}>
+                    <div className={styles.itemMeta}>
                     <div className={styles.metaRow}>
                       <span className={styles.metaKey}>Cód.</span>
                       <span>{m.codigo}</span>
@@ -417,6 +468,10 @@ export default function GradeHoraria({ materias }: Props) {
                         <span>{m.horarios[d]}</span>
                       </div>
                     ))}
+                  </div>
+                  <span className={styles.tipoBadge}>
+                    {m.tipo === "obrigatoria" ? "Obrigatória" : "Optativa"}
+                  </span>
                   </div>
                   {m.link && (
                     <a
@@ -592,8 +647,8 @@ export default function GradeHoraria({ materias }: Props) {
                             <div className={styles.blocoNome}>
                               {showLegenda ? m.nome.split(" ").slice(0, 3).join(" ") : m.nome}
                             </div>
-                            {!showLegenda && m.professor && (
-                              <div className={styles.blocoProf}>{m.professor}</div>
+                            {!showLegenda && m.nome_exibicao && (
+                              <div className={styles.blocoProf}>{m.nome_exibicao}</div>
                             )}
                             <div className={styles.blocoTurma}>T. {m.turma}</div>
                           </div>
@@ -615,7 +670,7 @@ export default function GradeHoraria({ materias }: Props) {
                       <div className={styles.legendaCor} style={{ background: color }} />
                       <div className={styles.legendaTexto}>
                         <span className={styles.legendaNome} style={{ color }}>{m.nome}</span>
-                        <span className={styles.legendaProf}>{m.professor}</span>
+                        <span className={styles.legendaProf}>{m.nome_exibicao}</span>
                       </div>
                     </div>
                   );
