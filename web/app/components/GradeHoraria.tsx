@@ -76,14 +76,17 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
   const [periodosFiltro, setPeriodosFiltro] = useState<Set<string>>(new Set());
   const [tipoFiltro, setTipoFiltro] = useState<"obrigatoria" | "optativa" | null>(null);
-  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('center');
+  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('right');
   const [widgetWidth, setWidgetWidth] = useState(500);
   const [copiado, setCopiado] = useState(false);
   const [legendaVisivel, setLegendaVisivel] = useState(true);
   const [tema, setTema] = useState<'light' | 'dark'>('light');
   const resizingRef = useRef(false);
+  const peekTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [isMobile, setIsMobile] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [widgetPeeking, setWidgetPeeking] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('tema') as 'light' | 'dark' | null;
@@ -109,6 +112,44 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  useEffect(() => {
+    const onScroll = () => setShowScrollTop(window.scrollY > 300);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('selected-courses');
+      if (saved) {
+        const parsed = JSON.parse(saved) as Array<{ codigo: string; turma: string }>;
+        const restored = materias.filter((m) =>
+          parsed.some((p) => p.codigo === m.codigo && p.turma === m.turma)
+        );
+        if (restored.length > 0) setSelecionadas(restored);
+      }
+    } catch {
+      // localStorage unavailable or data corrupted — default to empty selection
+    }
+  }, [materias]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(
+        'selected-courses',
+        JSON.stringify(selecionadas.map((m) => ({ codigo: m.codigo, turma: m.turma })))
+      );
+    } catch {
+      // localStorage unavailable
+    }
+  }, [selecionadas]);
+
+  useEffect(() => {
+    return () => {
+      if (peekTimeoutRef.current) clearTimeout(peekTimeoutRef.current);
+    };
+  }, []);
+
   const isLateral = widgetPos === 'left' || widgetPos === 'right';
   const showLegenda = legendaVisivel && selecionadas.length > 0;
 
@@ -119,7 +160,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
         .map((d) => `${d}: ${m.horarios[d]}`)
         .join(", ");
       return `${m.codigo} - ${m.nome} - Turma ${m.turma} - ${horarios}`;
-    }).join("\n");
+    }).join("\n\n");
     navigator.clipboard.writeText(text);
     setCopiado(true);
     setTimeout(() => setCopiado(false), 2000);
@@ -286,6 +327,11 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
       );
     } else {
       setSelecionadas((prev) => [...prev, m]);
+    }
+    if (isLateral && !gradeAberta) {
+      if (peekTimeoutRef.current) clearTimeout(peekTimeoutRef.current);
+      setWidgetPeeking(true);
+      peekTimeoutRef.current = setTimeout(() => setWidgetPeeking(false), 1500);
     }
   }
 
@@ -549,7 +595,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
 
       {/* Floating grade widget */}
       <div
-        className={`${styles.widget} ${widgetPosClass} ${!expanded ? styles.widgetCollapsed : styles.widgetExpanded}`}
+        className={`${styles.widget} ${widgetPosClass} ${!expanded ? styles.widgetCollapsed : styles.widgetExpanded}${widgetPeeking && !expanded ? ` ${styles.widgetPeeking}` : ''}`}
         style={isLateral ? { width: widgetWidth } : undefined}
       >
         {/* Resize handle for lateral mode */}
@@ -734,6 +780,21 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
           </div>
         </div>
       </div>
+
+      {/* Scroll-to-top button */}
+      {showScrollTop && (
+        <button
+          className={styles.scrollTopBtn}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Voltar ao topo"
+          title="Voltar ao topo"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="17 11 12 6 7 11" />
+            <polyline points="17 18 12 13 7 18" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

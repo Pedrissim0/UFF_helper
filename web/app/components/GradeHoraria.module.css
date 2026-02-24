@@ -762,6 +762,49 @@
   opacity: 0.7;
 }
 
+/* ── Widget peek on discipline selection ─────── */
+.widget_right.widgetCollapsed.widgetPeeking {
+  transform: translateX(calc(100% - 120px));
+  box-shadow: -4px 4px 24px var(--shadow-widget-lateral);
+}
+
+.widget_left.widgetCollapsed.widgetPeeking {
+  transform: translateX(calc(-100% + 120px));
+  box-shadow: 4px 4px 24px var(--shadow-widget-lateral);
+}
+
+/* ── Scroll-to-top button ──────────────────────── */
+.scrollTopBtn {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 60;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-medium);
+  background: color-mix(in srgb, var(--bg-card) 80%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px var(--shadow-widget);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.scrollTopBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow-widget-hover);
+  background: color-mix(in srgb, var(--bg-card) 95%, transparent);
+}
+
+.scrollTopBtn:active {
+  transform: translateY(0);
+}
+
 /* ── Print ─────────────────────────────────────── */
 @media print {
   .header, .content, .handle, .resizeHandle {
@@ -945,5 +988,17 @@
   .gradeContentExpanded {
     max-height: calc(60vh - 44px);
     overflow-y: auto;
+  }
+
+  .scrollTopBtn {
+    bottom: 56px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .widget_right.widgetCollapsed.widgetPeeking,
+  .widget_left.widgetCollapsed.widgetPeeking {
+    transform: none !important;
   }
 }
