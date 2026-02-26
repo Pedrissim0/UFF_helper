@@ -41,7 +41,7 @@ Todo dado de matéria deve seguir este schema:
 - Nenhum dado pessoal de aluno é enviado para servidor — tudo processado no client
 
 ## Arquivos Importantes
-- /docs/amostra.csv     → amostra real dos dados da universidade
+- /docs/grade_horarios.csv → amostra real dos dados da universidade
 - /web/data/db_disciplinas.json → dados no formato do contrato acima
 
 ## Status do MVP

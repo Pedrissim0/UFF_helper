@@ -12,9 +12,9 @@ import parse_csv
 ROOT = pathlib.Path(__file__).parent.parent
 
 def _write_amostra_csv():
-    """Gera docs/amostra.csv a partir do JSON final, com CH_total e sem Modulo/Tipo."""
+    """Gera docs/grade_horarios.csv a partir do JSON final, com CH_total e sem Modulo/Tipo."""
     json_path = ROOT / "web" / "data" / "db_disciplinas.json"
-    out_path = ROOT / "docs" / "amostra.csv"
+    out_path = ROOT / "docs" / "grade_horarios.csv"
 
     with json_path.open(encoding="utf-8") as f:
         materias = json.load(f)
@@ -214,7 +214,7 @@ def main():
         print("\n[->] Enriquecendo db_disciplinas.json com dados da matriz...")
         enrich_materias.run()
 
-        print("\n[OK] Gerando docs/amostra.csv final para validação...")
+        print("\n[OK] Gerando docs/grade_horarios.csv final para validação...")
         _write_amostra_csv()
         print("Pipeline otimizado concluído com sucesso! [OK]")
 

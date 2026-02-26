@@ -1001,4 +1001,198 @@
   .widget_left.widgetCollapsed.widgetPeeking {
     transform: none !important;
   }
+
+  .toast {
+    bottom: 60px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+    text-align: center;
+    animation: toastFadeMobile 2s ease forwards;
+  }
+}
+
+@keyframes toastFadeMobile {
+  0% { opacity: 0; transform: translateY(8px); }
+  10% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+/* ── Professor wrapper + tooltip ─────────────── */
+.profWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profTooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  padding: 8px 10px;
+  min-width: 200px;
+  max-width: 260px;
+  box-shadow: 0 4px 14px var(--shadow-widget);
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s, visibility 0.15s;
+  pointer-events: none;
+}
+
+.profWrapper:hover .profTooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 450ms;
+}
+
+.tooltipRow {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  line-height: 1.5;
+}
+
+.tooltipLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-placeholder);
+  min-width: 36px;
+  flex-shrink: 0;
+}
+
+.tooltipValue {
+  font-size: 11px;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.tooltipEmail {
+  font-size: 11px;
+  color: var(--accent);
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.tooltipEmailCta {
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.tooltipEmailCta:hover {
+  color: var(--accent);
+}
+
+.tooltipEmailNone {
+  font-size: 11px;
+  color: var(--text-placeholder);
+}
+
+/* ── Modal de email ───────────────────────────── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(2px);
+}
+
+.modalBox {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 10px;
+  padding: 24px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.modalProf {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modalInput {
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.modalInput:focus {
+  border-color: var(--accent);
+}
+
+.modalError {
+  font-size: 11px;
+  color: #ef4444;
+  margin: -4px 0;
+}
+
+.modalSubmitBtn {
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+}
+
+.modalSubmitBtn:hover {
+  opacity: 0.85;
+}
+
+.modalSubmitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Toast ────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  animation: toastFade 2s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes toastFade {
+  0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-8px); }
 }

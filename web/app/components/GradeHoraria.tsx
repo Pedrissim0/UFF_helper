@@ -64,9 +64,10 @@ function toPercent(min: number) {
 interface Props {
   materias: Materia[];
   nomeCompletoMap?: Record<string, string>;
+  professorEmailMap?: Record<string, string>;
 }
 
-export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) {
+export default function GradeHoraria({ materias, nomeCompletoMap = {}, professorEmailMap = {} }: Props) {
   const [busca, setBusca] = useState("");
   const [selecionadas, setSelecionadas] = useState<Materia[]>([]);
   const [gradeAberta, setGradeAberta] = useState(false);
@@ -78,7 +79,6 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
   const [tipoFiltro, setTipoFiltro] = useState<"obrigatoria" | "optativa" | null>(null);
   const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('right');
   const [widgetWidth, setWidgetWidth] = useState(500);
-  const [copiado, setCopiado] = useState(false);
   const [legendaVisivel, setLegendaVisivel] = useState(true);
   const [tema, setTema] = useState<'light' | 'dark'>('light');
   const resizingRef = useRef(false);
@@ -87,6 +87,17 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
   const [isMobile, setIsMobile] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [widgetPeeking, setWidgetPeeking] = useState(false);
+
+  // Toast
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Email crowdsourcing
+  const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
+  const [emailModal, setEmailModal] = useState<{ displayName: string; docente: string } | null>(null);
+  const [modalEmail, setModalEmail] = useState("");
+  const [modalSubmitting, setModalSubmitting] = useState(false);
+  const [modalError, setModalError] = useState("");
 
   useEffect(() => {
     const saved = localStorage.getItem('tema') as 'light' | 'dark' | null;
@@ -104,6 +115,59 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
       return next;
     });
   }, []);
+
+  const showToast = useCallback((msg: string) => {
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    setToastMsg(msg);
+    toastTimeoutRef.current = setTimeout(() => setToastMsg(null), 2000);
+  }, []);
+
+  const openEmailModal = useCallback((displayName: string, docente: string) => {
+    setEmailModal({ displayName, docente });
+    setModalEmail("");
+    setModalError("");
+  }, []);
+
+  const closeEmailModal = useCallback(() => {
+    setEmailModal(null);
+    setModalEmail("");
+    setModalError("");
+    setModalSubmitting(false);
+  }, []);
+
+  const handleModalSubmit = useCallback(async () => {
+    if (!emailModal) return;
+    const emailValue = modalEmail.trim().toLowerCase();
+
+    if (!emailValue || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+      setModalError("Email inválido.");
+      return;
+    }
+
+    setModalSubmitting(true);
+    setModalError("");
+
+    try {
+      const res = await fetch("/api/email-submission", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ professorName: emailModal.docente, email: emailValue }),
+      });
+
+      if (res.ok) {
+        setEmailSubmitted(prev => ({ ...prev, [emailModal.displayName]: true }));
+        closeEmailModal();
+        showToast("Obrigado. Sua sugestão foi registrada.");
+      } else {
+        const data = await res.json();
+        setModalError(data.error || "Erro ao enviar.");
+      }
+    } catch {
+      setModalError("Erro de conexão.");
+    } finally {
+      setModalSubmitting(false);
+    }
+  }, [emailModal, modalEmail, closeEmailModal, showToast]);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 640);
@@ -159,12 +223,16 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
         .filter((d) => m.horarios[d])
         .map((d) => `${d}: ${m.horarios[d]}`)
         .join(", ");
-      return `${m.codigo} - ${m.nome} - Turma ${m.turma} - ${horarios}`;
+      const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
+      const email = professorEmailMap[docente];
+      const profLine = email
+        ? `Prof: ${docente} | Email: ${email}`
+        : `Prof: ${docente}`;
+      return `${m.codigo} - ${m.nome} - Turma ${m.turma} - ${profLine} - ${horarios}`;
     }).join("\n\n");
     navigator.clipboard.writeText(text);
-    setCopiado(true);
-    setTimeout(() => setCopiado(false), 2000);
-  }, [selecionadas]);
+    showToast("Copiado!");
+  }, [selecionadas, nomeCompletoMap, professorEmailMap, showToast]);
 
   const handleExportarPDF = useCallback(() => {
     window.print();
@@ -535,18 +603,55 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
                     <span className={styles.itemNome}>
                       {m.nome}
                     </span>
-                    {m.nome_exibicao && (
-                      <span
-                        className={styles.profTag}
-                        title={nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigator.clipboard.writeText(nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao);
-                        }}
-                      >
-                        Prof. {m.nome_exibicao}
-                      </span>
-                    )}
+                    {m.nome_exibicao && (() => {
+                      const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
+                      const confirmedEmail = professorEmailMap[docente];
+                      const isProfAllocated = docente !== "Sem professor alocado";
+                      const alreadySubmitted = emailSubmitted[m.nome_exibicao];
+
+                      return (
+                        <div className={styles.profWrapper} onClick={(e) => e.stopPropagation()}>
+                          <span
+                            className={styles.profTag}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              const copyText = confirmedEmail
+                                ? `Professor: ${docente} | Email: ${confirmedEmail}`
+                                : docente;
+                              navigator.clipboard.writeText(copyText);
+                              showToast("Copiado!");
+                            }}
+                          >
+                            Prof. {m.nome_exibicao}
+                          </span>
+
+                          <div className={styles.profTooltip}>
+                            <div className={styles.tooltipRow}>
+                              <span className={styles.tooltipLabel}>Nome</span>
+                              <span className={styles.tooltipValue}>{docente}</span>
+                            </div>
+                            <div className={styles.tooltipRow}>
+                              <span className={styles.tooltipLabel}>Email</span>
+                              {confirmedEmail ? (
+                                <span className={styles.tooltipEmail}>{confirmedEmail}</span>
+                              ) : isProfAllocated ? (
+                                <span
+                                  className={styles.tooltipEmailCta}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (!alreadySubmitted) openEmailModal(m.nome_exibicao, docente);
+                                  }}
+                                >
+                                  {alreadySubmitted ? "Sugestão registrada" : "você sabe o email? Digite aqui"}
+                                </span>
+                              ) : (
+                                <span className={styles.tooltipEmailNone}>—</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
                   </div>
                   <div className={styles.itemMetaWrapper}>
                     <div className={styles.itemMeta}>
@@ -640,7 +745,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
                 aria-label="Copiar grade"
                 title="Copiar grade"
               >
-                {copiado ? (
+                {toastMsg === "Copiado!" ? (
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
@@ -794,6 +899,45 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {} }: Props) 
             <polyline points="17 18 12 13 7 18" />
           </svg>
         </button>
+      )}
+
+      {/* Modal de sugestão de email */}
+      {emailModal && (
+        <div
+          className={styles.modalOverlay}
+          onClick={closeEmailModal}
+          onKeyDown={(e) => e.key === "Escape" && closeEmailModal()}
+        >
+          <div
+            className={styles.modalBox}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <p className={styles.modalProf}>{emailModal.docente}</p>
+            <input
+              className={styles.modalInput}
+              type="email"
+              placeholder="email@exemplo.com"
+              value={modalEmail}
+              autoFocus
+              onChange={(e) => setModalEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleModalSubmit()}
+            />
+            {modalError && <p className={styles.modalError}>{modalError}</p>}
+            <button
+              className={styles.modalSubmitBtn}
+              onClick={handleModalSubmit}
+              disabled={modalSubmitting}
+            >
+              {modalSubmitting ? "Enviando..." : "Enviar sugestão"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {toastMsg && (
+        <div key={toastMsg + Date.now()} className={styles.toast}>
+          {toastMsg}
+        </div>
       )}
     </div>
   );

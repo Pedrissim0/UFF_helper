@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import GradeHoraria from "./components/GradeHoraria";
+import { supabase } from "@/lib/supabase";
 
 export interface Materia {
   codigo: string;
@@ -28,20 +29,24 @@ interface ApelidoEntry {
   apelido: string | null;
 }
 
-export default function Home() {
-  const filePath = path.join(process.cwd(), "data", "db_disciplinas.json");
-  const materias: Materia[] = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+export default async function Home() {
+  const { data, error } = await supabase
+    .from("disciplinas")
+    .select("*")
+    .order("nome");
+
+  if (error) throw new Error(`Supabase: ${error.message}`);
+
+  const materias = data as Materia[];
 
   const apelidosPath = path.join(process.cwd(), "data", "nomes_professores.json");
   const apelidosList: ApelidoEntry[] = JSON.parse(fs.readFileSync(apelidosPath, "utf-8"));
   const apelidosMap = new Map<string, string>();
   const nomeCompletoMap: Record<string, string> = {};
   for (const entry of apelidosList) {
-    // Map nome_exibicao -> docente (full name) for all professors
     nomeCompletoMap[entry.nome_exibicao] = entry.docente;
     if (entry.apelido) {
       apelidosMap.set(entry.nome_exibicao, entry.apelido);
-      // Also map apelido -> docente (full name)
       nomeCompletoMap[entry.apelido] = entry.docente;
     }
   }
@@ -53,5 +58,25 @@ export default function Home() {
     }
   }
 
-  return <GradeHoraria materias={materias} nomeCompletoMap={nomeCompletoMap} />;
+  // Emails confirmados de professores
+  const { data: profData } = await supabase
+    .from("professors")
+    .select("name, email");
+
+  const professorEmailMap: Record<string, string> = {};
+  if (profData) {
+    for (const prof of profData) {
+      if (prof.email) {
+        professorEmailMap[prof.name] = prof.email;
+      }
+    }
+  }
+
+  return (
+    <GradeHoraria
+      materias={materias}
+      nomeCompletoMap={nomeCompletoMap}
+      professorEmailMap={professorEmailMap}
+    />
+  );
 }
