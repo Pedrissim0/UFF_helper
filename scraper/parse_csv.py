@@ -27,7 +27,7 @@ def parse_row(row: dict) -> dict:
 def run(csv_path=None, out_path=None):
     """Converte CSV em JSON. Se paths não forem fornecidos, usa defaults."""
     if csv_path is None:
-        csv_path = ROOT / "docs" / "amostra.csv"
+        csv_path = ROOT / "docs" / "grade_horarios.csv"
     else:
         csv_path = pathlib.Path(csv_path)
 
