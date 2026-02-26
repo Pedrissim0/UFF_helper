@@ -1047,7 +1047,7 @@
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition-delay: 450ms;
+  transition-delay: 700ms;
 }
 
 .tooltipRow {

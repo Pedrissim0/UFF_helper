@@ -3,6 +3,8 @@ import path from "path";
 import GradeHoraria from "./components/GradeHoraria";
 import { supabase } from "@/lib/supabase";
 
+export const dynamic = "force-dynamic";
+
 export interface Materia {
   codigo: string;
   nome: string;
