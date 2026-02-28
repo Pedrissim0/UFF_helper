@@ -23,6 +23,7 @@ export interface Materia {
   periodo: number | null;
   tipo: "obrigatoria" | "optativa";
   prerequisitos: string[];
+  corequisitos?: string[];
 }
 
 interface ApelidoEntry {

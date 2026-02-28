@@ -1,2333 +1,2869 @@
-[
-  {
-    "codigo": "GAN00145",
-    "nome": "MATEMÁTICA PARA ECONOMIA I",
-    "periodo": 1,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "GHT00313",
-    "nome": "HISTORIA ECONOMICA GERAL I",
-    "periodo": 1,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00067",
-    "nome": "PENSAMENTO ECONOMICO I",
-    "periodo": 1,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00076",
-    "nome": "TEORIA MACROECONOMICA I",
-    "periodo": 1,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00245",
-    "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
-    "periodo": 1,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00026",
-    "nome": "LABORATÓRIO DE MACROECONOMIA I",
-    "periodo": 1,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "GAN00146",
-    "nome": "MATEMÁTICA PARA ECONOMIA II",
-    "periodo": 2,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "GAN00145"
-    ]
-  },
-  {
-    "codigo": "GET00117",
-    "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
-    "periodo": 2,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "GAN00145"
-    ]
-  },
-  {
-    "codigo": "SEN00068",
-    "nome": "PENSAMENTO ECONOMICO II",
-    "periodo": 2,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00067"
-    ]
-  },
-  {
-    "codigo": "SEN00072",
-    "nome": "TEORIA MICROECONÔMICA I",
-    "periodo": 2,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "GAN00145"
-    ]
-  },
-  {
-    "codigo": "SEN00077",
-    "nome": "TEORIA MACROECONOMICA II",
-    "periodo": 2,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00076"
-    ]
-  },
-  {
-    "codigo": "SGE00012",
-    "nome": "LABORATORIO DE MICROECONOMIA I",
-    "periodo": 2,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00015",
-    "nome": "LABORATORIO DE MACROECONOMIA II",
-    "periodo": 2,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "GAN00147",
-    "nome": "MATEMÁTICA PARA ECONOMIA III",
-    "periodo": 3,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "GAN00146"
-    ]
-  },
-  {
-    "codigo": "SEN00073",
-    "nome": "TEORIA MICROECONOMICA II",
-    "periodo": 3,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00072"
-    ]
-  },
-  {
-    "codigo": "SEN00078",
-    "nome": "TEORIA MACROECONOMICA III",
-    "periodo": 3,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00080",
-    "nome": "PENSAMENTO ECONÔMICO III",
-    "periodo": 3,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SGE00013",
-    "nome": "LABORATORIO DE MICROECONOMIA II",
-    "periodo": 3,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00074",
-    "nome": "TEORIA MICROECONOMICA III",
-    "periodo": 4,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00079",
-    "nome": "TEORIA MACROECONÔMICA IV",
-    "periodo": 4,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00081",
-    "nome": "PENSAMENTO ECONOMICO IV",
-    "periodo": 4,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00080"
-    ]
-  },
-  {
-    "codigo": "SEN00259",
-    "nome": "ECONOMETRIA",
-    "periodo": 4,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "GAN00147",
-      "GET00118"
-    ]
-  },
-  {
-    "codigo": "SGE00014",
-    "nome": "LABORATORIO DE MICROECONOMIA III",
-    "periodo": 4,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00075",
-    "nome": "TEORIA MICROECONOMICA IV",
-    "periodo": 5,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00258",
-    "nome": "ECONOMIA FINANCEIRA",
-    "periodo": 5,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00260",
-    "nome": "ECONOMIA BRASILEIRA I",
-    "periodo": 5,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00256"
-    ]
-  },
-  {
-    "codigo": "SEN00261",
-    "nome": "ECONOMIA BRASILEIRA II",
-    "periodo": 6,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00260"
-    ]
-  },
-  {
-    "codigo": "SEN00257",
-    "nome": "METODOLOGIA E TÉCNICAS DE PESQUISA EM ECONOMIA I",
-    "periodo": 7,
-    "tipo": "obrigatoria",
-    "prerequisitos": [
-      "SEN00074",
-      "SEN00079",
-      "SEN00081",
-      "SEN00259",
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SGE00018",
-    "nome": "TRABALHO DE CONCLUSAO DE CURSO",
-    "periodo": 8,
-    "tipo": "obrigatoria",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "GAP00112",
-    "nome": "ANTROPOLOGIA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GAP00126",
-    "nome": "PENSAMENTO SOCIAL BRASILEIRO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GAP00142",
-    "nome": "ANTROPOLOGIA ECONÔMICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GAP00143",
-    "nome": "ANTROPOLOGIA URBANA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GAP00144",
-    "nome": "ANTROPOLOGIA DA SOCIEDADE INDUSTRIAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GCP00056",
-    "nome": "TEORIA DO ESTADO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GCP00058",
-    "nome": "TEORIA DO ESTADO V",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GCP00059",
-    "nome": "RELAÇÕES INTERNACIONAIS I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GCP00065",
-    "nome": "TRABALHO E PENSAMENTO POLÍTICO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GCP00066",
-    "nome": "TRABALHO E PENSAMENTO POLÍTICO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GCP00068",
-    "nome": "POLÍTICA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GCP00077",
-    "nome": "RELAÇÕES INTERNACIONAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GET00045",
-    "nome": "ANÁLISE DE REGRESSÃO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GET00118"
-    ]
-  },
-  {
-    "codigo": "GET00108",
-    "nome": "TEORIA DA DECISAO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "GFL00019",
-    "nome": "FILOSOFIA GERAL III (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GFL00020",
-    "nome": "EVOLUÇÃO DO PENSAMENTO FILOSÓFICO E CIENTÍFICO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GFL00022",
-    "nome": "FILOSOFIA GERAL II (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GFL00024",
-    "nome": "INTRODUÇÃO À FILOSOFIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GFL00025",
-    "nome": "HISTORIA DA FILOSOFIA II (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GGE00119",
-    "nome": "ECOLOGIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "GGE00122",
-    "nome": "FORMACAO SOCIO-ESPACIAL BRASILEIRA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "GGE00123",
-    "nome": "SOCIEDADE E NATUREZA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "GGE00125",
-    "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "GGE00138",
-    "nome": "GEOGRAFIA DA INDUSTRIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "GGE00139",
-    "nome": "ESTUDOS DE IMPACTOS AMBIENTAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "GHT00299",
-    "nome": "HISTORIA DO MOVIMENTO OPERARIO NO BRASIL (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00301",
-    "nome": "HIST. ECONOM. E SOCIAL DA AMERICA LATINA (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00302",
-    "nome": "HISTORIA DA ESCRAVIDAO NO BRASIL (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00303",
-    "nome": "HISTORIA DA AGRICULTURA BRASILEIRA (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00304",
-    "nome": "HISTORIA DO TRABALHO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00305",
-    "nome": "HISTORIA DAS TÉCNICAS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00307",
-    "nome": "HISTÓRIA DO PENSAMENTO ECONÔMICO BRASILEIRO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00314",
-    "nome": "HIST ECONO E SOCIAL NOS TEMPOS MODERNOS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00315",
-    "nome": "HIST ECON-SOCIAL DA EPOCA CONTEMPORANEA (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00316",
-    "nome": "HIST. DO MOVIMENTO OPERÁRIO EUROPEU E NORTE-AMERICANO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00317",
-    "nome": "HIST. ECONÔMICO-SOCIAL DAS AMÉRICAS COLONIAIS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00318",
-    "nome": "HIST DO MOVIM OPERARIO NA AMERICA LATINA (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00319",
-    "nome": "HIST ECON-SOCIAL DAS SOCIED ASIATICAS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00320",
-    "nome": "HIST ECON-SOCIAL DAS SOC AFRICANAS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00321",
-    "nome": "HISTORIA DA ESCRAVIDAO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00322",
-    "nome": "HISTORIA DA AGRICULTURA (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00323",
-    "nome": "HIST ECON-SOCIAL DO MUNDO IBERICO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00325",
-    "nome": "HIST ECON-SOCIAL DO RIO DE JANEIRO (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GHT00326",
-    "nome": "HISTORIA DO PENSAMENTO ECONOMICO EUROPEU (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "GLC00292",
-    "nome": "LIBRAS I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "GSO00104",
-    "nome": "SOCIOLOGIA URBANA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GSO00109",
-    "nome": "SOCIOLOGIA DO TRABALHO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GSO00123",
-    "nome": "SOCIOLOGIA INDUSTRIAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GSO00124",
-    "nome": "SOCIOLOGIA RURAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GSO00125",
-    "nome": "TEORIA SOCIAL BRASILEIRA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GSO00126",
-    "nome": "SOCIOL DO DESENV NA AMERICA LATINA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GSO00127",
-    "nome": "SOCIOL DO DESENVOLVIMENTO NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "GSO00128",
-    "nome": "SOCIOLOGIA DO DESENVOLVIMENTO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SDB00138",
-    "nome": "LEGISLACAO SOCIAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SDB00140",
-    "nome": "DIREITO ECONOMICO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SDB00141",
-    "nome": "TEORIAS DO ESTADO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SDB00142",
-    "nome": "DIREITO DAS RELAC INTERNACIONAIS PUBLICO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SDB00143",
-    "nome": "DIREITO DA ADMINISTRACAO PUBLICA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SDB00144",
-    "nome": "DIREITO DA ADMINISTRACAO PUBLICA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SDB00143"
-    ]
-  },
-  {
-    "codigo": "SDB00145",
-    "nome": "DIREITO FINANCEIRO E TRIBUTARIO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SDB00146",
-    "nome": "DIREITO FINANCEIRO E TRIBUTARIO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SDB00145"
-    ]
-  },
-  {
-    "codigo": "SEN00065",
-    "nome": "ECONOMIA DO SETOR PUBLICO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00086",
-    "nome": "ECONOMIA POLÍTICA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00087",
-    "nome": "ECONOMIA POLÍTICA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00088",
-    "nome": "TOP ESPEC EM ECONOMIA POLÍTICA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00090",
-    "nome": "TÓPICOS ESPECIAIS EM ECONOMIA POLÍTICA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00091",
-    "nome": "METODOLOGIA DA ANALISE ECONOMICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00092",
-    "nome": "SOCIOECONOMIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00093",
-    "nome": "TEORIA DA REGULACAO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00094",
-    "nome": "TÓPICOS ESPECIAIS EM TEORIA DA REGULACAO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00095",
-    "nome": "TÓPICOSP ESPECIAIS EM TEORIA DA REGULACAO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00096",
-    "nome": "TRAB E REGUL I-TRAB,TECNOL E ACUMULACAO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00097",
-    "nome": "TRABALHO E REGULACAO II-REL TRABALHISTAS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00098",
-    "nome": "TRAB E REGULACAO III-TRAB E TEMPO LIVRE (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00099",
-    "nome": "TÓPICOS ESPECIAIS EM REGULACAO E TRABALHO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313",
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00100",
-    "nome": "TÓPICOS ESPECIAIS EM REGULACAO E TRABALHO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313",
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00102",
-    "nome": "CONJUNTURA E CENARIOS MACROECONOMICOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00103",
-    "nome": "FINANCAS INTERNACIONAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00258"
-    ]
-  },
-  {
-    "codigo": "SEN00104",
-    "nome": "MACROECONOMIA DE KEYNES",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00105",
-    "nome": "POLÍTICA E PLANEJAMENTO ECONOMICO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00106",
-    "nome": "TEORIAS DA INFLACAO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00107",
-    "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00108",
-    "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00109",
-    "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00110",
-    "nome": "CONTABILIDADE SOCIAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00111",
-    "nome": "ECONOMIA INTERNACIONAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00112",
-    "nome": "TOP ESPEC EM ECONOMIA INTERNACIONAL I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00114",
-    "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00115",
-    "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00116",
-    "nome": "DESENVOLVIMENTO ECONÔMICO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00117",
-    "nome": "DESENVOLVIMENTO ECONÔMICO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00118",
-    "nome": "ECONOMIA MONETÁRIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00119",
-    "nome": "TEORIA MONETÁRIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00120",
-    "nome": "ANALISE DE SERIES TEMPORAIS ECONOMICAS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00121",
-    "nome": "ECONOMETRIA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00259"
-    ]
-  },
-  {
-    "codigo": "SEN00122",
-    "nome": "TOPICOS ESPECIAIS EM ECONOMETRIA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00259"
-    ]
-  },
-  {
-    "codigo": "SEN00123",
-    "nome": "TOPICOS ESPECIAIS EM ECONOMETRIA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00259"
-    ]
-  },
-  {
-    "codigo": "SEN00124",
-    "nome": "TOPICOS ESPECIAIS EM ECONOMIA MATEMATICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GAN00147"
-    ]
-  },
-  {
-    "codigo": "SEN00125",
-    "nome": "ECONOMIA SOCIAL I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00074"
-    ]
-  },
-  {
-    "codigo": "SEN00127",
-    "nome": "ECONOMIA SOCIAL III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00074"
-    ]
-  },
-  {
-    "codigo": "SEN00128",
-    "nome": "ECONOMIA AGRARIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00129",
-    "nome": "ECONOMIA E DEMOGRAFIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00130",
-    "nome": "ECONOMIA FLUMINENSE",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00131",
-    "nome": "ECONOMIA REGIONAL E URBANA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00132",
-    "nome": "ECONOMIA DE SERVIÇOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00133",
-    "nome": "ECONOMIA DO TRABALHO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00077",
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00134",
-    "nome": "ESTATISTICA ECONOMICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00259"
-    ]
-  },
-  {
-    "codigo": "SEN00135",
-    "nome": "TOP. ESPECIAIS EM METODOS ESTATISTICOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GET00118",
-      "SEN00259"
-    ]
-  },
-  {
-    "codigo": "SEN00137",
-    "nome": "TEORIA DOS JOGOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00138",
-    "nome": "TOPICOS ESPECIAIS EM MICROECONOMIA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SEN00139",
-    "nome": "TOPICOS ESPECIAIS EM MICROECONOMIA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SEN00140",
-    "nome": "TOPICOS ESPECIAIS EM MICROECONOMIA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SEN00141",
-    "nome": "TÓPICOS ESPECIAIS EM ECONOMIA INDUSTRIAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SEN00142",
-    "nome": "ECONOMIA DA REGULACAO E DA CONCORRENCIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SEN00143",
-    "nome": "TEORIA DO COMERCIO INTERNACIONAL I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00144",
-    "nome": "TEORIA DO COMERCIO INTERNACIONALII",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00143"
-    ]
-  },
-  {
-    "codigo": "SEN00145",
-    "nome": "TOPIC ESPEC EM COMERCIO INTERNACIONAL I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00143"
-    ]
-  },
-  {
-    "codigo": "SEN00146",
-    "nome": "TOPIC ESPEC EM COMERCIO INTERNACIONALII",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00143"
-    ]
-  },
-  {
-    "codigo": "SEN00148",
-    "nome": "TOPIC ESPEC EM ECONOMIA LATINO- AMERICANA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00149",
-    "nome": "ECONOMIA DA ENERGIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00074"
-    ]
-  },
-  {
-    "codigo": "SEN00150",
-    "nome": "TÓPICOS ESPECIAIS EM ECONOMIA DA ENERGIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00149"
-    ]
-  },
-  {
-    "codigo": "SEN00151",
-    "nome": "ECONOMIA DOS RECURSOS NATURAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00074"
-    ]
-  },
-  {
-    "codigo": "SEN00152",
-    "nome": "TOPIC ESPEC DE ECONOM DOS RECUR NATURAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00151"
-    ]
-  },
-  {
-    "codigo": "SEN00153",
-    "nome": "ECONOMIA DO MEIO AMBIENTE",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00074"
-    ]
-  },
-  {
-    "codigo": "SEN00154",
-    "nome": "TÓPICOS ESPECIAIS DE ECONOM DO MEIO AMBIENTE",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00153"
-    ]
-  },
-  {
-    "codigo": "SEN00155",
-    "nome": "ECONOMIA DA TECNOLOGIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00081"
-    ]
-  },
-  {
-    "codigo": "SEN00156",
-    "nome": "ELABORACAO E ANALISE DE PROJETOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00158"
-    ]
-  },
-  {
-    "codigo": "SEN00157",
-    "nome": "INDUSTRIA E POLÍTICA INDUSTRIAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "SEN00159",
-    "nome": "ECONOMIA FINANCEIRA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00158"
-    ]
-  },
-  {
-    "codigo": "SEN00160",
-    "nome": "TOP ESPEC EM ECONOM FINANCEIRA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00159"
-    ]
-  },
-  {
-    "codigo": "SEN00161",
-    "nome": "TOP ESPEC EM ECONOM FINANCEIRA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00159"
-    ]
-  },
-  {
-    "codigo": "SEN00162",
-    "nome": "TOP ESPEC EM ECONOM FINANCEIRA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00159"
-    ]
-  },
-  {
-    "codigo": "SEN00163",
-    "nome": "TOP ESPEC EM ECONOM FINANCEIRA IV",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00159"
-    ]
-  },
-  {
-    "codigo": "SEN00164",
-    "nome": "TOP ESPEC EM ECONOM FINANCEIRA V",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00159"
-    ]
-  },
-  {
-    "codigo": "SEN00165",
-    "nome": "TOP ESPEC EM ECONOM FINANCEIRA VI",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00159"
-    ]
-  },
-  {
-    "codigo": "SEN00166",
-    "nome": "HISTORIA DA MOEDA E DO CREDITO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313",
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00168",
-    "nome": "TOP ESPEC EM EXPER INDUST COMPARADAS II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313",
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00169",
-    "nome": "TOPICOS ESPEC EM HISTORIA ECONOMICA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313",
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00170",
-    "nome": "TOPICOS ESPEC EM HISTORIA ECONOMICA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313",
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00171",
-    "nome": "TOPICOS ESPEC EM HISTORIA ECONOMICA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313",
-      "SEN00077"
-    ]
-  },
-  {
-    "codigo": "SEN00172",
-    "nome": "EVOLUÇÃO HISTÓRICA DA POLÍTICA MONETÁRIA BRASILEIRA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00173",
-    "nome": "FORMAÇÃO HISTÓRICA E MERCADO DE TRABALHO NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00174",
-    "nome": "HISTÓRIA ECONÔMICA DA AGRICULTURA NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00175",
-    "nome": "INDUSTRIALIZAÇÃO NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00176",
-    "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00177",
-    "nome": "INTERPRETACOES DO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00178",
-    "nome": "ECONOMIA MATEMATICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GAN00147"
-    ]
-  },
-  {
-    "codigo": "SEN00182",
-    "nome": "INVESTIMENTOS DE RENDA FIXA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00258"
-    ]
-  },
-  {
-    "codigo": "SEN00183",
-    "nome": "HISTÓRIA ECONÔMICA DO BRASIL I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00184",
-    "nome": "POLÍTICA FISCAL KEYNESIANA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00185",
-    "nome": "ECONOMETRIA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00259"
-    ]
-  },
-  {
-    "codigo": "SEN00186",
-    "nome": "ANÁLISE ECONÔMICA DE POLÍTICAS SOCIAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00074"
-    ]
-  },
-  {
-    "codigo": "SEN00187",
-    "nome": "ECONOMIA POLÍTICA DO TRABALHO I: TRABALHO E TECNOLOGIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00188",
-    "nome": "MERCADOS DE CAPITAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00258"
-    ]
-  },
-  {
-    "codigo": "SEN00189",
-    "nome": "GESTÃO FINANCEIRA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00258"
-    ]
-  },
-  {
-    "codigo": "SEN00190",
-    "nome": "DERIVATIVOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00258"
-    ]
-  },
-  {
-    "codigo": "SEN00191",
-    "nome": "ALOCAÇÃO DE ATIVOS DE RISCO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00258"
-    ]
-  },
-  {
-    "codigo": "SEN00192",
-    "nome": "AVALIAÇÃO DE EMPRESAS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00258"
-    ]
-  },
-  {
-    "codigo": "SEN00193",
-    "nome": "HISTÓRIA ECONÔMICA DO BRASIL II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00194",
-    "nome": "PROCESSOS REGIONAIS DE DESENVOLVIMENTO ECONÔMICO NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00196",
-    "nome": "HISTÓRIA ECONÔMICA DO SÉCULO XX",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GHT00313"
-    ]
-  },
-  {
-    "codigo": "SEN00197",
-    "nome": "ECONOMIA INTERNACIONAL CONTEMPORÂNEA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00198",
-    "nome": "ECONOMIA INTERNACIONAL CONTEMPORÂNEA II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00199",
-    "nome": "ECONOMIA BANCÁRIA E FINANCEIRA NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00200",
-    "nome": "FINANÇAS PÚBLICAS NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00201",
-    "nome": "DISTRIBUIÇÃO DE RENDA E DESIGUALDADE NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00202",
-    "nome": "MACROECONOMIA ESTRUTURALISTA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00203",
-    "nome": "TÓPICOS EM TEORIA MACROECONÔMICA E ANÁLISE EMPÍRICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00204",
-    "nome": "MODELOS MACROECONÔMICOS COMPARADOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00205",
-    "nome": "TEORIA MONETÁRIA ORTODOXA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00206",
-    "nome": "MODELOS DE CRESCIMENTO E DISTRIBUIÇÃO DE RENDA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00207",
-    "nome": "MACROECONOMIA INTERTEMPORAL I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GAN00147",
-      "SEN00079"
-    ]
-  },
-  {
-    "codigo": "SEN00209",
-    "nome": "MODELOS DE PREVISÃO MACROECONÔMICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00210",
-    "nome": "PROGRAMAÇÃO EM ECONOMIA E FINANÇAS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00209"
-    ]
-  },
-  {
-    "codigo": "SEN00211",
-    "nome": "MACROECONOMIA DO DESENVOLVIMENTO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00212",
-    "nome": "TÓPICOS EM FINANÇAS INTERNACIONAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00078"
-    ]
-  },
-  {
-    "codigo": "SEN00213",
-    "nome": "ECONOMETRIA IV",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00259"
-    ]
-  },
-  {
-    "codigo": "SEN00214",
-    "nome": "ANÁLISE DE SÉRIES TEMPORAIS I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00215",
-    "nome": "ANÁLISE DE SÉRIES TEMPORAIS II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00214"
-    ]
-  },
-  {
-    "codigo": "SEN00216",
-    "nome": "INTEGRAÇÃO PRODUTIVA TRANSNACIONAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00217",
-    "nome": "POLÍTICA COMERCIAL E INTEGRAÇÃO ECONÓMICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00218",
-    "nome": "ECONOMIA DA SAÚDE",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00219",
-    "nome": "POLÍTICA ENERGÉTICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00220",
-    "nome": "ECONOMIA INSTITUCIONAL E DAS ORGANIZAÇÕES",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00222",
-    "nome": "ECONOMIA POLÍTICA DO TRABALHO III: TRABALHO E TEMPO LIVRE",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00223",
-    "nome": "ÉTICA E ECONOMÍA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00080"
-    ]
-  },
-  {
-    "codigo": "SEN00224",
-    "nome": "ANÁLISE DO DISCURSO ECONÔMICO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00225",
-    "nome": "ECONOMIA POLÍTICA DO ESPAÇO AGRÁRIO NO BRASIL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00226",
-    "nome": "ECONOMIA POLÍTICA DO ESPAÇO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00227",
-    "nome": "ECONOMIA POLÍTICA DO MEIO AMBIENTE",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00228",
-    "nome": "TEORIAS DO IMPERIALISMO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00229",
-    "nome": "PENSAMENTO ECONÔMICO LATINO- AMERICANO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00230",
-    "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO LATINO-AMERICANO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00231",
-    "nome": "TOPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO LATINO-AMERICANO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00232",
-    "nome": "TEMAS DO MARXISMO CONTEMPORÂNEO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00233",
-    "nome": "TÓPICOS ESPECIAIS EM ECONOMIA POLÍTICA DO MEIO AMBIENTE",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00235",
-    "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00067"
-    ]
-  },
-  {
-    "codigo": "SEN00236",
-    "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "SEN00237",
-    "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00080"
-    ]
-  },
-  {
-    "codigo": "SEN00238",
-    "nome": "TRADIÇÃO LIBERAL E ESTADO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00080"
-    ]
-  },
-  {
-    "codigo": "SEN00241",
-    "nome": "ECONOMIA DA EDUCAÇÃO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00244",
-    "nome": "ECOLOGICAL ECONOMICS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00246",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00247",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO II",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00248",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00249",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO IV",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00250",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO V",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00251",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO VI",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00252",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO VII",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00253",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO VIII",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00254",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO IX",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00255",
-    "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO X",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SEN00262",
-    "nome": "REGULAÇÃO ECONÔMICA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "SEN00264",
-    "nome": "DISTRIBUIÇÃO DE RENDA E BEM-ESTAR NO BRASIL - MENSURAÇÃO E DETERMINANTES",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00016",
-    "nome": "LABORATORIO DE MACROECONOMIA III",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00019",
-    "nome": "MONITORIA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00020",
-    "nome": "INICIACAO A PESQUISA",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00021",
-    "nome": "INICIACAO A EXTENSAO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00022",
-    "nome": "INICIACAO PROFISSIONAL (ESTAGIO)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00023",
-    "nome": "PARTICIPACAO EM EVENTOS CIENTIFICOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00024",
-    "nome": "DISCIPLINA NAO INTEGRANTE DO CURRICULO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00025",
-    "nome": "ATIVIDADES COMPLEMENTARES",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00027",
-    "nome": "ATIVIDADES COMPLEMENTARES DE EXTENSÃO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "SGE00028",
-    "nome": "LABORATÓRIO DE MATEMÁTICA PARA ECONOMIA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "STA00128",
-    "nome": "INTRODUÇÃO A ADMINISTRAÇÃO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "STA00130",
-    "nome": "ADMINISTRAÇÃO DE RECURSOS HUMANOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00068"
-    ]
-  },
-  {
-    "codigo": "STA00133",
-    "nome": "MARKETING BÁSICO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STA00134",
-    "nome": "PESQUISA DE MARKETING",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STA00136",
-    "nome": "ADMINISTRAÇÃO DE PROJETOS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STA00137",
-    "nome": "SISTEMAS DE INFORMAÇÕES GERENCIAIS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STA00138",
-    "nome": "TÓPICOS ESPECIAIS EM ADMINISTRAÇÃO I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STA00139",
-    "nome": "TÓPICOS ESPECIAIS DE ADMINISTRAÇÃO FINANCEIRA I",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "STA00140",
-    "nome": "TÓPICOS ESPECIAIS DE ADMINISTRAÇÃO DA PRODUÇÃO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STC00073",
-    "nome": "CONTABILIDADE GERENCIAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STC00081",
-    "nome": "DEMONSTRAÇÕES FINANCEIRAS",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STC00115",
-    "nome": "CONTABILIDADE GERAL",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "STC00116",
-    "nome": "ANÁLISE DE BALANÇO",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "TCC00326",
-    "nome": "PROGRAMAÇÃO DE COMPUTADORES",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  },
-  {
-    "codigo": "TEP00096",
-    "nome": "CONTAB GERENC E CUSTOS INDUSTRIAIS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00073"
-    ]
-  },
-  {
-    "codigo": "TEP00097",
-    "nome": "ESTRATEGIA E COMPETITIVIDADE (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "SEN00075"
-    ]
-  },
-  {
-    "codigo": "TEP00099",
-    "nome": "PESQ OPERAC- MODELOS DETERMINISTICOS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GET00118"
-    ]
-  },
-  {
-    "codigo": "TEP00100",
-    "nome": "PESQUISA OPERACIONAL- MODELOS ESTOCÁSTICOS (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [
-      "GET00118"
-    ]
-  },
-  {
-    "codigo": "TEP00134",
-    "nome": "PESQUISA OPERACIONAL III (Desativada)",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": []
-  }
-]
+{
+  "nome_faculdade": "CIÊNCIAS ECONÔMICAS",
+  "numero_curriculo": "4.01.004",
+  "horas_obrigatorias": 1920,
+  "carga_horaria_total": 3000,
+  "disciplinas": [
+    {
+      "codigo": "GAN00145",
+      "nome": "MATEMÁTICA PARA ECONOMIA I",
+      "periodo": 1,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00313",
+      "nome": "HISTORIA ECONOMICA GERAL I",
+      "periodo": 1,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00067",
+      "nome": "PENSAMENTO ECONOMICO I",
+      "periodo": 1,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00076",
+      "nome": "TEORIA MACROECONOMICA I",
+      "periodo": 1,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": [
+        "SGE00026"
+      ]
+    },
+    {
+      "codigo": "SEN00245",
+      "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA",
+      "periodo": 1,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00026",
+      "nome": "LABORATÓRIO DE MACROECONOMIA I",
+      "periodo": 1,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": [
+        "SEN00076"
+      ]
+    },
+    {
+      "codigo": "GAN00146",
+      "nome": "MATEMÁTICA PARA ECONOMIA II",
+      "periodo": 2,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "GAN00145"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GET00117",
+      "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I",
+      "periodo": 2,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "GAN00145"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00068",
+      "nome": "PENSAMENTO ECONOMICO II",
+      "periodo": 2,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00067"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00072",
+      "nome": "TEORIA MICROECONÔMICA I",
+      "periodo": 2,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "GAN00145"
+      ],
+      "corequisitos": [
+        "SGE00012"
+      ]
+    },
+    {
+      "codigo": "SEN00077",
+      "nome": "TEORIA MACROECONOMICA II",
+      "periodo": 2,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00076"
+      ],
+      "corequisitos": [
+        "SGE00015"
+      ]
+    },
+    {
+      "codigo": "SGE00012",
+      "nome": "LABORATORIO DE MICROECONOMIA I",
+      "periodo": 2,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": [
+        "SEN00072"
+      ]
+    },
+    {
+      "codigo": "SGE00015",
+      "nome": "LABORATORIO DE MACROECONOMIA II",
+      "periodo": 2,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": [
+        "SEN00077"
+      ]
+    },
+    {
+      "codigo": "GAN00147",
+      "nome": "MATEMÁTICA PARA ECONOMIA III",
+      "periodo": 3,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "GAN00146"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GET00118",
+      "nome": "METOD ESTAT APLICADOS A ECONOMIA II",
+      "periodo": 3,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "GAN00146",
+        "GET00117"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00073",
+      "nome": "TEORIA MICROECONOMICA II",
+      "periodo": 3,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00072"
+      ],
+      "corequisitos": [
+        "SGE00013"
+      ]
+    },
+    {
+      "codigo": "SEN00078",
+      "nome": "TEORIA MACROECONOMICA III",
+      "periodo": 3,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00080",
+      "nome": "PENSAMENTO ECONÔMICO III",
+      "periodo": 3,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00013",
+      "nome": "LABORATORIO DE MICROECONOMIA II",
+      "periodo": 3,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": [
+        "SEN00073"
+      ]
+    },
+    {
+      "codigo": "SEN00074",
+      "nome": "TEORIA MICROECONOMICA III",
+      "periodo": 4,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00079",
+      "nome": "TEORIA MACROECONÔMICA IV",
+      "periodo": 4,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00081",
+      "nome": "PENSAMENTO ECONOMICO IV",
+      "periodo": 4,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00080"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00256",
+      "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I",
+      "periodo": 4,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00259",
+      "nome": "ECONOMETRIA",
+      "periodo": 4,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "GAN00147",
+        "GET00118"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00014",
+      "nome": "LABORATORIO DE MICROECONOMIA III",
+      "periodo": 4,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": [
+        "SEN00074"
+      ]
+    },
+    {
+      "codigo": "SEN00075",
+      "nome": "TEORIA MICROECONOMICA IV",
+      "periodo": 5,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00258",
+      "nome": "ECONOMIA FINANCEIRA",
+      "periodo": 5,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00260",
+      "nome": "ECONOMIA BRASILEIRA I",
+      "periodo": 5,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00256"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00261",
+      "nome": "ECONOMIA BRASILEIRA II",
+      "periodo": 6,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00260"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00257",
+      "nome": "METODOLOGIA E TÉCNICAS DE PESQUISA EM ECONOMIA I",
+      "periodo": 7,
+      "tipo": "obrigatoria",
+      "prerequisitos": [
+        "SEN00074",
+        "SEN00079",
+        "SEN00081",
+        "SEN00259",
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00018",
+      "nome": "TRABALHO DE CONCLUSAO DE CURSO",
+      "periodo": 8,
+      "tipo": "obrigatoria",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GAP00112",
+      "nome": "ANTROPOLOGIA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GAP00116",
+      "nome": "MOVIMENTOS SOCIAIS URBANOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GAP00126",
+      "nome": "PENSAMENTO SOCIAL BRASILEIRO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GAP00142",
+      "nome": "ANTROPOLOGIA ECONÔMICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GAP00143",
+      "nome": "ANTROPOLOGIA URBANA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GAP00144",
+      "nome": "ANTROPOLOGIA DA SOCIEDADE INDUSTRIAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00056",
+      "nome": "TEORIA DO ESTADO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00058",
+      "nome": "TEORIA DO ESTADO V",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00059",
+      "nome": "RELAÇÕES INTERNACIONAIS I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00065",
+      "nome": "TRABALHO E PENSAMENTO POLÍTICO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00066",
+      "nome": "TRABALHO E PENSAMENTO POLÍTICO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00068",
+      "nome": "POLÍTICA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00077",
+      "nome": "RELAÇÕES INTERNACIONAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GCP00078",
+      "nome": "RELAÇÕES INTERNACIONAIS III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GET00045",
+      "nome": "ANÁLISE DE REGRESSÃO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GET00118"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GET00108",
+      "nome": "TEORIA DA DECISAO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GFL00019",
+      "nome": "FILOSOFIA GERAL III (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GFL00020",
+      "nome": "EVOLUÇÃO DO PENSAMENTO FILOSÓFICO E CIENTÍFICO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GFL00022",
+      "nome": "FILOSOFIA GERAL II (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GFL00024",
+      "nome": "INTRODUÇÃO À FILOSOFIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GFL00025",
+      "nome": "HISTORIA DA FILOSOFIA II (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GGE00119",
+      "nome": "ECOLOGIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GGE00122",
+      "nome": "FORMACAO SOCIO-ESPACIAL BRASILEIRA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GGE00123",
+      "nome": "SOCIEDADE E NATUREZA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GGE00124",
+      "nome": "A NATUREZA E SUA DINAMICA NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GGE00125",
+      "nome": "A GEOGRAFIA DOS BLOCOS MUNDIAIS DO PODER",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GGE00138",
+      "nome": "GEOGRAFIA DA INDUSTRIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GGE00139",
+      "nome": "ESTUDOS DE IMPACTOS AMBIENTAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00299",
+      "nome": "HISTORIA DO MOVIMENTO OPERARIO NO BRASIL (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00301",
+      "nome": "HIST. ECONOM. E SOCIAL DA AMERICA LATINA (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00302",
+      "nome": "HISTORIA DA ESCRAVIDAO NO BRASIL (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00303",
+      "nome": "HISTORIA DA AGRICULTURA BRASILEIRA (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00304",
+      "nome": "HISTORIA DO TRABALHO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00305",
+      "nome": "HISTORIA DAS TÉCNICAS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00306",
+      "nome": "HISTÓRIA DAS RELAÇÕES ECONÔMICAS INTERNACIONAIS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00307",
+      "nome": "HISTÓRIA DO PENSAMENTO ECONÔMICO BRASILEIRO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00314",
+      "nome": "HIST ECONO E SOCIAL NOS TEMPOS MODERNOS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00315",
+      "nome": "HIST ECON-SOCIAL DA EPOCA CONTEMPORANEA (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00316",
+      "nome": "HIST. DO MOVIMENTO OPERÁRIO EUROPEU E NORTE-AMERICANO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00317",
+      "nome": "HIST. ECONÔMICO-SOCIAL DAS AMÉRICAS COLONIAIS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00318",
+      "nome": "HIST DO MOVIM OPERARIO NA AMERICA LATINA (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00319",
+      "nome": "HIST ECON-SOCIAL DAS SOCIED ASIATICAS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00320",
+      "nome": "HIST ECON-SOCIAL DAS SOC AFRICANAS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00321",
+      "nome": "HISTORIA DA ESCRAVIDAO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00322",
+      "nome": "HISTORIA DA AGRICULTURA (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00323",
+      "nome": "HIST ECON-SOCIAL DO MUNDO IBERICO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00324",
+      "nome": "HISTORIA DA POPULACAO MUNDIAL (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00325",
+      "nome": "HIST ECON-SOCIAL DO RIO DE JANEIRO (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GHT00326",
+      "nome": "HISTORIA DO PENSAMENTO ECONOMICO EUROPEU (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GLC00292",
+      "nome": "LIBRAS I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00104",
+      "nome": "SOCIOLOGIA URBANA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00109",
+      "nome": "SOCIOLOGIA DO TRABALHO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00123",
+      "nome": "SOCIOLOGIA INDUSTRIAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00124",
+      "nome": "SOCIOLOGIA RURAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00125",
+      "nome": "TEORIA SOCIAL BRASILEIRA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00126",
+      "nome": "SOCIOL DO DESENV NA AMERICA LATINA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00127",
+      "nome": "SOCIOL DO DESENVOLVIMENTO NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "GSO00128",
+      "nome": "SOCIOLOGIA DO DESENVOLVIMENTO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00138",
+      "nome": "LEGISLACAO SOCIAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00139",
+      "nome": "LEGISLACAO TRIBUTRIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00140",
+      "nome": "DIREITO ECONOMICO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00141",
+      "nome": "TEORIAS DO ESTADO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00142",
+      "nome": "DIREITO DAS RELAC INTERNACIONAIS PUBLICO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00143",
+      "nome": "DIREITO DA ADMINISTRACAO PUBLICA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00144",
+      "nome": "DIREITO DA ADMINISTRACAO PUBLICA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SDB00143"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00145",
+      "nome": "DIREITO FINANCEIRO E TRIBUTARIO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SDB00146",
+      "nome": "DIREITO FINANCEIRO E TRIBUTARIO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SDB00145"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00065",
+      "nome": "ECONOMIA DO SETOR PUBLICO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00086",
+      "nome": "ECONOMIA POLÍTICA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00087",
+      "nome": "ECONOMIA POLÍTICA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00088",
+      "nome": "TOP ESPEC EM ECONOMIA POLÍTICA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00089",
+      "nome": "TOP ESPEC EM ECONOMIA POLÍTICA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00090",
+      "nome": "TÓPICOS ESPECIAIS EM ECONOMIA POLÍTICA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00091",
+      "nome": "METODOLOGIA DA ANALISE ECONOMICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00092",
+      "nome": "SOCIOECONOMIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00093",
+      "nome": "TEORIA DA REGULACAO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00094",
+      "nome": "TÓPICOS ESPECIAIS EM TEORIA DA REGULACAO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00095",
+      "nome": "TÓPICOSP ESPECIAIS EM TEORIA DA REGULACAO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00096",
+      "nome": "TRAB E REGUL I-TRAB,TECNOL E ACUMULACAO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00097",
+      "nome": "TRABALHO E REGULACAO II-REL TRABALHISTAS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00098",
+      "nome": "TRAB E REGULACAO III-TRAB E TEMPO LIVRE (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00099",
+      "nome": "TÓPICOS ESPECIAIS EM REGULACAO E TRABALHO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00100",
+      "nome": "TÓPICOS ESPECIAIS EM REGULACAO E TRABALHO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00101",
+      "nome": "CICLOS E CONJUNTURA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00102",
+      "nome": "CONJUNTURA E CENARIOS MACROECONOMICOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00103",
+      "nome": "FINANCAS INTERNACIONAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00258"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00104",
+      "nome": "MACROECONOMIA DE KEYNES",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00105",
+      "nome": "POLÍTICA E PLANEJAMENTO ECONOMICO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00106",
+      "nome": "TEORIAS DA INFLACAO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00107",
+      "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00108",
+      "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00109",
+      "nome": "TOPICOS ESPECIAIS EM MACROECONOMIA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00110",
+      "nome": "CONTABILIDADE SOCIAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00111",
+      "nome": "ECONOMIA INTERNACIONAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00112",
+      "nome": "TOP ESPEC EM ECONOMIA INTERNACIONAL I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00113",
+      "nome": "TOP ESPEC EM ECONOMIA INTERNACIONAL II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00111"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00114",
+      "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00115",
+      "nome": "TOP ESPEC EM DESENVOLV SOCIOECONOMICO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00116",
+      "nome": "DESENVOLVIMENTO ECONÔMICO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00117",
+      "nome": "DESENVOLVIMENTO ECONÔMICO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00118",
+      "nome": "ECONOMIA MONETÁRIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00119",
+      "nome": "TEORIA MONETÁRIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00120",
+      "nome": "ANALISE DE SERIES TEMPORAIS ECONOMICAS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00121",
+      "nome": "ECONOMETRIA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00259"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00122",
+      "nome": "TOPICOS ESPECIAIS EM ECONOMETRIA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00259"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00123",
+      "nome": "TOPICOS ESPECIAIS EM ECONOMETRIA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00259"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00124",
+      "nome": "TOPICOS ESPECIAIS EM ECONOMIA MATEMATICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GAN00147"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00125",
+      "nome": "ECONOMIA SOCIAL I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00074"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00126",
+      "nome": "ECONOMIA SOCIAL II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00074"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00127",
+      "nome": "ECONOMIA SOCIAL III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00074"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00128",
+      "nome": "ECONOMIA AGRARIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00129",
+      "nome": "ECONOMIA E DEMOGRAFIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00130",
+      "nome": "ECONOMIA FLUMINENSE",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00131",
+      "nome": "ECONOMIA REGIONAL E URBANA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00132",
+      "nome": "ECONOMIA DE SERVIÇOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00133",
+      "nome": "ECONOMIA DO TRABALHO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00134",
+      "nome": "ESTATISTICA ECONOMICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00259"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00135",
+      "nome": "TOP. ESPECIAIS EM METODOS ESTATISTICOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GET00118",
+        "SEN00259"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00136",
+      "nome": "TEORIA DA FIRMA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00137",
+      "nome": "TEORIA DOS JOGOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00138",
+      "nome": "TOPICOS ESPECIAIS EM MICROECONOMIA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00139",
+      "nome": "TOPICOS ESPECIAIS EM MICROECONOMIA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00140",
+      "nome": "TOPICOS ESPECIAIS EM MICROECONOMIA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00141",
+      "nome": "TÓPICOS ESPECIAIS EM ECONOMIA INDUSTRIAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00142",
+      "nome": "ECONOMIA DA REGULACAO E DA CONCORRENCIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00143",
+      "nome": "TEORIA DO COMERCIO INTERNACIONAL I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00144",
+      "nome": "TEORIA DO COMERCIO INTERNACIONALII",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00143"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00145",
+      "nome": "TOPIC ESPEC EM COMERCIO INTERNACIONAL I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00143"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00146",
+      "nome": "TOPIC ESPEC EM COMERCIO INTERNACIONALII",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00143"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00147",
+      "nome": "ECONOMIA LATINO-AMERICANA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00148",
+      "nome": "TOPIC ESPEC EM ECONOMIA LATINO-AMERICANA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00149",
+      "nome": "ECONOMIA DA ENERGIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00074"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00150",
+      "nome": "TÓPICOS ESPECIAIS EM ECONOMIA DA ENERGIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00149"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00151",
+      "nome": "ECONOMIA DOS RECURSOS NATURAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00074"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00152",
+      "nome": "TOPIC ESPEC DE ECONOM DOS RECUR NATURAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00151"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00153",
+      "nome": "ECONOMIA DO MEIO AMBIENTE",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00074"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00154",
+      "nome": "TÓPICOS ESPECIAIS DE ECONOM DO MEIO AMBIENTE",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00153"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00155",
+      "nome": "ECONOMIA DA TECNOLOGIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00081"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00156",
+      "nome": "ELABORACAO E ANALISE DE PROJETOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00158"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00157",
+      "nome": "INDUSTRIA E POLÍTICA INDUSTRIAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00158",
+      "nome": "ECONOMIA FINANCEIRA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00077",
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00159",
+      "nome": "ECONOMIA FINANCEIRA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00158"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00160",
+      "nome": "TOP ESPEC EM ECONOM FINANCEIRA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00159"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00161",
+      "nome": "TOP ESPEC EM ECONOM FINANCEIRA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00159"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00162",
+      "nome": "TOP ESPEC EM ECONOM FINANCEIRA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00159"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00163",
+      "nome": "TOP ESPEC EM ECONOM FINANCEIRA IV",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00159"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00164",
+      "nome": "TOP ESPEC EM ECONOM FINANCEIRA V",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00159"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00165",
+      "nome": "TOP ESPEC EM ECONOM FINANCEIRA VI",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00159"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00166",
+      "nome": "HISTORIA DA MOEDA E DO CREDITO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00167",
+      "nome": "TOP ESPEC EM EXPER INDUSTR COMPARADAS I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00168",
+      "nome": "TOP ESPEC EM EXPER INDUST COMPARADAS II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00169",
+      "nome": "TOPICOS ESPEC EM HISTORIA ECONOMICA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00170",
+      "nome": "TOPICOS ESPEC EM HISTORIA ECONOMICA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00171",
+      "nome": "TOPICOS ESPEC EM HISTORIA ECONOMICA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313",
+        "SEN00077"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00172",
+      "nome": "EVOLUÇÃO HISTÓRICA DA POLÍTICA MONETÁRIA BRASILEIRA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00173",
+      "nome": "FORMAÇÃO HISTÓRICA E MERCADO DE TRABALHO NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00174",
+      "nome": "HISTÓRIA ECONÔMICA DA AGRICULTURA NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00175",
+      "nome": "INDUSTRIALIZAÇÃO NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00176",
+      "nome": "ECON BRAS NOS ANOS RECENT E PERSPECTIVAS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00177",
+      "nome": "INTERPRETACOES DO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00178",
+      "nome": "ECONOMIA MATEMATICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GAN00147"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00179",
+      "nome": "QUEST DE GEN NA EVOL ECONOMICA DO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00182",
+      "nome": "INVESTIMENTOS DE RENDA FIXA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00258"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00183",
+      "nome": "HISTÓRIA ECONÔMICA DO BRASIL I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00184",
+      "nome": "POLÍTICA FISCAL KEYNESIANA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00185",
+      "nome": "ECONOMETRIA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00259"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00186",
+      "nome": "ANÁLISE ECONÔMICA DE POLÍTICAS SOCIAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00074"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00187",
+      "nome": "ECONOMIA POLÍTICA DO TRABALHO I: TRABALHO E TECNOLOGIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00188",
+      "nome": "MERCADOS DE CAPITAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00258"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00189",
+      "nome": "GESTÃO FINANCEIRA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00258"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00190",
+      "nome": "DERIVATIVOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00258"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00191",
+      "nome": "ALOCAÇÃO DE ATIVOS DE RISCO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00258"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00192",
+      "nome": "AVALIAÇÃO DE EMPRESAS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00258"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00193",
+      "nome": "HISTÓRIA ECONÔMICA DO BRASIL II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00194",
+      "nome": "PROCESSOS REGIONAIS DE DESENVOLVIMENTO ECONÔMICO NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00195",
+      "nome": "EXPERIÊNCIAS INDUSTRIAIS COMPARADAS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00196",
+      "nome": "HISTÓRIA ECONÔMICA DO SÉCULO XX",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GHT00313"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00197",
+      "nome": "ECONOMIA INTERNACIONAL CONTEMPORÂNEA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00198",
+      "nome": "ECONOMIA INTERNACIONAL CONTEMPORÂNEA II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00199",
+      "nome": "ECONOMIA BANCÁRIA E FINANCEIRA NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00200",
+      "nome": "FINANÇAS PÚBLICAS NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00201",
+      "nome": "DISTRIBUIÇÃO DE RENDA E DESIGUALDADE NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00202",
+      "nome": "MACROECONOMIA ESTRUTURALISTA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00203",
+      "nome": "TÓPICOS EM TEORIA MACROECONÔMICA E ANÁLISE EMPÍRICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00204",
+      "nome": "MODELOS MACROECONÔMICOS COMPARADOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00205",
+      "nome": "TEORIA MONETÁRIA ORTODOXA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00206",
+      "nome": "MODELOS DE CRESCIMENTO E DISTRIBUIÇÃO DE RENDA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00207",
+      "nome": "MACROECONOMIA INTERTEMPORAL I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GAN00147",
+        "SEN00079"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00208",
+      "nome": "MACROECONOMIA INTERTEMPORAL II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00207"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00209",
+      "nome": "MODELOS DE PREVISÃO MACROECONÔMICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00210",
+      "nome": "PROGRAMAÇÃO EM ECONOMIA E FINANÇAS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00209"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00211",
+      "nome": "MACROECONOMIA DO DESENVOLVIMENTO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00212",
+      "nome": "TÓPICOS EM FINANÇAS INTERNACIONAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00213",
+      "nome": "ECONOMETRIA IV",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00259"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00214",
+      "nome": "ANÁLISE DE SÉRIES TEMPORAIS I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00215",
+      "nome": "ANÁLISE DE SÉRIES TEMPORAIS II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00214"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00216",
+      "nome": "INTEGRAÇÃO PRODUTIVA TRANSNACIONAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00217",
+      "nome": "POLÍTICA COMERCIAL E INTEGRAÇÃO ECONÓMICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00218",
+      "nome": "ECONOMIA DA SAÚDE",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00219",
+      "nome": "POLÍTICA ENERGÉTICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00220",
+      "nome": "ECONOMIA INSTITUCIONAL E DAS ORGANIZAÇÕES",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00221",
+      "nome": "ESTRATÉGIAS EMPRESARIAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00222",
+      "nome": "ECONOMIA POLÍTICA DO TRABALHO III: TRABALHO E TEMPO LIVRE",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00223",
+      "nome": "ÉTICA E ECONOMÍA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00080"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00224",
+      "nome": "ANÁLISE DO DISCURSO ECONÔMICO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00225",
+      "nome": "ECONOMIA POLÍTICA DO ESPAÇO AGRÁRIO NO BRASIL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00226",
+      "nome": "ECONOMIA POLÍTICA DO ESPAÇO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00227",
+      "nome": "ECONOMIA POLÍTICA DO MEIO AMBIENTE",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00228",
+      "nome": "TEORIAS DO IMPERIALISMO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00229",
+      "nome": "PENSAMENTO ECONÔMICO LATINO-AMERICANO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00230",
+      "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO LATINO-AMERICANO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00231",
+      "nome": "TOPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO LATINO-AMERICANO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00232",
+      "nome": "TEMAS DO MARXISMO CONTEMPORÂNEO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00233",
+      "nome": "TÓPICOS ESPECIAIS EM ECONOMIA POLÍTICA DO MEIO AMBIENTE",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00234",
+      "nome": "TÓPICOS ESPECIAIS EM METODOLOGIA DA ANÁLISE ECONÔMICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00235",
+      "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00067"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00236",
+      "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00237",
+      "nome": "TÓPICOS ESPECIAIS EM PENSAMENTO ECONÔMICO III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00080"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00238",
+      "nome": "TRADIÇÃO LIBERAL E ESTADO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00080"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00241",
+      "nome": "ECONOMIA DA EDUCAÇÃO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00244",
+      "nome": "ECOLOGICAL ECONOMICS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00246",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00247",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO II",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00248",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00249",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO IV",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00250",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO V",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00251",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO VI",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00252",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO VII",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00253",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO VIII",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00254",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO IX",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00255",
+      "nome": "TÓPICOS ESPECIAIS EM EXTENSÃO X",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00262",
+      "nome": "REGULAÇÃO ECONÔMICA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00263",
+      "nome": "POLÍTICA DE DEFESA DA CONCORRÊNCIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SEN00264",
+      "nome": "DISTRIBUIÇÃO DE RENDA E BEM-ESTAR NO BRASIL - MENSURAÇÃO E DETERMINANTES",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00016",
+      "nome": "LABORATORIO DE MACROECONOMIA III",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00078"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00019",
+      "nome": "MONITORIA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00020",
+      "nome": "INICIACAO A PESQUISA",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00021",
+      "nome": "INICIACAO A EXTENSAO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00022",
+      "nome": "INICIACAO PROFISSIONAL (ESTAGIO)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00023",
+      "nome": "PARTICIPACAO EM EVENTOS CIENTIFICOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00024",
+      "nome": "DISCIPLINA NAO INTEGRANTE DO CURRICULO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00025",
+      "nome": "ATIVIDADES COMPLEMENTARES",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00027",
+      "nome": "ATIVIDADES COMPLEMENTARES DE EXTENSÃO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "SGE00028",
+      "nome": "LABORATÓRIO DE MATEMÁTICA PARA ECONOMIA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00128",
+      "nome": "INTRODUÇÃO A ADMINISTRAÇÃO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00130",
+      "nome": "ADMINISTRAÇÃO DE RECURSOS HUMANOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00068"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00133",
+      "nome": "MARKETING BÁSICO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00134",
+      "nome": "PESQUISA DE MARKETING",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00135",
+      "nome": "ADMINISTRAÇÃO DE PRODUÇÃO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00136",
+      "nome": "ADMINISTRAÇÃO DE PROJETOS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00137",
+      "nome": "SISTEMAS DE INFORMAÇÕES GERENCIAIS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00138",
+      "nome": "TÓPICOS ESPECIAIS EM ADMINISTRAÇÃO I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00139",
+      "nome": "TÓPICOS ESPECIAIS DE ADMINISTRAÇÃO FINANCEIRA I",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STA00140",
+      "nome": "TÓPICOS ESPECIAIS DE ADMINISTRAÇÃO DA PRODUÇÃO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STC00073",
+      "nome": "CONTABILIDADE GERENCIAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STC00081",
+      "nome": "DEMONSTRAÇÕES FINANCEIRAS",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STC00115",
+      "nome": "CONTABILIDADE GERAL",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "STC00116",
+      "nome": "ANÁLISE DE BALANÇO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "TCC00326",
+      "nome": "PROGRAMAÇÃO DE COMPUTADORES",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    },
+    {
+      "codigo": "TEP00096",
+      "nome": "CONTAB GERENC E CUSTOS INDUSTRIAIS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00073"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "TEP00097",
+      "nome": "ESTRATEGIA E COMPETITIVIDADE (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "SEN00075"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "TEP00098",
+      "nome": "AUXILIO MULTICRITERIO A DECISAO",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GET00118"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "TEP00099",
+      "nome": "PESQ OPERAC- MODELOS DETERMINISTICOS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GET00118"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "TEP00100",
+      "nome": "PESQUISA OPERACIONAL- MODELOS ESTOCÁSTICOS (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [
+        "GET00118"
+      ],
+      "corequisitos": []
+    },
+    {
+      "codigo": "TEP00134",
+      "nome": "PESQUISA OPERACIONAL III (Desativada)",
+      "periodo": null,
+      "tipo": "optativa",
+      "prerequisitos": [],
+      "corequisitos": []
+    }
+  ]
+}

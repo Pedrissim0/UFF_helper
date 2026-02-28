@@ -378,6 +378,28 @@
   color: var(--accent);
 }
 
+/* ── Selecionadas separator ────────────────────────── */
+.selecionadasSeparator {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  list-style: none;
+}
+
+.selecionadasSeparator::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--accent-border);
+}
+
 /* ── Period separator ──────────────────────────────── */
 .periodSeparator {
   grid-column: 1 / -1;
@@ -807,26 +829,155 @@
 
 /* ── Print ─────────────────────────────────────── */
 @media print {
-  .header, .content, .handle, .resizeHandle {
+  /* Página em paisagem para caber a grade semanal */
+  @page {
+    size: A4 landscape;
+    margin: 10mm 12mm;
+  }
+
+  /* Força impressão de cores de fundo (blocos, pontos da legenda) */
+  .wrapper {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Oculta tudo exceto o widget da grade */
+  .header,
+  .content,
+  .handle,
+  .resizeHandle,
+  .actionBtns,
+  .posBtns,
+  .scrollTopBtn,
+  .toast,
+  .modalOverlay {
     display: none !important;
   }
 
-  .widget {
+  /* Reset do wrapper */
+  .wrapper {
+    padding: 0 !important;
+    min-height: 0 !important;
+    background: white !important;
+    display: block !important;
+  }
+
+  /* Widget: estático, full-width, sem flutuação */
+  .widget,
+  .widget_center,
+  .widget_left,
+  .widget_right,
+  .widgetCollapsed,
+  .widgetExpanded {
     position: static !important;
     width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    transform: none !important;
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
+    background: white !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
   }
 
-  .gradeContent {
+  /* Grade visível independente do estado collapsed/expanded */
+  .gradeContent,
+  .gradeContentExpanded {
     max-height: none !important;
+    height: auto !important;
     opacity: 1 !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  /* Layout interno: grade + legenda lado a lado */
+  .gradeInner {
+    display: flex !important;
+    gap: 16px !important;
+    align-items: flex-start !important;
+  }
+
+  .grade {
+    flex: 1 !important;
+    overflow: visible !important;
+    padding: 0 6px !important;
+    min-width: 0 !important;
+  }
+
+  /* Grid mais alto para melhor legibilidade */
+  .eixo,
+  .coluna {
+    height: 500px !important;
+  }
+
+  /* Blocos: texto completo, sem truncamento */
+  .bloco {
+    padding: 3px 4px !important;
     overflow: visible !important;
   }
 
+  .blocoNome {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    word-break: break-word !important;
+    font-size: 9px !important;
+    line-height: 1.25 !important;
+  }
+
+  .blocoProf {
+    display: block !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    font-size: 8px !important;
+    opacity: 0.75 !important;
+  }
+
+  .blocoHora {
+    font-size: 8px !important;
+  }
+
+  .blocoTurma {
+    font-size: 8px !important;
+  }
+
+  /* Legenda: coluna vertical, sem scroll, altura automática */
   .gradeLegenda {
-    width: 160px;
+    width: 190px !important;
+    max-width: 190px !important;
+    flex-shrink: 0 !important;
+    overflow: visible !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 6px 10px !important;
+    border-left: 1px solid #e5e7eb !important;
+  }
+
+  .legendaItem {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .legendaNome {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .legendaProf {
+    font-size: 9px !important;
+    line-height: 1.3 !important;
   }
 }
 

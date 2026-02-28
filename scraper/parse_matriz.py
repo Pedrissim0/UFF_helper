@@ -1,22 +1,73 @@
 """
 parse_matriz.py — extrai dados da Matriz Curricular (PDF) para JSON.
-Usa pdfplumber.extract_tables() para parse limpo de colunas estruturadas.
-Gera docs/matriz_curricular/matriz_curricular.json com codigo, nome,
-periodo, tipo (obrigatoria/optativa) e prerequisitos de cada disciplina.
+Usa Claude Haiku 4.5 (via API Anthropic) para leitura inteligente do PDF.
+
+Gera docs/matriz_curricular/matriz_curricular.json com:
+  - Metadados do currículo (faculdade, cargas horárias, nº currículo)
+  - Lista de disciplinas com codigo, nome, periodo, tipo,
+    prerequisitos e corequisitos
 """
 
+import base64
 import json
-import re
+import os
 import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).parent.parent
 
-CODE_RE = re.compile(r"^[A-Z]{2,3}\d{5}$")
-PREREQ_CODE_RE = re.compile(
-    r"\[(?:\d+|Não Periodizada)\s*-\s*([A-Z]{2,3}\d{5})\]"
-)
-PERIOD_RE = re.compile(r"(\d+)[ºo°]\s*per[ií]odo", re.IGNORECASE)
+SYSTEM_PROMPT = """\
+Você é um extrator preciso de dados de matrizes curriculares universitárias.
+Sua saída deve ser EXCLUSIVAMENTE um objeto JSON MINIFICADO (sem espaços, \
+sem quebras de linha), sem markdown, sem texto extra.
+
+Schema de saída:
+{
+  "nome_faculdade": "FACULDADE DE ECONOMIA",
+  "numero_curriculo": "1234567890",
+  "horas_obrigatorias": 2400,
+  "carga_horaria_total": 3000,
+  "disciplinas": [
+    {
+      "codigo": "ECO00101",
+      "nome": "MICROECONOMIA I",
+      "periodo": 1,
+      "tipo": "obrigatoria",
+      "prerequisitos": ["ECO00099"],
+      "corequisitos": []
+    }
+  ]
+}
+
+Regras:
+- "nome_faculdade": nome da faculdade/curso conforme aparece no documento
+- "numero_curriculo": identificador/código do currículo (string)
+- "horas_obrigatorias": total de horas obrigatórias (inteiro, ou null se não encontrado)
+- "carga_horaria_total": carga horária total do curso (inteiro, ou null se não encontrado)
+- "codigo": letras maiúsculas + dígitos (ex: ECO00101)
+- "nome": nome completo da disciplina em maiúsculas
+- "periodo": inteiro 1-10, ou null se não periodizada
+- "tipo": "obrigatoria" (OB) ou "optativa" (OP)
+- "prerequisitos": lista de códigos pré-requisito; [] se nenhum
+- "corequisitos": lista de códigos co-requisito; [] se nenhum
+- Saída MINIFICADA: sem espaços após ":" e ",", sem newlines
+"""
+
+USER_PROMPT = """\
+Extraia TODOS os dados desta matriz curricular, incluindo os metadados do curso \
+(nome da faculdade, número do currículo, cargas horárias) e TODAS as disciplinas.
+Retorne SOMENTE o objeto JSON minificado (uma única linha), sem nenhum texto adicional.
+"""
+
+
+def _strip_markdown_fence(text: str) -> str:
+    """Remove code fences que o modelo pode adicionar mesmo sendo instruído a não."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.split("\n", 1)[1] if "\n" in text else text[3:]
+        if "```" in text:
+            text = text.rsplit("```", 1)[0]
+    return text.strip()
 
 
 def run():
@@ -28,137 +79,100 @@ def run():
     )
     out_path = ROOT / "docs" / "matriz_curricular" / "matriz_curricular.json"
 
+    # Carrega variáveis de ambiente do .env (se existir)
+    env_file = ROOT / ".env"
+    if env_file.exists():
+        try:
+            from dotenv import load_dotenv
+            load_dotenv(env_file)
+        except ImportError:
+            pass  # python-dotenv opcional; a variável pode já estar no ambiente
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+    if not api_key:
+        print("ERRO: ANTHROPIC_API_KEY não definida. Adicione ao .env ou exporte no shell.")
+        sys.exit(1)
+
     try:
-        import pdfplumber
+        import anthropic
     except ImportError:
-        print("ERRO: pdfplumber nao instalado. Rode: pip install pdfplumber")
+        print("ERRO: pacote 'anthropic' não instalado. Rode: pip install anthropic")
+        sys.exit(1)
+
+    if not pdf_path.exists():
+        print(f"ERRO: PDF não encontrado: {pdf_path}")
         sys.exit(1)
 
     print(f"  Lendo {pdf_path.name}...")
+    pdf_b64 = base64.standard_b64encode(pdf_path.read_bytes()).decode("utf-8")
 
-    all_disciplinas = []
-    current_periodo = None
+    print("  Enviando para Claude Haiku 4.5...")
+    client = anthropic.Anthropic(api_key=api_key)
 
-    with pdfplumber.open(str(pdf_path)) as pdf:
-        for page_idx, page in enumerate(pdf.pages):
-            # Coleta marcadores de período com posição Y para ordenação
-            # Cada marcador: (y, periodo_int_or_None)
-            markers: list[tuple[float, int | None]] = []
+    raw_parts: list[str] = []
+    with client.messages.stream(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=64000,
+        system=SYSTEM_PROMPT,
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "document",
+                        "source": {
+                            "type": "base64",
+                            "media_type": "application/pdf",
+                            "data": pdf_b64,
+                        },
+                    },
+                    {
+                        "type": "text",
+                        "text": USER_PROMPT,
+                    },
+                ],
+            }
+        ],
+    ) as stream:
+        for text in stream.text_stream:
+            raw_parts.append(text)
 
-            words = page.extract_words()
-            page_text_items = []
-            for w in words:
-                page_text_items.append(w)
+    raw = _strip_markdown_fence("".join(raw_parts))
 
-            # Busca headers de período por posição Y
-            full_text = page.extract_text() or ""
-            for m in PERIOD_RE.finditer(full_text):
-                periodo_val = int(m.group(1))
-                # Localiza a posição Y buscando a palavra do período no PDF
-                keyword = m.group(0).split()[0]  # ex: "7º"
-                for w in words:
-                    if keyword in w["text"]:
-                        markers.append((w["top"], periodo_val))
-                        break
+    try:
+        result: dict = json.loads(raw)
+    except json.JSONDecodeError as e:
+        print(f"ERRO: resposta do Claude não é JSON válido: {e}")
+        print("Primeiros 500 chars da resposta:")
+        print(raw[:500])
+        sys.exit(1)
 
-            # Busca "Não periodizada" por posição Y
-            nao_period_re = re.compile(r"[Nn]ão\s+periodizada|N.o\s+periodizada")
-            for w in words:
-                if nao_period_re.search(w["text"]):
-                    markers.append((w["top"], None))
-                    break
-            # Fallback: check combined text for "Não periodizada"
-            if not any(v is None for _, v in markers):
-                if "Não periodizada" in full_text or "N\udce3o periodizada" in full_text:
-                    # Tenta achar a posição Y via busca de "periodizada"
-                    for w in words:
-                        if "periodizada" in w["text"].lower():
-                            markers.append((w["top"], None))
-                            break
-
-            # Ordena marcadores por posição Y (topo → baixo)
-            markers.sort(key=lambda x: x[0])
-
-            # Extrai tabelas com bounding boxes para saber posição Y das linhas
-            table_settings = {}
-            found_tables = page.find_tables(table_settings)
-            extracted_tables = page.extract_tables(table_settings)
-
-            for t_idx, (tbl_obj, table) in enumerate(
-                zip(found_tables, extracted_tables)
-            ):
-                bbox = tbl_obj.bbox  # (x0, top, x1, bottom)
-                row_count = len(table) if table else 0
-                if row_count == 0:
-                    continue
-
-                # Estima posição Y de cada linha distribuindo uniformemente
-                tbl_top = bbox[1]
-                tbl_bottom = bbox[3]
-                row_height = (tbl_bottom - tbl_top) / row_count
-
-                for row_idx, row in enumerate(table):
-                    if not row or not row[0]:
-                        continue
-
-                    codigo = row[0].strip()
-                    if not CODE_RE.match(codigo):
-                        continue
-
-                    row_y = tbl_top + row_idx * row_height
-
-                    # Determina período desta linha baseado nos marcadores
-                    # Usa o último marcador com Y <= row_y, ou herda da página anterior
-                    periodo_for_row = current_periodo
-                    for marker_y, marker_val in markers:
-                        if marker_y <= row_y:
-                            periodo_for_row = marker_val
-                        else:
-                            break
-
-                    nome = (row[1] or "").strip()
-                    nome = re.sub(r"\s*[\n\r]+\s*", " ", nome).strip()
-                    tipo_raw = (row[2] or "").strip()
-                    tipo = "obrigatoria" if tipo_raw == "OB" else "optativa"
-
-                    prereq_col = row[9] or ""
-                    prereqs = list(
-                        dict.fromkeys(PREREQ_CODE_RE.findall(prereq_col))
-                    )
-
-                    all_disciplinas.append(
-                        {
-                            "codigo": codigo,
-                            "nome": nome,
-                            "periodo": periodo_for_row,
-                            "tipo": tipo,
-                            "prerequisitos": prereqs,
-                        }
-                    )
-
-            # Atualiza current_periodo para a próxima página
-            # Usa o último marcador da página atual
-            if markers:
-                current_periodo = markers[-1][1]
+    disciplinas: list[dict] = result.get("disciplinas", [])
 
     # Deduplica por código (mantém primeira ocorrência)
-    seen = set()
+    seen: set[str] = set()
     unique = []
-    for d in all_disciplinas:
-        if d["codigo"] not in seen:
-            seen.add(d["codigo"])
+    for d in disciplinas:
+        codigo = d.get("codigo", "")
+        if codigo and codigo not in seen:
+            seen.add(codigo)
             unique.append(d)
 
-    # Salva resultado
+    result["disciplinas"] = unique
+
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
-        json.dump(unique, f, ensure_ascii=False, indent=2)
+        json.dump(result, f, ensure_ascii=False, indent=2)
 
-    obr = sum(1 for d in unique if d["tipo"] == "obrigatoria")
-    opt = sum(1 for d in unique if d["tipo"] == "optativa")
-    print(f"  {len(unique)} disciplinas ({obr} obrig., {opt} opt.) -> {out_path.name}")
+    obr = sum(1 for d in unique if d.get("tipo") == "obrigatoria")
+    opt = sum(1 for d in unique if d.get("tipo") == "optativa")
+    print(f"  Faculdade : {result.get('nome_faculdade', '?')}")
+    print(f"  Currículo : {result.get('numero_curriculo', '?')}")
+    print(f"  CH Total  : {result.get('carga_horaria_total', '?')}h")
+    print(f"  CH Obrig. : {result.get('horas_obrigatorias', '?')}h")
+    print(f"  Disciplinas: {len(unique)} ({obr} obrig., {opt} opt.) -> {out_path.name}")
 
-    return unique
+    return result
 
 
 def main():

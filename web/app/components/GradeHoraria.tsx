@@ -91,6 +91,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   // Toast
   const [toastMsg, setToastMsg] = useState<string | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toastKeyRef = useRef(0);
 
   // Email crowdsourcing
   const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
@@ -118,6 +119,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
   const showToast = useCallback((msg: string) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    toastKeyRef.current += 1;
     setToastMsg(msg);
     toastTimeoutRef.current = setTimeout(() => setToastMsg(null), 2000);
   }, []);
@@ -235,7 +237,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   }, [selecionadas, nomeCompletoMap, professorEmailMap, showToast]);
 
   const handleExportarPDF = useCallback(() => {
-    window.print();
+    setGradeAberta(true);
+    setLegendaVisivel(true);
+    requestAnimationFrame(() => window.print());
   }, []);
 
   const handleResizeStart = useCallback((e: React.MouseEvent) => {
@@ -375,6 +379,10 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   }
 
   function temConflito(candidata: Materia) {
+    // Bloqueia mesmo código com turma diferente (impede duplicar disciplina)
+    if (selecionadas.some((s) => s.codigo === candidata.codigo && s.turma !== candidata.turma)) {
+      return true;
+    }
     for (const dia of DIAS) {
       const t1 = parseTime(candidata.horarios[dia]);
       if (!t1) continue;
@@ -390,11 +398,50 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
   function toggle(m: Materia) {
     if (isSelecionada(m)) {
+      // Coleta todos os códigos a remover: co-reqs diretos + reversos
+      const coReqCodes = new Set<string>(m.corequisitos ?? []);
+      for (const s of selecionadas) {
+        if ((s.corequisitos ?? []).includes(m.codigo)) coReqCodes.add(s.codigo);
+      }
       setSelecionadas((prev) =>
-        prev.filter((s) => !(s.codigo === m.codigo && s.turma === m.turma))
+        prev.filter((s) =>
+          !(s.codigo === m.codigo && s.turma === m.turma) && !coReqCodes.has(s.codigo)
+        )
       );
     } else {
-      setSelecionadas((prev) => [...prev, m]);
+      const toAdd: Materia[] = [m];
+      for (const coReqCode of (m.corequisitos ?? [])) {
+        if (selecionadas.some((s) => s.codigo === coReqCode)) continue;
+
+        // Matching por turma: prefixo (1ª letra) + índice ordinal
+        const prefix = m.turma[0];
+
+        // Turmas únicas da disciplina selecionada com mesmo prefixo, ordenadas
+        const myTurmas = [...new Set(
+          materias.filter((x) => x.codigo === m.codigo && x.turma[0] === prefix).map((x) => x.turma)
+        )].sort();
+        const myIdx = myTurmas.indexOf(m.turma);
+
+        // Turmas únicas do co-req com mesmo prefixo, ordenadas
+        const coReqTurmas = [...new Set(
+          materias.filter((x) => x.codigo === coReqCode && x.turma[0] === prefix).map((x) => x.turma)
+        )].sort();
+
+        let coReq: Materia | undefined;
+        if (myIdx >= 0 && myIdx < coReqTurmas.length) {
+          coReq = materias.find((x) => x.codigo === coReqCode && x.turma === coReqTurmas[myIdx]);
+        } else {
+          // Fallback: primeiro co-req com mesmo prefixo, ou qualquer turma
+          coReq = materias.find((x) => x.codigo === coReqCode && x.turma[0] === prefix)
+            || materias.find((x) => x.codigo === coReqCode);
+        }
+
+        if (coReq) toAdd.push(coReq);
+      }
+      setSelecionadas((prev) => [...prev, ...toAdd]);
+      if (toAdd.length > 1) {
+        showToast(`Co-req adicionado: ${toAdd.slice(1).map((x) => x.nome).join(", ")}`);
+      }
     }
     if (isLateral && !gradeAberta) {
       if (peekTimeoutRef.current) clearTimeout(peekTimeoutRef.current);
@@ -414,6 +461,122 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     widgetPos === 'center' ? styles.widget_center
     : widgetPos === 'left' ? styles.widget_left
     : styles.widget_right;
+
+  function renderCard(m: Materia, keyPrefix: string = '') {
+    const key = `${m.codigo}-${m.turma}`;
+    const sel = isSelecionada(m);
+    const conflito = !sel && temConflito(m);
+    const color = colorMap[key];
+    const diasAtivos = DIAS.filter((d) => m.horarios[d]);
+
+    return (
+      <li
+        key={keyPrefix + key}
+        className={`${styles.item} ${sel ? styles.itemSel : ""} ${conflito ? styles.itemConflito : ""}`}
+        onClick={() => !conflito && toggle(m)}
+      >
+        <div
+          className={styles.checkbox}
+          style={sel ? { background: color, borderColor: color } : undefined}
+        >
+          {sel && <span className={styles.checkmark}>✓</span>}
+        </div>
+
+        <div className={styles.itemInfo}>
+          <div className={styles.itemNomeRow}>
+            <span className={styles.itemNome}>
+              {m.nome}
+            </span>
+            {m.nome_exibicao && (() => {
+              const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
+              const confirmedEmail = professorEmailMap[docente];
+              const isProfAllocated = docente !== "Sem professor alocado";
+              const alreadySubmitted = emailSubmitted[m.nome_exibicao];
+
+              return (
+                <div className={styles.profWrapper} onClick={(e) => e.stopPropagation()}>
+                  <span
+                    className={styles.profTag}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const copyText = confirmedEmail
+                        ? `Professor: ${docente} | Email: ${confirmedEmail}`
+                        : docente;
+                      navigator.clipboard.writeText(copyText);
+                      showToast("Copiado!");
+                    }}
+                  >
+                    Prof. {m.nome_exibicao}
+                  </span>
+
+                  <div className={styles.profTooltip}>
+                    <div className={styles.tooltipRow}>
+                      <span className={styles.tooltipLabel}>Nome</span>
+                      <span className={styles.tooltipValue}>{docente}</span>
+                    </div>
+                    <div className={styles.tooltipRow}>
+                      <span className={styles.tooltipLabel}>Email</span>
+                      {confirmedEmail ? (
+                        <span className={styles.tooltipEmail}>{confirmedEmail}</span>
+                      ) : isProfAllocated ? (
+                        <span
+                          className={styles.tooltipEmailCta}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (!alreadySubmitted) openEmailModal(m.nome_exibicao, docente);
+                          }}
+                        >
+                          {alreadySubmitted ? "Sugestão registrada" : "você sabe o email? Digite aqui"}
+                        </span>
+                      ) : (
+                        <span className={styles.tooltipEmailNone}>—</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+          <div className={styles.itemMetaWrapper}>
+            <div className={styles.itemMeta}>
+            <div className={styles.metaRow}>
+              <span className={styles.metaKey}>Cód.</span>
+              <span>{m.codigo}</span>
+            </div>
+            <div className={styles.metaRow}>
+              <span className={styles.metaKey}>Turma</span>
+              <span>{m.turma}</span>
+            </div>
+            <div className={styles.metaRow}>
+              <span className={styles.metaKey}>CH</span>
+              <span>{m.ch != null ? `${m.ch}h` : "—"}</span>
+            </div>
+            {diasAtivos.map((d) => (
+              <div key={d} className={styles.metaRow}>
+                <span className={styles.metaKey}>{DIAS_LABEL[d]}</span>
+                <span>{m.horarios[d]}</span>
+              </div>
+            ))}
+          </div>
+          <span className={styles.tipoBadge}>
+            {m.tipo === "obrigatoria" ? "Obrigatória" : "Optativa"}
+          </span>
+          </div>
+          {m.link && (
+            <a
+              href={m.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.itemLinkBtn}
+              onClick={(e) => e.stopPropagation()}
+            >
+              Ver no quadro de horários ↗
+            </a>
+          )}
+        </div>
+      </li>
+    );
+  }
 
   return (
     <div
@@ -573,126 +736,21 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
         </div>
 
         <ul className={styles.lista}>
+          {/* Selecionadas — sempre no topo */}
+          {selecionadas.length > 0 && (
+            <React.Fragment>
+              <li className={styles.selecionadasSeparator}>Selecionadas</li>
+              {selecionadas.map((m) => renderCard(m, "sel-"))}
+            </React.Fragment>
+          )}
+
+          {/* Grupos por período */}
           {periodoGroups.map(({ key: gKey, materias }) => (
             <React.Fragment key={gKey}>
               <li className={styles.periodSeparator}>
                 {gKey.match(/^\d+$/) ? `${gKey}° Período` : gKey === "obrig-np" ? "Obrigatórias — Sem Período" : "Optativas"}
               </li>
-              {materias.map((m) => {
-            const key = `${m.codigo}-${m.turma}`;
-            const sel = isSelecionada(m);
-            const conflito = !sel && temConflito(m);
-            const color = colorMap[key];
-            const diasAtivos = DIAS.filter((d) => m.horarios[d]);
-
-            return (
-              <li
-                key={key}
-                className={`${styles.item} ${sel ? styles.itemSel : ""} ${conflito ? styles.itemConflito : ""}`}
-                onClick={() => !conflito && toggle(m)}
-              >
-                <div
-                  className={styles.checkbox}
-                  style={sel ? { background: color, borderColor: color } : undefined}
-                >
-                  {sel && <span className={styles.checkmark}>✓</span>}
-                </div>
-
-                <div className={styles.itemInfo}>
-                  <div className={styles.itemNomeRow}>
-                    <span className={styles.itemNome}>
-                      {m.nome}
-                    </span>
-                    {m.nome_exibicao && (() => {
-                      const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
-                      const confirmedEmail = professorEmailMap[docente];
-                      const isProfAllocated = docente !== "Sem professor alocado";
-                      const alreadySubmitted = emailSubmitted[m.nome_exibicao];
-
-                      return (
-                        <div className={styles.profWrapper} onClick={(e) => e.stopPropagation()}>
-                          <span
-                            className={styles.profTag}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const copyText = confirmedEmail
-                                ? `Professor: ${docente} | Email: ${confirmedEmail}`
-                                : docente;
-                              navigator.clipboard.writeText(copyText);
-                              showToast("Copiado!");
-                            }}
-                          >
-                            Prof. {m.nome_exibicao}
-                          </span>
-
-                          <div className={styles.profTooltip}>
-                            <div className={styles.tooltipRow}>
-                              <span className={styles.tooltipLabel}>Nome</span>
-                              <span className={styles.tooltipValue}>{docente}</span>
-                            </div>
-                            <div className={styles.tooltipRow}>
-                              <span className={styles.tooltipLabel}>Email</span>
-                              {confirmedEmail ? (
-                                <span className={styles.tooltipEmail}>{confirmedEmail}</span>
-                              ) : isProfAllocated ? (
-                                <span
-                                  className={styles.tooltipEmailCta}
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    if (!alreadySubmitted) openEmailModal(m.nome_exibicao, docente);
-                                  }}
-                                >
-                                  {alreadySubmitted ? "Sugestão registrada" : "você sabe o email? Digite aqui"}
-                                </span>
-                              ) : (
-                                <span className={styles.tooltipEmailNone}>—</span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })()}
-                  </div>
-                  <div className={styles.itemMetaWrapper}>
-                    <div className={styles.itemMeta}>
-                    <div className={styles.metaRow}>
-                      <span className={styles.metaKey}>Cód.</span>
-                      <span>{m.codigo}</span>
-                    </div>
-                    <div className={styles.metaRow}>
-                      <span className={styles.metaKey}>Turma</span>
-                      <span>{m.turma}</span>
-                    </div>
-                    <div className={styles.metaRow}>
-                      <span className={styles.metaKey}>CH</span>
-                      <span>{m.ch != null ? `${m.ch}h` : "—"}</span>
-                    </div>
-                    {diasAtivos.map((d) => (
-                      <div key={d} className={styles.metaRow}>
-                        <span className={styles.metaKey}>{DIAS_LABEL[d]}</span>
-                        <span>{m.horarios[d]}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <span className={styles.tipoBadge}>
-                    {m.tipo === "obrigatoria" ? "Obrigatória" : "Optativa"}
-                  </span>
-                  </div>
-                  {m.link && (
-                    <a
-                      href={m.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.itemLinkBtn}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      Ver no quadro de horários ↗
-                    </a>
-                  )}
-                </div>
-              </li>
-            );
-              })}
+              {materias.map((m) => renderCard(m))}
             </React.Fragment>
           ))}
         </ul>
@@ -935,7 +993,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       )}
 
       {toastMsg && (
-        <div key={toastMsg + Date.now()} className={styles.toast}>
+        <div key={toastKeyRef.current} className={styles.toast}>
           {toastMsg}
         </div>
       )}

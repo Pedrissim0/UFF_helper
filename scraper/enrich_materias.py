@@ -39,8 +39,11 @@ def run():
         equivalencias = {k: v for k, v in raw.items() if k != "_comentario"}
         print(f"  {len(equivalencias)} equivalências carregadas")
 
+    # Extrai lista de disciplinas (novo schema: objeto com chave "disciplinas")
+    disciplinas_matriz = matriz["disciplinas"] if isinstance(matriz, dict) else matriz
+
     # Cria índice por código para lookup rápido
-    matriz_map = {d["codigo"]: d for d in matriz}
+    matriz_map = {d["codigo"]: d for d in disciplinas_matriz}
 
     # Merge: adiciona periodo, tipo, prerequisitos a cada matéria
     enriquecidas = 0
@@ -56,6 +59,7 @@ def run():
             m["periodo"] = d["periodo"]
             m["tipo"] = d["tipo"]
             m["prerequisitos"] = d["prerequisitos"]
+            m["corequisitos"] = d.get("corequisitos", [])
             enriquecidas += 1
             if lookup != codigo:
                 por_equiv += 1
@@ -64,6 +68,7 @@ def run():
             m["periodo"] = None
             m["tipo"] = "optativa"
             m["prerequisitos"] = []
+            m["corequisitos"] = []
             sem_match += 1
 
     # Salva resultado

@@ -20,7 +20,8 @@
       "SEN00077",
       "SEN00073"
     ],
-    "nome_exibicao": "Luis Silva"
+    "nome_exibicao": "Luis Silva",
+    "corequisitos": []
   },
   {
     "codigo": "GGE00125",
@@ -43,7 +44,8 @@
       "SEN00077",
       "SEN00073"
     ],
-    "nome_exibicao": "Timo Bartholl"
+    "nome_exibicao": "Timo Bartholl",
+    "corequisitos": []
   },
   {
     "codigo": "STA00160",
@@ -63,7 +65,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Frederico Costa"
+    "nome_exibicao": "Frederico Costa",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00191",
@@ -85,7 +88,8 @@
     "prerequisitos": [
       "SEN00258"
     ],
-    "nome_exibicao": "Andre Oliveira"
+    "nome_exibicao": "Andre Oliveira",
+    "corequisitos": []
   },
   {
     "codigo": "STC00116",
@@ -107,7 +111,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Roberto Vieira"
+    "nome_exibicao": "Roberto Vieira",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00214",
@@ -127,7 +132,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Antonio Cunha"
+    "nome_exibicao": "Antonio Cunha",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00186",
@@ -149,7 +155,8 @@
     "prerequisitos": [
       "SEN00074"
     ],
-    "nome_exibicao": "Fabio Waltenberg"
+    "nome_exibicao": "Fabio Waltenberg",
+    "corequisitos": []
   },
   {
     "codigo": "GCV00160",
@@ -169,7 +176,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Cezar Migliorin"
+    "nome_exibicao": "Cezar Migliorin",
+    "corequisitos": []
   },
   {
     "codigo": "GCV00270",
@@ -189,7 +197,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Cezar Migliorin"
+    "nome_exibicao": "Cezar Migliorin",
+    "corequisitos": []
   },
   {
     "codigo": "STC00115",
@@ -211,7 +220,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Luciana Santos"
+    "nome_exibicao": "Luciana Santos",
+    "corequisitos": []
   },
   {
     "codigo": "SDB00171",
@@ -231,7 +241,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Paulo Corval"
+    "nome_exibicao": "Paulo Corval",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00244",
@@ -251,7 +262,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Roldan Sarache"
+    "nome_exibicao": "Roldan Sarache",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00176",
@@ -271,7 +283,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Tiago Oliveira"
+    "nome_exibicao": "Tiago Oliveira",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00176",
@@ -291,7 +304,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Carlos Vidotto"
+    "nome_exibicao": "Carlos Vidotto",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00259",
@@ -314,7 +328,8 @@
       "GAN00147",
       "GET00118"
     ],
-    "nome_exibicao": "Jesus Obregon"
+    "nome_exibicao": "Jesus Obregon",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00259",
@@ -337,7 +352,8 @@
       "GAN00147",
       "GET00118"
     ],
-    "nome_exibicao": "Diogo Braga"
+    "nome_exibicao": "Diogo Braga",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00121",
@@ -359,7 +375,8 @@
     "prerequisitos": [
       "SEN00259"
     ],
-    "nome_exibicao": "Danielle Machado"
+    "nome_exibicao": "Danielle Machado",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00260",
@@ -381,7 +398,8 @@
     "prerequisitos": [
       "SEN00256"
     ],
-    "nome_exibicao": "Juliane Furno"
+    "nome_exibicao": "Juliane Furno",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00260",
@@ -403,7 +421,8 @@
     "prerequisitos": [
       "SEN00256"
     ],
-    "nome_exibicao": "Carlos Vidotto"
+    "nome_exibicao": "Carlos Vidotto",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00261",
@@ -425,7 +444,8 @@
     "prerequisitos": [
       "SEN00260"
     ],
-    "nome_exibicao": "Victor Araujo"
+    "nome_exibicao": "Victor Araujo",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00261",
@@ -447,7 +467,8 @@
     "prerequisitos": [
       "SEN00260"
     ],
-    "nome_exibicao": "Fernando Mattos"
+    "nome_exibicao": "Fernando Mattos",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00149",
@@ -469,7 +490,8 @@
     "prerequisitos": [
       "SEN00074"
     ],
-    "nome_exibicao": "Niagara Silva"
+    "nome_exibicao": "Niagara Silva",
+    "corequisitos": []
   },
   {
     "codigo": "STA00229",
@@ -489,7 +511,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Denise Almeida"
+    "nome_exibicao": "Denise Almeida",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00133",
@@ -512,7 +535,8 @@
       "SEN00077",
       "SEN00073"
     ],
-    "nome_exibicao": "Jorge Britto"
+    "nome_exibicao": "Jorge Britto",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00258",
@@ -532,7 +556,8 @@
     "periodo": 5,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Regis Motta"
+    "nome_exibicao": "Regis Motta",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00258",
@@ -552,7 +577,8 @@
     "periodo": 5,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Lilian Silva"
+    "nome_exibicao": "Lilian Silva",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00111",
@@ -574,7 +600,8 @@
     "prerequisitos": [
       "SEN00077"
     ],
-    "nome_exibicao": "Andre Nassif"
+    "nome_exibicao": "Andre Nassif",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00178",
@@ -596,7 +623,8 @@
     "prerequisitos": [
       "GAN00147"
     ],
-    "nome_exibicao": "Jesus Obregon"
+    "nome_exibicao": "Jesus Obregon",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00118",
@@ -618,7 +646,8 @@
     "prerequisitos": [
       "SEN00078"
     ],
-    "nome_exibicao": "Luiz Fonseca"
+    "nome_exibicao": "Luiz Fonseca",
+    "corequisitos": []
   },
   {
     "codigo": "GCV00304",
@@ -638,7 +667,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Lia Cesario"
+    "nome_exibicao": "Lia Cesario",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00227",
@@ -660,7 +690,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Eduardo Cruz"
+    "nome_exibicao": "Eduardo Cruz",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00086",
@@ -682,7 +713,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Filipe Pinheiro"
+    "nome_exibicao": "Filipe Pinheiro",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00156",
@@ -704,7 +736,8 @@
     "prerequisitos": [
       "SEN00158"
     ],
-    "nome_exibicao": "Regis Motta"
+    "nome_exibicao": "Regis Motta",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00195",
@@ -724,7 +757,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Matheus Coelho"
+    "nome_exibicao": "Matheus Coelho",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00103",
@@ -746,7 +780,8 @@
     "prerequisitos": [
       "SEN00258"
     ],
-    "nome_exibicao": "Luis Rossi"
+    "nome_exibicao": "Luis Rossi",
+    "corequisitos": []
   },
   {
     "codigo": "STA00162",
@@ -766,7 +801,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Renato Miranda"
+    "nome_exibicao": "Renato Miranda",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00200",
@@ -786,7 +822,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Victor Araujo"
+    "nome_exibicao": "Victor Araujo",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00256",
@@ -802,10 +839,14 @@
       "sex": "",
       "sab": ""
     },
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [],
-    "nome_exibicao": "Sem professor alocado"
+    "periodo": 4,
+    "tipo": "obrigatoria",
+    "prerequisitos": [
+      "GHT00313",
+      "SEN00078"
+    ],
+    "nome_exibicao": "Sem professor alocado",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00256",
@@ -822,10 +863,14 @@
       "sab": ""
     },
     "docente": "Matheus Sinder Nunes Herdy Coelho",
-    "periodo": null,
-    "tipo": "optativa",
-    "prerequisitos": [],
-    "nome_exibicao": "Matheus Coelho"
+    "periodo": 4,
+    "tipo": "obrigatoria",
+    "prerequisitos": [
+      "GHT00313",
+      "SEN00078"
+    ],
+    "nome_exibicao": "Matheus Coelho",
+    "corequisitos": []
   },
   {
     "codigo": "GGE00138",
@@ -848,7 +893,8 @@
       "SEN00077",
       "SEN00073"
     ],
-    "nome_exibicao": "Lethicia Machado"
+    "nome_exibicao": "Lethicia Machado",
+    "corequisitos": []
   },
   {
     "codigo": "STA00175",
@@ -868,7 +914,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Joao Santos"
+    "nome_exibicao": "Joao Santos",
+    "corequisitos": []
   },
   {
     "codigo": "STA00158",
@@ -888,7 +935,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Ivando Faria"
+    "nome_exibicao": "Ivando Faria",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00189",
@@ -910,7 +958,8 @@
     "prerequisitos": [
       "SEN00258"
     ],
-    "nome_exibicao": "Lilian Silva"
+    "nome_exibicao": "Lilian Silva",
+    "corequisitos": []
   },
   {
     "codigo": "STA00261",
@@ -930,7 +979,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Ariel Levy"
+    "nome_exibicao": "Ariel Levy",
+    "corequisitos": []
   },
   {
     "codigo": "GHT00313",
@@ -950,7 +1000,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Carlos Guimaraes"
+    "nome_exibicao": "Carlos Guimaraes",
+    "corequisitos": []
   },
   {
     "codigo": "GHT00313",
@@ -970,7 +1021,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Manoela Pedroza"
+    "nome_exibicao": "Manoela Pedroza",
+    "corequisitos": []
   },
   {
     "codigo": "STA00128",
@@ -992,7 +1044,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Mariana Peixoto"
+    "nome_exibicao": "Mariana Peixoto",
+    "corequisitos": []
   },
   {
     "codigo": "STE00058",
@@ -1012,7 +1065,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Edison Junior"
+    "nome_exibicao": "Edison Junior",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00245",
@@ -1032,7 +1086,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Claude Cohen"
+    "nome_exibicao": "Claude Cohen",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00245",
@@ -1052,7 +1107,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Bianca Bonente"
+    "nome_exibicao": "Bianca Bonente",
+    "corequisitos": []
   },
   {
     "codigo": "GFL00024",
@@ -1074,7 +1130,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Patrick Pessoa"
+    "nome_exibicao": "Patrick Pessoa",
+    "corequisitos": []
   },
   {
     "codigo": "GFL00024",
@@ -1096,7 +1153,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Celso Filho"
+    "nome_exibicao": "Celso Filho",
+    "corequisitos": []
   },
   {
     "codigo": "SGE00015",
@@ -1116,7 +1174,10 @@
     "periodo": 2,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Leonardo Muls"
+    "nome_exibicao": "Leonardo Muls",
+    "corequisitos": [
+      "SEN00077"
+    ]
   },
   {
     "codigo": "SGE00015",
@@ -1136,7 +1197,10 @@
     "periodo": 2,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Luciano Oliveira"
+    "nome_exibicao": "Luciano Oliveira",
+    "corequisitos": [
+      "SEN00077"
+    ]
   },
   {
     "codigo": "SGE00012",
@@ -1156,7 +1220,10 @@
     "periodo": 2,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Ana Ruiz"
+    "nome_exibicao": "Ana Ruiz",
+    "corequisitos": [
+      "SEN00072"
+    ]
   },
   {
     "codigo": "SGE00012",
@@ -1175,7 +1242,10 @@
     "periodo": 2,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Sem professor alocado"
+    "nome_exibicao": "Sem professor alocado",
+    "corequisitos": [
+      "SEN00072"
+    ]
   },
   {
     "codigo": "SGE00012",
@@ -1195,7 +1265,10 @@
     "periodo": 2,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Welinton Ferreira"
+    "nome_exibicao": "Welinton Ferreira",
+    "corequisitos": [
+      "SEN00072"
+    ]
   },
   {
     "codigo": "SGE00012",
@@ -1215,7 +1288,10 @@
     "periodo": 2,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Rosane Mendonca"
+    "nome_exibicao": "Rosane Mendonca",
+    "corequisitos": [
+      "SEN00072"
+    ]
   },
   {
     "codigo": "SGE00013",
@@ -1235,7 +1311,10 @@
     "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Welinton Ferreira"
+    "nome_exibicao": "Welinton Ferreira",
+    "corequisitos": [
+      "SEN00073"
+    ]
   },
   {
     "codigo": "SGE00013",
@@ -1255,7 +1334,10 @@
     "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Marcos Lyra"
+    "nome_exibicao": "Marcos Lyra",
+    "corequisitos": [
+      "SEN00073"
+    ]
   },
   {
     "codigo": "SGE00014",
@@ -1275,7 +1357,10 @@
     "periodo": 4,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Niagara Silva"
+    "nome_exibicao": "Niagara Silva",
+    "corequisitos": [
+      "SEN00074"
+    ]
   },
   {
     "codigo": "SGE00014",
@@ -1294,7 +1379,10 @@
     "periodo": 4,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Sem professor alocado"
+    "nome_exibicao": "Sem professor alocado",
+    "corequisitos": [
+      "SEN00074"
+    ]
   },
   {
     "codigo": "SGE00026",
@@ -1314,7 +1402,10 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Lucilene Morandi"
+    "nome_exibicao": "Lucilene Morandi",
+    "corequisitos": [
+      "SEN00076"
+    ]
   },
   {
     "codigo": "SGE00026",
@@ -1334,7 +1425,10 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Leon Esquierro"
+    "nome_exibicao": "Leon Esquierro",
+    "corequisitos": [
+      "SEN00076"
+    ]
   },
   {
     "codigo": "SEN00207",
@@ -1357,7 +1451,8 @@
       "GAN00147",
       "SEN00079"
     ],
-    "nome_exibicao": "Antonio Cunha"
+    "nome_exibicao": "Antonio Cunha",
+    "corequisitos": []
   },
   {
     "codigo": "STA00156",
@@ -1377,7 +1472,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Miguel Lima"
+    "nome_exibicao": "Miguel Lima",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00145",
@@ -1397,7 +1493,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Yuri Ki"
+    "nome_exibicao": "Yuri Ki",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00145",
@@ -1417,7 +1514,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Danilo Avelar"
+    "nome_exibicao": "Danilo Avelar",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00145",
@@ -1437,7 +1535,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Thiago Pires"
+    "nome_exibicao": "Thiago Pires",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00145",
@@ -1457,7 +1556,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Giuseppe Borrelli"
+    "nome_exibicao": "Giuseppe Borrelli",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00146",
@@ -1479,7 +1579,8 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Slobodan Tanushevski"
+    "nome_exibicao": "Slobodan Tanushevski",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00146",
@@ -1501,7 +1602,8 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Paulo Gusmao"
+    "nome_exibicao": "Paulo Gusmao",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00146",
@@ -1523,7 +1625,8 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Alex Pereira"
+    "nome_exibicao": "Alex Pereira",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00147",
@@ -1545,7 +1648,8 @@
     "prerequisitos": [
       "GAN00146"
     ],
-    "nome_exibicao": "Alex Pereira"
+    "nome_exibicao": "Alex Pereira",
+    "corequisitos": []
   },
   {
     "codigo": "GAN00147",
@@ -1567,7 +1671,8 @@
     "prerequisitos": [
       "GAN00146"
     ],
-    "nome_exibicao": "Ricardo Apolaya"
+    "nome_exibicao": "Ricardo Apolaya",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00188",
@@ -1589,7 +1694,8 @@
     "prerequisitos": [
       "SEN00258"
     ],
-    "nome_exibicao": "Luis Rossi"
+    "nome_exibicao": "Luis Rossi",
+    "corequisitos": []
   },
   {
     "codigo": "GET00118",
@@ -1606,12 +1712,14 @@
       "sab": ""
     },
     "docente": "Rafael Santos Erbisti",
-    "periodo": 2,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
-      "GAN00145"
+      "GAN00146",
+      "GET00117"
     ],
-    "nome_exibicao": "Rafael Erbisti"
+    "nome_exibicao": "Rafael Erbisti",
+    "corequisitos": []
   },
   {
     "codigo": "GET00118",
@@ -1628,12 +1736,14 @@
       "sab": ""
     },
     "docente": "Jose Murilo Ferraz Saraiva",
-    "periodo": 2,
+    "periodo": 3,
     "tipo": "obrigatoria",
     "prerequisitos": [
-      "GAN00145"
+      "GAN00146",
+      "GET00117"
     ],
-    "nome_exibicao": "Jose Saraiva"
+    "nome_exibicao": "Jose Saraiva",
+    "corequisitos": []
   },
   {
     "codigo": "GET00117",
@@ -1655,7 +1765,8 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Victor Matos"
+    "nome_exibicao": "Victor Matos",
+    "corequisitos": []
   },
   {
     "codigo": "GET00117",
@@ -1677,7 +1788,8 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Valentin Sisko"
+    "nome_exibicao": "Valentin Sisko",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00084",
@@ -1703,7 +1815,8 @@
       "SEN00259",
       "SEN00075"
     ],
-    "nome_exibicao": "Nazira Camely"
+    "nome_exibicao": "Nazira Camely",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00084",
@@ -1729,7 +1842,8 @@
       "SEN00259",
       "SEN00075"
     ],
-    "nome_exibicao": "Nazira Camely"
+    "nome_exibicao": "Nazira Camely",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00091",
@@ -1749,7 +1863,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Andre Augusto"
+    "nome_exibicao": "Andre Augusto",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00206",
@@ -1771,7 +1886,8 @@
     "prerequisitos": [
       "SEN00079"
     ],
-    "nome_exibicao": "Caio Vilella"
+    "nome_exibicao": "Caio Vilella",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00209",
@@ -1791,7 +1907,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Luciano Oliveira"
+    "nome_exibicao": "Luciano Oliveira",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00067",
@@ -1811,7 +1928,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Ian Silva"
+    "nome_exibicao": "Ian Silva",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00067",
@@ -1831,7 +1949,8 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Aloysio Carvalho"
+    "nome_exibicao": "Aloysio Carvalho",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00068",
@@ -1853,7 +1972,8 @@
     "prerequisitos": [
       "SEN00067"
     ],
-    "nome_exibicao": "Paulo Araujo"
+    "nome_exibicao": "Paulo Araujo",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00068",
@@ -1875,7 +1995,8 @@
     "prerequisitos": [
       "SEN00067"
     ],
-    "nome_exibicao": "Filipe Pinheiro"
+    "nome_exibicao": "Filipe Pinheiro",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00081",
@@ -1897,7 +2018,8 @@
     "prerequisitos": [
       "SEN00080"
     ],
-    "nome_exibicao": "Marcelo Carcanholo"
+    "nome_exibicao": "Marcelo Carcanholo",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00081",
@@ -1919,7 +2041,8 @@
     "prerequisitos": [
       "SEN00080"
     ],
-    "nome_exibicao": "Emmanoel Boff"
+    "nome_exibicao": "Emmanoel Boff",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00080",
@@ -1941,7 +2064,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Andre Augusto"
+    "nome_exibicao": "Andre Augusto",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00080",
@@ -1963,7 +2087,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Ian Silva"
+    "nome_exibicao": "Ian Silva",
+    "corequisitos": []
   },
   {
     "codigo": "STA00231",
@@ -1983,7 +2108,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Renato Miranda"
+    "nome_exibicao": "Renato Miranda",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00263",
@@ -2002,8 +2128,11 @@
     "docente": "Ruy Afonso de Santacruz Lima",
     "periodo": null,
     "tipo": "optativa",
-    "prerequisitos": [],
-    "nome_exibicao": "Ruy Lima"
+    "prerequisitos": [
+      "SEN00073"
+    ],
+    "nome_exibicao": "Ruy Lima",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00184",
@@ -2023,7 +2152,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Caio Vilella"
+    "nome_exibicao": "Caio Vilella",
+    "corequisitos": []
   },
   {
     "codigo": "STA00232",
@@ -2043,7 +2173,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Andrea Ribeiro"
+    "nome_exibicao": "Andrea Ribeiro",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00143",
@@ -2065,7 +2196,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Tiago Barcelos"
+    "nome_exibicao": "Tiago Barcelos",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00137",
@@ -2087,7 +2219,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Marcos Lyra"
+    "nome_exibicao": "Marcos Lyra",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00076",
@@ -2107,7 +2240,10 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Lucilene Morandi"
+    "nome_exibicao": "Lucilene Morandi",
+    "corequisitos": [
+      "SGE00026"
+    ]
   },
   {
     "codigo": "SEN00076",
@@ -2127,7 +2263,10 @@
     "periodo": 1,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Leon Esquierro"
+    "nome_exibicao": "Leon Esquierro",
+    "corequisitos": [
+      "SGE00026"
+    ]
   },
   {
     "codigo": "SEN00077",
@@ -2149,7 +2288,10 @@
     "prerequisitos": [
       "SEN00076"
     ],
-    "nome_exibicao": "Leonardo Muls"
+    "nome_exibicao": "Leonardo Muls",
+    "corequisitos": [
+      "SGE00015"
+    ]
   },
   {
     "codigo": "SEN00077",
@@ -2171,7 +2313,10 @@
     "prerequisitos": [
       "SEN00076"
     ],
-    "nome_exibicao": "Luciano Oliveira"
+    "nome_exibicao": "Luciano Oliveira",
+    "corequisitos": [
+      "SGE00015"
+    ]
   },
   {
     "codigo": "SEN00078",
@@ -2193,7 +2338,8 @@
     "prerequisitos": [
       "SEN00077"
     ],
-    "nome_exibicao": "Helder Mendonca"
+    "nome_exibicao": "Helder Mendonca",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00078",
@@ -2215,7 +2361,8 @@
     "prerequisitos": [
       "SEN00077"
     ],
-    "nome_exibicao": "Julio Bastos"
+    "nome_exibicao": "Julio Bastos",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00079",
@@ -2237,7 +2384,8 @@
     "prerequisitos": [
       "SEN00078"
     ],
-    "nome_exibicao": "Lucas Póvoa"
+    "nome_exibicao": "Lucas Póvoa",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00079",
@@ -2259,7 +2407,8 @@
     "prerequisitos": [
       "SEN00078"
     ],
-    "nome_exibicao": "Gabriel Montes"
+    "nome_exibicao": "Gabriel Montes",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00073",
@@ -2281,7 +2430,10 @@
     "prerequisitos": [
       "SEN00072"
     ],
-    "nome_exibicao": "Welinton Ferreira"
+    "nome_exibicao": "Welinton Ferreira",
+    "corequisitos": [
+      "SGE00013"
+    ]
   },
   {
     "codigo": "SEN00073",
@@ -2303,7 +2455,10 @@
     "prerequisitos": [
       "SEN00072"
     ],
-    "nome_exibicao": "Marcos Lyra"
+    "nome_exibicao": "Marcos Lyra",
+    "corequisitos": [
+      "SGE00013"
+    ]
   },
   {
     "codigo": "SEN00074",
@@ -2325,7 +2480,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Niagara Silva"
+    "nome_exibicao": "Niagara Silva",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00074",
@@ -2347,7 +2503,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Felipe Silva"
+    "nome_exibicao": "Felipe Silva",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00075",
@@ -2369,7 +2526,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Tiago Barcelos"
+    "nome_exibicao": "Tiago Barcelos",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00075",
@@ -2391,7 +2549,8 @@
     "prerequisitos": [
       "SEN00073"
     ],
-    "nome_exibicao": "Jorge Britto"
+    "nome_exibicao": "Jorge Britto",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00072",
@@ -2413,7 +2572,10 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Ana Ruiz"
+    "nome_exibicao": "Ana Ruiz",
+    "corequisitos": [
+      "SGE00012"
+    ]
   },
   {
     "codigo": "SEN00072",
@@ -2434,7 +2596,10 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Sem professor alocado"
+    "nome_exibicao": "Sem professor alocado",
+    "corequisitos": [
+      "SGE00012"
+    ]
   },
   {
     "codigo": "SEN00072",
@@ -2456,7 +2621,10 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Welinton Ferreira"
+    "nome_exibicao": "Welinton Ferreira",
+    "corequisitos": [
+      "SGE00012"
+    ]
   },
   {
     "codigo": "SEN00072",
@@ -2478,7 +2646,10 @@
     "prerequisitos": [
       "GAN00145"
     ],
-    "nome_exibicao": "Rosane Mendonca"
+    "nome_exibicao": "Rosane Mendonca",
+    "corequisitos": [
+      "SGE00012"
+    ]
   },
   {
     "codigo": "SEN00119",
@@ -2500,7 +2671,8 @@
     "prerequisitos": [
       "SEN00078"
     ],
-    "nome_exibicao": "Lucas Póvoa"
+    "nome_exibicao": "Lucas Póvoa",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00114",
@@ -2522,7 +2694,8 @@
     "prerequisitos": [
       "SEN00079"
     ],
-    "nome_exibicao": "Andre Nassif"
+    "nome_exibicao": "Andre Nassif",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00115",
@@ -2542,7 +2715,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Fernando Mattos"
+    "nome_exibicao": "Fernando Mattos",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00088",
@@ -2564,7 +2738,8 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Paulo Araujo"
+    "nome_exibicao": "Paulo Araujo",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00122",
@@ -2586,7 +2761,8 @@
     "prerequisitos": [
       "SEN00259"
     ],
-    "nome_exibicao": "Luiz Fonseca"
+    "nome_exibicao": "Luiz Fonseca",
+    "corequisitos": []
   },
   {
     "codigo": "GGE00168",
@@ -2606,7 +2782,8 @@
     "periodo": null,
     "tipo": "optativa",
     "prerequisitos": [],
-    "nome_exibicao": "Leda Buonfiglio"
+    "nome_exibicao": "Leda Buonfiglio",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00107",
@@ -2628,7 +2805,8 @@
     "prerequisitos": [
       "SEN00079"
     ],
-    "nome_exibicao": "Vinicius Pereira"
+    "nome_exibicao": "Vinicius Pereira",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00108",
@@ -2650,7 +2828,8 @@
     "prerequisitos": [
       "SEN00079"
     ],
-    "nome_exibicao": "Leon Esquierro"
+    "nome_exibicao": "Leon Esquierro",
+    "corequisitos": []
   },
   {
     "codigo": "SGE00018",
@@ -2670,7 +2849,8 @@
     "periodo": 8,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Javier Ghibaudi"
+    "nome_exibicao": "Javier Ghibaudi",
+    "corequisitos": []
   },
   {
     "codigo": "SGE00018",
@@ -2690,7 +2870,8 @@
     "periodo": 8,
     "tipo": "obrigatoria",
     "prerequisitos": [],
-    "nome_exibicao": "Javier Ghibaudi"
+    "nome_exibicao": "Javier Ghibaudi",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00203",
@@ -2712,7 +2893,8 @@
     "prerequisitos": [
       "SEN00079"
     ],
-    "nome_exibicao": "Gabriel Montes"
+    "nome_exibicao": "Gabriel Montes",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00154",
@@ -2734,7 +2916,8 @@
     "prerequisitos": [
       "SEN00153"
     ],
-    "nome_exibicao": "Claude Cohen"
+    "nome_exibicao": "Claude Cohen",
+    "corequisitos": []
   },
   {
     "codigo": "SEN00090",
@@ -2756,6 +2939,7 @@
     "prerequisitos": [
       "SEN00068"
     ],
-    "nome_exibicao": "Bianca Bonente"
+    "nome_exibicao": "Bianca Bonente",
+    "corequisitos": []
   }
 ]
