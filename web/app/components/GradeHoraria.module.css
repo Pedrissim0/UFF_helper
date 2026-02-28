@@ -39,6 +39,36 @@
   margin: 4px 0 20px;
 }
 
+/* ── Header actions (nav + theme toggle) ──────── */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.navLink {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.15s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
 /* ── Theme toggle ─────────────────────────────── */
 .themeToggle {
   background: var(--bg-btn);
@@ -53,7 +83,6 @@
   color: var(--text-faint);
   transition: all 0.2s;
   flex-shrink: 0;
-  margin-top: 4px;
 }
 
 .themeToggle:hover {

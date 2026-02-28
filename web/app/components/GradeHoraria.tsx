@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import Link from "next/link";
 import type { Materia } from "../page";
 import styles from "./GradeHoraria.module.css";
 
@@ -592,30 +593,35 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           <span className={styles.semestre}>ECONOMIA · 2026.1</span>
           <h1 className={styles.titulo}>Montador de Grade</h1>
         </div>
-        <button
-          className={styles.themeToggle}
-          onClick={toggleTema}
-          aria-label={tema === 'light' ? 'Ativar modo noturno' : 'Ativar modo claro'}
-          title={tema === 'light' ? 'Modo noturno' : 'Modo claro'}
-        >
-          {tema === 'light' ? (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-            </svg>
-          ) : (
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="5" />
-              <line x1="12" y1="1" x2="12" y2="3" />
-              <line x1="12" y1="21" x2="12" y2="23" />
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-              <line x1="1" y1="12" x2="3" y2="12" />
-              <line x1="21" y1="12" x2="23" y2="12" />
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-            </svg>
-          )}
-        </button>
+        <div className={styles.headerActions}>
+          <Link href="/calculadora-cr" className={styles.navLink}>
+            Calculadora de CR
+          </Link>
+          <button
+            className={styles.themeToggle}
+            onClick={toggleTema}
+            aria-label={tema === 'light' ? 'Ativar modo noturno' : 'Ativar modo claro'}
+            title={tema === 'light' ? 'Modo noturno' : 'Modo claro'}
+          >
+            {tema === 'light' ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+              </svg>
+            ) : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5" />
+                <line x1="12" y1="1" x2="12" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="3" y2="12" />
+                <line x1="21" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
+            )}
+          </button>
+        </div>
       </header>
 
       {/* Full-width content */}
