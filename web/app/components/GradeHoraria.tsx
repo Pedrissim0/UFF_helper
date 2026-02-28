@@ -417,15 +417,15 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
         const prefix = m.turma[0];
 
         // Turmas únicas da disciplina selecionada com mesmo prefixo, ordenadas
-        const myTurmas = [...new Set(
+        const myTurmas = Array.from(new Set(
           materias.filter((x) => x.codigo === m.codigo && x.turma[0] === prefix).map((x) => x.turma)
-        )].sort();
+        )).sort();
         const myIdx = myTurmas.indexOf(m.turma);
 
         // Turmas únicas do co-req com mesmo prefixo, ordenadas
-        const coReqTurmas = [...new Set(
+        const coReqTurmas = Array.from(new Set(
           materias.filter((x) => x.codigo === coReqCode && x.turma[0] === prefix).map((x) => x.turma)
-        )].sort();
+        )).sort();
 
         let coReq: Materia | undefined;
         if (myIdx >= 0 && myIdx < coReqTurmas.length) {
