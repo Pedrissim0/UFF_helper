@@ -29,6 +29,7 @@ const SITUACOES_EXCLUIDAS = [
   "atividade complementar",
   "dispensa",
   "monitoria",
+  "curso de f", // "Aprovado Curso de Férias" não entra no CR
 ];
 
 function estaExcluida(d: Disciplina): boolean {
@@ -38,7 +39,8 @@ function estaExcluida(d: Disciplina): boolean {
 
 function eCovidReprovado(d: Disciplina): boolean {
   // R1: disciplinas de 2020–2022 reprovadas não entram no cálculo
-  const m = d.semestre.match(/^(\d{4})/);
+  // O formato do semestre é "Xº/YYYY", então o ano não está no início da string
+  const m = d.semestre.match(/(\d{4})/);
   if (!m) return false;
   const ano = parseInt(m[1]);
   return (
@@ -53,7 +55,7 @@ function calcularNotaEfetiva(d: Disciplina): number {
   if (d.vs !== null) {
     const s = d.situacao.toLowerCase();
     if (s.includes("aprovado") && d.vs >= 6) {
-      nota = 6; // R2a: aprovação via VS é registrada como 6
+      nota = d.vs; // R2a: usa a nota do VS (não um cap fixo em 6)
     } else if (s.includes("reprovado")) {
       nota = (nota + d.vs) / 2; // R2b: média com VS
     }
@@ -253,9 +255,18 @@ export default function CalculadoraCR() {
   const calcularCR = useCallback(() => {
     if (disciplinas.length === 0) return;
 
+    // Ordena "Xº/YYYY" corretamente por (ano, nº semestre)
+    // .sort() alfabético colocaria todos os "1º/..." antes dos "2º/...", ignorando o ano
+    function parseSem(s: string): { year: number; num: number } {
+      const m = s.match(/(\d+)[°º]?\/(\d{4})/);
+      return m ? { num: parseInt(m[1]), year: parseInt(m[2]) } : { num: 0, year: 0 };
+    }
     const semestres = Array.from(
       new Set(disciplinas.map((d) => d.semestre).filter(Boolean))
-    ).sort();
+    ).sort((a, b) => {
+      const pa = parseSem(a), pb = parseSem(b);
+      return pa.year !== pb.year ? pa.year - pb.year : pa.num - pb.num;
+    });
 
     let numAcum = 0;
     let denomAcum = 0;
