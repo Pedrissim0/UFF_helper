@@ -170,9 +170,40 @@
   color: #fca5a5;
 }
 
+/* ── Toolbar ────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+
+.btnAdicionar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.btnAdicionar:hover {
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
 /* ── Grid ───────────────────────────────────────── */
 .gridWrapper {
-  margin-top: 20px;
+  margin-top: 8px;
   border: 1px solid var(--border-medium);
   border-radius: 8px;
   overflow: auto;
@@ -213,16 +244,57 @@
   background: var(--bg-hover);
 }
 
+/* ── Projeção row ───────────────────────────────── */
+.trProjecao td {
+  background: #fffbeb;
+}
+
+.trProjecao:hover td {
+  background: #fef3c7 !important;
+}
+
+[data-theme="dark"] .trProjecao td {
+  background: #1c1500;
+}
+
+[data-theme="dark"] .trProjecao:hover td {
+  background: #231900 !important;
+}
+
+.tagProjecao {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 3px;
+  background: #fde68a;
+  color: #92400e;
+  vertical-align: middle;
+}
+
+[data-theme="dark"] .tagProjecao {
+  background: #451a03;
+  color: #fbbf24;
+}
+
+/* ── Excluída row ───────────────────────────────── */
 .trExcluida td {
   opacity: 0.42;
 }
 
+/* ── Table columns ──────────────────────────────── */
 .thNome {
   min-width: 240px;
 }
 
 .thNum {
   text-align: right !important;
+}
+
+.thAcoes {
+  width: 60px;
 }
 
 .tdCode {
@@ -247,6 +319,43 @@
   font-size: 11px;
   color: var(--text-muted);
   white-space: nowrap;
+}
+
+.tdAcoes {
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 8px !important;
+}
+
+/* ── Row action buttons ─────────────────────────── */
+.btnIcone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-placeholder);
+  transition: all 0.15s;
+  padding: 0;
+}
+
+.btnIcone:hover {
+  background: var(--bg-hover);
+  color: var(--accent);
+}
+
+.btnIconeExcluir:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+[data-theme="dark"] .btnIconeExcluir:hover {
+  background: #450a0a;
+  color: #f87171;
 }
 
 /* ── Badge ──────────────────────────────────────── */
@@ -285,11 +394,45 @@
   color: var(--text-muted);
 }
 
-/* ── Actions ────────────────────────────────────── */
+/* ── Actions row ────────────────────────────────── */
 .acoes {
-  margin-top: 16px;
+  margin-top: 12px;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.btnProjecao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #92400e;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.btnProjecao:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+}
+
+[data-theme="dark"] .btnProjecao {
+  color: #fbbf24;
+  background: #1c1500;
+  border-color: #451a03;
+}
+
+[data-theme="dark"] .btnProjecao:hover {
+  background: #231900;
+  border-color: #78350f;
 }
 
 .btnCalcular {
@@ -303,7 +446,6 @@
   cursor: pointer;
   transition: opacity 0.15s;
   font-family: inherit;
-  letter-spacing: 0.01em;
 }
 
 .btnCalcular:hover {
@@ -358,7 +500,6 @@
   color: var(--text-primary);
 }
 
-/* ── CR destaque ────────────────────────────────── */
 .crDestaque {
   display: flex;
   align-items: center;
@@ -385,7 +526,6 @@
   letter-spacing: -0.02em;
 }
 
-/* ── Widget body ────────────────────────────────── */
 .widgetBody {
   overflow-y: auto;
   flex: 1;
@@ -427,6 +567,287 @@
   background: var(--accent-bg-light);
 }
 
+/* Períodos com projeção ficam em vermelho no widget */
+.crProjecao td {
+  color: #dc2626 !important;
+}
+
+[data-theme="dark"] .crProjecao td {
+  color: #f87171 !important;
+}
+
+/* Se for o último E tiver projeção, prevalece vermelho */
+.crProjecao.crUltimo td {
+  color: #dc2626 !important;
+  background: #fef2f2;
+}
+
+[data-theme="dark"] .crProjecao.crUltimo td {
+  color: #f87171 !important;
+  background: #2d1515;
+}
+
+/* ── Modal ──────────────────────────────────────── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 16px;
+}
+
+[data-theme="dark"] .modalOverlay {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.modalCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px var(--shadow-widget);
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 32px);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.modalTitulo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modalFechar {
+  background: none;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text-placeholder);
+  cursor: pointer;
+  padding: 0 2px;
+  transition: color 0.15s;
+}
+
+.modalFechar:hover {
+  color: var(--text-primary);
+}
+
+.modalBody {
+  padding: 18px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+/* ── Form fields ────────────────────────────────── */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.formRow {
+  display: flex;
+  gap: 12px;
+}
+
+.formLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.formInput {
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formInput:focus {
+  border-color: var(--accent);
+}
+
+.formInput::placeholder {
+  color: var(--text-placeholder);
+}
+
+.formSelect {
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.formSelect:focus {
+  border-color: var(--accent);
+}
+
+/* ── Autocomplete ───────────────────────────────── */
+.autocompleteWrap {
+  position: relative;
+}
+
+.sugestoesDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px var(--shadow-widget);
+  z-index: 300;
+  overflow: hidden;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.sugestaoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 9px 12px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.1s;
+  font-family: inherit;
+}
+
+.sugestaoItem:last-child {
+  border-bottom: none;
+}
+
+.sugestaoItem:hover {
+  background: var(--bg-hover);
+}
+
+.sugestaoNome {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sugestaoCodigo {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Modal buttons ──────────────────────────────── */
+.btnCancelar {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border-input);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.btnCancelar:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.btnSalvar {
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  font-family: inherit;
+}
+
+.btnSalvar:hover {
+  opacity: 0.88;
+}
+
+.btnSalvarProjecao {
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.btnSalvarProjecao:hover {
+  background: #fde68a;
+}
+
+[data-theme="dark"] .btnSalvarProjecao {
+  color: #fbbf24;
+  background: #1c1500;
+  border-color: #78350f;
+}
+
+[data-theme="dark"] .btnSalvarProjecao:hover {
+  background: #231900;
+}
+
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 640px) {
   .header {
@@ -453,5 +874,10 @@
   .tabela th,
   .tabela td {
     padding: 6px 8px;
+  }
+
+  .formRow {
+    flex-direction: column;
+    gap: 14px;
   }
 }
