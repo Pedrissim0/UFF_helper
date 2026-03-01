@@ -848,6 +848,127 @@
   background: #231900;
 }
 
+/* ── Widget stats (horas / % concluído) ─────────── */
+.widgetStats {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.widgetStat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+}
+
+.widgetStat + .widgetStat {
+  border-left: 1px solid var(--border-light);
+}
+
+.widgetStatLabel {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.widgetStatValor {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.widgetStatTotal {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0;
+}
+
+/* ── Widget header actions ──────────────────────── */
+.widgetHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.widgetViewToggle {
+  background: none;
+  border: 1px solid var(--border-light);
+  border-radius: 5px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-placeholder);
+  transition: all 0.15s;
+  padding: 0;
+}
+
+.widgetViewToggle:hover {
+  background: var(--bg-hover);
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+/* ── Chart container ────────────────────────────── */
+.chartWrap {
+  padding: 12px 14px 8px;
+}
+
+/* ── Slide animations ───────────────────────────── */
+@keyframes slideFromLeft {
+  from { transform: translateX(-22px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+@keyframes slideFromRight {
+  from { transform: translateX(22px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+.animSlideFromLeft {
+  animation: slideFromLeft 200ms ease-out forwards;
+}
+
+.animSlideFromRight {
+  animation: slideFromRight 200ms ease-out forwards;
+}
+
+/* ── Modal description / hint texts ────────────── */
+.modalDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.modalHint {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg-hover);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  padding: 9px 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Disabled button ────────────────────────────── */
+.btnSalvar:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* ── Responsive ─────────────────────────────────── */
 @media (max-width: 640px) {
   .header {

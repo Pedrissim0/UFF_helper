@@ -4,25 +4,61 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import styles from "./CalculadoraCR.module.css";
 import rawCatalog from "@/data/db_disciplinas.json";
+import matrizRaw from "@/data/matriz_curricular.json";
 
 /* ── Catálogo para autocomplete ─────────────────── */
 interface CatalogItem {
   codigo: string;
   nome: string;
   ch: number;
+  corequisitos: string[];
 }
 
-// Deduplica por código — mantém primeira ocorrência
+interface MatrizDisciplina {
+  codigo: string;
+  nome: string;
+  periodo: number | null;
+  tipo: string;
+  corequisitos: string[];
+}
+
 const CATALOG: CatalogItem[] = Object.values(
-  (rawCatalog as { codigo: string; nome: string; ch: number | null }[]).reduce(
+  (
+    rawCatalog as {
+      codigo: string;
+      nome: string;
+      ch: number | null;
+      corequisitos?: string[];
+    }[]
+  ).reduce(
     (acc: Record<string, CatalogItem>, d) => {
       if (!acc[d.codigo])
-        acc[d.codigo] = { codigo: d.codigo, nome: d.nome, ch: d.ch ?? 60 };
+        acc[d.codigo] = {
+          codigo: d.codigo,
+          nome: d.nome,
+          ch: d.ch ?? 60,
+          corequisitos: d.corequisitos ?? [],
+        };
       return acc;
     },
     {}
   )
 );
+
+const CATALOG_MAP: Record<string, CatalogItem> = {};
+CATALOG.forEach((item) => (CATALOG_MAP[item.codigo] = item));
+
+const MATRIZ_DISCIPLINAS = (
+  matrizRaw as { disciplinas: MatrizDisciplina[] }
+).disciplinas;
+const MATRIZ_OBRIGATORIAS = MATRIZ_DISCIPLINAS.filter(
+  (d): d is MatrizDisciplina & { periodo: number } =>
+    d.tipo === "obrigatoria" && d.periodo !== null
+);
+const MAX_PERIODO = Math.max(...MATRIZ_OBRIGATORIAS.map((d) => d.periodo));
+const HORAS_TOTAIS = (
+  matrizRaw as { carga_horaria_total: number; disciplinas: MatrizDisciplina[] }
+).carga_horaria_total;
 
 /* ── Types ─────────────────────────────────────── */
 interface Disciplina {
@@ -50,6 +86,11 @@ interface FormState {
   semestre: string;
 }
 
+interface FormPeriodo {
+  periodo: number;
+  semestreIngresso: string;
+}
+
 interface HistoricoEntry {
   periodo: string;
   cr: number;
@@ -61,6 +102,9 @@ type ModalState =
   | { aberto: true; tipo: "novo" }
   | { aberto: true; tipo: "projecao" }
   | { aberto: true; tipo: "editando"; index: number };
+
+type WidgetView = "tabela" | "grafico";
+type AnimDir = "toChart" | "toTable";
 
 /* ── Constants ──────────────────────────────────── */
 const FORM_VAZIO: FormState = {
@@ -97,13 +141,36 @@ function estaExcluida(d: Disciplina): boolean {
   return SITUACOES_EXCLUIDAS.some((k) => s.includes(k));
 }
 
+function parseSem(s: string): { year: number; num: number } {
+  let m = s.match(/^(\d{4})\.([12])$/);
+  if (m) return { year: parseInt(m[1]), num: parseInt(m[2]) };
+  m = s.match(/(\d+)[°º]?\/(\d{4})/);
+  if (m) return { num: parseInt(m[1]), year: parseInt(m[2]) };
+  return { num: 0, year: 0 };
+}
+
+function normalizeSem(s: string): string {
+  const { year, num } = parseSem(s);
+  if (year && num) return `${year}.${num}`;
+  return s;
+}
+
+function computeSemestrePorPeriodo(
+  entryYear: number,
+  entryNum: number,
+  periodo: number
+): string {
+  let year = entryYear;
+  let num = entryNum + (periodo - 1);
+  while (num > 2) { num -= 2; year++; }
+  return `${year}.${num}`;
+}
+
 function eCovidReprovado(d: Disciplina): boolean {
-  const m = d.semestre.match(/(\d{4})/);
-  if (!m) return false;
-  const ano = parseInt(m[1]);
+  const { year } = parseSem(d.semestre);
   return (
-    ano >= 2020 &&
-    ano <= 2022 &&
+    year >= 2020 &&
+    year <= 2022 &&
     d.situacao.toLowerCase().includes("reprovado")
   );
 }
@@ -125,6 +192,13 @@ function parseNum(v: unknown): number | null {
   return isNaN(n) ? null : n;
 }
 
+function clampNota(value: string): string {
+  const n = parseFloat(value);
+  if (!isNaN(n) && n > 10) return "10";
+  if (!isNaN(n) && n < 0) return "0";
+  return value;
+}
+
 function badgeClass(situacao: string): string {
   const s = situacao.toLowerCase();
   if (s.includes("aprovado")) return styles.badgeAprovado;
@@ -133,11 +207,159 @@ function badgeClass(situacao: string): string {
   return styles.badgeNeutro;
 }
 
-function parseSem(s: string): { year: number; num: number } {
-  const m = s.match(/(\d+)[°º]?\/(\d{4})/);
-  return m
-    ? { num: parseInt(m[1]), year: parseInt(m[2]) }
-    : { num: 0, year: 0 };
+/* ── CR Chart (SVG) ─────────────────────────────── */
+function CRChart({ historico }: { historico: HistoricoEntry[] }) {
+  const svgW = 244;
+  const svgH = 160;
+  const padL = 32;
+  const padR = 8;
+  const padT = 10;
+  const padB = 30;
+  const chartW = svgW - padL - padR;
+  const chartH = svgH - padT - padB;
+  const n = historico.length;
+
+  if (n === 0) return null;
+
+  const crs = historico.map((h) => h.cr);
+  const rawMin = Math.min(...crs);
+  const rawMax = Math.max(...crs);
+  const spread = rawMax - rawMin;
+  const yMin = Math.max(0, rawMin - Math.max(0.4, spread * 0.25));
+  const yMax = Math.min(10, rawMax + Math.max(0.4, spread * 0.25));
+  const yRange = yMax - yMin || 1;
+
+  const xOf = (i: number) =>
+    padL + (n > 1 ? (i / (n - 1)) * chartW : chartW / 2);
+  const yOf = (v: number) =>
+    padT + chartH - ((v - yMin) / yRange) * chartH;
+
+  const pts = historico.map((h, i) => ({
+    x: xOf(i),
+    y: yOf(h.cr),
+    proj: h.temProjecao,
+  }));
+
+  const projStart = historico.findIndex((h) => h.temProjecao);
+  const histEnd = projStart >= 0 ? projStart : n - 1;
+  const histPts = pts.slice(0, histEnd + 1);
+  const projPts = projStart >= 0 ? pts.slice(projStart) : [];
+
+  const toPath = (points: { x: number; y: number }[]) =>
+    points.length < 2
+      ? ""
+      : points
+          .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`)
+          .join(" ");
+
+  // Y ticks
+  const nTicks = 4;
+  const yTicks = Array.from(
+    { length: nTicks },
+    (_, i) => yMin + (yRange / (nTicks - 1)) * i
+  );
+
+  // X labels: at most 5, always show first and last
+  const xShow = new Set<number>([0, n - 1]);
+  if (n > 2) {
+    const step = Math.ceil((n - 1) / 3);
+    for (let i = step; i < n - 1; i += step) xShow.add(i);
+  }
+
+  return (
+    <svg
+      width={svgW}
+      height={svgH}
+      style={{ display: "block", overflow: "visible" }}
+    >
+      {/* Y grid + labels */}
+      {yTicks.map((t, i) => (
+        <g key={i}>
+          <line
+            x1={padL}
+            y1={yOf(t)}
+            x2={svgW - padR}
+            y2={yOf(t)}
+            stroke="var(--border-light)"
+            strokeWidth="1"
+          />
+          <text
+            x={padL - 4}
+            y={yOf(t) + 3.5}
+            textAnchor="end"
+            fontSize="9"
+            fill="var(--text-muted)"
+          >
+            {t.toFixed(1)}
+          </text>
+        </g>
+      ))}
+
+      {/* Baseline */}
+      <line
+        x1={padL}
+        y1={padT + chartH}
+        x2={svgW - padR}
+        y2={padT + chartH}
+        stroke="var(--border-medium)"
+        strokeWidth="1"
+      />
+
+      {/* Historical line */}
+      {histPts.length >= 2 && (
+        <path
+          d={toPath(histPts)}
+          fill="none"
+          stroke="var(--accent)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      )}
+
+      {/* Projected line — dashed orange */}
+      {projPts.length >= 2 && (
+        <path
+          d={toPath(projPts)}
+          fill="none"
+          stroke="#f59e0b"
+          strokeWidth="2"
+          strokeDasharray="5 3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      )}
+
+      {/* Points */}
+      {pts.map((p, i) => (
+        <circle
+          key={i}
+          cx={p.x}
+          cy={p.y}
+          r="3.5"
+          fill={p.proj ? "#f59e0b" : "var(--accent)"}
+          stroke="var(--bg-card)"
+          strokeWidth="1.5"
+        />
+      ))}
+
+      {/* X labels */}
+      {pts.map((p, i) =>
+        xShow.has(i) ? (
+          <text
+            key={i}
+            x={p.x}
+            y={svgH - 2}
+            textAnchor="middle"
+            fontSize="8.5"
+            fill="var(--text-muted)"
+          >
+            {historico[i].periodo.slice(2)}
+          </text>
+        ) : null
+      )}
+    </svg>
+  );
 }
 
 /* ── Icons ─────────────────────────────────────── */
@@ -204,23 +426,61 @@ function PlusIcon() {
   );
 }
 
+function GridIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" />
+      <rect x="14" y="3" width="7" height="7" />
+      <rect x="3" y="14" width="7" height="7" />
+      <rect x="14" y="14" width="7" height="7" />
+    </svg>
+  );
+}
+
+function ChartLineIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+    </svg>
+  );
+}
+
+function TableIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="3" y1="15" x2="21" y2="15" />
+      <line x1="9" y1="9" x2="9" y2="21" />
+    </svg>
+  );
+}
+
 /* ── Component ─────────────────────────────────── */
 export default function CalculadoraCR() {
   const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
   const [historico, setHistorico] = useState<HistoricoEntry[]>([]);
   const [widgetAberto, setWidgetAberto] = useState(false);
+  const [widgetView, setWidgetView] = useState<WidgetView>("tabela");
+  const [animKey, setAnimKey] = useState(0);
+  const [animDir, setAnimDir] = useState<AnimDir>("toChart");
   const [tema, setTema] = useState<"light" | "dark">("light");
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Modal / formulário
   const [modal, setModal] = useState<ModalState>({ aberto: false });
   const [form, setForm] = useState<FormState>(FORM_VAZIO);
   const [sugestoes, setSugestoes] = useState<CatalogItem[]>([]);
   const [sugestaoVisivel, setSugestaoVisivel] = useState(false);
   const buscaRef = useRef<HTMLInputElement>(null);
+
+  const [modalPeriodo, setModalPeriodo] = useState(false);
+  const [formPeriodo, setFormPeriodo] = useState<FormPeriodo>({
+    periodo: 1,
+    semestreIngresso: "",
+  });
 
   /* Theme */
   useEffect(() => {
@@ -238,6 +498,13 @@ export default function CalculadoraCR() {
       localStorage.setItem("tema", next);
       return next;
     });
+  }, []);
+
+  /* Toggle widget view com animação */
+  const toggleWidgetView = useCallback(() => {
+    setAnimDir((prev) => (prev === "toChart" ? "toTable" : "toChart"));
+    setAnimKey((k) => k + 1);
+    setWidgetView((v) => (v === "tabela" ? "grafico" : "tabela"));
   }, []);
 
   /* File processing */
@@ -283,7 +550,7 @@ export default function CalculadoraCR() {
           frequencia: parseNum(row[6]),
           horas: parseNum(row[7]) ?? 0,
           creditos: parseNum(row[8]) ?? 0,
-          semestre: String(row[9] ?? "").trim(),
+          semestre: normalizeSem(String(row[9] ?? "").trim()),
         }))
         .filter((d) => d.codigo || d.nome);
 
@@ -411,7 +678,32 @@ export default function CalculadoraCR() {
         return next;
       });
     } else {
-      setDisciplinas((prev) => [...prev, novaDisc]);
+      const coreqs = CATALOG_MAP[novaDisc.codigo]?.corequisitos ?? [];
+      setDisciplinas((prev) => {
+        const toAdd: Disciplina[] = [novaDisc];
+        for (const cod of coreqs) {
+          if (
+            prev.some((d) => d.codigo === cod) ||
+            toAdd.some((d) => d.codigo === cod)
+          )
+            continue;
+          const cat = CATALOG_MAP[cod];
+          toAdd.push({
+            codigo: cod,
+            nome: cat?.nome ?? cod,
+            situacao: novaDisc.situacao,
+            turma: "",
+            nota: null,
+            vs: null,
+            frequencia: null,
+            horas: cat?.ch ?? 60,
+            creditos: 0,
+            semestre: novaDisc.semestre,
+            isProjecao: novaDisc.isProjecao,
+          });
+        }
+        return [...prev, ...toAdd];
+      });
     }
 
     fecharModal();
@@ -420,6 +712,48 @@ export default function CalculadoraCR() {
   const handleExcluir = useCallback((index: number) => {
     setDisciplinas((prev) => prev.filter((_, i) => i !== index));
   }, []);
+
+  /* Pré-preencher por período */
+  const handlePreencherPorPeriodo = useCallback(() => {
+    const { year: entryYear, num: entryNum } = parseSem(formPeriodo.semestreIngresso);
+
+    setDisciplinas((prev) => {
+      const toAdd: Disciplina[] = [];
+      for (let p = 1; p <= formPeriodo.periodo; p++) {
+        const discsDoPeriodo = MATRIZ_OBRIGATORIAS.filter((d) => d.periodo === p);
+        const isCurrentPeriodo = p === formPeriodo.periodo;
+        const semestre =
+          entryYear && entryNum
+            ? computeSemestrePorPeriodo(entryYear, entryNum, p)
+            : "";
+
+        for (const md of discsDoPeriodo) {
+          if (
+            prev.some((d) => d.codigo === md.codigo) ||
+            toAdd.some((d) => d.codigo === md.codigo)
+          )
+            continue;
+          const cat = CATALOG_MAP[md.codigo];
+          toAdd.push({
+            codigo: md.codigo,
+            nome: md.nome,
+            situacao: "Aprovado",
+            turma: "",
+            nota: null,
+            vs: null,
+            frequencia: null,
+            horas: cat?.ch ?? 60,
+            creditos: 0,
+            semestre,
+            isProjecao: isCurrentPeriodo,
+          });
+        }
+      }
+      return [...prev, ...toAdd];
+    });
+
+    setModalPeriodo(false);
+  }, [formPeriodo]);
 
   /* CR calculation */
   const calcularCR = useCallback(() => {
@@ -468,6 +802,24 @@ export default function CalculadoraCR() {
     : "Adicionar disciplina";
 
   const uploadCount = disciplinas.filter((d) => !d.isProjecao).length;
+  const periodoIngressoValido = parseSem(formPeriodo.semestreIngresso).year > 0;
+
+  // Horas aprovadas (exclui projeções, reprovados e situações neutras)
+  const horasCursadas = disciplinas
+    .filter(
+      (d) =>
+        !d.isProjecao &&
+        !estaExcluida(d) &&
+        d.situacao.toLowerCase().includes("aprovado")
+    )
+    .reduce((sum, d) => sum + d.horas, 0);
+  const percentualConcluido = HORAS_TOTAIS > 0
+    ? Math.min(100, Math.round((horasCursadas / HORAS_TOTAIS) * 100))
+    : 0;
+
+  // Classe de animação: tabela→gráfico desliza da esquerda; gráfico→tabela desliza da direita
+  const animClass =
+    animDir === "toChart" ? styles.animSlideFromLeft : styles.animSlideFromRight;
 
   return (
     <div className={styles.wrapper}>
@@ -545,6 +897,12 @@ export default function CalculadoraCR() {
         <div className={styles.toolbar}>
           <button className={styles.btnAdicionar} onClick={() => abrirNovo(false)}>
             <PlusIcon /> Adicionar disciplina
+          </button>
+          <button
+            className={styles.btnAdicionar}
+            onClick={() => setModalPeriodo(true)}
+          >
+            <GridIcon /> Pré-preencher por período
           </button>
         </div>
 
@@ -637,13 +995,23 @@ export default function CalculadoraCR() {
         <div className={styles.widget}>
           <div className={styles.widgetHeader}>
             <span className={styles.widgetTitulo}>Histórico CR</span>
-            <button
-              className={styles.widgetFechar}
-              onClick={() => setWidgetAberto(false)}
-              aria-label="Fechar widget"
-            >
-              ×
-            </button>
+            <div className={styles.widgetHeaderActions}>
+              <button
+                className={styles.widgetViewToggle}
+                onClick={toggleWidgetView}
+                title={widgetView === "tabela" ? "Ver gráfico" : "Ver tabela"}
+                aria-label={widgetView === "tabela" ? "Alternar para gráfico" : "Alternar para tabela"}
+              >
+                {widgetView === "tabela" ? <ChartLineIcon /> : <TableIcon />}
+              </button>
+              <button
+                className={styles.widgetFechar}
+                onClick={() => setWidgetAberto(false)}
+                aria-label="Fechar widget"
+              >
+                ×
+              </button>
+            </div>
           </div>
 
           {crAtual !== null && (
@@ -653,36 +1021,62 @@ export default function CalculadoraCR() {
             </div>
           )}
 
+          {/* Horas e % de conclusão */}
+          <div className={styles.widgetStats}>
+            <div className={styles.widgetStat}>
+              <span className={styles.widgetStatLabel}>Horas cursadas</span>
+              <span className={styles.widgetStatValor}>
+                {horasCursadas}
+                <span className={styles.widgetStatTotal}> / {HORAS_TOTAIS}h</span>
+              </span>
+            </div>
+            <div className={styles.widgetStat}>
+              <span className={styles.widgetStatLabel}>Curso concluído</span>
+              <span className={styles.widgetStatValor}>{percentualConcluido}%</span>
+            </div>
+          </div>
+
           <div className={styles.widgetBody}>
-            <table className={styles.widgetTabela}>
-              <thead>
-                <tr>
-                  <th>Período</th>
-                  <th>CR acumulado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {historico.map((entry, i) => (
-                  <tr
-                    key={i}
-                    className={[
-                      i === historico.length - 1 ? styles.crUltimo : "",
-                      entry.temProjecao ? styles.crProjecao : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                  >
-                    <td>{entry.periodo}</td>
-                    <td>{entry.cr.toFixed(1)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {widgetView === "tabela" ? (
+              <div key={`tabela-${animKey}`} className={animClass}>
+                <table className={styles.widgetTabela}>
+                  <thead>
+                    <tr>
+                      <th>Período</th>
+                      <th>CR acumulado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {historico.map((entry, i) => (
+                      <tr
+                        key={i}
+                        className={[
+                          i === historico.length - 1 ? styles.crUltimo : "",
+                          entry.temProjecao ? styles.crProjecao : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")}
+                      >
+                        <td>{entry.periodo}</td>
+                        <td>{entry.cr.toFixed(1)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div
+                key={`grafico-${animKey}`}
+                className={`${styles.chartWrap} ${animClass}`}
+              >
+                <CRChart historico={historico} />
+              </div>
+            )}
           </div>
         </div>
       )}
 
-      {/* Modal adicionar / editar */}
+      {/* Modal adicionar / editar disciplina */}
       {modal.aberto && (
         <div
           className={styles.modalOverlay}
@@ -695,7 +1089,6 @@ export default function CalculadoraCR() {
             className={styles.modalCard}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header */}
             <div className={styles.modalHeader}>
               <span className={styles.modalTitulo}>{modalTitulo}</span>
               <button
@@ -707,7 +1100,6 @@ export default function CalculadoraCR() {
               </button>
             </div>
 
-            {/* Body */}
             <div className={styles.modalBody}>
               {/* Nome / busca com autocomplete */}
               <div className={styles.formGroup}>
@@ -739,39 +1131,14 @@ export default function CalculadoraCR() {
                           <span className={styles.sugestaoNome}>{s.nome}</span>
                           <span className={styles.sugestaoCodigo}>
                             {s.codigo} · {s.ch}h
+                            {s.corequisitos.length > 0 && (
+                              <> · co-req: {s.corequisitos.join(", ")}</>
+                            )}
                           </span>
                         </button>
                       ))}
                     </div>
                   )}
-                </div>
-              </div>
-
-              {/* Código + CH */}
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>Código</label>
-                  <input
-                    className={styles.formInput}
-                    value={form.codigo}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, codigo: e.target.value }))
-                    }
-                    placeholder="ECO00101"
-                  />
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel}>CH (horas)</label>
-                  <input
-                    className={styles.formInput}
-                    value={form.horas}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, horas: e.target.value }))
-                    }
-                    type="number"
-                    min="0"
-                    placeholder="60"
-                  />
                 </div>
               </div>
 
@@ -801,7 +1168,7 @@ export default function CalculadoraCR() {
                     className={styles.formInput}
                     value={form.nota}
                     onChange={(e) =>
-                      setForm((f) => ({ ...f, nota: e.target.value }))
+                      setForm((f) => ({ ...f, nota: clampNota(e.target.value) }))
                     }
                     type="number"
                     min="0"
@@ -816,7 +1183,7 @@ export default function CalculadoraCR() {
                     className={styles.formInput}
                     value={form.vs}
                     onChange={(e) =>
-                      setForm((f) => ({ ...f, vs: e.target.value }))
+                      setForm((f) => ({ ...f, vs: clampNota(e.target.value) }))
                     }
                     type="number"
                     min="0"
@@ -834,14 +1201,16 @@ export default function CalculadoraCR() {
                   className={styles.formInput}
                   value={form.semestre}
                   onChange={(e) =>
-                    setForm((f) => ({ ...f, semestre: e.target.value }))
+                    setForm((f) => ({
+                      ...f,
+                      semestre: normalizeSem(e.target.value),
+                    }))
                   }
-                  placeholder="1º/2025"
+                  placeholder="2025.1"
                 />
               </div>
             </div>
 
-            {/* Footer */}
             <div className={styles.modalFooter}>
               <button className={styles.btnCancelar} onClick={fecharModal}>
                 Cancelar
@@ -855,6 +1224,105 @@ export default function CalculadoraCR() {
                 onClick={handleSalvarForm}
               >
                 {modal.tipo === "editando" ? "Salvar alterações" : "Adicionar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal pré-preencher por período */}
+      {modalPeriodo && (
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setModalPeriodo(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Pré-preencher por período"
+        >
+          <div
+            className={styles.modalCard}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <span className={styles.modalTitulo}>Pré-preencher por período</span>
+              <button
+                className={styles.modalFechar}
+                onClick={() => setModalPeriodo(false)}
+                aria-label="Fechar"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className={styles.modalBody}>
+              <p className={styles.modalDesc}>
+                Adiciona todas as disciplinas obrigatórias da grade curricular
+                até o período selecionado. Disciplinas já na lista são ignoradas.
+              </p>
+
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Semestre de ingresso</label>
+                <input
+                  className={styles.formInput}
+                  value={formPeriodo.semestreIngresso}
+                  onChange={(e) =>
+                    setFormPeriodo((f) => ({
+                      ...f,
+                      semestreIngresso: e.target.value,
+                    }))
+                  }
+                  placeholder="2022.1"
+                  autoFocus
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Período atual</label>
+                <select
+                  className={styles.formSelect}
+                  value={formPeriodo.periodo}
+                  onChange={(e) =>
+                    setFormPeriodo((f) => ({
+                      ...f,
+                      periodo: parseInt(e.target.value),
+                    }))
+                  }
+                >
+                  {Array.from({ length: MAX_PERIODO }, (_, i) => i + 1).map(
+                    (p) => (
+                      <option key={p} value={p}>
+                        {p}º período
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+
+              <p className={styles.modalHint}>
+                As disciplinas do período atual serão marcadas como{" "}
+                <strong>projeção</strong>. Preencha as notas de cada disciplina
+                depois de adicionadas.
+              </p>
+            </div>
+
+            <div className={styles.modalFooter}>
+              <button
+                className={styles.btnCancelar}
+                onClick={() => setModalPeriodo(false)}
+              >
+                Cancelar
+              </button>
+              <button
+                className={styles.btnSalvar}
+                onClick={handlePreencherPorPeriodo}
+                disabled={!periodoIngressoValido}
+                title={
+                  !periodoIngressoValido
+                    ? "Informe o semestre de ingresso (ex: 2022.1)"
+                    : undefined
+                }
+              >
+                Pré-preencher
               </button>
             </div>
           </div>
