@@ -4,6 +4,7 @@ import React, { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import Link from "next/link";
 import type { Materia } from "../page";
 import styles from "./GradeHoraria.module.css";
+import { getAprovadas } from "@/lib/disciplinasAprovadas";
 
 type Dia = keyof Materia["horarios"];
 type Turno = "manha" | "tarde" | "noite";
@@ -98,6 +99,13 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
   const [emailModal, setEmailModal] = useState<{ displayName: string; docente: string } | null>(null);
   const [modalEmail, setModalEmail] = useState("");
+
+  // Disciplinas aprovadas (lidas do localStorage — escritas pela Calculadora de CR)
+  const [aprovadas, setAprovadas_] = useState<Set<string>>(new Set());
+
+  // Períodos colapsados
+  const [periodosColapsados, setPeriodosColapsados] = useState<Set<string>>(new Set());
+  const periodosIniciados = useRef(false);
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [modalError, setModalError] = useState("");
 
@@ -116,6 +124,10 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       localStorage.setItem('tema', next);
       return next;
     });
+  }, []);
+
+  useEffect(() => {
+    setAprovadas_(getAprovadas());
   }, []);
 
   const showToast = useCallback((msg: string) => {
@@ -375,6 +387,44 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       .map(([key, materias]) => ({ key, materias }));
   }, [filtradas]);
 
+  // Inicializar períodos colapsados (após periodoGroups e aprovadas estarem prontos)
+  useEffect(() => {
+    if (periodosIniciados.current) return;
+    if (periodoGroups.length === 0) return;
+    const saved = JSON.parse(
+      localStorage.getItem("grade-horaria:periodos-colapsados") || "[]"
+    ) as string[];
+    const fromStorage = new Set<string>(saved);
+    if (fromStorage.size > 0) {
+      setPeriodosColapsados(fromStorage);
+    } else {
+      // Auto-colapsar períodos onde todas as obrigatórias são aprovadas
+      const autoColapsados = new Set<string>();
+      for (const { key: gKey, materias: gMaterias } of periodoGroups) {
+        if (!gKey.match(/^\d+$/)) continue;
+        const obrig = gMaterias.filter((m) => m.tipo === "obrigatoria");
+        if (obrig.length > 0 && obrig.every((m) => aprovadas.has(m.codigo))) {
+          autoColapsados.add(gKey);
+        }
+      }
+      setPeriodosColapsados(autoColapsados);
+    }
+    periodosIniciados.current = true;
+  }, [periodoGroups, aprovadas]);
+
+  // Persistir períodos colapsados
+  useEffect(() => {
+    if (!periodosIniciados.current) return;
+    try {
+      localStorage.setItem(
+        "grade-horaria:periodos-colapsados",
+        JSON.stringify(Array.from(periodosColapsados))
+      );
+    } catch {
+      // localStorage unavailable
+    }
+  }, [periodosColapsados]);
+
   function isSelecionada(m: Materia) {
     return selecionadas.some((s) => s.codigo === m.codigo && s.turma === m.turma);
   }
@@ -451,6 +501,23 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     }
   }
 
+  const togglePeriodo = useCallback((gKey: string) => {
+    setPeriodosColapsados((prev) => {
+      const next = new Set(Array.from(prev));
+      if (next.has(gKey)) next.delete(gKey);
+      else next.add(gKey);
+      return next;
+    });
+  }, []);
+
+  const temFiltroAtivo =
+    busca.trim().length > 0 ||
+    diasFiltro.size > 0 ||
+    turnosFiltro.size > 0 ||
+    deptosFiltro.size > 0 ||
+    periodosFiltro.size > 0 ||
+    !!tipoFiltro;
+
   const totalHoras = selecionadas.reduce((acc, m) => acc + (m.ch ?? 0), 0);
   const expanded = gradeAberta;
   const handleLabel =
@@ -467,14 +534,20 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     const key = `${m.codigo}-${m.turma}`;
     const sel = isSelecionada(m);
     const conflito = !sel && temConflito(m);
+    const aprovada = aprovadas.has(m.codigo);
     const color = colorMap[key];
     const diasAtivos = DIAS.filter((d) => m.horarios[d]);
 
     return (
       <li
         key={keyPrefix + key}
-        className={`${styles.item} ${sel ? styles.itemSel : ""} ${conflito ? styles.itemConflito : ""}`}
-        onClick={() => !conflito && toggle(m)}
+        className={[
+          styles.item,
+          sel ? styles.itemSel : "",
+          conflito ? styles.itemConflito : "",
+          aprovada ? styles.itemAprovado : "",
+        ].filter(Boolean).join(" ")}
+        onClick={() => !conflito && !aprovada && toggle(m)}
       >
         <div
           className={styles.checkbox}
@@ -562,6 +635,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           <span className={styles.tipoBadge}>
             {m.tipo === "obrigatoria" ? "Obrigatória" : "Optativa"}
           </span>
+          {aprovada && (
+            <span className={styles.tipoBadgeAprovado}>Aprovado</span>
+          )}
           </div>
           {m.link && (
             <a
@@ -751,14 +827,40 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           )}
 
           {/* Grupos por período */}
-          {periodoGroups.map(({ key: gKey, materias }) => (
-            <React.Fragment key={gKey}>
-              <li className={styles.periodSeparator}>
-                {gKey.match(/^\d+$/) ? `${gKey}° Período` : gKey === "obrig-np" ? "Obrigatórias — Sem Período" : "Optativas"}
-              </li>
-              {materias.map((m) => renderCard(m))}
-            </React.Fragment>
-          ))}
+          {periodoGroups.map(({ key: gKey, materias }) => {
+            const label = gKey.match(/^\d+$/)
+              ? `${gKey}° Período`
+              : gKey === "obrig-np"
+              ? "Obrigatórias — Sem Período"
+              : "Optativas";
+            const colapsado = !temFiltroAtivo && periodosColapsados.has(gKey);
+            return (
+              <React.Fragment key={gKey}>
+                <li
+                  className={styles.periodSeparator}
+                  onClick={() => togglePeriodo(gKey)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => e.key === "Enter" && togglePeriodo(gKey)}
+                >
+                  {label}
+                  <svg
+                    className={[styles.chevronPeriodo, colapsado ? styles.chevronPeriodoCollapsed : ""].filter(Boolean).join(" ")}
+                    width="12" height="12" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor"
+                    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </li>
+                <li className={styles.periodItemsWrapper} aria-hidden={colapsado}>
+                  <ul className={[styles.periodItemsList, colapsado ? styles.periodItemsCollapsed : ""].filter(Boolean).join(" ")}>
+                    {materias.map((m) => renderCard(m))}
+                  </ul>
+                </li>
+              </React.Fragment>
+            );
+          })}
         </ul>
       </div>
 

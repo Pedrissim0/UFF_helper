@@ -5,6 +5,7 @@ import Link from "next/link";
 import styles from "./CalculadoraCR.module.css";
 import rawCatalog from "@/data/db_disciplinas.json";
 import matrizRaw from "@/data/matriz_curricular.json";
+import { setAprovadas, clearAprovadas } from "@/lib/disciplinasAprovadas";
 
 /* ── Catálogo para autocomplete ─────────────────── */
 interface CatalogItem {
@@ -421,6 +422,9 @@ export default function CalculadoraCR() {
   const [projecaoSugestoes, setProjecaoSugestoes] = useState<CatalogItem[]>([]);
   const [projecaoSugestaoVisivel, setProjecaoSugestaoVisivel] = useState(false);
 
+  const [restorado, setRestorado] = useState(false);
+  const didRestoreRef = useRef(false);
+
   /* Theme */
   useEffect(() => {
     const saved = localStorage.getItem("tema") as "light" | "dark" | null;
@@ -438,6 +442,44 @@ export default function CalculadoraCR() {
       return next;
     });
   }, []);
+
+  /* Restore do localStorage no mount */
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("grade-horaria:calculadora-cr");
+      if (raw) {
+        const { disciplinas: saved, hasUpload: hu } = JSON.parse(raw);
+        if (Array.isArray(saved) && saved.length > 0) {
+          setDisciplinas(saved);
+          setHasUpload(hu ?? false);
+          setWidgetExpanded(true);
+          setRestorado(true);
+        }
+      }
+    } catch {
+      // ignore
+    }
+    didRestoreRef.current = true;
+  }, []);
+
+  /* Persistir disciplinas no localStorage */
+  useEffect(() => {
+    if (!didRestoreRef.current) return;
+    try {
+      if (disciplinas.length === 0) {
+        localStorage.removeItem("grade-horaria:calculadora-cr");
+        clearAprovadas();
+      } else {
+        localStorage.setItem(
+          "grade-horaria:calculadora-cr",
+          JSON.stringify({ disciplinas, hasUpload })
+        );
+        setAprovadas(disciplinas);
+      }
+    } catch {
+      // localStorage unavailable
+    }
+  }, [disciplinas, hasUpload]);
 
   /* Cálculo reativo: recalcula CR sempre que disciplinas mudar */
   useEffect(() => {
@@ -572,6 +614,9 @@ export default function CalculadoraCR() {
     setDisciplinas([]);
     setHasUpload(false);
     setWidgetExpanded(false);
+    setRestorado(false);
+    localStorage.removeItem("grade-horaria:calculadora-cr");
+    clearAprovadas();
   }, [hasUpload]);
 
   /* Modal handlers */
@@ -917,6 +962,13 @@ export default function CalculadoraCR() {
         </div>
 
         {erro && <p className={styles.erro}>{erro}</p>}
+
+        {restorado && (
+          <div className={styles.restoreBanner}>
+            <span>Dados restaurados da sessão anterior.</span>
+            <button onClick={() => setRestorado(false)}>×</button>
+          </div>
+        )}
 
         {/* Toolbar */}
         <div className={styles.toolbar}>

@@ -442,6 +442,12 @@
   color: var(--text-subtle);
   letter-spacing: 0.06em;
   list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.periodSeparator:hover {
+  color: var(--text-primary);
 }
 
 .periodSeparator::after {
@@ -449,6 +455,38 @@
   flex: 1;
   height: 1px;
   background: var(--border-medium);
+}
+
+/* Chevron do separador de período */
+.chevronPeriodo {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 250ms ease-in-out;
+  margin-left: -4px;
+}
+
+.chevronPeriodoCollapsed {
+  transform: rotate(-90deg);
+}
+
+/* Wrapper e lista colapsável */
+.periodItemsWrapper {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.periodItemsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  max-height: 9999px;
+  transition: max-height 250ms ease-in-out;
+}
+
+.periodItemsCollapsed {
+  max-height: 0;
 }
 
 /* ── Type badge ────────────────────────────────────── */
@@ -462,6 +500,34 @@
   background: var(--bg-badge);
   color: var(--text-dim);
   margin-top: 1px;
+}
+
+/* ── Card aprovado ─────────────────────────────── */
+.itemAprovado {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.itemAprovado:hover {
+  background: var(--bg-card);
+}
+
+/* Badge verde "Aprovado" */
+.tipoBadgeAprovado {
+  font-size: 0.6rem;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: #dcfce7;
+  color: #166534;
+}
+
+[data-theme="dark"] .tipoBadgeAprovado {
+  background: #14532d;
+  color: #86efac;
 }
 
 /* ── Floating grade widget ─────────────────────── */
