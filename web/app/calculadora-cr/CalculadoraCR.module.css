@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* ── Header ─────────────────────────────────────── */
@@ -303,15 +304,16 @@
 
 .tagProjecao {
   display: inline-block;
-  margin-left: 6px;
-  padding: 1px 6px;
-  font-size: 10px;
+  margin-left: 4px;
+  padding: 1px 5px;
+  font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   border-radius: 3px;
   background: #fde68a;
   color: #92400e;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 [data-theme="dark"] .tagProjecao {
@@ -500,6 +502,7 @@
   align-items: stretch;
   z-index: 100;
   transition: transform 300ms ease-in-out;
+  animation: widgetFadeIn 300ms ease-in-out;
 }
 
 .widgetOuterExpanded {
@@ -508,6 +511,11 @@
 
 .widgetOuterCollapsed {
   transform: translateY(-50%) translateX(calc(100% - 28px));
+}
+
+@keyframes widgetFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .widgetTab {
@@ -548,7 +556,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  max-height: 80vh;
+  max-height: calc(100dvh - 48px);
+  min-width: 0;
 }
 
 .widgetHeader {
@@ -609,17 +618,20 @@
 
 .widgetBody {
   overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
+  min-width: 0;
 }
 
 .widgetTabela {
   width: 100%;
   border-collapse: collapse;
   font-size: 12px;
+  table-layout: fixed;
 }
 
 .widgetTabela th {
-  padding: 7px 14px;
+  padding: 7px 10px;
   text-align: left;
   font-size: 10px;
   font-weight: 600;
@@ -629,13 +641,17 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .widgetTabela td {
-  padding: 7px 14px;
+  padding: 7px 10px;
   border-bottom: 1px solid var(--border-light);
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .widgetTabela tbody tr:last-child td {
@@ -983,9 +999,10 @@
 
 .widgetTabelaTagCell {
   text-align: right;
-  padding-right: 10px !important;
-  white-space: nowrap;
-  width: 1px; /* shrink-wrap */
+  padding-right: 8px !important;
+  padding-left: 2px !important;
+  width: 62px;
+  overflow: hidden;
 }
 
 /* ── Widget header actions ──────────────────────── */
@@ -1033,11 +1050,11 @@
 }
 
 .animSlideFromLeft {
-  animation: slideFromLeft 200ms ease-out forwards;
+  animation: slideFromLeft 200ms ease-in-out forwards;
 }
 
 .animSlideFromRight {
-  animation: slideFromRight 200ms ease-out forwards;
+  animation: slideFromRight 200ms ease-in-out forwards;
 }
 
 /* ── Modal description / hint texts ────────────── */
@@ -1169,23 +1186,180 @@
   line-height: 1.5;
 }
 
-/* ── Responsive ─────────────────────────────────── */
-@media (max-width: 640px) {
+/* ── Responsive: tablet ─────────────────────────── */
+@media (max-width: 1024px) {
+  .content {
+    max-width: 100%;
+    padding: 20px 16px 48px;
+  }
+
+  .widget {
+    width: 240px;
+  }
+
+  .widgetTabela th,
+  .widgetTabela td {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .widgetTabelaTagCell {
+    width: 56px;
+    padding-right: 6px !important;
+  }
+
+  .widgetStatValor {
+    font-size: 15px;
+  }
+
+  .widgetStatLabel {
+    font-size: 8px;
+  }
+
+  .crDestaqueValor {
+    font-size: 20px;
+  }
+
+  .thNome {
+    min-width: 180px;
+  }
+
+  .tdNome {
+    min-width: 160px;
+  }
+}
+
+/* ── Responsive: small tablet ──────────────────── */
+@media (max-width: 768px) {
   .header {
     padding: 16px 16px 14px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 8px;
+  }
+
+  .titulo {
+    font-size: 19px;
   }
 
   .content {
-    padding: 16px 16px 48px;
+    padding: 16px 14px 60px;
   }
 
+  .widget {
+    width: 220px;
+  }
+
+  .widgetStat {
+    padding: 8px 10px;
+  }
+
+  .widgetStatValor {
+    font-size: 14px;
+  }
+
+  .crDestaqueValor {
+    font-size: 18px;
+  }
+
+  .tabela th {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+
+  .tabela td {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .thNome {
+    min-width: 140px;
+  }
+
+  .tdNome {
+    min-width: 120px;
+  }
+
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .btnAdicionar,
+  .btnProjecao {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+}
+
+/* ── Responsive: mobile ────────────────────────── */
+@media (max-width: 640px) {
+  /* ── Header ── */
+  .header {
+    padding: 12px 14px 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .titulo {
+    font-size: 18px;
+  }
+
+  .navLink {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  /* ── Content ── */
+  .content {
+    /* 12px horizontal: more room for content; 80px bottom: clears widget drawer */
+    padding: 12px 12px 80px;
+  }
+
+  /* ── Upload area ── */
+  .uploadAreaCompact {
+    /* wrap so "× Remover arquivo" doesn't overflow on narrow screens */
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    gap: 6px;
+    justify-content: flex-start;
+  }
+
+  .uploadMsg {
+    /* allow text to shrink inside flex row */
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .btnRemoverArquivo {
+    margin-left: 0;
+  }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .btnAdicionar {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  /* ── Larger touch targets ── */
+  .btnIcone {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* ── Widget ── */
+
+  /* FIX: flex-direction: column so tab (order: -1) sits above content */
   .widgetOuter {
     top: auto;
     bottom: 0;
     right: 0;
     left: 0;
+    flex-direction: column;
   }
 
   .widgetOuterExpanded {
@@ -1202,6 +1376,7 @@
     border: 1px solid var(--border-medium);
     border-bottom: none;
     border-radius: 8px 8px 0 0;
+    order: -1;
   }
 
   .widgetTabText {
@@ -1211,17 +1386,178 @@
 
   .widget {
     width: 100%;
-    max-height: 55vh;
-    border-radius: 0 0 0 0;
+    max-height: 55dvh;
+    border-radius: 0;
   }
 
-  .tabela th,
+  /* Restore scroll in widget body on mobile */
+  .widgetBody {
+    overflow-y: auto;
+  }
+
+  /* Chart: remove lateral padding and stretch SVG to full width */
+  .chartWrap {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .chartWrap svg {
+    width: 100%;
+  }
+
+  /* ── Table → card layout ── */
+  .gridWrapper {
+    overflow: visible;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .tabela {
+    display: block;
+  }
+
+  .tabela thead {
+    display: none;
+  }
+
+  .tabela tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tabela tbody tr {
+    display: block;
+    padding: 12px 14px;
+    border: 1px solid var(--border-medium);
+    border-radius: 8px;
+    background: var(--bg-card);
+    position: relative;
+  }
+
+  .tabela tbody tr:hover {
+    background: var(--bg-hover);
+  }
+
+  /* Hide all cells by default; show only specific ones */
   .tabela td {
-    padding: 6px 8px;
+    display: none;
+    padding: 0;
+    border: none;
+  }
+
+  .tabela .tdNome {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    padding-right: 64px;
+    min-width: 0;       /* neutralise global min-width: 200px */
+    word-break: break-word;
+  }
+
+  .tabela .tdSituacao {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  .tabela .tdSemestre {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .tabela .tdAcoes {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    padding: 0 !important;
+  }
+
+  /* ── Card states ── */
+  .trProjecao {
+    background: #fffbeb !important;
+  }
+
+  [data-theme="dark"] .trProjecao {
+    background: #1c1500 !important;
+  }
+
+  .trExcluida {
+    opacity: 0.42;
+  }
+
+  /* Reset double-opacity on td inside excluded row */
+  .trExcluida td {
+    opacity: 1 !important;
+  }
+
+  /* ── Widget stats on mobile ── */
+  .widgetStat {
+    padding: 8px 10px;
+  }
+
+  .widgetStatValor {
+    font-size: 14px;
+  }
+
+  .widgetStatLabel {
+    font-size: 8px;
+  }
+
+  .widgetStatTotal {
+    font-size: 10px;
+  }
+
+  .crDestaqueValor {
+    font-size: 18px;
+  }
+
+  .crDestaqueLabel {
+    font-size: 9px;
+  }
+
+  /* Widget table columns: more space on full-width mobile */
+  .widgetTabelaTagCell {
+    width: 68px;
+  }
+
+  /* ── Upload area full-width ── */
+  .uploadArea {
+    padding: 32px 16px;
+  }
+
+  /* ── Modal ── */
+  .modalBody {
+    padding: 14px;
   }
 
   .formRow {
     flex-direction: column;
     gap: 14px;
+  }
+
+  /* ── Projeção button ── */
+  .btnProjecao {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
+  .acoes {
+    flex-wrap: wrap;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .widgetOuter {
+    transition: none;
+    animation: none;
+  }
+
+  .animSlideFromLeft,
+  .animSlideFromRight {
+    animation: none;
   }
 }

@@ -853,8 +853,11 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </li>
-                <li className={styles.periodItemsWrapper} aria-hidden={colapsado}>
-                  <ul className={[styles.periodItemsList, colapsado ? styles.periodItemsCollapsed : ""].filter(Boolean).join(" ")}>
+                <li
+                  className={[styles.periodItemsWrapper, colapsado ? styles.periodItemsWrapperCollapsed : ""].filter(Boolean).join(" ")}
+                  aria-hidden={colapsado}
+                >
+                  <ul className={styles.periodItemsList}>
                     {materias.map((m) => renderCard(m))}
                   </ul>
                 </li>

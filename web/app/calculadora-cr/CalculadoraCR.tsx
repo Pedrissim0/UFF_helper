@@ -205,6 +205,10 @@ function clampNota(value: string): string {
   return value;
 }
 
+function truncateCR(cr: number): string {
+  return (Math.trunc(cr * 10) / 10).toFixed(1);
+}
+
 function badgeClass(situacao: string): string {
   const s = situacao.toLowerCase();
   if (s.includes("aprovado")) return styles.badgeAprovado;
@@ -271,13 +275,13 @@ function CRChart({ historico }: { historico: HistoricoEntry[] }) {
   }
 
   return (
-    <svg width={svgW} height={svgH} style={{ display: "block", overflow: "visible" }}>
+    <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`} preserveAspectRatio="none" style={{ display: "block", overflow: "visible" }}>
       {yTicks.map((t, i) => (
         <g key={i}>
           <line x1={padL} y1={yOf(t)} x2={svgW - padR} y2={yOf(t)}
             stroke="var(--border-light)" strokeWidth="1" />
           <text x={padL - 4} y={yOf(t) + 3.5} textAnchor="end" fontSize="9" fill="var(--text-muted)">
-            {t.toFixed(1)}
+            {truncateCR(t)}
           </text>
         </g>
       ))}
@@ -812,7 +816,10 @@ export default function CalculadoraCR() {
     setDisciplinas((prev) => {
       const toAdd: Disciplina[] = [];
       for (const cod of Array.from(projecaoSelecionadas)) {
-        if (prev.some((d) => d.codigo === cod) || toAdd.some((d) => d.codigo === cod)) continue;
+        if (
+          prev.some((d) => d.codigo === cod && (isAprovadoOuEquivalente(d.situacao) || d.isProjecao)) ||
+          toAdd.some((d) => d.codigo === cod)
+        ) continue;
         const cat = CATALOG_MAP[cod];
         toAdd.push({
           codigo: cod,
@@ -1029,14 +1036,14 @@ export default function CalculadoraCR() {
                         <span className={styles.tagProjecao}>projeção</span>
                       )}
                     </td>
-                    <td className={styles.tdNum}>
+                    <td className={`${styles.tdNum} ${styles.tdNota}`}>
                       {d.nota !== null ? d.nota.toFixed(1) : "—"}
                     </td>
-                    <td className={styles.tdNum}>
+                    <td className={`${styles.tdNum} ${styles.tdVS}`}>
                       {d.vs !== null ? d.vs.toFixed(1) : "—"}
                     </td>
-                    <td className={styles.tdNum}>{d.horas || "—"}</td>
-                    <td>
+                    <td className={`${styles.tdNum} ${styles.tdCH}`}>{d.horas || "—"}</td>
+                    <td className={styles.tdSituacao}>
                       <span className={`${styles.badge} ${badgeClass(d.situacao)}`}>
                         {d.situacao}
                       </span>
@@ -1115,7 +1122,7 @@ export default function CalculadoraCR() {
             {crAtual !== null && (
               <div className={styles.crDestaque}>
                 <span className={styles.crDestaqueLabel}>CR Atual</span>
-                <span className={styles.crDestaqueValor}>{crAtual.toFixed(1)}</span>
+                <span className={styles.crDestaqueValor}>{truncateCR(crAtual)}</span>
               </div>
             )}
 
@@ -1167,7 +1174,7 @@ export default function CalculadoraCR() {
                           ].filter(Boolean).join(" ")}
                         >
                           <td>{entry.periodo}</td>
-                          <td>{entry.cr.toFixed(1)}</td>
+                          <td>{truncateCR(entry.cr)}</td>
                           <td className={styles.widgetTabelaTagCell}>
                             {entry.temProjecao && (
                               <span className={styles.tagProjecao}>Projetado</span>

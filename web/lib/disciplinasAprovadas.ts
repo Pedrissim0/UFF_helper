@@ -16,10 +16,10 @@ export function getAprovadas(): Set<string> {
 }
 
 export function setAprovadas(
-  disciplinas: Array<{ codigo: string; situacao: string }>
+  disciplinas: Array<{ codigo: string; situacao: string; isProjecao?: boolean }>
 ): void {
   const codigos = disciplinas
-    .filter((d) => isAprovadoOuEquivalente(d.situacao) && d.codigo)
+    .filter((d) => isAprovadoOuEquivalente(d.situacao) && d.codigo && !d.isProjecao)
     .map((d) => d.codigo);
   try {
     localStorage.setItem(KEY_APROVADAS, JSON.stringify(codigos));
