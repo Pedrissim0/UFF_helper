@@ -192,6 +192,11 @@ function parseNum(v: unknown): number | null {
   return isNaN(n) ? null : n;
 }
 
+function isAprovadoOuEquivalente(situacao: string): boolean {
+  const s = situacao.toLowerCase();
+  return s.includes("aprovado") || s.includes("dispens");
+}
+
 function clampNota(value: string): string {
   const n = parseFloat(value);
   if (!isNaN(n) && n > 10) return "10";
@@ -252,14 +257,12 @@ function CRChart({ historico }: { historico: HistoricoEntry[] }) {
           .map((p, i) => `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`)
           .join(" ");
 
-  // Y ticks
   const nTicks = 4;
   const yTicks = Array.from(
     { length: nTicks },
     (_, i) => yMin + (yRange / (nTicks - 1)) * i
   );
 
-  // X labels: at most 5, always show first and last
   const xShow = new Set<number>([0, n - 1]);
   if (n > 2) {
     const step = Math.ceil((n - 1) / 3);
@@ -267,93 +270,34 @@ function CRChart({ historico }: { historico: HistoricoEntry[] }) {
   }
 
   return (
-    <svg
-      width={svgW}
-      height={svgH}
-      style={{ display: "block", overflow: "visible" }}
-    >
-      {/* Y grid + labels */}
+    <svg width={svgW} height={svgH} style={{ display: "block", overflow: "visible" }}>
       {yTicks.map((t, i) => (
         <g key={i}>
-          <line
-            x1={padL}
-            y1={yOf(t)}
-            x2={svgW - padR}
-            y2={yOf(t)}
-            stroke="var(--border-light)"
-            strokeWidth="1"
-          />
-          <text
-            x={padL - 4}
-            y={yOf(t) + 3.5}
-            textAnchor="end"
-            fontSize="9"
-            fill="var(--text-muted)"
-          >
+          <line x1={padL} y1={yOf(t)} x2={svgW - padR} y2={yOf(t)}
+            stroke="var(--border-light)" strokeWidth="1" />
+          <text x={padL - 4} y={yOf(t) + 3.5} textAnchor="end" fontSize="9" fill="var(--text-muted)">
             {t.toFixed(1)}
           </text>
         </g>
       ))}
-
-      {/* Baseline */}
-      <line
-        x1={padL}
-        y1={padT + chartH}
-        x2={svgW - padR}
-        y2={padT + chartH}
-        stroke="var(--border-medium)"
-        strokeWidth="1"
-      />
-
-      {/* Historical line */}
+      <line x1={padL} y1={padT + chartH} x2={svgW - padR} y2={padT + chartH}
+        stroke="var(--border-medium)" strokeWidth="1" />
       {histPts.length >= 2 && (
-        <path
-          d={toPath(histPts)}
-          fill="none"
-          stroke="var(--accent)"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d={toPath(histPts)} fill="none" stroke="var(--accent)" strokeWidth="2"
+          strokeLinecap="round" strokeLinejoin="round" />
       )}
-
-      {/* Projected line — dashed orange */}
       {projPts.length >= 2 && (
-        <path
-          d={toPath(projPts)}
-          fill="none"
-          stroke="#f59e0b"
-          strokeWidth="2"
-          strokeDasharray="5 3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        <path d={toPath(projPts)} fill="none" stroke="#f59e0b" strokeWidth="2"
+          strokeDasharray="5 3" strokeLinecap="round" strokeLinejoin="round" />
       )}
-
-      {/* Points */}
       {pts.map((p, i) => (
-        <circle
-          key={i}
-          cx={p.x}
-          cy={p.y}
-          r="3.5"
+        <circle key={i} cx={p.x} cy={p.y} r="3.5"
           fill={p.proj ? "#f59e0b" : "var(--accent)"}
-          stroke="var(--bg-card)"
-          strokeWidth="1.5"
-        />
+          stroke="var(--bg-card)" strokeWidth="1.5" />
       ))}
-
-      {/* X labels */}
       {pts.map((p, i) =>
         xShow.has(i) ? (
-          <text
-            key={i}
-            x={p.x}
-            y={svgH - 2}
-            textAnchor="middle"
-            fontSize="8.5"
-            fill="var(--text-muted)"
-          >
+          <text key={i} x={p.x} y={svgH - 2} textAnchor="middle" fontSize="8.5" fill="var(--text-muted)">
             {historico[i].periodo.slice(2)}
           </text>
         ) : null
@@ -370,33 +314,25 @@ function MoonIcon() {
     </svg>
   );
 }
-
 function SunIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="5" />
-      <line x1="12" y1="1" x2="12" y2="3" />
-      <line x1="12" y1="21" x2="12" y2="23" />
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-      <line x1="1" y1="12" x2="3" y2="12" />
-      <line x1="21" y1="12" x2="23" y2="12" />
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+      <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+      <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
     </svg>
   );
 }
-
 function UploadIcon() {
   return (
     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-      <polyline points="17 8 12 3 7 8" />
-      <line x1="12" y1="3" x2="12" y2="15" />
+      <polyline points="17 8 12 3 7 8" /><line x1="12" y1="3" x2="12" y2="15" />
     </svg>
   );
 }
-
 function PencilIcon() {
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -405,7 +341,6 @@ function PencilIcon() {
     </svg>
   );
 }
-
 function TrashIcon() {
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -416,27 +351,21 @@ function TrashIcon() {
     </svg>
   );
 }
-
 function PlusIcon() {
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-      <line x1="12" y1="5" x2="12" y2="19" />
-      <line x1="5" y1="12" x2="19" y2="12" />
+      <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
     </svg>
   );
 }
-
 function GridIcon() {
   return (
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="3" y="3" width="7" height="7" />
-      <rect x="14" y="3" width="7" height="7" />
-      <rect x="3" y="14" width="7" height="7" />
-      <rect x="14" y="14" width="7" height="7" />
+      <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
+      <rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" />
     </svg>
   );
 }
-
 function ChartLineIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -444,13 +373,11 @@ function ChartLineIcon() {
     </svg>
   );
 }
-
 function TableIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2" />
-      <line x1="3" y1="9" x2="21" y2="9" />
-      <line x1="3" y1="15" x2="21" y2="15" />
+      <line x1="3" y1="9" x2="21" y2="9" /><line x1="3" y1="15" x2="21" y2="15" />
       <line x1="9" y1="9" x2="9" y2="21" />
     </svg>
   );
@@ -460,20 +387,25 @@ function TableIcon() {
 export default function CalculadoraCR() {
   const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
   const [historico, setHistorico] = useState<HistoricoEntry[]>([]);
-  const [widgetAberto, setWidgetAberto] = useState(false);
+
+  // Widget: expanded = visível, collapsed = apenas aba visível na borda
+  const [widgetExpanded, setWidgetExpanded] = useState(false);
   const [widgetView, setWidgetView] = useState<WidgetView>("tabela");
   const [animKey, setAnimKey] = useState(0);
   const [animDir, setAnimDir] = useState<AnimDir>("toChart");
+
   const [tema, setTema] = useState<"light" | "dark">("light");
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
+  const [hasUpload, setHasUpload] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [modal, setModal] = useState<ModalState>({ aberto: false });
   const [form, setForm] = useState<FormState>(FORM_VAZIO);
   const [sugestoes, setSugestoes] = useState<CatalogItem[]>([]);
   const [sugestaoVisivel, setSugestaoVisivel] = useState(false);
+  const [erroModal, setErroModal] = useState<string | null>(null);
   const buscaRef = useRef<HTMLInputElement>(null);
 
   const [modalPeriodo, setModalPeriodo] = useState(false);
@@ -481,6 +413,13 @@ export default function CalculadoraCR() {
     periodo: 1,
     semestreIngresso: "",
   });
+
+  const [modalProjecaoLote, setModalProjecaoLote] = useState(false);
+  const [projecaoSelecionadas, setProjecaoSelecionadas] = useState<Set<string>>(new Set());
+  const [projecaoBusca, setProjecaoBusca] = useState("");
+  const [projecaoSemestre, setProjecaoSemestre] = useState("");
+  const [projecaoSugestoes, setProjecaoSugestoes] = useState<CatalogItem[]>([]);
+  const [projecaoSugestaoVisivel, setProjecaoSugestaoVisivel] = useState(false);
 
   /* Theme */
   useEffect(() => {
@@ -500,7 +439,44 @@ export default function CalculadoraCR() {
     });
   }, []);
 
-  /* Toggle widget view com animação */
+  /* Cálculo reativo: recalcula CR sempre que disciplinas mudar */
+  useEffect(() => {
+    if (disciplinas.length === 0) {
+      setHistorico([]);
+      return;
+    }
+
+    const semestres = Array.from(
+      new Set(disciplinas.map((d) => d.semestre).filter(Boolean))
+    ).sort((a, b) => {
+      const pa = parseSem(a), pb = parseSem(b);
+      return pa.year !== pb.year ? pa.year - pb.year : pa.num - pb.num;
+    });
+
+    let numAcum = 0;
+    let denomAcum = 0;
+
+    const hist: HistoricoEntry[] = semestres.map((sem) => {
+      const deste = disciplinas.filter((x) => x.semestre === sem);
+      for (const d of deste) {
+        if (estaExcluida(d)) continue;
+        if (eCovidReprovado(d)) continue;
+        numAcum += calcularNotaEfetiva(d) * d.horas;
+        denomAcum += d.horas;
+      }
+      return {
+        periodo: sem,
+        cr: denomAcum > 0 ? numAcum / denomAcum : 0,
+        temProjecao: deste.some(
+          (d) => d.isProjecao && !estaExcluida(d) && !eCovidReprovado(d)
+        ),
+      };
+    });
+
+    setHistorico(hist);
+  }, [disciplinas]);
+
+  /* Toggle view do widget com animação */
   const toggleWidgetView = useCallback(() => {
     setAnimDir((prev) => (prev === "toChart" ? "toTable" : "toChart"));
     setAnimKey((k) => k + 1);
@@ -511,8 +487,6 @@ export default function CalculadoraCR() {
   const processFile = useCallback(async (file: File) => {
     setCarregando(true);
     setErro(null);
-    setHistorico([]);
-    setWidgetAberto(false);
 
     try {
       const ext = file.name.split(".").pop()?.toLowerCase();
@@ -559,7 +533,28 @@ export default function CalculadoraCR() {
         return;
       }
 
-      setDisciplinas(data);
+      // Deduplicar por código: manter apenas a aprovação; reprovações múltiplas são permitidas
+      const porCodigo: Record<string, Disciplina[]> = {};
+      const semCodigo: Disciplina[] = [];
+      for (const d of data) {
+        if (!d.codigo) { semCodigo.push(d); continue; }
+        if (!porCodigo[d.codigo]) porCodigo[d.codigo] = [];
+        porCodigo[d.codigo].push(d);
+      }
+      const deduped: Disciplina[] = [...semCodigo];
+      for (const cod of Object.keys(porCodigo)) {
+        const entries = porCodigo[cod];
+        const aprovada = entries.find((d) => isAprovadoOuEquivalente(d.situacao));
+        if (aprovada) {
+          deduped.push(aprovada);
+        } else {
+          for (const e of entries) deduped.push(e);
+        }
+      }
+
+      setDisciplinas(deduped);
+      setHasUpload(true);
+      setWidgetExpanded(true);
     } catch (e) {
       setErro("Erro ao processar arquivo. Verifique o formato e tente novamente.");
       console.error(e);
@@ -586,6 +581,13 @@ export default function CalculadoraCR() {
     },
     [processFile]
   );
+
+  const handleRemoverArquivo = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDisciplinas([]);
+    setHasUpload(false);
+    setWidgetExpanded(false);
+  }, []);
 
   /* Modal handlers */
   const abrirNovo = useCallback((isProjecao: boolean) => {
@@ -620,16 +622,21 @@ export default function CalculadoraCR() {
   const fecharModal = useCallback(() => {
     setModal({ aberto: false });
     setSugestaoVisivel(false);
+    setErroModal(null);
   }, []);
 
   const handleBuscaChange = useCallback((value: string) => {
     setForm((f) => ({ ...f, busca: value, nome: value }));
+    setErroModal(null);
     if (value.length >= 2) {
       const lower = value.toLowerCase();
       const found = CATALOG.filter(
         (d) =>
-          d.nome.toLowerCase().includes(lower) ||
-          d.codigo.toLowerCase().includes(lower)
+          !disciplinas.some(
+            (ex) => ex.codigo === d.codigo && isAprovadoOuEquivalente(ex.situacao)
+          ) &&
+          (d.nome.toLowerCase().includes(lower) ||
+            d.codigo.toLowerCase().includes(lower))
       ).slice(0, 8);
       setSugestoes(found);
       setSugestaoVisivel(found.length > 0);
@@ -637,7 +644,7 @@ export default function CalculadoraCR() {
       setSugestoes([]);
       setSugestaoVisivel(false);
     }
-  }, []);
+  }, [disciplinas]);
 
   const handleSelecionarSugestao = useCallback((item: CatalogItem) => {
     setForm((f) => ({
@@ -648,6 +655,7 @@ export default function CalculadoraCR() {
       horas: String(item.ch),
     }));
     setSugestaoVisivel(false);
+    setErroModal(null);
   }, []);
 
   const handleSalvarForm = useCallback(() => {
@@ -678,6 +686,16 @@ export default function CalculadoraCR() {
         return next;
       });
     } else {
+      // Bloquear adição de disciplina já aprovada com o mesmo código
+      if (novaDisc.codigo && isAprovadoOuEquivalente(novaDisc.situacao)) {
+        const jaAprovada = disciplinas.some(
+          (d) => d.codigo === novaDisc.codigo && isAprovadoOuEquivalente(d.situacao)
+        );
+        if (jaAprovada) {
+          setErroModal("Esta disciplina já consta como aprovada na tabela.");
+          return;
+        }
+      }
       const coreqs = CATALOG_MAP[novaDisc.codigo]?.corequisitos ?? [];
       setDisciplinas((prev) => {
         const toAdd: Disciplina[] = [novaDisc];
@@ -704,10 +722,11 @@ export default function CalculadoraCR() {
         }
         return [...prev, ...toAdd];
       });
+      setWidgetExpanded(true);
     }
 
     fecharModal();
-  }, [form, modal, fecharModal]);
+  }, [form, modal, disciplinas, fecharModal]);
 
   const handleExcluir = useCallback((index: number) => {
     setDisciplinas((prev) => prev.filter((_, i) => i !== index));
@@ -753,45 +772,58 @@ export default function CalculadoraCR() {
     });
 
     setModalPeriodo(false);
+    setWidgetExpanded(true);
   }, [formPeriodo]);
 
-  /* CR calculation */
-  const calcularCR = useCallback(() => {
-    if (disciplinas.length === 0) return;
-
-    const semestres = Array.from(
-      new Set(disciplinas.map((d) => d.semestre).filter(Boolean))
-    ).sort((a, b) => {
-      const pa = parseSem(a), pb = parseSem(b);
-      return pa.year !== pb.year ? pa.year - pb.year : pa.num - pb.num;
-    });
-
-    let numAcum = 0;
-    let denomAcum = 0;
-
-    const hist: HistoricoEntry[] = semestres.map((sem) => {
-      const deste = disciplinas.filter((x) => x.semestre === sem);
-      for (const d of deste) {
-        if (estaExcluida(d)) continue;
-        if (eCovidReprovado(d)) continue;
-        numAcum += calcularNotaEfetiva(d) * d.horas;
-        denomAcum += d.horas;
+  /* Adicionar projeção em lote */
+  const handleAdicionarProjecaoLote = useCallback(() => {
+    if (projecaoSelecionadas.size === 0) return;
+    const semNorm = normalizeSem(projecaoSemestre);
+    setDisciplinas((prev) => {
+      const toAdd: Disciplina[] = [];
+      for (const cod of Array.from(projecaoSelecionadas)) {
+        if (prev.some((d) => d.codigo === cod) || toAdd.some((d) => d.codigo === cod)) continue;
+        const cat = CATALOG_MAP[cod];
+        toAdd.push({
+          codigo: cod,
+          nome: cat?.nome ?? cod,
+          situacao: "Aprovado",
+          turma: "",
+          nota: 10,
+          vs: null,
+          frequencia: null,
+          horas: cat?.ch ?? 60,
+          creditos: 0,
+          semestre: semNorm,
+          isProjecao: true,
+        });
       }
-      return {
-        periodo: sem,
-        cr: denomAcum > 0 ? numAcum / denomAcum : 0,
-        temProjecao: deste.some(
-          (d) => d.isProjecao && !estaExcluida(d) && !eCovidReprovado(d)
-        ),
-      };
+      return [...prev, ...toAdd];
     });
+    setModalProjecaoLote(false);
+    setProjecaoSelecionadas(new Set());
+    setProjecaoBusca("");
+    setProjecaoSugestoes([]);
+    setProjecaoSugestaoVisivel(false);
+    setWidgetExpanded(true);
+  }, [projecaoSelecionadas, projecaoSemestre]);
 
-    setHistorico(hist);
-    setWidgetAberto(true);
-  }, [disciplinas]);
-
+  /* Derived values */
   const crAtual =
     historico.length > 0 ? historico[historico.length - 1].cr : null;
+
+  const horasCursadas = disciplinas
+    .filter(
+      (d) =>
+        !d.isProjecao &&
+        !estaExcluida(d) &&
+        d.situacao.toLowerCase().includes("aprovado")
+    )
+    .reduce((sum, d) => sum + d.horas, 0);
+  const percentualConcluido =
+    HORAS_TOTAIS > 0
+      ? Math.min(100, Math.round((horasCursadas / HORAS_TOTAIS) * 100))
+      : 0;
 
   const modalTitulo = !modal.aberto
     ? ""
@@ -804,22 +836,10 @@ export default function CalculadoraCR() {
   const uploadCount = disciplinas.filter((d) => !d.isProjecao).length;
   const periodoIngressoValido = parseSem(formPeriodo.semestreIngresso).year > 0;
 
-  // Horas aprovadas (exclui projeções, reprovados e situações neutras)
-  const horasCursadas = disciplinas
-    .filter(
-      (d) =>
-        !d.isProjecao &&
-        !estaExcluida(d) &&
-        d.situacao.toLowerCase().includes("aprovado")
-    )
-    .reduce((sum, d) => sum + d.horas, 0);
-  const percentualConcluido = HORAS_TOTAIS > 0
-    ? Math.min(100, Math.round((horasCursadas / HORAS_TOTAIS) * 100))
-    : 0;
-
-  // Classe de animação: tabela→gráfico desliza da esquerda; gráfico→tabela desliza da direita
   const animClass =
     animDir === "toChart" ? styles.animSlideFromLeft : styles.animSlideFromRight;
+
+  const widgetVisible = disciplinas.length > 0;
 
   return (
     <div className={styles.wrapper}>
@@ -830,9 +850,7 @@ export default function CalculadoraCR() {
           <h1 className={styles.titulo}>Calculadora de CR</h1>
         </div>
         <div className={styles.headerActions}>
-          <Link href="/" className={styles.navLink}>
-            ← Grade Horária
-          </Link>
+          <Link href="/" className={styles.navLink}>← Grade Horária</Link>
           <button
             className={styles.themeToggle}
             onClick={toggleTema}
@@ -852,9 +870,7 @@ export default function CalculadoraCR() {
             styles.uploadArea,
             dragOver ? styles.uploadAreaDragOver : "",
             disciplinas.length > 0 ? styles.uploadAreaCompact : "",
-          ]
-            .filter(Boolean)
-            .join(" ")}
+          ].filter(Boolean).join(" ")}
           onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
           onDragLeave={() => setDragOver(false)}
           onDrop={handleDrop}
@@ -874,9 +890,21 @@ export default function CalculadoraCR() {
           {carregando ? (
             <span className={styles.uploadMsg}>Processando arquivo...</span>
           ) : uploadCount > 0 ? (
-            <span className={styles.uploadMsg}>
-              {uploadCount} disciplinas carregadas · clique para trocar arquivo
-            </span>
+            <>
+              <span className={styles.uploadMsg}>
+                {uploadCount} disciplinas carregadas
+                {hasUpload && " · clique para trocar arquivo"}
+              </span>
+              {hasUpload && (
+                <button
+                  className={styles.btnRemoverArquivo}
+                  onClick={handleRemoverArquivo}
+                  title="Remover arquivo e limpar dados"
+                >
+                  × Remover
+                </button>
+              )}
+            </>
           ) : (
             <>
               <span className={styles.uploadIconWrap}><UploadIcon /></span>
@@ -899,8 +927,22 @@ export default function CalculadoraCR() {
             <PlusIcon /> Adicionar disciplina
           </button>
           <button
+            className={styles.btnProjecao}
+            onClick={() => {
+              setProjecaoSelecionadas(new Set());
+              setProjecaoBusca("");
+              setProjecaoSugestoes([]);
+              setProjecaoSugestaoVisivel(false);
+              setModalProjecaoLote(true);
+            }}
+          >
+            <PlusIcon /> Adicionar projeção
+          </button>
+          <button
             className={styles.btnAdicionar}
             onClick={() => setModalPeriodo(true)}
+            disabled={hasUpload}
+            title={hasUpload ? "Remova o arquivo para adicionar disciplinas manualmente." : undefined}
           >
             <GridIcon /> Pré-preencher por período
           </button>
@@ -908,170 +950,180 @@ export default function CalculadoraCR() {
 
         {/* Grid */}
         {disciplinas.length > 0 && (
-          <>
-            <div className={styles.gridWrapper}>
-              <table className={styles.tabela}>
-                <thead>
-                  <tr>
-                    <th>Código</th>
-                    <th className={styles.thNome}>Nome</th>
-                    <th className={styles.thNum}>Nota</th>
-                    <th className={styles.thNum}>VS</th>
-                    <th className={styles.thNum}>CH</th>
-                    <th>Situação</th>
-                    <th>Semestre</th>
-                    <th className={styles.thAcoes}></th>
+          <div className={styles.gridWrapper}>
+            <table className={styles.tabela}>
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th className={styles.thNome}>Nome</th>
+                  <th className={styles.thNum}>Nota</th>
+                  <th className={styles.thNum}>VS</th>
+                  <th className={styles.thNum}>CH</th>
+                  <th>Situação</th>
+                  <th>Semestre</th>
+                  <th className={styles.thAcoes}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {disciplinas.map((d, i) => (
+                  <tr
+                    key={i}
+                    className={[
+                      estaExcluida(d) || eCovidReprovado(d) ? styles.trExcluida : "",
+                      d.isProjecao ? styles.trProjecao : "",
+                    ].filter(Boolean).join(" ")}
+                  >
+                    <td className={styles.tdCode}>{d.codigo}</td>
+                    <td className={styles.tdNome}>
+                      {d.nome}
+                      {d.isProjecao && (
+                        <span className={styles.tagProjecao}>projeção</span>
+                      )}
+                    </td>
+                    <td className={styles.tdNum}>
+                      {d.nota !== null ? d.nota.toFixed(1) : "—"}
+                    </td>
+                    <td className={styles.tdNum}>
+                      {d.vs !== null ? d.vs.toFixed(1) : "—"}
+                    </td>
+                    <td className={styles.tdNum}>{d.horas || "—"}</td>
+                    <td>
+                      <span className={`${styles.badge} ${badgeClass(d.situacao)}`}>
+                        {d.situacao}
+                      </span>
+                    </td>
+                    <td className={styles.tdSemestre}>{d.semestre}</td>
+                    <td className={styles.tdAcoes}>
+                      <button
+                        className={styles.btnIcone}
+                        onClick={() => abrirEdicao(i)}
+                        title="Editar"
+                        aria-label="Editar disciplina"
+                      >
+                        <PencilIcon />
+                      </button>
+                      <button
+                        className={`${styles.btnIcone} ${styles.btnIconeExcluir}`}
+                        onClick={() => handleExcluir(i)}
+                        title="Remover"
+                        aria-label="Remover disciplina"
+                      >
+                        <TrashIcon />
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {disciplinas.map((d, i) => (
-                    <tr
-                      key={i}
-                      className={[
-                        estaExcluida(d) || eCovidReprovado(d) ? styles.trExcluida : "",
-                        d.isProjecao ? styles.trProjecao : "",
-                      ]
-                        .filter(Boolean)
-                        .join(" ")}
-                    >
-                      <td className={styles.tdCode}>{d.codigo}</td>
-                      <td className={styles.tdNome}>
-                        {d.nome}
-                        {d.isProjecao && (
-                          <span className={styles.tagProjecao}>projeção</span>
-                        )}
-                      </td>
-                      <td className={styles.tdNum}>
-                        {d.nota !== null ? d.nota.toFixed(1) : "—"}
-                      </td>
-                      <td className={styles.tdNum}>
-                        {d.vs !== null ? d.vs.toFixed(1) : "—"}
-                      </td>
-                      <td className={styles.tdNum}>{d.horas || "—"}</td>
-                      <td>
-                        <span className={`${styles.badge} ${badgeClass(d.situacao)}`}>
-                          {d.situacao}
-                        </span>
-                      </td>
-                      <td className={styles.tdSemestre}>{d.semestre}</td>
-                      <td className={styles.tdAcoes}>
-                        <button
-                          className={styles.btnIcone}
-                          onClick={() => abrirEdicao(i)}
-                          title="Editar"
-                          aria-label="Editar disciplina"
-                        >
-                          <PencilIcon />
-                        </button>
-                        <button
-                          className={`${styles.btnIcone} ${styles.btnIconeExcluir}`}
-                          onClick={() => handleExcluir(i)}
-                          title="Remover"
-                          aria-label="Remover disciplina"
-                        >
-                          <TrashIcon />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <div className={styles.acoes}>
-              <button className={styles.btnProjecao} onClick={() => abrirNovo(true)}>
-                <PlusIcon /> Adicionar projeção
-              </button>
-              <button className={styles.btnCalcular} onClick={calcularCR}>
-                Calcular CR
-              </button>
-            </div>
-          </>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
-      {/* Widget flutuante */}
-      {widgetAberto && (
-        <div className={styles.widget}>
-          <div className={styles.widgetHeader}>
-            <span className={styles.widgetTitulo}>Histórico CR</span>
-            <div className={styles.widgetHeaderActions}>
-              <button
-                className={styles.widgetViewToggle}
-                onClick={toggleWidgetView}
-                title={widgetView === "tabela" ? "Ver gráfico" : "Ver tabela"}
-                aria-label={widgetView === "tabela" ? "Alternar para gráfico" : "Alternar para tabela"}
-              >
-                {widgetView === "tabela" ? <ChartLineIcon /> : <TableIcon />}
-              </button>
-              <button
-                className={styles.widgetFechar}
-                onClick={() => setWidgetAberto(false)}
-                aria-label="Fechar widget"
-              >
-                ×
-              </button>
-            </div>
+      {/* Widget flutuante com aba colapsável */}
+      {widgetVisible && (
+        <div
+          className={[
+            styles.widgetOuter,
+            widgetExpanded ? styles.widgetOuterExpanded : styles.widgetOuterCollapsed,
+          ].join(" ")}
+        >
+          {/* Aba lateral — clica para expandir/recolher */}
+          <div
+            className={styles.widgetTab}
+            onClick={() => setWidgetExpanded((v) => !v)}
+            role="button"
+            aria-label={widgetExpanded ? "Recolher widget" : "Expandir widget"}
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && setWidgetExpanded((v) => !v)}
+          >
+            <span className={styles.widgetTabText}>Histórico CR</span>
           </div>
 
-          {crAtual !== null && (
-            <div className={styles.crDestaque}>
-              <span className={styles.crDestaqueLabel}>CR Atual</span>
-              <span className={styles.crDestaqueValor}>{crAtual.toFixed(1)}</span>
-            </div>
-          )}
-
-          {/* Horas e % de conclusão */}
-          <div className={styles.widgetStats}>
-            <div className={styles.widgetStat}>
-              <span className={styles.widgetStatLabel}>Horas cursadas</span>
-              <span className={styles.widgetStatValor}>
-                {horasCursadas}
-                <span className={styles.widgetStatTotal}> / {HORAS_TOTAIS}h</span>
-              </span>
-            </div>
-            <div className={styles.widgetStat}>
-              <span className={styles.widgetStatLabel}>Curso concluído</span>
-              <span className={styles.widgetStatValor}>{percentualConcluido}%</span>
-            </div>
-          </div>
-
-          <div className={styles.widgetBody}>
-            {widgetView === "tabela" ? (
-              <div key={`tabela-${animKey}`} className={animClass}>
-                <table className={styles.widgetTabela}>
-                  <thead>
-                    <tr>
-                      <th>Período</th>
-                      <th>CR acumulado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {historico.map((entry, i) => (
-                      <tr
-                        key={i}
-                        className={[
-                          i === historico.length - 1 ? styles.crUltimo : "",
-                          entry.temProjecao ? styles.crProjecao : "",
-                        ]
-                          .filter(Boolean)
-                          .join(" ")}
-                      >
-                        <td>{entry.periodo}</td>
-                        <td>{entry.cr.toFixed(1)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {/* Card do widget */}
+          <div className={styles.widget}>
+            <div className={styles.widgetHeader}>
+              <span className={styles.widgetTitulo}>Histórico CR</span>
+              <div className={styles.widgetHeaderActions}>
+                <button
+                  className={styles.widgetViewToggle}
+                  onClick={toggleWidgetView}
+                  title={widgetView === "tabela" ? "Ver gráfico" : "Ver tabela"}
+                  aria-label={widgetView === "tabela" ? "Alternar para gráfico" : "Alternar para tabela"}
+                >
+                  {widgetView === "tabela" ? <ChartLineIcon /> : <TableIcon />}
+                </button>
+                <button
+                  className={styles.widgetFechar}
+                  onClick={() => setWidgetExpanded(false)}
+                  aria-label="Recolher widget"
+                  title="Recolher"
+                >
+                  ×
+                </button>
               </div>
-            ) : (
-              <div
-                key={`grafico-${animKey}`}
-                className={`${styles.chartWrap} ${animClass}`}
-              >
-                <CRChart historico={historico} />
+            </div>
+
+            {crAtual !== null && (
+              <div className={styles.crDestaque}>
+                <span className={styles.crDestaqueLabel}>CR Atual</span>
+                <span className={styles.crDestaqueValor}>{crAtual.toFixed(1)}</span>
               </div>
             )}
+
+            {/* Horas e % de conclusão */}
+            <div className={styles.widgetStats}>
+              <div className={styles.widgetStat}>
+                <span className={styles.widgetStatLabel}>Horas cursadas</span>
+                <span className={styles.widgetStatValor}>
+                  {horasCursadas}
+                  <span className={styles.widgetStatTotal}> / {HORAS_TOTAIS}h</span>
+                </span>
+              </div>
+              <div className={styles.widgetStat}>
+                <span className={styles.widgetStatLabel}>Curso concluído</span>
+                <span className={styles.widgetStatValor}>{percentualConcluido}%</span>
+              </div>
+            </div>
+
+            <div className={styles.widgetBody}>
+              {historico.length === 0 ? (
+                <p className={styles.widgetVazio}>
+                  Preencha os semestres das disciplinas para calcular o CR.
+                </p>
+              ) : widgetView === "tabela" ? (
+                <div key={`tabela-${animKey}`} className={animClass}>
+                  <table className={styles.widgetTabela}>
+                    <thead>
+                      <tr>
+                        <th>Período</th>
+                        <th>CR acumulado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {historico.map((entry, i) => (
+                        <tr
+                          key={i}
+                          className={[
+                            i === historico.length - 1 ? styles.crUltimo : "",
+                            entry.temProjecao ? styles.crProjecao : "",
+                          ].filter(Boolean).join(" ")}
+                        >
+                          <td>{entry.periodo}</td>
+                          <td>{entry.cr.toFixed(1)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div
+                  key={`grafico-${animKey}`}
+                  className={`${styles.chartWrap} ${animClass}`}
+                >
+                  <CRChart historico={historico} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
@@ -1085,23 +1137,13 @@ export default function CalculadoraCR() {
           aria-modal="true"
           aria-label={modalTitulo}
         >
-          <div
-            className={styles.modalCard}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <span className={styles.modalTitulo}>{modalTitulo}</span>
-              <button
-                className={styles.modalFechar}
-                onClick={fecharModal}
-                aria-label="Fechar"
-              >
-                ×
-              </button>
+              <button className={styles.modalFechar} onClick={fecharModal} aria-label="Fechar">×</button>
             </div>
 
             <div className={styles.modalBody}>
-              {/* Nome / busca com autocomplete */}
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Nome / Código</label>
                 <div className={styles.autocompleteWrap}>
@@ -1110,12 +1152,8 @@ export default function CalculadoraCR() {
                     className={styles.formInput}
                     value={form.busca}
                     onChange={(e) => handleBuscaChange(e.target.value)}
-                    onFocus={() =>
-                      sugestoes.length > 0 && setSugestaoVisivel(true)
-                    }
-                    onBlur={() =>
-                      setTimeout(() => setSugestaoVisivel(false), 150)
-                    }
+                    onFocus={() => sugestoes.length > 0 && setSugestaoVisivel(true)}
+                    onBlur={() => setTimeout(() => setSugestaoVisivel(false), 150)}
                     placeholder="Buscar por nome ou código..."
                     autoComplete="off"
                   />
@@ -1142,39 +1180,25 @@ export default function CalculadoraCR() {
                 </div>
               </div>
 
-              {/* Situação */}
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Situação</label>
                 <select
                   className={styles.formSelect}
                   value={form.situacao}
-                  onChange={(e) =>
-                    setForm((f) => ({ ...f, situacao: e.target.value }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, situacao: e.target.value }))}
                 >
-                  {SITUACOES.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
+                  {SITUACOES.map((s) => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
 
-              {/* Nota + VS */}
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Nota</label>
                   <input
                     className={styles.formInput}
                     value={form.nota}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, nota: clampNota(e.target.value) }))
-                    }
-                    type="number"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                    placeholder="0.0"
+                    onChange={(e) => setForm((f) => ({ ...f, nota: clampNota(e.target.value) }))}
+                    type="number" min="0" max="10" step="0.1" placeholder="0.0"
                   />
                 </div>
                 <div className={styles.formGroup}>
@@ -1182,48 +1206,171 @@ export default function CalculadoraCR() {
                   <input
                     className={styles.formInput}
                     value={form.vs}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, vs: clampNota(e.target.value) }))
-                    }
-                    type="number"
-                    min="0"
-                    max="10"
-                    step="0.1"
-                    placeholder="—"
+                    onChange={(e) => setForm((f) => ({ ...f, vs: clampNota(e.target.value) }))}
+                    type="number" min="0" max="10" step="0.1" placeholder="—"
                   />
                 </div>
               </div>
 
-              {/* Semestre */}
               <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Período</label>
                 <input
                   className={styles.formInput}
                   value={form.semestre}
-                  onChange={(e) =>
-                    setForm((f) => ({
-                      ...f,
-                      semestre: normalizeSem(e.target.value),
-                    }))
-                  }
+                  onChange={(e) => setForm((f) => ({ ...f, semestre: normalizeSem(e.target.value) }))}
+                  placeholder="2025.1"
+                />
+              </div>
+
+              {erroModal && (
+                <p className={styles.erroModal}>{erroModal}</p>
+              )}
+            </div>
+
+            <div className={styles.modalFooter}>
+              <button className={styles.btnCancelar} onClick={fecharModal}>Cancelar</button>
+              <button
+                className={modal.tipo === "projecao" ? styles.btnSalvarProjecao : styles.btnSalvar}
+                onClick={handleSalvarForm}
+              >
+                {modal.tipo === "editando" ? "Salvar alterações" : "Adicionar"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal projeção em lote */}
+      {modalProjecaoLote && (
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setModalProjecaoLote(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Adicionar projeção"
+        >
+          <div
+            className={styles.modalCard}
+            style={{ maxWidth: 520 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <span className={styles.modalTitulo}>Adicionar projeção</span>
+              <button className={styles.modalFechar} onClick={() => setModalProjecaoLote(false)} aria-label="Fechar">×</button>
+            </div>
+
+            <div className={styles.modalBody}>
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Adicionar disciplina</label>
+                <div className={styles.autocompleteWrap}>
+                  <input
+                    className={styles.formInput}
+                    value={projecaoBusca}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setProjecaoBusca(val);
+                      if (val.length >= 2) {
+                        const lower = val.toLowerCase();
+                        const found = CATALOG.filter(
+                          (d) =>
+                            !projecaoSelecionadas.has(d.codigo) &&
+                            !disciplinas.some(
+                              (ex) => ex.codigo === d.codigo && isAprovadoOuEquivalente(ex.situacao)
+                            ) &&
+                            (d.nome.toLowerCase().includes(lower) ||
+                              d.codigo.toLowerCase().includes(lower))
+                        ).slice(0, 8);
+                        setProjecaoSugestoes(found);
+                        setProjecaoSugestaoVisivel(found.length > 0);
+                      } else {
+                        setProjecaoSugestoes([]);
+                        setProjecaoSugestaoVisivel(false);
+                      }
+                    }}
+                    onFocus={() => projecaoSugestoes.length > 0 && setProjecaoSugestaoVisivel(true)}
+                    onBlur={() => setTimeout(() => setProjecaoSugestaoVisivel(false), 150)}
+                    placeholder="Buscar por nome ou código..."
+                    autoFocus
+                    autoComplete="off"
+                  />
+                  {projecaoSugestaoVisivel && projecaoSugestoes.length > 0 && (
+                    <div className={styles.sugestoesDropdown}>
+                      {projecaoSugestoes.map((s) => (
+                        <button
+                          key={s.codigo}
+                          className={styles.sugestaoItem}
+                          onMouseDown={() => {
+                            setProjecaoSelecionadas((prev) => {
+                              const next = new Set(Array.from(prev));
+                              next.add(s.codigo);
+                              return next;
+                            });
+                            setProjecaoBusca("");
+                            setProjecaoSugestoes([]);
+                            setProjecaoSugestaoVisivel(false);
+                          }}
+                          type="button"
+                        >
+                          <span className={styles.sugestaoNome}>{s.nome}</span>
+                          <span className={styles.sugestaoCodigo}>{s.codigo} · {s.ch}h</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {projecaoSelecionadas.size > 0 && (
+                <div className={styles.projecaoChips}>
+                  {Array.from(projecaoSelecionadas).map((cod) => {
+                    const cat = CATALOG_MAP[cod];
+                    return (
+                      <div key={cod} className={styles.projecaoChip}>
+                        <span className={styles.projecaoChipNome}>{cat?.nome ?? cod}</span>
+                        <button
+                          className={styles.projecaoChipRemove}
+                          onClick={() =>
+                            setProjecaoSelecionadas((prev) => {
+                              const next = new Set(Array.from(prev));
+                              next.delete(cod);
+                              return next;
+                            })
+                          }
+                          type="button"
+                          aria-label={`Remover ${cat?.nome ?? cod}`}
+                        >
+                          ×
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Semestre da projeção</label>
+                <input
+                  className={styles.formInput}
+                  value={projecaoSemestre}
+                  onChange={(e) => setProjecaoSemestre(e.target.value)}
                   placeholder="2025.1"
                 />
               </div>
             </div>
 
             <div className={styles.modalFooter}>
-              <button className={styles.btnCancelar} onClick={fecharModal}>
-                Cancelar
-              </button>
+              {projecaoSelecionadas.size > 0 && (
+                <span className={styles.projecaoContagem}>
+                  {projecaoSelecionadas.size} selecionada(s)
+                </span>
+              )}
+              <button className={styles.btnCancelar} onClick={() => setModalProjecaoLote(false)}>Cancelar</button>
               <button
-                className={
-                  modal.tipo === "projecao"
-                    ? styles.btnSalvarProjecao
-                    : styles.btnSalvar
-                }
-                onClick={handleSalvarForm}
+                className={styles.btnSalvarProjecao}
+                onClick={handleAdicionarProjecaoLote}
+                disabled={projecaoSelecionadas.size === 0}
               >
-                {modal.tipo === "editando" ? "Salvar alterações" : "Adicionar"}
+                Adicionar{projecaoSelecionadas.size > 0 ? ` (${projecaoSelecionadas.size})` : ""}
               </button>
             </div>
           </div>
@@ -1239,19 +1386,10 @@ export default function CalculadoraCR() {
           aria-modal="true"
           aria-label="Pré-preencher por período"
         >
-          <div
-            className={styles.modalCard}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
               <span className={styles.modalTitulo}>Pré-preencher por período</span>
-              <button
-                className={styles.modalFechar}
-                onClick={() => setModalPeriodo(false)}
-                aria-label="Fechar"
-              >
-                ×
-              </button>
+              <button className={styles.modalFechar} onClick={() => setModalPeriodo(false)} aria-label="Fechar">×</button>
             </div>
 
             <div className={styles.modalBody}>
@@ -1265,12 +1403,7 @@ export default function CalculadoraCR() {
                 <input
                   className={styles.formInput}
                   value={formPeriodo.semestreIngresso}
-                  onChange={(e) =>
-                    setFormPeriodo((f) => ({
-                      ...f,
-                      semestreIngresso: e.target.value,
-                    }))
-                  }
+                  onChange={(e) => setFormPeriodo((f) => ({ ...f, semestreIngresso: e.target.value }))}
                   placeholder="2022.1"
                   autoFocus
                 />
@@ -1281,46 +1414,27 @@ export default function CalculadoraCR() {
                 <select
                   className={styles.formSelect}
                   value={formPeriodo.periodo}
-                  onChange={(e) =>
-                    setFormPeriodo((f) => ({
-                      ...f,
-                      periodo: parseInt(e.target.value),
-                    }))
-                  }
+                  onChange={(e) => setFormPeriodo((f) => ({ ...f, periodo: parseInt(e.target.value) }))}
                 >
-                  {Array.from({ length: MAX_PERIODO }, (_, i) => i + 1).map(
-                    (p) => (
-                      <option key={p} value={p}>
-                        {p}º período
-                      </option>
-                    )
-                  )}
+                  {Array.from({ length: MAX_PERIODO }, (_, i) => i + 1).map((p) => (
+                    <option key={p} value={p}>{p}º período</option>
+                  ))}
                 </select>
               </div>
 
               <p className={styles.modalHint}>
-                As disciplinas do período atual serão marcadas como{" "}
-                <strong>projeção</strong>. Preencha as notas de cada disciplina
-                depois de adicionadas.
+                As disciplinas do período atual serão marcadas como <strong>projeção</strong>.
+                Preencha as notas de cada disciplina depois de adicionadas.
               </p>
             </div>
 
             <div className={styles.modalFooter}>
-              <button
-                className={styles.btnCancelar}
-                onClick={() => setModalPeriodo(false)}
-              >
-                Cancelar
-              </button>
+              <button className={styles.btnCancelar} onClick={() => setModalPeriodo(false)}>Cancelar</button>
               <button
                 className={styles.btnSalvar}
                 onClick={handlePreencherPorPeriodo}
                 disabled={!periodoIngressoValido}
-                title={
-                  !periodoIngressoValido
-                    ? "Informe o semestre de ingresso (ex: 2022.1)"
-                    : undefined
-                }
+                title={!periodoIngressoValido ? "Informe o semestre de ingresso (ex: 2022.1)" : undefined}
               >
                 Pré-preencher
               </button>
