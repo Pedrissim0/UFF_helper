@@ -949,6 +949,21 @@
   letter-spacing: 0;
 }
 
+.widgetStatProjecao {
+  color: #92400e;
+}
+
+[data-theme="dark"] .widgetStatProjecao {
+  color: #fbbf24;
+}
+
+.widgetTabelaTagCell {
+  text-align: right;
+  padding-right: 10px !important;
+  white-space: nowrap;
+  width: 1px; /* shrink-wrap */
+}
+
 /* ── Widget header actions ──────────────────────── */
 .widgetHeaderActions {
   display: flex;

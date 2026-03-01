@@ -533,26 +533,7 @@ export default function CalculadoraCR() {
         return;
       }
 
-      // Deduplicar por código: manter apenas a aprovação; reprovações múltiplas são permitidas
-      const porCodigo: Record<string, Disciplina[]> = {};
-      const semCodigo: Disciplina[] = [];
-      for (const d of data) {
-        if (!d.codigo) { semCodigo.push(d); continue; }
-        if (!porCodigo[d.codigo]) porCodigo[d.codigo] = [];
-        porCodigo[d.codigo].push(d);
-      }
-      const deduped: Disciplina[] = [...semCodigo];
-      for (const cod of Object.keys(porCodigo)) {
-        const entries = porCodigo[cod];
-        const aprovada = entries.find((d) => isAprovadoOuEquivalente(d.situacao));
-        if (aprovada) {
-          deduped.push(aprovada);
-        } else {
-          for (const e of entries) deduped.push(e);
-        }
-      }
-
-      setDisciplinas(deduped);
+      setDisciplinas(data);
       setHasUpload(true);
       setWidgetExpanded(true);
     } catch (e) {
@@ -584,10 +565,14 @@ export default function CalculadoraCR() {
 
   const handleRemoverArquivo = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
+    const msg = hasUpload
+      ? "Remover o arquivo e limpar todas as disciplinas da tabela?"
+      : "Limpar todas as disciplinas da tabela?";
+    if (!window.confirm(msg)) return;
     setDisciplinas([]);
     setHasUpload(false);
     setWidgetExpanded(false);
-  }, []);
+  }, [hasUpload]);
 
   /* Modal handlers */
   const abrirNovo = useCallback((isProjecao: boolean) => {
@@ -809,8 +794,13 @@ export default function CalculadoraCR() {
   }, [projecaoSelecionadas, projecaoSemestre]);
 
   /* Derived values */
-  const crAtual =
-    historico.length > 0 ? historico[historico.length - 1].cr : null;
+  // CR atual: último período REAL (sem projeção) para não inflar o destaque
+  const crAtual = (() => {
+    const reais = historico.filter((e) => !e.temProjecao);
+    return reais.length > 0 ? reais[reais.length - 1].cr : null;
+  })();
+
+  const temProjecoes = disciplinas.some((d) => d.isProjecao && !estaExcluida(d));
 
   const horasCursadas = disciplinas
     .filter(
@@ -820,9 +810,18 @@ export default function CalculadoraCR() {
         d.situacao.toLowerCase().includes("aprovado")
     )
     .reduce((sum, d) => sum + d.horas, 0);
+
+  const horasComProjecao = disciplinas
+    .filter((d) => !estaExcluida(d) && d.situacao.toLowerCase().includes("aprovado"))
+    .reduce((sum, d) => sum + d.horas, 0);
+
   const percentualConcluido =
     HORAS_TOTAIS > 0
       ? Math.min(100, Math.round((horasCursadas / HORAS_TOTAIS) * 100))
+      : 0;
+  const percentualComProjecao =
+    HORAS_TOTAIS > 0
+      ? Math.min(100, Math.round((horasComProjecao / HORAS_TOTAIS) * 100))
       : 0;
 
   const modalTitulo = !modal.aberto
@@ -895,15 +894,13 @@ export default function CalculadoraCR() {
                 {uploadCount} disciplinas carregadas
                 {hasUpload && " · clique para trocar arquivo"}
               </span>
-              {hasUpload && (
-                <button
-                  className={styles.btnRemoverArquivo}
-                  onClick={handleRemoverArquivo}
-                  title="Remover arquivo e limpar dados"
-                >
-                  × Remover
-                </button>
-              )}
+              <button
+                className={styles.btnRemoverArquivo}
+                onClick={handleRemoverArquivo}
+                title={hasUpload ? "Remover arquivo e limpar dados" : "Limpar todas as disciplinas"}
+              >
+                × {hasUpload ? "Remover arquivo" : "Limpar disciplinas"}
+              </button>
             </>
           ) : (
             <>
@@ -1074,14 +1071,22 @@ export default function CalculadoraCR() {
             <div className={styles.widgetStats}>
               <div className={styles.widgetStat}>
                 <span className={styles.widgetStatLabel}>Horas cursadas</span>
-                <span className={styles.widgetStatValor}>
-                  {horasCursadas}
+                <span className={[
+                  styles.widgetStatValor,
+                  temProjecoes ? styles.widgetStatProjecao : "",
+                ].filter(Boolean).join(" ")}>
+                  {temProjecoes ? horasComProjecao : horasCursadas}
                   <span className={styles.widgetStatTotal}> / {HORAS_TOTAIS}h</span>
                 </span>
               </div>
               <div className={styles.widgetStat}>
                 <span className={styles.widgetStatLabel}>Curso concluído</span>
-                <span className={styles.widgetStatValor}>{percentualConcluido}%</span>
+                <span className={[
+                  styles.widgetStatValor,
+                  temProjecoes ? styles.widgetStatProjecao : "",
+                ].filter(Boolean).join(" ")}>
+                  {temProjecoes ? percentualComProjecao : percentualConcluido}%
+                </span>
               </div>
             </div>
 
@@ -1097,6 +1102,7 @@ export default function CalculadoraCR() {
                       <tr>
                         <th>Período</th>
                         <th>CR acumulado</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1110,6 +1116,11 @@ export default function CalculadoraCR() {
                         >
                           <td>{entry.periodo}</td>
                           <td>{entry.cr.toFixed(1)}</td>
+                          <td className={styles.widgetTabelaTagCell}>
+                            {entry.temProjecao && (
+                              <span className={styles.tagProjecao}>Projetado</span>
+                            )}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
