@@ -124,6 +124,7 @@ const SITUACOES = [
   "Aproveitamento",
   "Reprovado",
   "Trancamento",
+  "Trancado",
   "Atividade Complementar",
   "Dispensa",
   "Monitoria",
@@ -132,6 +133,7 @@ const SITUACOES = [
 
 const SITUACOES_EXCLUIDAS = [
   "trancamento",
+  "trancado",
   "atividade complementar",
   "dispensa",
   "monitoria",
@@ -181,7 +183,7 @@ function calcularNotaEfetiva(d: Disciplina): number {
   let nota = d.nota ?? 0;
   if (d.vs !== null) {
     const s = d.situacao.toLowerCase();
-    if ((s.includes("aprovado") || s.includes("aproveitamento")) && d.vs >= 6) nota = d.vs;
+    if ((s.includes("aprovado") || s.includes("aproveitamento")) && d.vs > 6) nota = d.vs;
     else if (s.includes("reprovado")) nota = (nota + d.vs) / 2;
   }
   return nota;
