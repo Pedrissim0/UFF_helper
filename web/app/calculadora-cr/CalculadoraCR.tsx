@@ -121,6 +121,7 @@ const FORM_VAZIO: FormState = {
 
 const SITUACOES = [
   "Aprovado",
+  "Aproveitamento",
   "Reprovado",
   "Trancamento",
   "Atividade Complementar",
@@ -180,7 +181,7 @@ function calcularNotaEfetiva(d: Disciplina): number {
   let nota = d.nota ?? 0;
   if (d.vs !== null) {
     const s = d.situacao.toLowerCase();
-    if (s.includes("aprovado") && d.vs >= 6) nota = d.vs;
+    if ((s.includes("aprovado") || s.includes("aproveitamento")) && d.vs >= 6) nota = d.vs;
     else if (s.includes("reprovado")) nota = (nota + d.vs) / 2;
   }
   return nota;
@@ -195,7 +196,7 @@ function parseNum(v: unknown): number | null {
 
 function isAprovadoOuEquivalente(situacao: string): boolean {
   const s = situacao.toLowerCase();
-  return s.includes("aprovado") || s.includes("dispens");
+  return s.includes("aprovado") || s.includes("aproveitamento") || s.includes("dispens");
 }
 
 function clampNota(value: string): string {
@@ -211,7 +212,7 @@ function truncateCR(cr: number): string {
 
 function badgeClass(situacao: string): string {
   const s = situacao.toLowerCase();
-  if (s.includes("aprovado")) return styles.badgeAprovado;
+  if (s.includes("aprovado") || s.includes("aproveitamento")) return styles.badgeAprovado;
   if (s.includes("reprovado")) return styles.badgeReprovado;
   if (s.includes("trancamento")) return styles.badgeTrancamento;
   return styles.badgeNeutro;
@@ -859,12 +860,12 @@ export default function CalculadoraCR() {
       (d) =>
         !d.isProjecao &&
         !estaExcluida(d) &&
-        d.situacao.toLowerCase().includes("aprovado")
+        (d.situacao.toLowerCase().includes("aprovado") || d.situacao.toLowerCase().includes("aproveitamento"))
     )
     .reduce((sum, d) => sum + d.horas, 0);
 
   const horasComProjecao = disciplinas
-    .filter((d) => !estaExcluida(d) && d.situacao.toLowerCase().includes("aprovado"))
+    .filter((d) => !estaExcluida(d) && (d.situacao.toLowerCase().includes("aprovado") || d.situacao.toLowerCase().includes("aproveitamento")))
     .reduce((sum, d) => sum + d.horas, 0);
 
   const percentualConcluido =
