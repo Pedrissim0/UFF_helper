@@ -1345,11 +1345,20 @@
   pointer-events: none;
 }
 
+.profTooltip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  width: 100%;
+  height: 10px;
+}
+
 .profWrapper:hover .profTooltip {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition-delay: 700ms;
+  transition-delay: 400ms;
 }
 
 .tooltipRow {
