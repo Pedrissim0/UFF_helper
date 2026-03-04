@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# UFF Helper
 
-## Getting Started
+Site utilitário para alunos de Economia da UFF. Acesse em: **[uff-helper.vercel.app](https://uff-helper.vercel.app)**
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| Rota | Descrição |
+|---|---|
+| `/` | Grade horária — monte sua grade semanal, detecte conflitos, veja co-requisitos |
+| `/calculadora-cr` | Calculadora de CR — importe o histórico (CSV/XLSX) ou preencha manualmente; projeções por período |
+| `/controlador-faltas` | Controlador de faltas — acompanhe faltas por disciplina com limite legal (25%) |
+
+## Stack
+
+- **Next.js 14** (App Router, TypeScript, CSS Modules)
+- **Zustand** — estado global persistido no localStorage
+- **Supabase** — banco de dados de disciplinas e professores (leitura pública)
+- **Vercel** — deploy automático a partir da branch `main`
+
+## Estrutura
+
+```
+/web        → frontend Next.js
+/scraper    → scripts Python: CSV/PDF → JSON → Supabase
+/docs       → dados de referência (grade, matriz curricular)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Rodando localmente
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd web
+npm install
+npm run dev     # http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Não é necessário configurar variáveis de ambiente para desenvolvimento — as credenciais do Supabase são públicas (somente leitura).
 
-## Learn More
+## Stores Zustand
 
-To learn more about Next.js, take a look at the following resources:
+| Store | Chave localStorage | Conteúdo |
+|---|---|---|
+| `useUIStore` | `tema` | Tema claro/escuro |
+| `useGradeStore` | `grade-horaria:grade` | Disciplinas selecionadas na grade |
+| `useDisciplinasStore` | `grade-horaria:aprovadas` | Disciplinas aprovadas (sync da calculadora) |
+| `useCalculadoraStore` | `grade-horaria:calculadora-cr` | Histórico da calculadora de CR |
+| `useFaltasStore` | `grade-horaria:controlador-faltas` | Faltas por disciplina |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scraper (Python)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cd scraper
+pip install -r requirements.txt
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+python parse_csv.py          # CSV da UFF → db_disciplinas.json
+python enrich_materias.py    # adiciona dados da matriz curricular
+python upload_to_supabase.py # sincroniza com Supabase
+```

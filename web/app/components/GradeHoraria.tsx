@@ -4,7 +4,11 @@ import React, { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import Link from "next/link";
 import type { Materia } from "../page";
 import styles from "./GradeHoraria.module.css";
-import { getAprovadas } from "@/lib/disciplinasAprovadas";
+import { useUIStore } from "@/stores/useUIStore";
+import { useGradeStore } from "@/stores/useGradeStore";
+import { useDisciplinasStore } from "@/stores/useDisciplinasStore";
+import ProfTag from "./ProfTag";
+import { filtrarDisciplinas } from "@/lib/filtrarDisciplinas";
 
 type Dia = keyof Materia["horarios"];
 type Turno = "manha" | "tarde" | "noite";
@@ -70,8 +74,26 @@ interface Props {
 }
 
 export default function GradeHoraria({ materias, nomeCompletoMap = {}, professorEmailMap = {} }: Props) {
+  const gradeStore = useGradeStore();
+  const { aprovadas: aprovadasArr } = useDisciplinasStore();
+  const aprovadas = useMemo(() => new Set(aprovadasArr), [aprovadasArr]);
+
+  const selecionadas = useMemo(
+    () =>
+      gradeStore.selecionadas
+        .map(({ codigo, turma }) =>
+          materias.find((m) => m.codigo === codigo && m.turma === turma)
+        )
+        .filter((m): m is Materia => m !== undefined),
+    [gradeStore.selecionadas, materias]
+  );
+
+  const periodosColapsados = useMemo(
+    () => new Set(gradeStore.periodosColapsados),
+    [gradeStore.periodosColapsados]
+  );
+
   const [busca, setBusca] = useState("");
-  const [selecionadas, setSelecionadas] = useState<Materia[]>([]);
   const [gradeAberta, setGradeAberta] = useState(false);
   const [filtrosAberto, setFiltrosAberto] = useState(false);
   const [diasFiltro, setDiasFiltro] = useState<Set<Dia>>(new Set());
@@ -79,12 +101,15 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
   const [periodosFiltro, setPeriodosFiltro] = useState<Set<string>>(new Set());
   const [tipoFiltro, setTipoFiltro] = useState<"obrigatoria" | "optativa" | null>(null);
+  const [listaAnim, setListaAnim] = useState(false);
+  const didMountAnim = useRef(false);
   const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('right');
   const [widgetWidth, setWidgetWidth] = useState(500);
   const [legendaVisivel, setLegendaVisivel] = useState(true);
-  const [tema, setTema] = useState<'light' | 'dark'>('light');
+  const { tema, toggleTema, _hydrateTheme } = useUIStore();
   const resizingRef = useRef(false);
   const peekTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const periodosIniciados = useRef(false);
 
   const [isMobile, setIsMobile] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -99,36 +124,27 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
   const [emailModal, setEmailModal] = useState<{ displayName: string; docente: string } | null>(null);
   const [modalEmail, setModalEmail] = useState("");
-
-  // Disciplinas aprovadas (lidas do localStorage — escritas pela Calculadora de CR)
-  const [aprovadas, setAprovadas_] = useState<Set<string>>(new Set());
-
-  // Períodos colapsados
-  const [periodosColapsados, setPeriodosColapsados] = useState<Set<string>>(new Set());
-  const periodosIniciados = useRef(false);
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [modalError, setModalError] = useState("");
 
-  useEffect(() => {
-    const saved = localStorage.getItem('tema') as 'light' | 'dark' | null;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = saved || (prefersDark ? 'dark' : 'light');
-    setTema(initial);
-    document.documentElement.setAttribute('data-theme', initial);
-  }, []);
+  useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
 
-  const toggleTema = useCallback(() => {
-    setTema((prev) => {
-      const next = prev === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('tema', next);
-      return next;
-    });
-  }, []);
-
+  // Auto-ativa filtro "Já Cursado" quando há aprovadas, desativa quando aprovadas esvazia
   useEffect(() => {
-    setAprovadas_(getAprovadas());
-  }, []);
+    if (aprovadas.size > 0 && gradeStore.jaCursadoFiltro === null) {
+      gradeStore.setJaCursadoFiltro("nao");
+    } else if (aprovadas.size === 0 && gradeStore.jaCursadoFiltro !== null) {
+      gradeStore.setJaCursadoFiltro(null);
+    }
+  }, [aprovadas.size]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Anima a lista quando jaCursadoFiltro muda (não na montagem inicial)
+  useEffect(() => {
+    if (!didMountAnim.current) { didMountAnim.current = true; return; }
+    setListaAnim(true);
+    const t = setTimeout(() => setListaAnim(false), 300);
+    return () => clearTimeout(t);
+  }, [gradeStore.jaCursadoFiltro]);
 
   const showToast = useCallback((msg: string) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
@@ -196,32 +212,6 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('selected-courses');
-      if (saved) {
-        const parsed = JSON.parse(saved) as Array<{ codigo: string; turma: string }>;
-        const restored = materias.filter((m) =>
-          parsed.some((p) => p.codigo === m.codigo && p.turma === m.turma)
-        );
-        if (restored.length > 0) setSelecionadas(restored);
-      }
-    } catch {
-      // localStorage unavailable or data corrupted — default to empty selection
-    }
-  }, [materias]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(
-        'selected-courses',
-        JSON.stringify(selecionadas.map((m) => ({ codigo: m.codigo, turma: m.turma })))
-      );
-    } catch {
-      // localStorage unavailable
-    }
-  }, [selecionadas]);
 
   useEffect(() => {
     return () => {
@@ -312,61 +302,21 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     return Array.from(s).sort((a, b) => a - b);
   }, [materias]);
 
-  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + periodosFiltro.size + (tipoFiltro ? 1 : 0);
+  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + periodosFiltro.size + (tipoFiltro ? 1 : 0) + (gradeStore.jaCursadoFiltro ? 1 : 0);
 
-  const filtradas = useMemo(() => {
-    let result = materias;
-
-    const q = busca.toLowerCase();
-    if (q) {
-      result = result.filter(
-        (m) =>
-          m.nome.toLowerCase().includes(q) ||
-          m.codigo.toLowerCase().includes(q) ||
-          m.turma.toLowerCase().includes(q) ||
-          m.nome_exibicao.toLowerCase().includes(q)
-      );
-    }
-
-    if (diasFiltro.size > 0) {
-      result = result.filter((m) =>
-        DIAS.some((d) => diasFiltro.has(d) && m.horarios[d])
-      );
-    }
-
-    if (turnosFiltro.size > 0) {
-      result = result.filter((m) => {
-        for (const dia of DIAS) {
-          const start = getStartMin(m.horarios[dia]);
-          if (start === null) continue;
-          if (turnosFiltro.has("manha") && start < 720) return true;
-          if (turnosFiltro.has("tarde") && start >= 720 && start < 1080) return true;
-          if (turnosFiltro.has("noite") && start >= 1080) return true;
-        }
-        return false;
-      });
-    }
-
-    if (deptosFiltro.size > 0) {
-      result = result.filter((m) => {
-        const depto = m.codigo.replace(/[0-9]/g, "");
-        return deptosFiltro.has(depto);
-      });
-    }
-
-    if (periodosFiltro.size > 0) {
-      result = result.filter((m) => {
-        const key = m.periodo !== null ? String(m.periodo) : "np";
-        return periodosFiltro.has(key);
-      });
-    }
-
-    if (tipoFiltro) {
-      result = result.filter((m) => m.tipo === tipoFiltro);
-    }
-
-    return result;
-  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, periodosFiltro, tipoFiltro]);
+  const filtradas = useMemo(() => filtrarDisciplinas(
+    materias,
+    {
+      busca,
+      dias: diasFiltro,
+      turnos: turnosFiltro,
+      deptos: deptosFiltro,
+      periodos: periodosFiltro,
+      tipo: tipoFiltro,
+      jaCursado: gradeStore.jaCursadoFiltro,
+    },
+    aprovadas
+  ), [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, periodosFiltro, tipoFiltro, gradeStore.jaCursadoFiltro, aprovadas]);
 
   // Agrupa materias filtradas por periodo (chave composta)
   const periodoGroups = useMemo(() => {
@@ -387,43 +337,23 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       .map(([key, materias]) => ({ key, materias }));
   }, [filtradas]);
 
-  // Inicializar períodos colapsados (após periodoGroups e aprovadas estarem prontos)
+  // Inicializar períodos colapsados: se store estiver vazia, auto-colapsar aprovados
   useEffect(() => {
     if (periodosIniciados.current) return;
     if (periodoGroups.length === 0) return;
-    const saved = JSON.parse(
-      localStorage.getItem("grade-horaria:periodos-colapsados") || "[]"
-    ) as string[];
-    const fromStorage = new Set<string>(saved);
-    if (fromStorage.size > 0) {
-      setPeriodosColapsados(fromStorage);
-    } else {
-      // Auto-colapsar períodos onde todas as obrigatórias são aprovadas
-      const autoColapsados = new Set<string>();
+    if (gradeStore.periodosColapsados.length === 0) {
+      const autoColapsados: string[] = [];
       for (const { key: gKey, materias: gMaterias } of periodoGroups) {
         if (!gKey.match(/^\d+$/)) continue;
         const obrig = gMaterias.filter((m) => m.tipo === "obrigatoria");
         if (obrig.length > 0 && obrig.every((m) => aprovadas.has(m.codigo))) {
-          autoColapsados.add(gKey);
+          autoColapsados.push(gKey);
         }
       }
-      setPeriodosColapsados(autoColapsados);
+      if (autoColapsados.length > 0) gradeStore.setPeriodosColapsados(autoColapsados);
     }
     periodosIniciados.current = true;
-  }, [periodoGroups, aprovadas]);
-
-  // Persistir períodos colapsados
-  useEffect(() => {
-    if (!periodosIniciados.current) return;
-    try {
-      localStorage.setItem(
-        "grade-horaria:periodos-colapsados",
-        JSON.stringify(Array.from(periodosColapsados))
-      );
-    } catch {
-      // localStorage unavailable
-    }
-  }, [periodosColapsados]);
+  }, [periodoGroups, aprovadas, gradeStore]);
 
   function isSelecionada(m: Materia) {
     return selecionadas.some((s) => s.codigo === m.codigo && s.turma === m.turma);
@@ -454,11 +384,10 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       for (const s of selecionadas) {
         if ((s.corequisitos ?? []).includes(m.codigo)) coReqCodes.add(s.codigo);
       }
-      setSelecionadas((prev) =>
-        prev.filter((s) =>
-          !(s.codigo === m.codigo && s.turma === m.turma) && !coReqCodes.has(s.codigo)
-        )
+      const novas = selecionadas.filter(
+        (s) => !(s.codigo === m.codigo && s.turma === m.turma) && !coReqCodes.has(s.codigo)
       );
+      gradeStore.setSelecionadas(novas.map((s) => ({ codigo: s.codigo, turma: s.turma })));
     } else {
       const toAdd: Materia[] = [m];
       for (const coReqCode of (m.corequisitos ?? [])) {
@@ -489,7 +418,8 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
         if (coReq) toAdd.push(coReq);
       }
-      setSelecionadas((prev) => [...prev, ...toAdd]);
+      const novas = [...selecionadas, ...toAdd];
+      gradeStore.setSelecionadas(novas.map((s) => ({ codigo: s.codigo, turma: s.turma })));
       if (toAdd.length > 1) {
         showToast(`Co-req adicionado: ${toAdd.slice(1).map((x) => x.nome).join(", ")}`);
       }
@@ -502,13 +432,8 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   }
 
   const togglePeriodo = useCallback((gKey: string) => {
-    setPeriodosColapsados((prev) => {
-      const next = new Set(Array.from(prev));
-      if (next.has(gKey)) next.delete(gKey);
-      else next.add(gKey);
-      return next;
-    });
-  }, []);
+    gradeStore.togglePeriodo(gKey);
+  }, [gradeStore]);
 
   const temFiltroAtivo =
     busca.trim().length > 0 ||
@@ -516,7 +441,8 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     turnosFiltro.size > 0 ||
     deptosFiltro.size > 0 ||
     periodosFiltro.size > 0 ||
-    !!tipoFiltro;
+    !!tipoFiltro ||
+    !!gradeStore.jaCursadoFiltro;
 
   const totalHoras = selecionadas.reduce((acc, m) => acc + (m.ch ?? 0), 0);
   const expanded = gradeAberta;
@@ -561,55 +487,24 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
             <span className={styles.itemNome}>
               {m.nome}
             </span>
-            {m.nome_exibicao && (() => {
-              const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
-              const confirmedEmail = professorEmailMap[docente];
-              const isProfAllocated = docente !== "Sem professor alocado";
-              const alreadySubmitted = emailSubmitted[m.nome_exibicao];
-
-              return (
-                <div className={styles.profWrapper} onClick={(e) => e.stopPropagation()}>
-                  <span
-                    className={styles.profTag}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const copyText = confirmedEmail
-                        ? `Professor: ${docente} | Email: ${confirmedEmail}`
-                        : docente;
-                      navigator.clipboard.writeText(copyText);
-                      showToast("Copiado!");
-                    }}
-                  >
-                    Prof. {m.nome_exibicao}
-                  </span>
-
-                  <div className={styles.profTooltip}>
-                    <div className={styles.tooltipRow}>
-                      <span className={styles.tooltipLabel}>Nome</span>
-                      <span className={styles.tooltipValue}>{docente}</span>
-                    </div>
-                    <div className={styles.tooltipRow}>
-                      <span className={styles.tooltipLabel}>Email</span>
-                      {confirmedEmail ? (
-                        <span className={styles.tooltipEmail}>{confirmedEmail}</span>
-                      ) : isProfAllocated ? (
-                        <span
-                          className={styles.tooltipEmailCta}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (!alreadySubmitted) openEmailModal(m.nome_exibicao, docente);
-                          }}
-                        >
-                          {alreadySubmitted ? "Sugestão registrada" : "você sabe o email? Digite aqui"}
-                        </span>
-                      ) : (
-                        <span className={styles.tooltipEmailNone}>—</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
+            {m.nome_exibicao && (
+              <ProfTag
+                nomeExibicao={m.nome_exibicao}
+                nomeCompleto={nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}
+                confirmedEmail={professorEmailMap[nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao]}
+                alreadySubmitted={emailSubmitted[m.nome_exibicao]}
+                onSuggestEmail={() => openEmailModal(m.nome_exibicao, nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao)}
+                onCopy={() => {
+                  const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
+                  const email = professorEmailMap[docente];
+                  const copyText = email
+                    ? `Professor: ${docente} | Email: ${email}`
+                    : docente;
+                  navigator.clipboard.writeText(copyText);
+                  showToast("Copiado!");
+                }}
+              />
+            )}
           </div>
           <div className={styles.itemMetaWrapper}>
             <div className={styles.itemMeta}>
@@ -673,6 +568,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           <Link href="/calculadora-cr" className={styles.navLink}>
             Calculadora de CR
           </Link>
+          <Link href="/controlador-faltas" className={styles.navLink}>
+            Controlador de Faltas
+          </Link>
           <button
             className={styles.themeToggle}
             onClick={toggleTema}
@@ -720,6 +618,25 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
         {/* Filter panel — collapsible */}
         <div className={`${styles.filtroPanel} ${filtrosAberto ? styles.filtroPanelAberto : ""}`}>
+          {aprovadas.size > 0 && (
+            <div className={styles.filtroGrupo}>
+              <span className={styles.filtroLabel}>Cursado</span>
+              <div className={styles.filtroChips}>
+                <button
+                  className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "nao" ? styles.filtroChipAtivo : ""}`}
+                  onClick={() => gradeStore.setJaCursadoFiltro(gradeStore.jaCursadoFiltro === "nao" ? null : "nao")}
+                >
+                  Não
+                </button>
+                <button
+                  className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "sim" ? styles.filtroChipAtivo : ""}`}
+                  onClick={() => gradeStore.setJaCursadoFiltro(gradeStore.jaCursadoFiltro === "sim" ? null : "sim")}
+                >
+                  Sim
+                </button>
+              </div>
+            </div>
+          )}
           <div className={styles.filtroGrupo}>
             <span className={styles.filtroLabel}>Dia</span>
             <div className={styles.filtroChips}>
@@ -811,13 +728,13 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
             {filtradas.length} turmas · {selecionadas.length} selecionadas
           </span>
           {selecionadas.length > 0 && (
-            <button className={styles.limpar} onClick={() => setSelecionadas([])}>
+            <button className={styles.limpar} onClick={() => gradeStore.limpar()}>
               Limpar
             </button>
           )}
         </div>
 
-        <ul className={styles.lista}>
+        <ul className={`${styles.lista} ${listaAnim ? styles.listaAnim : ""}`}>
           {/* Selecionadas — sempre no topo */}
           {selecionadas.length > 0 && (
             <React.Fragment>

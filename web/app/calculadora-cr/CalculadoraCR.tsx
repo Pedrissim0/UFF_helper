@@ -5,7 +5,10 @@ import Link from "next/link";
 import styles from "./CalculadoraCR.module.css";
 import rawCatalog from "@/data/db_disciplinas.json";
 import matrizRaw from "@/data/matriz_curricular.json";
-import { setAprovadas, clearAprovadas } from "@/lib/disciplinasAprovadas";
+import { useUIStore } from "@/stores/useUIStore";
+import { useDisciplinasStore, isAprovadoOuEquivalente } from "@/stores/useDisciplinasStore";
+import { useGradeStore } from "@/stores/useGradeStore";
+import { useCalculadoraStore } from "@/stores/useCalculadoraStore";
 
 /* ── Catálogo para autocomplete ─────────────────── */
 interface CatalogItem {
@@ -196,11 +199,6 @@ function parseNum(v: unknown): number | null {
   return isNaN(n) ? null : n;
 }
 
-function isAprovadoOuEquivalente(situacao: string): boolean {
-  const s = situacao.toLowerCase();
-  return s.includes("aprovado") || s.includes("aproveitamento") || s.includes("dispens");
-}
-
 function clampNota(value: string): string {
   const n = parseFloat(value);
   if (!isNaN(n) && n > 10) return "10";
@@ -210,6 +208,11 @@ function clampNota(value: string): string {
 
 function truncateCR(cr: number): string {
   return (Math.trunc(cr * 10) / 10).toFixed(1);
+}
+
+function currentSemester(): string {
+  const now = new Date();
+  return `${now.getFullYear()}.${now.getMonth() < 6 ? 1 : 2}`;
 }
 
 function badgeClass(situacao: string): string {
@@ -393,7 +396,8 @@ function TableIcon() {
 
 /* ── Component ─────────────────────────────────── */
 export default function CalculadoraCR() {
-  const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
+  const calcStore = useCalculadoraStore();
+  const disciplinas = calcStore.disciplinas as Disciplina[];
   const [historico, setHistorico] = useState<HistoricoEntry[]>([]);
 
   // Widget: expanded = visível, collapsed = apenas aba visível na borda
@@ -402,11 +406,11 @@ export default function CalculadoraCR() {
   const [animKey, setAnimKey] = useState(0);
   const [animDir, setAnimDir] = useState<AnimDir>("toChart");
 
-  const [tema, setTema] = useState<"light" | "dark">("light");
+  const { tema, toggleTema, _hydrateTheme } = useUIStore();
+  const { setAprovadas, clearAprovadas } = useDisciplinasStore();
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
-  const [hasUpload, setHasUpload] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [modal, setModal] = useState<ModalState>({ aberto: false });
@@ -430,63 +434,54 @@ export default function CalculadoraCR() {
   const [projecaoSugestaoVisivel, setProjecaoSugestaoVisivel] = useState(false);
 
   const [restorado, setRestorado] = useState(false);
-  const didRestoreRef = useRef(false);
 
-  /* Theme */
+  useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
+
+  /* No mount: importar grade como projeção se não houver projeções; abrir widget se há dados */
   useEffect(() => {
-    const saved = localStorage.getItem("tema") as "light" | "dark" | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = saved ?? (prefersDark ? "dark" : "light");
-    setTema(initial);
-    document.documentElement.setAttribute("data-theme", initial);
-  }, []);
-
-  const toggleTema = useCallback(() => {
-    setTema((prev) => {
-      const next = prev === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("tema", next);
-      return next;
-    });
-  }, []);
-
-  /* Restore do localStorage no mount */
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem("grade-horaria:calculadora-cr");
-      if (raw) {
-        const { disciplinas: saved, hasUpload: hu } = JSON.parse(raw);
-        if (Array.isArray(saved) && saved.length > 0) {
-          setDisciplinas(saved);
-          setHasUpload(hu ?? false);
-          setWidgetExpanded(true);
-          setRestorado(true);
-        }
+    const stored = useCalculadoraStore.getState().disciplinas as Disciplina[];
+    const hasProjecoes = stored.some((d) => d.isProjecao);
+    if (!hasProjecoes) {
+      const selected = useGradeStore.getState().selecionadas;
+      const semAtual = currentSemester();
+      const toAdd: Disciplina[] = [];
+      for (const { codigo, turma } of selected) {
+        if (stored.some((d) => d.codigo === codigo && (isAprovadoOuEquivalente(d.situacao) || d.isProjecao))) continue;
+        const cat = CATALOG_MAP[codigo];
+        toAdd.push({
+          codigo,
+          nome: cat?.nome ?? codigo,
+          situacao: "Aprovado",
+          turma,
+          nota: 10,
+          vs: null,
+          frequencia: null,
+          horas: cat?.ch ?? 60,
+          creditos: 0,
+          semestre: semAtual,
+          isProjecao: true,
+        });
       }
-    } catch {
-      // ignore
+      if (toAdd.length > 0) {
+        calcStore.setDisciplinas([...stored, ...toAdd]);
+      }
     }
-    didRestoreRef.current = true;
+    const total = useCalculadoraStore.getState().disciplinas.length;
+    if (total > 0) {
+      setWidgetExpanded(true);
+      setRestorado(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* Persistir disciplinas no localStorage */
+  /* Sincronizar aprovadas sempre que disciplinas mudar */
   useEffect(() => {
-    if (!didRestoreRef.current) return;
-    try {
-      if (disciplinas.length === 0) {
-        localStorage.removeItem("grade-horaria:calculadora-cr");
-        clearAprovadas();
-      } else {
-        localStorage.setItem(
-          "grade-horaria:calculadora-cr",
-          JSON.stringify({ disciplinas, hasUpload })
-        );
-        setAprovadas(disciplinas);
-      }
-    } catch {
-      // localStorage unavailable
+    if (disciplinas.length === 0) {
+      clearAprovadas();
+    } else {
+      setAprovadas(disciplinas);
     }
-  }, [disciplinas, hasUpload]);
+  }, [disciplinas, setAprovadas, clearAprovadas]);
 
   /* Cálculo reativo: recalcula CR sempre que disciplinas mudar */
   useEffect(() => {
@@ -582,8 +577,8 @@ export default function CalculadoraCR() {
         return;
       }
 
-      setDisciplinas(data);
-      setHasUpload(true);
+      calcStore.setDisciplinas(data);
+      calcStore.setFonte("upload");
       setWidgetExpanded(true);
     } catch (e) {
       setErro("Erro ao processar arquivo. Verifique o formato e tente novamente.");
@@ -614,17 +609,15 @@ export default function CalculadoraCR() {
 
   const handleRemoverArquivo = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    const msg = hasUpload
+    const msg = calcStore.fonte === "upload"
       ? "Remover o arquivo e limpar todas as disciplinas da tabela?"
       : "Limpar todas as disciplinas da tabela?";
     if (!window.confirm(msg)) return;
-    setDisciplinas([]);
-    setHasUpload(false);
+    calcStore.limpar();
+    clearAprovadas();
     setWidgetExpanded(false);
     setRestorado(false);
-    localStorage.removeItem("grade-horaria:calculadora-cr");
-    clearAprovadas();
-  }, [hasUpload]);
+  }, [calcStore, clearAprovadas]);
 
   /* Modal handlers */
   const abrirNovo = useCallback((isProjecao: boolean) => {
@@ -714,14 +707,9 @@ export default function CalculadoraCR() {
     };
 
     if (modal.aberto && modal.tipo === "editando") {
-      setDisciplinas((prev) => {
-        const next = [...prev];
-        next[modal.index] = {
-          ...novaDisc,
-          isProjecao: prev[modal.index].isProjecao,
-        };
-        return next;
-      });
+      const next = [...disciplinas];
+      next[modal.index] = { ...novaDisc, isProjecao: disciplinas[modal.index].isProjecao };
+      calcStore.setDisciplinas(next);
     } else {
       // Bloquear adição de disciplina já aprovada com o mesmo código
       if (novaDisc.codigo && isAprovadoOuEquivalente(novaDisc.situacao)) {
@@ -734,119 +722,107 @@ export default function CalculadoraCR() {
         }
       }
       const coreqs = CATALOG_MAP[novaDisc.codigo]?.corequisitos ?? [];
-      setDisciplinas((prev) => {
-        const toAdd: Disciplina[] = [novaDisc];
-        for (const cod of coreqs) {
-          if (
-            prev.some((d) => d.codigo === cod) ||
-            toAdd.some((d) => d.codigo === cod)
-          )
-            continue;
-          const cat = CATALOG_MAP[cod];
-          toAdd.push({
-            codigo: cod,
-            nome: cat?.nome ?? cod,
-            situacao: novaDisc.situacao,
-            turma: "",
-            nota: null,
-            vs: null,
-            frequencia: null,
-            horas: cat?.ch ?? 60,
-            creditos: 0,
-            semestre: novaDisc.semestre,
-            isProjecao: novaDisc.isProjecao,
-          });
-        }
-        return [...prev, ...toAdd];
-      });
-      setWidgetExpanded(true);
-    }
-
-    fecharModal();
-  }, [form, modal, disciplinas, fecharModal]);
-
-  const handleExcluir = useCallback((index: number) => {
-    setDisciplinas((prev) => prev.filter((_, i) => i !== index));
-  }, []);
-
-  /* Pré-preencher por período */
-  const handlePreencherPorPeriodo = useCallback(() => {
-    const { year: entryYear, num: entryNum } = parseSem(formPeriodo.semestreIngresso);
-
-    setDisciplinas((prev) => {
-      const toAdd: Disciplina[] = [];
-      for (let p = 1; p <= formPeriodo.periodo; p++) {
-        const discsDoPeriodo = MATRIZ_OBRIGATORIAS.filter((d) => d.periodo === p);
-        const isCurrentPeriodo = p === formPeriodo.periodo;
-        const semestre =
-          entryYear && entryNum
-            ? computeSemestrePorPeriodo(entryYear, entryNum, p)
-            : "";
-
-        for (const md of discsDoPeriodo) {
-          if (
-            prev.some((d) => d.codigo === md.codigo) ||
-            toAdd.some((d) => d.codigo === md.codigo)
-          )
-            continue;
-          const cat = CATALOG_MAP[md.codigo];
-          toAdd.push({
-            codigo: md.codigo,
-            nome: md.nome,
-            situacao: "Aprovado",
-            turma: "",
-            nota: null,
-            vs: null,
-            frequencia: null,
-            horas: cat?.ch ?? 60,
-            creditos: 0,
-            semestre,
-            isProjecao: isCurrentPeriodo,
-          });
-        }
-      }
-      return [...prev, ...toAdd];
-    });
-
-    setModalPeriodo(false);
-    setWidgetExpanded(true);
-  }, [formPeriodo]);
-
-  /* Adicionar projeção em lote */
-  const handleAdicionarProjecaoLote = useCallback(() => {
-    if (projecaoSelecionadas.size === 0) return;
-    const semNorm = normalizeSem(projecaoSemestre);
-    setDisciplinas((prev) => {
-      const toAdd: Disciplina[] = [];
-      for (const cod of Array.from(projecaoSelecionadas)) {
+      const toAdd: Disciplina[] = [novaDisc];
+      for (const cod of coreqs) {
         if (
-          prev.some((d) => d.codigo === cod && (isAprovadoOuEquivalente(d.situacao) || d.isProjecao)) ||
+          disciplinas.some((d) => d.codigo === cod) ||
           toAdd.some((d) => d.codigo === cod)
         ) continue;
         const cat = CATALOG_MAP[cod];
         toAdd.push({
           codigo: cod,
           nome: cat?.nome ?? cod,
-          situacao: "Aprovado",
+          situacao: novaDisc.situacao,
           turma: "",
-          nota: 10,
+          nota: null,
           vs: null,
           frequencia: null,
           horas: cat?.ch ?? 60,
           creditos: 0,
-          semestre: semNorm,
-          isProjecao: true,
+          semestre: novaDisc.semestre,
+          isProjecao: novaDisc.isProjecao,
         });
       }
-      return [...prev, ...toAdd];
-    });
+      calcStore.setDisciplinas([...disciplinas, ...toAdd]);
+      setWidgetExpanded(true);
+    }
+
+    fecharModal();
+  }, [form, modal, disciplinas, fecharModal, calcStore]);
+
+  const handleExcluir = useCallback((index: number) => {
+    calcStore.setDisciplinas(disciplinas.filter((_, i) => i !== index));
+  }, [disciplinas, calcStore]);
+
+  /* Pré-preencher por período */
+  const handlePreencherPorPeriodo = useCallback(() => {
+    const { year: entryYear, num: entryNum } = parseSem(formPeriodo.semestreIngresso);
+    const toAdd: Disciplina[] = [];
+    for (let p = 1; p <= formPeriodo.periodo; p++) {
+      const discsDoPeriodo = MATRIZ_OBRIGATORIAS.filter((d) => d.periodo === p);
+      const isCurrentPeriodo = p === formPeriodo.periodo;
+      const semestre =
+        entryYear && entryNum ? computeSemestrePorPeriodo(entryYear, entryNum, p) : "";
+
+      for (const md of discsDoPeriodo) {
+        if (
+          disciplinas.some((d) => d.codigo === md.codigo) ||
+          toAdd.some((d) => d.codigo === md.codigo)
+        ) continue;
+        const cat = CATALOG_MAP[md.codigo];
+        toAdd.push({
+          codigo: md.codigo,
+          nome: md.nome,
+          situacao: "Aprovado",
+          turma: "",
+          nota: null,
+          vs: null,
+          frequencia: null,
+          horas: cat?.ch ?? 60,
+          creditos: 0,
+          semestre,
+          isProjecao: isCurrentPeriodo,
+        });
+      }
+    }
+    calcStore.setDisciplinas([...disciplinas, ...toAdd]);
+    setModalPeriodo(false);
+    setWidgetExpanded(true);
+  }, [formPeriodo, disciplinas, calcStore]);
+
+  /* Adicionar projeção em lote */
+  const handleAdicionarProjecaoLote = useCallback(() => {
+    if (projecaoSelecionadas.size === 0) return;
+    const semNorm = normalizeSem(projecaoSemestre);
+    const toAdd: Disciplina[] = [];
+    for (const cod of Array.from(projecaoSelecionadas)) {
+      if (
+        disciplinas.some((d) => d.codigo === cod && (isAprovadoOuEquivalente(d.situacao) || d.isProjecao)) ||
+        toAdd.some((d) => d.codigo === cod)
+      ) continue;
+      const cat = CATALOG_MAP[cod];
+      toAdd.push({
+        codigo: cod,
+        nome: cat?.nome ?? cod,
+        situacao: "Aprovado",
+        turma: "",
+        nota: 10,
+        vs: null,
+        frequencia: null,
+        horas: cat?.ch ?? 60,
+        creditos: 0,
+        semestre: semNorm,
+        isProjecao: true,
+      });
+    }
+    calcStore.setDisciplinas([...disciplinas, ...toAdd]);
     setModalProjecaoLote(false);
     setProjecaoSelecionadas(new Set());
     setProjecaoBusca("");
     setProjecaoSugestoes([]);
     setProjecaoSugestaoVisivel(false);
     setWidgetExpanded(true);
-  }, [projecaoSelecionadas, projecaoSemestre]);
+  }, [projecaoSelecionadas, projecaoSemestre, disciplinas, calcStore]);
 
   /* Derived values */
   // CR atual: último período REAL (sem projeção) para não inflar o destaque
@@ -905,6 +881,7 @@ export default function CalculadoraCR() {
         </div>
         <div className={styles.headerActions}>
           <Link href="/" className={styles.navLink}>← Grade Horária</Link>
+          <Link href="/controlador-faltas" className={styles.navLink}>Controlador de Faltas</Link>
           <button
             className={styles.themeToggle}
             onClick={toggleTema}
@@ -947,14 +924,14 @@ export default function CalculadoraCR() {
             <>
               <span className={styles.uploadMsg}>
                 {uploadCount} disciplinas carregadas
-                {hasUpload && " · clique para trocar arquivo"}
+                {calcStore.fonte === "upload" && " · clique para trocar arquivo"}
               </span>
               <button
                 className={styles.btnRemoverArquivo}
                 onClick={handleRemoverArquivo}
-                title={hasUpload ? "Remover arquivo e limpar dados" : "Limpar todas as disciplinas"}
+                title={calcStore.fonte === "upload" ? "Remover arquivo e limpar dados" : "Limpar todas as disciplinas"}
               >
-                × {hasUpload ? "Remover arquivo" : "Limpar disciplinas"}
+                × {calcStore.fonte === "upload" ? "Remover arquivo" : "Limpar disciplinas"}
               </button>
             </>
           ) : (
@@ -1000,8 +977,8 @@ export default function CalculadoraCR() {
           <button
             className={styles.btnAdicionar}
             onClick={() => setModalPeriodo(true)}
-            disabled={hasUpload}
-            title={hasUpload ? "Remova o arquivo para adicionar disciplinas manualmente." : undefined}
+            disabled={calcStore.fonte === "upload"}
+            title={calcStore.fonte === "upload" ? "Remova o arquivo para adicionar disciplinas manualmente." : undefined}
           >
             <GridIcon /> Pré-preencher por período
           </button>
