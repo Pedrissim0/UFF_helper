@@ -36,13 +36,6 @@ function toggleSet<T>(set: Set<T>, val: T): Set<T> {
   return next;
 }
 
-function getStartMin(horario: string): number | null {
-  if (!horario) return null;
-  const match = horario.match(/^(\d{2}):(\d{2})/);
-  if (!match) return null;
-  return parseInt(match[1]) * 60 + parseInt(match[2]);
-}
-
 const PALETTE = [
   "#6366f1", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6",
   "#0ea5e9", "#f97316", "#14b8a6", "#ec4899", "#84cc16",

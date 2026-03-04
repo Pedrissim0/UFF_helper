@@ -577,8 +577,9 @@ export default function CalculadoraCR() {
         return;
       }
 
-      calcStore.setDisciplinas(data);
-      calcStore.setFonte("upload");
+      const store = useCalculadoraStore.getState();
+      store.setDisciplinas(data);
+      store.setFonte("upload");
       setWidgetExpanded(true);
     } catch (e) {
       setErro("Erro ao processar arquivo. Verifique o formato e tente novamente.");
