@@ -4,13 +4,9 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import styles from "./ControladorFaltas.module.css";
 import rawCatalog from "@/data/db_disciplinas.json";
-import {
-  getControlador,
-  setControlador,
-  clearControlador,
-  getProjecoesCR,
-  type DisciplinaFaltas,
-} from "@/lib/controladorFaltas";
+import { useUIStore } from "@/stores/useUIStore";
+import { useFaltasStore, type DisciplinaFalta } from "@/stores/useFaltasStore";
+import { useCalculadoraStore } from "@/stores/useCalculadoraStore";
 import { calcularLimiteFaltas } from "@/lib/calcularLimiteFaltas";
 import ProfTag from "@/app/components/ProfTag";
 
@@ -54,7 +50,7 @@ function buildDisciplinaFaltas(
   codigo: string,
   nome: string,
   cat: CatalogItem | undefined
-): DisciplinaFaltas {
+): DisciplinaFalta {
   const ch = cat?.ch ?? 60;
   const horarios = cat?.horarios ?? {};
   const aulasReais = Object.values(horarios).filter((h) => h.trim() !== "").length;
@@ -70,13 +66,6 @@ function buildDisciplinaFaltas(
   };
 }
 
-function saveState(disciplinas: DisciplinaFaltas[]) {
-  setControlador({
-    disciplinas,
-    ultima_atualizacao: new Date().toISOString(),
-  });
-}
-
 /* ── Componente ──────────────────────────────────── */
 interface Props {
   nomeCompletoMap: Record<string, string>;
@@ -84,14 +73,14 @@ interface Props {
 }
 
 export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }: Props) {
-  const [tema, setTema] = useState<"light" | "dark">("light");
-  const [disciplinas, setDisciplinas] = useState<DisciplinaFaltas[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const { tema, toggleTema, _hydrateTheme } = useUIStore();
+  const faltasStore = useFaltasStore();
+  const disciplinas = faltasStore.disciplinas;
 
   // Banner de migração (snackbar)
   const [bannerShown, setBannerShown] = useState(false);   // controla renderização
   const [bannerIn, setBannerIn] = useState(false);          // controla slide-in/out
-  const [migrationSnapshot, setMigrationSnapshot] = useState<DisciplinaFaltas[]>([]);
+  const [migrationSnapshot, setMigrationSnapshot] = useState<DisciplinaFalta[]>([]);
   const bannerAutoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const bannerExitRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -114,23 +103,7 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
 
-  /* ── Tema ────────────────────────────────────── */
-  useEffect(() => {
-    const saved = localStorage.getItem("tema") as "light" | "dark" | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = saved || (prefersDark ? "dark" : "light");
-    setTema(initial);
-    document.documentElement.setAttribute("data-theme", initial);
-  }, []);
-
-  const toggleTema = useCallback(() => {
-    setTema((prev) => {
-      const next = prev === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("tema", next);
-      return next;
-    });
-  }, []);
+  useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
 
   /* ── Toast ───────────────────────────────── */
   const showToast = useCallback((msg: string) => {
@@ -184,34 +157,23 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
     }
   }, [emailModal, modalEmail, closeEmailModal, showToast]);
 
-  /* ── Carregar do localStorage ─────────────── */
+  /* ── Migração a partir das projeções da Calculadora de CR (apenas se faltas vazia) ── */
   useEffect(() => {
-    const saved = getControlador();
-    if (saved && saved.disciplinas.length > 0) {
-      setDisciplinas(saved.disciplinas);
-      setLoaded(true);
-      return;
-    }
-    // Migração a partir das projeções da Calculadora de CR
-    const projecoes = getProjecoesCR();
+    if (faltasStore.disciplinas.length > 0) return;
+    const projecoes = useCalculadoraStore.getState().disciplinas.filter(
+      (d) => d.isProjecao === true
+    );
     if (projecoes.length > 0) {
       const migradas = projecoes.map((p) => {
         const cat = CATALOG.find((c) => c.codigo === p.codigo);
         return buildDisciplinaFaltas(p.codigo, p.nome, cat);
       });
-      setDisciplinas(migradas);
+      faltasStore.setDisciplinas(migradas);
       setMigrationSnapshot(migradas);
-      saveState(migradas);
       showBanner();
     }
-    setLoaded(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  /* ── Persistir ao mudar disciplinas ─────── */
-  useEffect(() => {
-    if (!loaded) return;
-    saveState(disciplinas);
-  }, [disciplinas, loaded]);
 
   /* ── Autocomplete ────────────────────────── */
   const handleBuscaChange = useCallback(
@@ -259,37 +221,28 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
 
   const handleAdicionar = useCallback(() => {
     if (chipsSelecionados.size === 0) return;
-    const novas: DisciplinaFaltas[] = [];
+    const novas: DisciplinaFalta[] = [];
     chipsSelecionados.forEach((nome, codigo) => {
       const cat = CATALOG.find((c) => c.codigo === codigo);
       novas.push(buildDisciplinaFaltas(codigo, nome, cat));
     });
-    setDisciplinas((prev) => [...prev, ...novas]);
+    faltasStore.setDisciplinas([...disciplinas, ...novas]);
     setChipsSelecionados(new Map());
     setBusca("");
-  }, [chipsSelecionados]);
+  }, [chipsSelecionados, disciplinas, faltasStore]);
 
   /* ── Contador ────────────────────────────── */
-  const incrementar = useCallback((index: number) => {
-    setDisciplinas((prev) => {
-      const next = [...prev];
-      next[index] = { ...next[index], faltas: next[index].faltas + 1 };
-      return next;
-    });
-  }, []);
+  const incrementar = useCallback((codigo: string) => {
+    faltasStore.incrementar(codigo);
+  }, [faltasStore]);
 
-  const decrementar = useCallback((index: number) => {
-    setDisciplinas((prev) => {
-      const next = [...prev];
-      if (next[index].faltas <= 0) return prev;
-      next[index] = { ...next[index], faltas: next[index].faltas - 1 };
-      return next;
-    });
-  }, []);
+  const decrementar = useCallback((codigo: string) => {
+    faltasStore.decrementar(codigo);
+  }, [faltasStore]);
 
-  const removerDisciplina = useCallback((index: number) => {
-    setDisciplinas((prev) => prev.filter((_, i) => i !== index));
-  }, []);
+  const removerDisciplina = useCallback((codigo: string) => {
+    faltasStore.remover(codigo);
+  }, [faltasStore]);
 
   /* ── Banner helpers ──────────────────────── */
   const dismissBanner = useCallback(() => {
@@ -307,12 +260,10 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
 
   /* ── Migração ────────────────────────────── */
   const desfazerMigracao = useCallback(() => {
-    setDisciplinas([]);
-    saveState([]);
-    clearControlador();
+    faltasStore.limpar();
     dismissBanner();
     setMigrationSnapshot([]);
-  }, [dismissBanner]);
+  }, [faltasStore, dismissBanner]);
 
   /* ── Cor do contador ─────────────────────── */
   function getFaltasColor(faltas: number, limite: number): string {
@@ -484,7 +435,7 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
                   <div className={styles.cardRight}>
                     <button
                       className={styles.counterBtn}
-                      onClick={() => decrementar(i)}
+                      onClick={() => decrementar(d.codigo)}
                       disabled={d.faltas <= 0}
                     >
                       −
@@ -496,13 +447,13 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
                     </span>
                     <button
                       className={styles.counterBtn}
-                      onClick={() => incrementar(i)}
+                      onClick={() => incrementar(d.codigo)}
                     >
                       +
                     </button>
                     <button
                       className={styles.cardRemove}
-                      onClick={() => removerDisciplina(i)}
+                      onClick={() => removerDisciplina(d.codigo)}
                       title="Remover"
                     >
                       ×
@@ -520,8 +471,7 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
               className={styles.clearBtn}
               onClick={() => {
                 if (window.confirm("Limpar todas as disciplinas?")) {
-                  setDisciplinas([]);
-                  clearControlador();
+                  faltasStore.limpar();
                   dismissBanner();
                 }
               }}
