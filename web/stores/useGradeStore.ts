@@ -9,10 +9,12 @@ export interface SelectedCourse {
 interface GradeState {
   selecionadas: SelectedCourse[];
   periodosColapsados: string[];
+  jaCursadoFiltro: "nao" | "sim" | null;
 
   setSelecionadas: (selecionadas: SelectedCourse[]) => void;
   togglePeriodo: (key: string) => void;
   setPeriodosColapsados: (periodos: string[]) => void;
+  setJaCursadoFiltro: (v: "nao" | "sim" | null) => void;
   limpar: () => void;
 }
 
@@ -21,6 +23,7 @@ export const useGradeStore = create<GradeState>()(
     (set, get) => ({
       selecionadas: [],
       periodosColapsados: [],
+      jaCursadoFiltro: null,
 
       setSelecionadas: (selecionadas) => set({ selecionadas }),
 
@@ -34,6 +37,8 @@ export const useGradeStore = create<GradeState>()(
 
       setPeriodosColapsados: (periodos) => set({ periodosColapsados: periodos }),
 
+      setJaCursadoFiltro: (v) => set({ jaCursadoFiltro: v }),
+
       limpar: () => set({ selecionadas: [] }),
     }),
     {
@@ -41,6 +46,7 @@ export const useGradeStore = create<GradeState>()(
       partialize: (s) => ({
         selecionadas: s.selecionadas,
         periodosColapsados: s.periodosColapsados,
+        jaCursadoFiltro: s.jaCursadoFiltro,
       }),
     }
   )

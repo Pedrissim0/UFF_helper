@@ -1368,6 +1368,24 @@
   cursor: not-allowed;
 }
 
+/* ── Lista: animação de transição de filtro ───── */
+@keyframes gradeItemIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.listaAnim .item {
+  animation: gradeItemIn 0.2s ease-in-out;
+}
+
+.listaAnim .periodSeparator {
+  animation: gradeItemIn 0.15s ease-in-out;
+}
+
+.listaAnim .periodItemsWrapper {
+  animation: gradeItemIn 0.2s ease-in-out;
+}
+
 /* ── Toast ────────────────────────────────────── */
 .toast {
   position: fixed;

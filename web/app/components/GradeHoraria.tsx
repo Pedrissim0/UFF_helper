@@ -8,6 +8,7 @@ import { useUIStore } from "@/stores/useUIStore";
 import { useGradeStore } from "@/stores/useGradeStore";
 import { useDisciplinasStore } from "@/stores/useDisciplinasStore";
 import ProfTag from "./ProfTag";
+import { filtrarDisciplinas } from "@/lib/filtrarDisciplinas";
 
 type Dia = keyof Materia["horarios"];
 type Turno = "manha" | "tarde" | "noite";
@@ -100,6 +101,8 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   const [deptosFiltro, setDeptosFiltro] = useState<Set<string>>(new Set());
   const [periodosFiltro, setPeriodosFiltro] = useState<Set<string>>(new Set());
   const [tipoFiltro, setTipoFiltro] = useState<"obrigatoria" | "optativa" | null>(null);
+  const [listaAnim, setListaAnim] = useState(false);
+  const didMountAnim = useRef(false);
   const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('right');
   const [widgetWidth, setWidgetWidth] = useState(500);
   const [legendaVisivel, setLegendaVisivel] = useState(true);
@@ -125,6 +128,23 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   const [modalError, setModalError] = useState("");
 
   useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
+
+  // Auto-ativa filtro "Já Cursado" quando há aprovadas, desativa quando aprovadas esvazia
+  useEffect(() => {
+    if (aprovadas.size > 0 && gradeStore.jaCursadoFiltro === null) {
+      gradeStore.setJaCursadoFiltro("nao");
+    } else if (aprovadas.size === 0 && gradeStore.jaCursadoFiltro !== null) {
+      gradeStore.setJaCursadoFiltro(null);
+    }
+  }, [aprovadas.size]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Anima a lista quando jaCursadoFiltro muda (não na montagem inicial)
+  useEffect(() => {
+    if (!didMountAnim.current) { didMountAnim.current = true; return; }
+    setListaAnim(true);
+    const t = setTimeout(() => setListaAnim(false), 300);
+    return () => clearTimeout(t);
+  }, [gradeStore.jaCursadoFiltro]);
 
   const showToast = useCallback((msg: string) => {
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
@@ -282,61 +302,21 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     return Array.from(s).sort((a, b) => a - b);
   }, [materias]);
 
-  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + periodosFiltro.size + (tipoFiltro ? 1 : 0);
+  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + periodosFiltro.size + (tipoFiltro ? 1 : 0) + (gradeStore.jaCursadoFiltro ? 1 : 0);
 
-  const filtradas = useMemo(() => {
-    let result = materias;
-
-    const q = busca.toLowerCase();
-    if (q) {
-      result = result.filter(
-        (m) =>
-          m.nome.toLowerCase().includes(q) ||
-          m.codigo.toLowerCase().includes(q) ||
-          m.turma.toLowerCase().includes(q) ||
-          m.nome_exibicao.toLowerCase().includes(q)
-      );
-    }
-
-    if (diasFiltro.size > 0) {
-      result = result.filter((m) =>
-        DIAS.some((d) => diasFiltro.has(d) && m.horarios[d])
-      );
-    }
-
-    if (turnosFiltro.size > 0) {
-      result = result.filter((m) => {
-        for (const dia of DIAS) {
-          const start = getStartMin(m.horarios[dia]);
-          if (start === null) continue;
-          if (turnosFiltro.has("manha") && start < 720) return true;
-          if (turnosFiltro.has("tarde") && start >= 720 && start < 1080) return true;
-          if (turnosFiltro.has("noite") && start >= 1080) return true;
-        }
-        return false;
-      });
-    }
-
-    if (deptosFiltro.size > 0) {
-      result = result.filter((m) => {
-        const depto = m.codigo.replace(/[0-9]/g, "");
-        return deptosFiltro.has(depto);
-      });
-    }
-
-    if (periodosFiltro.size > 0) {
-      result = result.filter((m) => {
-        const key = m.periodo !== null ? String(m.periodo) : "np";
-        return periodosFiltro.has(key);
-      });
-    }
-
-    if (tipoFiltro) {
-      result = result.filter((m) => m.tipo === tipoFiltro);
-    }
-
-    return result;
-  }, [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, periodosFiltro, tipoFiltro]);
+  const filtradas = useMemo(() => filtrarDisciplinas(
+    materias,
+    {
+      busca,
+      dias: diasFiltro,
+      turnos: turnosFiltro,
+      deptos: deptosFiltro,
+      periodos: periodosFiltro,
+      tipo: tipoFiltro,
+      jaCursado: gradeStore.jaCursadoFiltro,
+    },
+    aprovadas
+  ), [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, periodosFiltro, tipoFiltro, gradeStore.jaCursadoFiltro, aprovadas]);
 
   // Agrupa materias filtradas por periodo (chave composta)
   const periodoGroups = useMemo(() => {
@@ -461,7 +441,8 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     turnosFiltro.size > 0 ||
     deptosFiltro.size > 0 ||
     periodosFiltro.size > 0 ||
-    !!tipoFiltro;
+    !!tipoFiltro ||
+    !!gradeStore.jaCursadoFiltro;
 
   const totalHoras = selecionadas.reduce((acc, m) => acc + (m.ch ?? 0), 0);
   const expanded = gradeAberta;
@@ -637,6 +618,25 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
         {/* Filter panel — collapsible */}
         <div className={`${styles.filtroPanel} ${filtrosAberto ? styles.filtroPanelAberto : ""}`}>
+          {aprovadas.size > 0 && (
+            <div className={styles.filtroGrupo}>
+              <span className={styles.filtroLabel}>Cursado</span>
+              <div className={styles.filtroChips}>
+                <button
+                  className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "nao" ? styles.filtroChipAtivo : ""}`}
+                  onClick={() => gradeStore.setJaCursadoFiltro(gradeStore.jaCursadoFiltro === "nao" ? null : "nao")}
+                >
+                  Não
+                </button>
+                <button
+                  className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "sim" ? styles.filtroChipAtivo : ""}`}
+                  onClick={() => gradeStore.setJaCursadoFiltro(gradeStore.jaCursadoFiltro === "sim" ? null : "sim")}
+                >
+                  Sim
+                </button>
+              </div>
+            </div>
+          )}
           <div className={styles.filtroGrupo}>
             <span className={styles.filtroLabel}>Dia</span>
             <div className={styles.filtroChips}>
@@ -734,7 +734,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           )}
         </div>
 
-        <ul className={styles.lista}>
+        <ul className={`${styles.lista} ${listaAnim ? styles.listaAnim : ""}`}>
           {/* Selecionadas — sempre no topo */}
           {selecionadas.length > 0 && (
             <React.Fragment>
