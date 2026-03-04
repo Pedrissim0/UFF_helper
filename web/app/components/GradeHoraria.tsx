@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Materia } from "../page";
 import styles from "./GradeHoraria.module.css";
 import { getAprovadas } from "@/lib/disciplinasAprovadas";
+import ProfTag from "./ProfTag";
 
 type Dia = keyof Materia["horarios"];
 type Turno = "manha" | "tarde" | "noite";
@@ -561,55 +562,24 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
             <span className={styles.itemNome}>
               {m.nome}
             </span>
-            {m.nome_exibicao && (() => {
-              const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
-              const confirmedEmail = professorEmailMap[docente];
-              const isProfAllocated = docente !== "Sem professor alocado";
-              const alreadySubmitted = emailSubmitted[m.nome_exibicao];
-
-              return (
-                <div className={styles.profWrapper} onClick={(e) => e.stopPropagation()}>
-                  <span
-                    className={styles.profTag}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const copyText = confirmedEmail
-                        ? `Professor: ${docente} | Email: ${confirmedEmail}`
-                        : docente;
-                      navigator.clipboard.writeText(copyText);
-                      showToast("Copiado!");
-                    }}
-                  >
-                    Prof. {m.nome_exibicao}
-                  </span>
-
-                  <div className={styles.profTooltip}>
-                    <div className={styles.tooltipRow}>
-                      <span className={styles.tooltipLabel}>Nome</span>
-                      <span className={styles.tooltipValue}>{docente}</span>
-                    </div>
-                    <div className={styles.tooltipRow}>
-                      <span className={styles.tooltipLabel}>Email</span>
-                      {confirmedEmail ? (
-                        <span className={styles.tooltipEmail}>{confirmedEmail}</span>
-                      ) : isProfAllocated ? (
-                        <span
-                          className={styles.tooltipEmailCta}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (!alreadySubmitted) openEmailModal(m.nome_exibicao, docente);
-                          }}
-                        >
-                          {alreadySubmitted ? "Sugestão registrada" : "você sabe o email? Digite aqui"}
-                        </span>
-                      ) : (
-                        <span className={styles.tooltipEmailNone}>—</span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              );
-            })()}
+            {m.nome_exibicao && (
+              <ProfTag
+                nomeExibicao={m.nome_exibicao}
+                nomeCompleto={nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}
+                confirmedEmail={professorEmailMap[nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao]}
+                alreadySubmitted={emailSubmitted[m.nome_exibicao]}
+                onSuggestEmail={() => openEmailModal(m.nome_exibicao, nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao)}
+                onCopy={() => {
+                  const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
+                  const email = professorEmailMap[docente];
+                  const copyText = email
+                    ? `Professor: ${docente} | Email: ${email}`
+                    : docente;
+                  navigator.clipboard.writeText(copyText);
+                  showToast("Copiado!");
+                }}
+              />
+            )}
           </div>
           <div className={styles.itemMetaWrapper}>
             <div className={styles.itemMeta}>
@@ -672,6 +642,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
         <div className={styles.headerActions}>
           <Link href="/calculadora-cr" className={styles.navLink}>
             Calculadora de CR
+          </Link>
+          <Link href="/controlador-faltas" className={styles.navLink}>
+            Controlador de Faltas
           </Link>
           <button
             className={styles.themeToggle}

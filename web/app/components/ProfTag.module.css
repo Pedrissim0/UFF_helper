@@ -1,0 +1,95 @@
+/* ── Professor wrapper + tag ─────────────── */
+.profWrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profTag {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-bg);
+  padding: 1px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  display: inline-block;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.profTag:hover {
+  background: var(--accent-bg-hover);
+  transform: scale(1.03);
+}
+
+.profTag:active {
+  transform: scale(0.97);
+}
+
+/* ── Tooltip (renderizado via portal, position: fixed) ── */
+.profTooltip {
+  position: fixed;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  padding: 8px 10px;
+  box-shadow: 0 4px 14px var(--shadow-widget);
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.tooltipRow {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  line-height: 1.5;
+}
+
+.tooltipLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-placeholder);
+  min-width: 36px;
+  flex-shrink: 0;
+}
+
+.tooltipValue {
+  font-size: 11px;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.tooltipEmail {
+  font-size: 11px;
+  color: var(--accent);
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.tooltipEmailCta {
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.tooltipEmailCta:hover {
+  color: var(--accent);
+}
+
+.tooltipEmailNone {
+  font-size: 11px;
+  color: var(--text-placeholder);
+}
+
+@media (max-width: 1024px) {
+  .profTag {
+    font-size: 9px;
+    padding: 1px 6px;
+  }
+}

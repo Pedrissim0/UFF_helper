@@ -905,6 +905,7 @@ export default function CalculadoraCR() {
         </div>
         <div className={styles.headerActions}>
           <Link href="/" className={styles.navLink}>← Grade Horária</Link>
+          <Link href="/controlador-faltas" className={styles.navLink}>Controlador de Faltas</Link>
           <button
             className={styles.themeToggle}
             onClick={toggleTema}
