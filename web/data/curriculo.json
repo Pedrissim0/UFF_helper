@@ -1,0 +1,83 @@
+{
+  "periodos": [
+    {
+      "numero": 1,
+      "label": "1° Período",
+      "disciplinas": [
+        { "codigo": "GAN00145", "nome": "MATEMÁTICA PARA ECONOMIA I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": [] },
+        { "codigo": "GHT00313", "nome": "HISTORIA ECONOMICA GERAL I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": [] },
+        { "codigo": "SEN00067", "nome": "PENSAMENTO ECONOMICO I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": [] },
+        { "codigo": "SEN00076", "nome": "TEORIA MACROECONOMICA I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": [] },
+        { "codigo": "SEN00245", "nome": "INTRODUÇÃO À EXTENSÃO UNIVERSITÁRIA", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": [] },
+        { "codigo": "SGE00026", "nome": "LABORATÓRIO DE MACROECONOMIA I", "carga_horaria": 30, "obrigatoria": true, "pre_requisitos": [] }
+      ]
+    },
+    {
+      "numero": 2,
+      "label": "2° Período",
+      "disciplinas": [
+        { "codigo": "GAN00146", "nome": "MATEMÁTICA PARA ECONOMIA II", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["GAN00145"] },
+        { "codigo": "GET00117", "nome": "METOD ESTATISTICOS APLICAD A ECONOMIA I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["GAN00145"] },
+        { "codigo": "SEN00068", "nome": "PENSAMENTO ECONOMICO II", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00067"] },
+        { "codigo": "SEN00072", "nome": "TEORIA MICROECONÔMICA I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["GAN00145"] },
+        { "codigo": "SEN00077", "nome": "TEORIA MACROECONOMICA II", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00076"] },
+        { "codigo": "SGE00012", "nome": "LABORATORIO DE MICROECONOMIA I", "carga_horaria": 30, "obrigatoria": true, "pre_requisitos": [] },
+        { "codigo": "SGE00015", "nome": "LABORATORIO DE MACROECONOMIA II", "carga_horaria": 30, "obrigatoria": true, "pre_requisitos": [] }
+      ]
+    },
+    {
+      "numero": 3,
+      "label": "3° Período",
+      "disciplinas": [
+        { "codigo": "GAN00147", "nome": "MATEMÁTICA PARA ECONOMIA III", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["GAN00146"] },
+        { "codigo": "GET00118", "nome": "METOD ESTAT APLICADOS A ECONOMIA II", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["GAN00146", "GET00117"] },
+        { "codigo": "SEN00073", "nome": "TEORIA MICROECONOMICA II", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00072"] },
+        { "codigo": "SEN00078", "nome": "TEORIA MACROECONOMICA III", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00077"] },
+        { "codigo": "SEN00080", "nome": "PENSAMENTO ECONÔMICO III", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00068"] },
+        { "codigo": "SGE00013", "nome": "LABORATORIO DE MICROECONOMIA II", "carga_horaria": 30, "obrigatoria": true, "pre_requisitos": [] }
+      ]
+    },
+    {
+      "numero": 4,
+      "label": "4° Período",
+      "disciplinas": [
+        { "codigo": "SEN00074", "nome": "TEORIA MICROECONOMICA III", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00073"] },
+        { "codigo": "SEN00079", "nome": "TEORIA MACROECONÔMICA IV", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00078"] },
+        { "codigo": "SEN00081", "nome": "PENSAMENTO ECONOMICO IV", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00080"] },
+        { "codigo": "SEN00256", "nome": "FORMAÇÃO ECONÔMICA DO BRASIL I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["GHT00313", "SEN00078"] },
+        { "codigo": "SEN00259", "nome": "ECONOMETRIA", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["GAN00147", "GET00118"] },
+        { "codigo": "SGE00014", "nome": "LABORATORIO DE MICROECONOMIA III", "carga_horaria": 30, "obrigatoria": true, "pre_requisitos": [] }
+      ]
+    },
+    {
+      "numero": 5,
+      "label": "5° Período",
+      "disciplinas": [
+        { "codigo": "SEN00075", "nome": "TEORIA MICROECONOMICA IV", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00073"] },
+        { "codigo": "SEN00258", "nome": "ECONOMIA FINANCEIRA", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": [] },
+        { "codigo": "SEN00260", "nome": "ECONOMIA BRASILEIRA I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00256"] }
+      ]
+    },
+    {
+      "numero": 6,
+      "label": "6° Período",
+      "disciplinas": [
+        { "codigo": "SEN00261", "nome": "ECONOMIA BRASILEIRA II", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00260"] }
+      ]
+    },
+    {
+      "numero": 7,
+      "label": "7° Período",
+      "disciplinas": [
+        { "codigo": "SEN00257", "nome": "METODOLOGIA E TÉCNICAS DE PESQUISA EM ECONOMIA I", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": ["SEN00074", "SEN00079", "SEN00081", "SEN00259", "SEN00075"] }
+      ]
+    },
+    {
+      "numero": 8,
+      "label": "8° Período",
+      "disciplinas": [
+        { "codigo": "SGE00018", "nome": "TRABALHO DE CONCLUSAO DE CURSO", "carga_horaria": 60, "obrigatoria": true, "pre_requisitos": [] }
+      ]
+    }
+  ]
+}

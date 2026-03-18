@@ -38,6 +38,9 @@
   --accent-border: #c4b5fd;
   --accent-sel-border: #ddd8ff;
 
+  --color-purple: #8b5cf6;
+  --color-purple-rgb: 139, 92, 246;
+
   --shadow-widget: rgba(0, 0, 0, 0.12);
   --shadow-widget-hover: rgba(0, 0, 0, 0.16);
   --shadow-widget-lateral: rgba(0, 0, 0, 0.14);
@@ -75,6 +78,9 @@
   --accent-bg-hover: #2a2450;
   --accent-border: #4338ca;
   --accent-sel-border: #3730a3;
+
+  --color-purple: #a78bfa;
+  --color-purple-rgb: 167, 139, 250;
 
   --shadow-widget: rgba(0, 0, 0, 0.4);
   --shadow-widget-hover: rgba(0, 0, 0, 0.5);

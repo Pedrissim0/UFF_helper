@@ -21,6 +21,23 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 - Widget colapsível com estatísticas: CR atual, horas cursadas, % do curso concluído
 - Regras do CR da UFF: exclusão de trancamentos, reprovados durante a pandemia (2020–2022), VS, Curso de Férias
 
+### Controlador de Faltas
+- Adiciona disciplinas da grade horária com cálculo automático de limite de faltas
+- Cards com contagem visual: normal → amarelo (≥50%) → laranja (≥75%) → vermelho (≥100%)
+- Persistência local via Zustand
+
+### Roadmap Curricular
+- Fluxograma horizontal da matriz curricular (8 períodos como colunas)
+- Cards de disciplina com borda colorida por estado (aprovado/desbloqueado/bloqueado)
+- Setas SVG animadas e tracejadas conectando cadeias de pré-requisitos
+- Hover destaca a cadeia completa (pré-requisitos + dependentes), escurece o restante
+- Cabeçalho de período transparente com borda roxa translúcida
+- Cards de optativas com estilo roxo diferenciado
+- Barra de progresso de disciplinas cursadas
+- Modal de detalhes com lista de pré-requisitos e estado de cada um
+- Layout responsivo: grid horizontal com scroll em desktop, vertical em mobile
+- Integra com `useDisciplinasStore` para refletir aprovações do aluno
+
 ## Stack
 
 | Camada | Tecnologia |
@@ -40,18 +57,39 @@ projeto_uff_helper/
 │   ├── app/
 │   │   ├── page.tsx            # Grade Horária (Server Component)
 │   │   ├── layout.tsx
+│   │   ├── globals.css         # Variáveis CSS (light/dark + purple)
 │   │   ├── components/
 │   │   │   ├── GradeHoraria.tsx
 │   │   │   └── GradeHoraria.module.css
-│   │   └── calculadora-cr/
+│   │   ├── calculadora-cr/
+│   │   │   ├── page.tsx
+│   │   │   ├── CalculadoraCR.tsx
+│   │   │   └── CalculadoraCR.module.css
+│   │   ├── controlador-faltas/
+│   │   │   ├── page.tsx
+│   │   │   ├── ControladorFaltas.tsx
+│   │   │   └── ControladorFaltas.module.css
+│   │   └── roadmap/
 │   │       ├── page.tsx
-│   │       ├── CalculadoraCR.tsx
-│   │       └── CalculadoraCR.module.css
+│   │       ├── Roadmap.tsx         # Fluxograma horizontal
+│   │       └── Roadmap.module.css
 │   ├── data/
-│   │   ├── db_disciplinas.json # 130+ disciplinas com horários
-│   │   └── matriz_curricular.json
-│   └── lib/
-│       └── supabase.ts
+│   │   ├── db_disciplinas.json     # 130+ disciplinas com horários
+│   │   ├── matriz_curricular.json
+│   │   └── curriculo.json          # Matriz curricular (8 períodos)
+│   ├── hooks/
+│   │   └── useRoadmapConnections.ts # SVG prereq arrows
+│   ├── lib/
+│   │   ├── supabase.ts
+│   │   ├── calcularColunas.ts       # Alinhamento de cadeias
+│   │   ├── calcularEstadoDisciplina.ts
+│   │   └── formatarNomeDisciplina.ts
+│   └── stores/                     # Zustand (persist middleware)
+│       ├── useUIStore.ts
+│       ├── useGradeStore.ts
+│       ├── useDisciplinasStore.ts
+│       ├── useCalculadoraStore.ts
+│       └── useFaltasStore.ts
 │
 ├── scraper/                    # Scripts Python
 │   ├── parse_csv.py            # CSV do quadro → db_disciplinas.json
@@ -162,7 +200,7 @@ O cálculo segue as normas da UFF:
 
 ## Deploy
 
-O deploy é automático via Vercel a cada push na branch `main`. A branch `feature/calculadora-cr` contém a Calculadora de CR (ainda não mergeada).
+O deploy é automático via Vercel a cada push na branch `main`.
 
 ## Privacidade
 
