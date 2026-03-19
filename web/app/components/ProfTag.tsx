@@ -117,7 +117,23 @@ export default function ProfTag({
         )}
       </div>
 
-      {/* Difficulty bar */}
+      {/* Difficulty CTA row */}
+      {showDifficultyCta && (
+        <div className={styles.tooltipRow}>
+          <span className={styles.tooltipLabel}>Dificuldade</span>
+          <span
+            className={styles.tooltipEmailCta}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!difficultySubmitted) onContributeDifficulty();
+            }}
+          >
+            {difficultySubmitted ? "Voto registrado ✓" : "Avalie aqui"}
+          </span>
+        </div>
+      )}
+
+      {/* Difficulty bar (below rows) */}
       {hasDifficulty && (
         <div className={styles.difficultySection}>
           <div className={styles.difficultyLabels}>
@@ -131,21 +147,6 @@ export default function ProfTag({
             />
           </div>
           <span className={styles.difficultyCount}>({difficultyCount} {difficultyCount === 1 ? "voto" : "votos"})</span>
-        </div>
-      )}
-
-      {/* Difficulty CTA */}
-      {showDifficultyCta && (
-        <div className={styles.tooltipRow}>
-          <span
-            className={styles.tooltipEmailCta}
-            onClick={(e) => {
-              e.stopPropagation();
-              if (!difficultySubmitted) onContributeDifficulty();
-            }}
-          >
-            {difficultySubmitted ? "Voto registrado ✓" : "Qual a dificuldade? Avalie aqui"}
-          </span>
         </div>
       )}
     </div>,

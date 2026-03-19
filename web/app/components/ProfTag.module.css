@@ -51,8 +51,8 @@
   font-size: 10px;
   font-weight: 600;
   color: var(--text-placeholder);
-  min-width: 36px;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .tooltipValue {
