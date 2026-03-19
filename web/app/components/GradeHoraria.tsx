@@ -564,6 +564,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           <Link href="/controlador-faltas" className={styles.navLink}>
             Controlador de Faltas
           </Link>
+          <Link href="/roadmap" className={styles.navLink}>
+            Roadmap
+          </Link>
           <button
             className={styles.themeToggle}
             onClick={toggleTema}

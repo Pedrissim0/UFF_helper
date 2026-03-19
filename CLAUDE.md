@@ -76,9 +76,21 @@ Dados da matriz curricular usados pelo Roadmap:
 - /web/lib/calcularEstadoDisciplina.ts → estado visual: aprovado/desbloqueado/bloqueado/normal
 - /web/lib/formatarNomeDisciplina.ts → Title Case com suporte a numerais romanos
 
+## Roadmap Curricular — Optativas
+O roadmap suporta seleção de optativas dentro de cada período:
+- Card "Optativas" clicável abre modal com busca e seleção
+- Optativas selecionadas ocupam slots vazios do grid como cards roxos
+- Drag & drop entre períodos (HTML5 Drag API)
+- Hover destaca cadeia de pré-requisitos (integrado com dependentsMap)
+- Click abre modal de detalhes (mesmo das obrigatórias)
+- Optativas aprovadas na Calculadora de CR são importadas automaticamente (borda verde + tag "Aprovado")
+- Distribuição por CH: preenche cada período até atingir sua carga de optativas
+- Card inferior desaparece quando o período está completo
+- Legenda de cores no rodapé da página
+
 ## Status
 - [x] Grade Horária (MVP completo)
 - [x] Calculadora de CR
 - [x] Controlador de Faltas
-- [x] Roadmap Curricular (fluxograma horizontal)
+- [x] Roadmap Curricular (fluxograma horizontal + optativas interativas)
 - [x] Deploy na Vercel

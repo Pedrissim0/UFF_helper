@@ -128,6 +128,74 @@
   overflow: hidden;
 }
 
+/* ── Legend ───────────────────────────────────────── */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 12px 24px 16px;
+  border-top: 1px solid var(--border-light);
+  background: var(--bg-card);
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendSwatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 2px solid;
+  flex-shrink: 0;
+}
+
+.legendLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.legendAprovado {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+[data-theme="dark"] .legendAprovado {
+  border-color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.legendDesbloqueado {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
+}
+
+[data-theme="dark"] .legendDesbloqueado {
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.legendNormal {
+  border-color: var(--border-medium);
+  background: var(--bg-card);
+}
+
+.legendBloqueado {
+  border-color: var(--border-medium);
+  border-style: dashed;
+  background: var(--bg-card);
+  opacity: 0.5;
+}
+
+.legendOptativa {
+  border-color: var(--color-purple);
+  background: rgba(var(--color-purple-rgb), 0.12);
+}
+
 /* ── Desktop: horizontal scroll container ─────────── */
 .roadmapScroll {
   overflow-x: auto;
@@ -333,6 +401,8 @@
   justify-content: center;
   align-self: center;
   justify-self: center;
+  position: relative;
+  z-index: 3;
 }
 
 .discOptSep {
@@ -346,6 +416,257 @@
   font-size: 0.65rem;
   color: var(--color-purple);
   opacity: 0.8;
+}
+
+/* ── Drop zone overlay (per-column, visible only while dragging) ── */
+.dropZone {
+  pointer-events: none;
+  border-radius: 8px;
+  transition: background 0.15s, outline 0.15s;
+  z-index: 1;
+}
+
+.dropZone:global(.dropZoneActive),
+.dropZoneActive {
+  pointer-events: auto;
+  background: rgba(var(--color-purple-rgb), 0.06);
+  outline: 2px dashed rgba(var(--color-purple-rgb), 0.4);
+  outline-offset: -2px;
+}
+
+/* While any drag is in progress, enable pointer events on all drop zones */
+:global(.dragging-active) .dropZone {
+  pointer-events: auto;
+}
+
+/* ── Dragging card ────────────────────────────────── */
+.discDragging {
+  opacity: 0.4;
+  cursor: grabbing;
+}
+
+/* ── Clickable optativas card ─────────────────────── */
+.discOptativasClickable {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.discOptativasClickable:hover {
+  background: rgba(var(--color-purple-rgb), 0.14);
+  border-color: var(--color-purple);
+  box-shadow: 0 0 8px rgba(var(--color-purple-rgb), 0.2);
+}
+
+/* ── Selected optativa card (solid purple) ────────── */
+.discOptativaSelected {
+  width: 160px;
+  height: 80px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 2px solid var(--color-purple);
+  background: rgba(var(--color-purple-rgb), 0.08);
+  box-shadow: 0 0 8px rgba(var(--color-purple-rgb), 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  position: relative;
+  overflow: hidden;
+  align-self: center;
+  justify-self: center;
+  cursor: grab;
+  z-index: 2;
+  transition: opacity 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+.discOptativaSelected:hover {
+  box-shadow: 0 2px 12px rgba(var(--color-purple-rgb), 0.35);
+}
+
+.discOptativaSelected:active {
+  cursor: grabbing;
+}
+
+[data-theme="dark"] .discOptativaSelected {
+  background: rgba(var(--color-purple-rgb), 0.12);
+  box-shadow: 0 0 8px rgba(var(--color-purple-rgb), 0.25);
+}
+
+/* ── Approved optativa card (purple + green tag) ──── */
+.discOptApproved {
+  border-color: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.25), 0 0 0 1px rgba(var(--color-purple-rgb), 0.2) inset;
+  cursor: pointer;
+  background: rgba(var(--color-purple-rgb), 0.05);
+}
+
+[data-theme="dark"] .discOptApproved {
+  border-color: #34d399;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.2), 0 0 0 1px rgba(var(--color-purple-rgb), 0.15) inset;
+}
+
+.optApprovedTag {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font-size: 0.5rem;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: #dcfce7;
+  color: #166534;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="dark"] .optApprovedTag {
+  background: #14532d;
+  color: #86efac;
+}
+
+.optRemoveBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  margin-left: auto;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.optRemoveBtn:hover {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+}
+
+/* ── Optativas modal extras ──────────────────────── */
+.optModalPanel {
+  max-width: 520px;
+}
+
+.optModalSub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
+.optChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.optChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  background: rgba(var(--color-purple-rgb), 0.12);
+  color: var(--color-purple);
+  border: 1px solid rgba(var(--color-purple-rgb), 0.3);
+}
+
+.optChipRemove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-purple);
+  font-size: 14px;
+  line-height: 1;
+  padding: 0 1px;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.optChipRemove:hover {
+  opacity: 1;
+}
+
+.optSearchInput {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  outline: none;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+
+.optSearchInput:focus {
+  border-color: var(--color-purple);
+}
+
+.optList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 320px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.optItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.optItem:hover {
+  background: rgba(var(--color-purple-rgb), 0.08);
+}
+
+.optItemNome {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+  min-width: 0;
+}
+
+.optItemMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.optItemCodigo {
+  font-size: 10px;
+  font-family: 'Courier New', monospace;
+  color: var(--text-placeholder);
+}
+
+.optItemCH {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-subtle);
+  background: var(--bg-badge);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.optEmpty {
+  padding: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-placeholder);
+  font-style: italic;
 }
 
 /* ── Mobile layout ────────────────────────────────── */
@@ -420,6 +741,19 @@
   background: #450a0a;
   color: #fca5a5;
   border-color: #7f1d1d;
+}
+
+/* Purple "Optativa" */
+.badgeOptativa {
+  background: rgba(var(--color-purple-rgb), 0.12);
+  color: var(--color-purple);
+  border: 1px solid rgba(var(--color-purple-rgb), 0.3);
+}
+
+[data-theme="dark"] .badgeOptativa {
+  background: rgba(var(--color-purple-rgb), 0.15);
+  color: var(--color-purple);
+  border-color: rgba(var(--color-purple-rgb), 0.35);
 }
 
 /* ── Detail modal / bottom sheet ─────────────────── */
@@ -597,6 +931,12 @@
 
   .discOptativasCard {
     width: 100%;
+  }
+
+  .discOptativaSelected {
+    width: 100%;
+    height: auto;
+    min-height: 72px;
   }
 
   .modalBackdrop {

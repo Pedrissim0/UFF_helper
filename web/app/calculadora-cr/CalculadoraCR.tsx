@@ -546,7 +546,8 @@ export default function CalculadoraCR() {
         });
         rows = result.data;
       } else if (ext === "xlsx" || ext === "xls") {
-        const XLSX = await import("xlsx");
+        const XLSXMod = await import("xlsx");
+        const XLSX = XLSXMod.default ?? XLSXMod;
         const buffer = await file.arrayBuffer();
         const wb = XLSX.read(buffer, { type: "array" });
         const ws = wb.Sheets[wb.SheetNames[0]];
@@ -883,6 +884,7 @@ export default function CalculadoraCR() {
         <div className={styles.headerActions}>
           <Link href="/" className={styles.navLink}>← Grade Horária</Link>
           <Link href="/controlador-faltas" className={styles.navLink}>Controlador de Faltas</Link>
+          <Link href="/roadmap" className={styles.navLink}>Roadmap</Link>
           <button
             className={styles.themeToggle}
             onClick={toggleTema}

@@ -32,11 +32,15 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 - Setas SVG animadas e tracejadas conectando cadeias de pré-requisitos
 - Hover destaca a cadeia completa (pré-requisitos + dependentes), escurece o restante
 - Cabeçalho de período transparente com borda roxa translúcida
-- Cards de optativas com estilo roxo diferenciado
+- **Seleção de optativas**: card "Optativas" clicável abre modal com busca e lista de disciplinas disponíveis
+- **Cards roxos interativos**: optativas selecionadas ocupam slots vazios do grid, com drag & drop entre períodos
+- **Importação automática**: optativas aprovadas na Calculadora de CR aparecem como cards com borda verde e tag "Aprovado"
+- Distribuição inteligente de optativas por carga horária — card inferior desaparece quando o período está completo
+- Hover em optativas destaca cadeia de pré-requisitos; click abre modal de detalhes
+- Legenda de cores no rodapé (aprovado, desbloqueado, normal, bloqueado, optativa)
 - Barra de progresso de disciplinas cursadas
-- Modal de detalhes com lista de pré-requisitos e estado de cada um
 - Layout responsivo: grid horizontal com scroll em desktop, vertical em mobile
-- Integra com `useDisciplinasStore` para refletir aprovações do aluno
+- Integra com `useDisciplinasStore` e `useCalculadoraStore` para refletir aprovações do aluno
 
 ## Stack
 

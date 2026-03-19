@@ -159,18 +159,26 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
 
   /* ── Migração a partir das projeções da Calculadora de CR (apenas se faltas vazia) ── */
   useEffect(() => {
-    if (faltasStore.disciplinas.length > 0) return;
-    const projecoes = useCalculadoraStore.getState().disciplinas.filter(
-      (d) => d.isProjecao === true
-    );
-    if (projecoes.length > 0) {
-      const migradas = projecoes.map((p) => {
-        const cat = CATALOG.find((c) => c.codigo === p.codigo);
-        return buildDisciplinaFaltas(p.codigo, p.nome, cat);
-      });
-      faltasStore.setDisciplinas(migradas);
-      setMigrationSnapshot(migradas);
-      showBanner();
+    const tryMigrate = () => {
+      if (useFaltasStore.getState().disciplinas.length > 0) return;
+      const projecoes = useCalculadoraStore.getState().disciplinas.filter(
+        (d) => d.isProjecao === true
+      );
+      if (projecoes.length > 0) {
+        const migradas = projecoes.map((p) => {
+          const cat = CATALOG.find((c) => c.codigo === p.codigo);
+          return buildDisciplinaFaltas(p.codigo, p.nome, cat);
+        });
+        useFaltasStore.getState().setDisciplinas(migradas);
+        setMigrationSnapshot(migradas);
+        showBanner();
+      }
+    };
+
+    if (useFaltasStore.persist.hasHydrated()) {
+      tryMigrate();
+    } else {
+      return useFaltasStore.persist.onFinishHydration(tryMigrate);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -290,6 +298,9 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
           </Link>
           <Link href="/calculadora-cr" className={styles.navLink}>
             Calculadora de CR
+          </Link>
+          <Link href="/roadmap" className={styles.navLink}>
+            Roadmap
           </Link>
           <button
             className={styles.themeToggle}
