@@ -76,6 +76,17 @@ Dados da matriz curricular usados pelo Roadmap:
 - /web/lib/calcularEstadoDisciplina.ts → estado visual: aprovado/desbloqueado/bloqueado/normal
 - /web/lib/formatarNomeDisciplina.ts → Title Case com suporte a numerais romanos
 
+## Mamatômetro — Avaliação de Dificuldade por Professor/Disciplina
+Crowdsourcing de dificuldade via tooltip do ProfTag → modal com slider → API route → Supabase.
+
+- Tabela `difficulty_ratings`: `(professor_id uuid, disciplina_codigo text, rating int 0-5, ip text)` com UNIQUE `(professor_id, disciplina_codigo, ip)`
+- API: `POST /api/difficulty-rating` — upsert com `onConflict: "professor_id,disciplina_codigo,ip"`
+- Server Components (`page.tsx`, `controlador-faltas/page.tsx`) fazem fetch com join `professors(name)` e agregam em `difficultyMap: Record<string, { avg, count }>`
+- Chave do map: `"nomeCompletoDocente:codigoDisciplina"`
+- ProfTag: barra visual "Mamata ——●—— Não pegue" + CTA "Avalie aqui" / "Voto registrado"
+- Modal: slider `<input type="range" min=0 max=5>` com labels "Mamata / Normal / Não pegue"
+- Mesmo padrão de dedup por IP do email crowdsourcing
+
 ## Roadmap Curricular — Optativas
 O roadmap suporta seleção de optativas dentro de cada período:
 - Card "Optativas" clicável abre modal com busca e seleção
@@ -93,4 +104,5 @@ O roadmap suporta seleção de optativas dentro de cada período:
 - [x] Calculadora de CR
 - [x] Controlador de Faltas
 - [x] Roadmap Curricular (fluxograma horizontal + optativas interativas)
+- [x] Mamatômetro (avaliação de dificuldade por professor/disciplina)
 - [x] Deploy na Vercel

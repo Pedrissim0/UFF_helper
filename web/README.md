@@ -10,6 +10,8 @@ Site utilitário para alunos de Economia da UFF. Acesse em: **[uff-helper.vercel
 | `/calculadora-cr` | Calculadora de CR — importe o histórico (CSV/XLSX) ou preencha manualmente; projeções por período |
 | `/controlador-faltas` | Controlador de faltas — acompanhe faltas por disciplina com limite legal (25%) |
 
+**Mamatômetro** — avaliação de dificuldade por professor/disciplina (escala 0–5), integrado ao tooltip do ProfTag na Grade Horária e no Controlador de Faltas.
+
 ## Stack
 
 - **Next.js 14** (App Router, TypeScript, CSS Modules)

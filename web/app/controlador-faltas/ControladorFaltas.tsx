@@ -70,9 +70,10 @@ function buildDisciplinaFaltas(
 interface Props {
   nomeCompletoMap: Record<string, string>;
   professorEmailMap: Record<string, string>;
+  difficultyMap?: Record<string, { avg: number; count: number }>;
 }
 
-export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }: Props) {
+export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, difficultyMap = {} }: Props) {
   const { tema, toggleTema, _hydrateTheme } = useUIStore();
   const faltasStore = useFaltasStore();
   const disciplinas = faltasStore.disciplinas;
@@ -102,6 +103,13 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
   const [modalError, setModalError] = useState("");
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
+
+  // Difficulty (Mamatômetro)
+  const [difficultySubmitted, setDifficultySubmitted] = useState<Record<string, boolean>>({});
+  const [difficultyModal, setDifficultyModal] = useState<{ displayName: string; docente: string; codigoDisciplina: string; nomeDisciplina: string } | null>(null);
+  const [sliderValue, setSliderValue] = useState(3);
+  const [difficultySubmitting, setDifficultySubmitting] = useState(false);
+  const [difficultyError, setDifficultyError] = useState("");
 
   useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
 
@@ -156,6 +164,50 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
       setModalSubmitting(false);
     }
   }, [emailModal, modalEmail, closeEmailModal, showToast]);
+
+  const openDifficultyModal = useCallback((displayName: string, docente: string, codigoDisciplina: string, nomeDisciplina: string) => {
+    setDifficultyModal({ displayName, docente, codigoDisciplina, nomeDisciplina });
+    setSliderValue(3);
+    setDifficultyError("");
+  }, []);
+
+  const closeDifficultyModal = useCallback(() => {
+    setDifficultyModal(null);
+    setDifficultyError("");
+    setDifficultySubmitting(false);
+  }, []);
+
+  const handleDifficultySubmit = useCallback(async () => {
+    if (!difficultyModal) return;
+    setDifficultySubmitting(true);
+    setDifficultyError("");
+
+    try {
+      const res = await fetch("/api/difficulty-rating", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          professorName: difficultyModal.docente,
+          disciplinaCodigo: difficultyModal.codigoDisciplina,
+          rating: sliderValue,
+        }),
+      });
+
+      if (res.ok) {
+        const key = `${difficultyModal.docente}:${difficultyModal.codigoDisciplina}`;
+        setDifficultySubmitted(prev => ({ ...prev, [key]: true }));
+        closeDifficultyModal();
+        showToast("Obrigado! Seu voto foi registrado.");
+      } else {
+        const data = await res.json();
+        setDifficultyError(data.error || "Erro ao enviar.");
+      }
+    } catch {
+      setDifficultyError("Erro de conexão.");
+    } finally {
+      setDifficultySubmitting(false);
+    }
+  }, [difficultyModal, sliderValue, closeDifficultyModal, showToast]);
 
   /* ── Migração a partir das projeções da Calculadora de CR (apenas se faltas vazia) ── */
   useEffect(() => {
@@ -427,6 +479,11 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
                           confirmedEmail={confirmedEmail}
                           alreadySubmitted={emailSubmitted[d.professor_id]}
                           onSuggestEmail={() => openEmailModal(d.professor_id, docente)}
+                          codigoDisciplina={d.codigo}
+                          difficultyAvg={difficultyMap[`${docente}:${d.codigo}`]?.avg}
+                          difficultyCount={difficultyMap[`${docente}:${d.codigo}`]?.count}
+                          difficultySubmitted={difficultySubmitted[`${docente}:${d.codigo}`]}
+                          onContributeDifficulty={() => openDifficultyModal(d.professor_id, docente, d.codigo, d.nome)}
                           onCopy={() => {
                             const copyText = confirmedEmail
                               ? `Professor: ${docente} | Email: ${confirmedEmail}`
@@ -535,6 +592,45 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap }
               disabled={modalSubmitting}
             >
               {modalSubmitting ? "Enviando..." : "Enviar sugestão"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Mamatômetro */}
+      {difficultyModal && (
+        <div
+          className={styles.modalOverlay}
+          onClick={closeDifficultyModal}
+          onKeyDown={(e) => e.key === "Escape" && closeDifficultyModal()}
+        >
+          <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
+            <p className={styles.modalProf}>{difficultyModal.docente}</p>
+            <p className={styles.modalDisciplina}>{difficultyModal.nomeDisciplina}</p>
+            <div className={styles.sliderContainer}>
+              <div className={styles.sliderLabels}>
+                <span>Mamata</span>
+                <span>Normal</span>
+                <span>Não pegue</span>
+              </div>
+              <input
+                type="range"
+                min={0}
+                max={5}
+                step={1}
+                value={sliderValue}
+                onChange={(e) => setSliderValue(Number(e.target.value))}
+                className={styles.difficultySlider}
+              />
+              <div className={styles.sliderValue}>{sliderValue}/5</div>
+            </div>
+            {difficultyError && <p className={styles.modalError}>{difficultyError}</p>}
+            <button
+              className={styles.modalSubmitBtn}
+              onClick={handleDifficultySubmit}
+              disabled={difficultySubmitting}
+            >
+              {difficultySubmitting ? "Enviando..." : "Salvar"}
             </button>
           </div>
         </div>

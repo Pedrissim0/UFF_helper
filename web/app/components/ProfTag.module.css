@@ -87,6 +87,52 @@
   color: var(--text-placeholder);
 }
 
+/* ── Difficulty bar ─────────────────────────────── */
+.difficultySection {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-light);
+}
+
+.difficultyLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3px;
+}
+
+.difficultyLabelLeft,
+.difficultyLabelRight {
+  font-size: 8px;
+  color: var(--text-placeholder);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.difficultyTrack {
+  position: relative;
+  height: 4px;
+  background: var(--border-medium);
+  border-radius: 2px;
+}
+
+.difficultyMarker {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.difficultyCount {
+  font-size: 9px;
+  color: var(--text-muted);
+  display: block;
+  text-align: center;
+  margin-top: 3px;
+}
+
 @media (max-width: 1024px) {
   .profTag {
     font-size: 9px;

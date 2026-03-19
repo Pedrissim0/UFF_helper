@@ -26,6 +26,12 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 - Cards com contagem visual: normal → amarelo (≥50%) → laranja (≥75%) → vermelho (≥100%)
 - Persistência local via Zustand
 
+### Mamatômetro (Avaliação de Dificuldade)
+- Avalie a dificuldade de cada disciplina por professor (escala 0–5: Mamata → Não pegue)
+- Barra visual de dificuldade média no tooltip do professor
+- 1 voto por IP por combinação professor+disciplina (upsert permite alterar voto)
+- Crowdsourcing: resultados agregados visíveis para todos os alunos
+
 ### Roadmap Curricular
 - Fluxograma horizontal da matriz curricular (8 períodos como colunas)
 - Cards de disciplina com borda colorida por estado (aprovado/desbloqueado/bloqueado)

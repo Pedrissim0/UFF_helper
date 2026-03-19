@@ -11,6 +11,11 @@ interface ProfTagProps {
   alreadySubmitted?: boolean;
   onSuggestEmail?: () => void;
   onCopy?: () => void;
+  codigoDisciplina?: string;
+  difficultyAvg?: number;
+  difficultyCount?: number;
+  difficultySubmitted?: boolean;
+  onContributeDifficulty?: () => void;
 }
 
 const TOOLTIP_WIDTH = 240;
@@ -23,6 +28,11 @@ export default function ProfTag({
   alreadySubmitted,
   onSuggestEmail,
   onCopy,
+  codigoDisciplina,
+  difficultyAvg,
+  difficultyCount,
+  difficultySubmitted,
+  onContributeDifficulty,
 }: ProfTagProps) {
   const docente = nomeCompleto || nomeExibicao;
   const isProfAllocated = docente !== "Sem professor alocado";
@@ -50,9 +60,9 @@ export default function ProfTag({
 
     // Vertical: prefer below, fall back to above
     const spaceBelow = vh - rect.bottom;
-    const top = spaceBelow >= 80
+    const top = spaceBelow >= 140
       ? rect.bottom + TOOLTIP_GAP
-      : rect.top - TOOLTIP_GAP - 80; // rough estimate; CSS handles exact height
+      : rect.top - TOOLTIP_GAP - 140;
 
     return { top, left };
   }, []);
@@ -72,6 +82,9 @@ export default function ProfTag({
   const handleTooltipMouseEnter = useCallback(() => {
     if (hideTimer.current) clearTimeout(hideTimer.current);
   }, []);
+
+  const hasDifficulty = difficultyCount !== undefined && difficultyCount > 0 && difficultyAvg !== undefined;
+  const showDifficultyCta = isProfAllocated && codigoDisciplina && onContributeDifficulty;
 
   const tooltip = pos && mounted ? createPortal(
     <div
@@ -103,6 +116,38 @@ export default function ProfTag({
           <span className={styles.tooltipEmailNone}>—</span>
         )}
       </div>
+
+      {/* Difficulty bar */}
+      {hasDifficulty && (
+        <div className={styles.difficultySection}>
+          <div className={styles.difficultyLabels}>
+            <span className={styles.difficultyLabelLeft}>Mamata</span>
+            <span className={styles.difficultyLabelRight}>Não pegue</span>
+          </div>
+          <div className={styles.difficultyTrack}>
+            <div
+              className={styles.difficultyMarker}
+              style={{ left: `${(difficultyAvg! / 5) * 100}%` }}
+            />
+          </div>
+          <span className={styles.difficultyCount}>({difficultyCount} {difficultyCount === 1 ? "voto" : "votos"})</span>
+        </div>
+      )}
+
+      {/* Difficulty CTA */}
+      {showDifficultyCta && (
+        <div className={styles.tooltipRow}>
+          <span
+            className={styles.tooltipEmailCta}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!difficultySubmitted) onContributeDifficulty();
+            }}
+          >
+            {difficultySubmitted ? "Voto registrado ✓" : "Qual a dificuldade? Avalie aqui"}
+          </span>
+        </div>
+      )}
     </div>,
     document.body
   ) : null;

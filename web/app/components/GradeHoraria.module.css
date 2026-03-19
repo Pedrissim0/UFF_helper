@@ -1368,6 +1368,44 @@
   cursor: not-allowed;
 }
 
+.modalDisciplina {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: -4px 0 8px;
+}
+
+/* ── Slider Mamatômetro ──────────────────────── */
+.sliderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-placeholder);
+}
+
+.sliderLabels span:nth-child(2) {
+  text-align: center;
+}
+
+.difficultySlider {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.sliderValue {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 /* ── Lista: animação de transição de filtro ───── */
 @keyframes gradeItemIn {
   from { opacity: 0; transform: translateY(5px); }

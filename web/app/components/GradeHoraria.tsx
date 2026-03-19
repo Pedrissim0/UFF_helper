@@ -64,9 +64,10 @@ interface Props {
   materias: Materia[];
   nomeCompletoMap?: Record<string, string>;
   professorEmailMap?: Record<string, string>;
+  difficultyMap?: Record<string, { avg: number; count: number }>;
 }
 
-export default function GradeHoraria({ materias, nomeCompletoMap = {}, professorEmailMap = {} }: Props) {
+export default function GradeHoraria({ materias, nomeCompletoMap = {}, professorEmailMap = {}, difficultyMap = {} }: Props) {
   const gradeStore = useGradeStore();
   const { aprovadas: aprovadasArr } = useDisciplinasStore();
   const aprovadas = useMemo(() => new Set(aprovadasArr), [aprovadasArr]);
@@ -119,6 +120,13 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   const [modalEmail, setModalEmail] = useState("");
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [modalError, setModalError] = useState("");
+
+  // Difficulty (Mamatômetro)
+  const [difficultySubmitted, setDifficultySubmitted] = useState<Record<string, boolean>>({});
+  const [difficultyModal, setDifficultyModal] = useState<{ displayName: string; docente: string; codigoDisciplina: string; nomeDisciplina: string } | null>(null);
+  const [sliderValue, setSliderValue] = useState(3);
+  const [difficultySubmitting, setDifficultySubmitting] = useState(false);
+  const [difficultyError, setDifficultyError] = useState("");
 
   useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
 
@@ -192,6 +200,50 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       setModalSubmitting(false);
     }
   }, [emailModal, modalEmail, closeEmailModal, showToast]);
+
+  const openDifficultyModal = useCallback((displayName: string, docente: string, codigoDisciplina: string, nomeDisciplina: string) => {
+    setDifficultyModal({ displayName, docente, codigoDisciplina, nomeDisciplina });
+    setSliderValue(3);
+    setDifficultyError("");
+  }, []);
+
+  const closeDifficultyModal = useCallback(() => {
+    setDifficultyModal(null);
+    setDifficultyError("");
+    setDifficultySubmitting(false);
+  }, []);
+
+  const handleDifficultySubmit = useCallback(async () => {
+    if (!difficultyModal) return;
+    setDifficultySubmitting(true);
+    setDifficultyError("");
+
+    try {
+      const res = await fetch("/api/difficulty-rating", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          professorName: difficultyModal.docente,
+          disciplinaCodigo: difficultyModal.codigoDisciplina,
+          rating: sliderValue,
+        }),
+      });
+
+      if (res.ok) {
+        const key = `${difficultyModal.docente}:${difficultyModal.codigoDisciplina}`;
+        setDifficultySubmitted(prev => ({ ...prev, [key]: true }));
+        closeDifficultyModal();
+        showToast("Obrigado! Seu voto foi registrado.");
+      } else {
+        const data = await res.json();
+        setDifficultyError(data.error || "Erro ao enviar.");
+      }
+    } catch {
+      setDifficultyError("Erro de conexão.");
+    } finally {
+      setDifficultySubmitting(false);
+    }
+  }, [difficultyModal, sliderValue, closeDifficultyModal, showToast]);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 640);
@@ -487,6 +539,11 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
                 confirmedEmail={professorEmailMap[nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao]}
                 alreadySubmitted={emailSubmitted[m.nome_exibicao]}
                 onSuggestEmail={() => openEmailModal(m.nome_exibicao, nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao)}
+                codigoDisciplina={m.codigo}
+                difficultyAvg={difficultyMap[`${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`]?.avg}
+                difficultyCount={difficultyMap[`${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`]?.count}
+                difficultySubmitted={difficultySubmitted[`${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`]}
+                onContributeDifficulty={() => openDifficultyModal(m.nome_exibicao, nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao, m.codigo, m.nome)}
                 onCopy={() => {
                   const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
                   const email = professorEmailMap[docente];
@@ -1011,6 +1068,45 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
               disabled={modalSubmitting}
             >
               {modalSubmitting ? "Enviando..." : "Enviar sugestão"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Mamatômetro */}
+      {difficultyModal && (
+        <div
+          className={styles.modalOverlay}
+          onClick={closeDifficultyModal}
+          onKeyDown={(e) => e.key === "Escape" && closeDifficultyModal()}
+        >
+          <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
+            <p className={styles.modalProf}>{difficultyModal.docente}</p>
+            <p className={styles.modalDisciplina}>{difficultyModal.nomeDisciplina}</p>
+            <div className={styles.sliderContainer}>
+              <div className={styles.sliderLabels}>
+                <span>Mamata</span>
+                <span>Normal</span>
+                <span>Não pegue</span>
+              </div>
+              <input
+                type="range"
+                min={0}
+                max={5}
+                step={1}
+                value={sliderValue}
+                onChange={(e) => setSliderValue(Number(e.target.value))}
+                className={styles.difficultySlider}
+              />
+              <div className={styles.sliderValue}>{sliderValue}/5</div>
+            </div>
+            {difficultyError && <p className={styles.modalError}>{difficultyError}</p>}
+            <button
+              className={styles.modalSubmitBtn}
+              onClick={handleDifficultySubmit}
+              disabled={difficultySubmitting}
+            >
+              {difficultySubmitting ? "Enviando..." : "Salvar"}
             </button>
           </div>
         </div>
