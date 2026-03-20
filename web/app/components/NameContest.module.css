@@ -1,0 +1,339 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(2px);
+}
+
+.modalBox {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 10px;
+  padding: 24px;
+  width: 480px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  position: relative;
+}
+
+/* Header com botão de fechar/voltar */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.backBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 18px;
+  padding: 4px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.backBtn:hover {
+  color: var(--text-primary);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 20px;
+  padding: 4px;
+  line-height: 1;
+  border-radius: 4px;
+  margin-left: auto;
+  transition: color 0.15s;
+}
+
+.closeBtn:hover {
+  color: var(--text-primary);
+}
+
+.modalTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Tela Info */
+.infoText {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.criteriaList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.criteriaList li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  padding-left: 16px;
+  position: relative;
+}
+
+.criteriaList li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.prize {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+  padding: 12px;
+  background: var(--bg-hover);
+  border-radius: 8px;
+}
+
+.btnRow {
+  display: flex;
+  gap: 10px;
+}
+
+.btnPrimary {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+}
+
+.btnSecondary {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+
+.btnSecondary:hover {
+  border-color: var(--accent-border);
+  background: var(--bg-hover);
+}
+
+/* Tela Sugerir */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.formInput {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border-input, var(--border-medium));
+  background: var(--bg-input, var(--bg-card));
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.formInput:focus {
+  border-color: var(--accent);
+}
+
+.submitBtn {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+}
+
+.submitBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.errorMsg {
+  font-size: 13px;
+  color: #ef4444;
+  text-align: center;
+}
+
+.successMsg {
+  font-size: 14px;
+  color: #22c55e;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Tela Votar */
+.voteHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.voteTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sortBtn {
+  background: none;
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.sortBtn:hover {
+  border-color: var(--accent-border);
+  color: var(--text-primary);
+}
+
+.voteList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.voteItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-light, var(--border-medium));
+}
+
+.voteName {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.voteCount {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 28px;
+  text-align: center;
+}
+
+.voteBtn {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+  white-space: nowrap;
+}
+
+.voteBtn:hover {
+  opacity: 0.9;
+}
+
+.voteBtnDone {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.emptyMsg {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 24px 0;
+}
+
+@media (max-width: 520px) {
+  .modalBox {
+    padding: 20px 16px;
+  }
+
+  .btnRow {
+    flex-direction: column;
+  }
+
+  .voteItem {
+    gap: 8px;
+  }
+}

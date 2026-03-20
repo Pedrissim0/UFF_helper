@@ -1,5 +1,9 @@
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
+import NameContest from "./components/NameContest";
 import styles from "./page.module.css";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "UFF Helper",
@@ -107,9 +111,15 @@ const features = [
   },
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { data: suggestions } = await supabase
+    .from("name_suggestions")
+    .select("id, suggested_name, votes_count")
+    .order("votes_count", { ascending: false });
+
   return (
     <div className={styles.wrapper}>
+      <NameContest suggestions={suggestions ?? []} />
       <header className={styles.header}>
         <h1 className={styles.title}>Projeto UFF - Ainda sem nome</h1>
         <p className={styles.subtitle}>Ferramentas para alunos de Economia da UFF</p>
