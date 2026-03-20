@@ -67,6 +67,14 @@ Dados da matriz curricular usados pelo Roadmap:
 - O frontend deve funcionar com dados mock enquanto o scraper não estiver pronto
 - Nenhum dado pessoal de aluno é enviado para servidor — tudo processado no client
 
+## Qualidade de Codigo
+- Prettier: `web/.prettierrc` (semi, double quotes, printWidth 90)
+- Pre-commit: Husky + lint-staged (Prettier + ESLint em arquivos staged)
+- Error boundary: `web/app/error.tsx` (captura erros de runtime)
+- Pagina 404: `web/app/not-found.tsx`
+- SEO: title template `"%s | UFF Helper"`, Open Graph, metadataBase
+- Footer global: `web/app/components/Footer.tsx` (GitHub, LinkedIn, WhatsApp)
+
 ## Arquivos Importantes
 - /docs/grade_horarios.csv → amostra real dos dados da universidade
 - /web/data/db_disciplinas.json → dados no formato do contrato acima
@@ -106,3 +114,7 @@ O roadmap suporta seleção de optativas dentro de cada período:
 - [x] Roadmap Curricular (fluxograma horizontal + optativas interativas)
 - [x] Mamatômetro (avaliação de dificuldade por professor/disciplina)
 - [x] Deploy na Vercel
+- [x] Error boundaries (error.tsx + not-found.tsx)
+- [x] Prettier + Husky + lint-staged
+- [x] SEO / Open Graph por rota
+- [x] Footer global com links de contato

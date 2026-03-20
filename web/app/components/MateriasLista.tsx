@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Materia } from "../page";
+import type { Materia } from "../grade/page";
 import styles from "./MateriasLista.module.css";
 
 type Dia = keyof Materia["horarios"];
@@ -81,10 +81,7 @@ export default function MateriasLista({ materias }: Props) {
             </button>
           ))}
           {diasFiltro.size > 0 && (
-            <button
-              className={styles.limparBtn}
-              onClick={() => setDiasFiltro(new Set())}
-            >
+            <button className={styles.limparBtn} onClick={() => setDiasFiltro(new Set())}>
               Limpar
             </button>
           )}
@@ -105,7 +102,12 @@ export default function MateriasLista({ materias }: Props) {
             </div>
             <h2 className={styles.nome}>
               {m.link ? (
-                <a href={m.link} target="_blank" rel="noopener noreferrer" className={styles.nomeLink}>
+                <a
+                  href={m.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.nomeLink}
+                >
                   {m.nome}
                 </a>
               ) : (
@@ -114,7 +116,9 @@ export default function MateriasLista({ materias }: Props) {
             </h2>
             <div className={styles.meta}>
               <span className={styles.modulo}>{m.ch != null ? `${m.ch}h` : "—"}</span>
-              {m.nome_exibicao && <span className={styles.professor}>{m.nome_exibicao}</span>}
+              {m.nome_exibicao && (
+                <span className={styles.professor}>{m.nome_exibicao}</span>
+              )}
             </div>
             <div className={styles.horarios}>
               {DIAS.map((dia) => {

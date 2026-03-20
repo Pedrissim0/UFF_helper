@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import Link from "next/link";
 import styles from "./Roadmap.module.css";
 import curriculoRaw from "@/data/curriculo.json";
@@ -20,10 +14,7 @@ import {
   type PeriodoData,
   type DisciplinaData,
 } from "@/hooks/useRoadmapConnections";
-import {
-  calcularColunas,
-  calcularTotalColunas,
-} from "@/lib/calcularColunas";
+import { calcularColunas, calcularTotalColunas } from "@/lib/calcularColunas";
 import { formatarNomeDisciplina } from "@/lib/formatarNomeDisciplina";
 import { calcularEstadoDisciplina } from "@/lib/calcularEstadoDisciplina";
 
@@ -58,10 +49,7 @@ const TOTAL_OBRIGATORIAS = periodos
   .filter((d) => d.obrigatoria).length;
 
 function getChOptativas(periodo: PeriodoData): number {
-  const chObrig = periodo.disciplinas.reduce(
-    (s, d) => s + d.carga_horaria,
-    0
-  );
+  const chObrig = periodo.disciplinas.reduce((s, d) => s + d.carga_horaria, 0);
   return Math.max(0, 360 - chObrig);
 }
 
@@ -75,10 +63,21 @@ interface OptativaInfo {
 const optativasDisponiveis: OptativaInfo[] = (() => {
   const seen = new Set<string>();
   const result: OptativaInfo[] = [];
-  for (const d of allDisciplinas as Array<{ codigo: string; nome: string; ch: number; tipo: string; prerequisitos?: string[] }>) {
+  for (const d of allDisciplinas as Array<{
+    codigo: string;
+    nome: string;
+    ch: number;
+    tipo: string;
+    prerequisitos?: string[];
+  }>) {
     if (d.tipo === "optativa" && !seen.has(d.codigo)) {
       seen.add(d.codigo);
-      result.push({ codigo: d.codigo, nome: d.nome, ch: d.ch, prerequisitos: d.prerequisitos ?? [] });
+      result.push({
+        codigo: d.codigo,
+        nome: d.nome,
+        ch: d.ch,
+        prerequisitos: d.prerequisitos ?? [],
+      });
     }
   }
   return result.sort((a, b) => a.nome.localeCompare(b.nome));
@@ -101,18 +100,14 @@ for (const o of optativasDisponiveis) {
   // Also register in dependentsMap so hovering obrigatórias highlights dependent optativas
   for (const prereq of o.prerequisitos) {
     const arr = dependentsMap.get(prereq);
-    if (arr) { if (!arr.includes(o.codigo)) arr.push(o.codigo); }
-    else dependentsMap.set(prereq, [o.codigo]);
+    if (arr) {
+      if (!arr.includes(o.codigo)) arr.push(o.codigo);
+    } else dependentsMap.set(prereq, [o.codigo]);
   }
 }
 
 // Build SVG arrow path
-function buildArrowPath(c: {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-}): string {
+function buildArrowPath(c: { x1: number; y1: number; x2: number; y2: number }): string {
   if (Math.abs(c.y1 - c.y2) < 4) {
     return `M${c.x1},${c.y1} L${c.x2},${c.y2}`;
   }
@@ -129,16 +124,14 @@ export default function Roadmap() {
   const [isMobile, setIsMobile] = useState(false);
 
   const [hoveredCodigo, setHoveredCodigo] = useState<string | null>(null);
-  const [selectedDisc, setSelectedDisc] = useState<DisciplinaData | null>(
-    null
-  );
+  const [selectedDisc, setSelectedDisc] = useState<DisciplinaData | null>(null);
   const [tappedCodigo, setTappedCodigo] = useState<string | null>(null);
 
   // Optativas selection
   const [optModalPeriodo, setOptModalPeriodo] = useState<number | null>(null);
-  const [selectedOptativas, setSelectedOptativas] = useState<
-    Record<number, string[]>
-  >({});
+  const [selectedOptativas, setSelectedOptativas] = useState<Record<number, string[]>>(
+    {}
+  );
   const [optBusca, setOptBusca] = useState("");
 
   useEffect(() => {
@@ -191,9 +184,8 @@ export default function Roadmap() {
 
   const approvedCount = useMemo(
     () =>
-      periodos
-        .flatMap((p) => p.disciplinas)
-        .filter((d) => approvedSet.has(d.codigo)).length,
+      periodos.flatMap((p) => p.disciplinas).filter((d) => approvedSet.has(d.codigo))
+        .length,
     [approvedSet]
   );
 
@@ -225,11 +217,10 @@ export default function Roadmap() {
   const emptyRowsByPeriod = useMemo(() => {
     const map: Record<number, number[]> = {};
     periodos.forEach((periodo) => {
-      const usedRows = new Set(
-        periodo.disciplinas.map((d) => rowMap.get(d.codigo) ?? 0)
+      const usedRows = new Set(periodo.disciplinas.map((d) => rowMap.get(d.codigo) ?? 0));
+      map[periodo.numero] = Array.from({ length: maxRows }, (_, r) => r).filter(
+        (r) => !usedRows.has(r)
       );
-      map[periodo.numero] = Array.from({ length: maxRows }, (_, r) => r)
-        .filter((r) => !usedRows.has(r));
     });
     return map;
   }, []);
@@ -331,7 +322,12 @@ export default function Roadmap() {
       if (approvedSet.has(o.codigo)) return false;
       if (approvedOptSet.has(o.codigo)) return false;
       if (allSelectedCodigos.has(o.codigo)) return false;
-      if (busca && !o.nome.toLowerCase().includes(busca) && !o.codigo.toLowerCase().includes(busca)) return false;
+      if (
+        busca &&
+        !o.nome.toLowerCase().includes(busca) &&
+        !o.codigo.toLowerCase().includes(busca)
+      )
+        return false;
       return true;
     });
   }, [optModalPeriodo, optBusca, approvedSet, approvedOptSet, allSelectedCodigos]);
@@ -377,18 +373,15 @@ export default function Roadmap() {
     [optModalPeriodo]
   );
 
-  const handleRemoveOptativa = useCallback(
-    (periodo: number, codigo: string) => {
-      setSelectedOptativas((prev) => {
-        const current = prev[periodo] ?? [];
-        return {
-          ...prev,
-          [periodo]: current.filter((c) => c !== codigo),
-        };
-      });
-    },
-    []
-  );
+  const handleRemoveOptativa = useCallback((periodo: number, codigo: string) => {
+    setSelectedOptativas((prev) => {
+      const current = prev[periodo] ?? [];
+      return {
+        ...prev,
+        [periodo]: current.filter((c) => c !== codigo),
+      };
+    });
+  }, []);
 
   // Drag & drop handlers
   const handleDragStart = useCallback(
@@ -407,37 +400,33 @@ export default function Roadmap() {
     document.body.classList.remove("dragging-active");
   }, []);
 
-  const handleColumnDragOver = useCallback(
-    (e: React.DragEvent, periodoNum: number) => {
-      e.preventDefault();
-      e.dataTransfer.dropEffect = "move";
-      setDragOverPeriodo(periodoNum);
-    },
-    []
-  );
+  const handleColumnDragOver = useCallback((e: React.DragEvent, periodoNum: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setDragOverPeriodo(periodoNum);
+  }, []);
 
   const handleColumnDragLeave = useCallback(() => {
     setDragOverPeriodo(null);
   }, []);
 
-  const handleColumnDrop = useCallback(
-    (e: React.DragEvent, toPeriodo: number) => {
-      e.preventDefault();
-      setDragOverPeriodo(null);
-      setDragCodigo(null);
-      try {
-        const data = JSON.parse(e.dataTransfer.getData("text/plain"));
-        const { codigo, fromPeriodo } = data as { codigo: string; fromPeriodo: number };
-        if (fromPeriodo === toPeriodo) return;
-        setSelectedOptativas((prev) => {
-          const fromList = (prev[fromPeriodo] ?? []).filter((c) => c !== codigo);
-          const toList = [...(prev[toPeriodo] ?? []), codigo];
-          return { ...prev, [fromPeriodo]: fromList, [toPeriodo]: toList };
-        });
-      } catch { /* ignore invalid drag data */ }
-    },
-    []
-  );
+  const handleColumnDrop = useCallback((e: React.DragEvent, toPeriodo: number) => {
+    e.preventDefault();
+    setDragOverPeriodo(null);
+    setDragCodigo(null);
+    try {
+      const data = JSON.parse(e.dataTransfer.getData("text/plain"));
+      const { codigo, fromPeriodo } = data as { codigo: string; fromPeriodo: number };
+      if (fromPeriodo === toPeriodo) return;
+      setSelectedOptativas((prev) => {
+        const fromList = (prev[fromPeriodo] ?? []).filter((c) => c !== codigo);
+        const toList = [...(prev[toPeriodo] ?? []), codigo];
+        return { ...prev, [fromPeriodo]: fromList, [toPeriodo]: toList };
+      });
+    } catch {
+      /* ignore invalid drag data */
+    }
+  }, []);
 
   const handleMouseEnter = useCallback((codigo: string) => {
     if (window.matchMedia("(pointer: fine)").matches) {
@@ -454,17 +443,13 @@ export default function Roadmap() {
       e.stopPropagation();
       if (isMobile) {
         if (tappedCodigo === disc.codigo) {
-          setSelectedDisc((prev) =>
-            prev?.codigo === disc.codigo ? null : disc
-          );
+          setSelectedDisc((prev) => (prev?.codigo === disc.codigo ? null : disc));
           setTappedCodigo(null);
         } else {
           setTappedCodigo(disc.codigo);
         }
       } else {
-        setSelectedDisc((prev) =>
-          prev?.codigo === disc.codigo ? null : disc
-        );
+        setSelectedDisc((prev) => (prev?.codigo === disc.codigo ? null : disc));
       }
     },
     [isMobile, tappedCodigo]
@@ -480,24 +465,14 @@ export default function Roadmap() {
   }, []);
 
   const progressPct =
-    TOTAL_OBRIGATORIAS > 0
-      ? (approvedCount / TOTAL_OBRIGATORIAS) * 100
-      : 0;
+    TOTAL_OBRIGATORIAS > 0 ? (approvedCount / TOTAL_OBRIGATORIAS) * 100 : 0;
 
   const numPeriodos = periodos.length;
 
   // ── Render a discipline card ──
-  const renderDiscCard = (
-    disc: DisciplinaData,
-    gridPlacement?: React.CSSProperties
-  ) => {
-    const estado = calcularEstadoDisciplina(
-      disc.codigo,
-      disc.pre_requisitos,
-      aprovadas
-    );
-    const inHighlight =
-      activeHighlight === null || activeHighlight.has(disc.codigo);
+  const renderDiscCard = (disc: DisciplinaData, gridPlacement?: React.CSSProperties) => {
+    const estado = calcularEstadoDisciplina(disc.codigo, disc.pre_requisitos, aprovadas);
+    const inHighlight = activeHighlight === null || activeHighlight.has(disc.codigo);
     const isSelected = selectedDisc?.codigo === disc.codigo;
 
     const cardClasses = [
@@ -530,25 +505,19 @@ export default function Roadmap() {
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            setSelectedDisc((prev) =>
-              prev?.codigo === disc.codigo ? null : disc
-            );
+            setSelectedDisc((prev) => (prev?.codigo === disc.codigo ? null : disc));
           }
         }}
         aria-pressed={isSelected}
         aria-label={formatarNomeDisciplina(disc.nome)}
       >
-        <span className={styles.discNome}>
-          {formatarNomeDisciplina(disc.nome)}
-        </span>
+        <span className={styles.discNome}>{formatarNomeDisciplina(disc.nome)}</span>
         <span className={styles.discCodigo}>{disc.codigo}</span>
         <div className={styles.discMeta}>
           <span className={styles.discBadge}>{disc.carga_horaria}h</span>
         </div>
         {isMobile && prereqNames.length > 0 && (
-          <span className={styles.mobilePrereq}>
-            Req: {prereqNames.join(" · ")}
-          </span>
+          <span className={styles.mobilePrereq}>Req: {prereqNames.join(" · ")}</span>
         )}
       </div>
     );
@@ -572,8 +541,7 @@ export default function Roadmap() {
     periodo: number,
     gridPlacement?: React.CSSProperties
   ) => {
-    const inHighlight =
-      activeHighlight === null || activeHighlight.has(opt.codigo);
+    const inHighlight = activeHighlight === null || activeHighlight.has(opt.codigo);
     const isDragging = dragCodigo === opt.codigo;
     const isSelected = selectedDisc?.codigo === opt.codigo;
 
@@ -605,17 +573,13 @@ export default function Roadmap() {
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            setSelectedDisc((prev) =>
-              prev?.codigo === opt.codigo ? null : disc
-            );
+            setSelectedDisc((prev) => (prev?.codigo === opt.codigo ? null : disc));
           }
         }}
         aria-pressed={isSelected}
         aria-label={formatarNomeDisciplina(opt.nome)}
       >
-        <span className={styles.discNome}>
-          {formatarNomeDisciplina(opt.nome)}
-        </span>
+        <span className={styles.discNome}>{formatarNomeDisciplina(opt.nome)}</span>
         <span className={styles.discCodigo}>{opt.codigo}</span>
         <div className={styles.discMeta}>
           <span className={styles.discBadge}>{opt.ch}h</span>
@@ -640,8 +604,7 @@ export default function Roadmap() {
     opt: OptativaInfo,
     gridPlacement?: React.CSSProperties
   ) => {
-    const inHighlight =
-      activeHighlight === null || activeHighlight.has(opt.codigo);
+    const inHighlight = activeHighlight === null || activeHighlight.has(opt.codigo);
     const isSelected = selectedDisc?.codigo === opt.codigo;
     const disc = optToDisciplina(opt);
 
@@ -668,18 +631,14 @@ export default function Roadmap() {
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            setSelectedDisc((prev) =>
-              prev?.codigo === opt.codigo ? null : disc
-            );
+            setSelectedDisc((prev) => (prev?.codigo === opt.codigo ? null : disc));
           }
         }}
         aria-pressed={isSelected}
         aria-label={formatarNomeDisciplina(opt.nome)}
       >
         <span className={styles.optApprovedTag}>Aprovado</span>
-        <span className={styles.discNome}>
-          {formatarNomeDisciplina(opt.nome)}
-        </span>
+        <span className={styles.discNome}>{formatarNomeDisciplina(opt.nome)}</span>
         <span className={styles.discCodigo}>{opt.codigo}</span>
         <div className={styles.discMeta}>
           <span className={styles.discBadge}>{opt.ch}h</span>
@@ -697,7 +656,7 @@ export default function Roadmap() {
           <h1 className={styles.titulo}>Roadmap Curricular</h1>
         </div>
         <div className={styles.headerActions}>
-          <Link href="/" className={styles.navLink}>
+          <Link href="/grade" className={styles.navLink}>
             Grade Horária
           </Link>
           <Link href="/calculadora-cr" className={styles.navLink}>
@@ -709,9 +668,7 @@ export default function Roadmap() {
           <button
             className={styles.themeToggle}
             onClick={toggleTema}
-            aria-label={
-              tema === "light" ? "Ativar modo noturno" : "Ativar modo claro"
-            }
+            aria-label={tema === "light" ? "Ativar modo noturno" : "Ativar modo claro"}
             title={tema === "light" ? "Modo noturno" : "Modo claro"}
           >
             {tema === "light" ? (
@@ -765,10 +722,7 @@ export default function Roadmap() {
           aria-valuemax={TOTAL_OBRIGATORIAS}
           aria-label={`${approvedCount} de ${TOTAL_OBRIGATORIAS} disciplinas cursadas`}
         >
-          <div
-            className={styles.progressFill}
-            style={{ width: `${progressPct}%` }}
-          />
+          <div className={styles.progressFill} style={{ width: `${progressPct}%` }} />
           <span className={styles.progressLabel}>
             {approvedCount}/{TOTAL_OBRIGATORIAS} disciplinas cursadas
           </span>
@@ -784,52 +738,49 @@ export default function Roadmap() {
               const chOpt = getChOptativas(periodo);
               return (
                 <div key={periodo.numero} className={styles.mobilePeriodo}>
-                  <div className={styles.periodHeader}>
-                    {periodo.label}
-                  </div>
+                  <div className={styles.periodHeader}>{periodo.label}</div>
                   <div className={styles.mobileCards}>
-                    {periodo.disciplinas.map((disc) =>
-                      renderDiscCard(disc)
-                    )}
-                    {chOpt > 60 && (() => {
-                      const selCodigos = selectedOptativas[periodo.numero] ?? [];
-                      const aprovOpts = approvedOptByPeriod[periodo.numero] ?? [];
-                      const selCH = selCodigos.reduce((s, c) => {
-                        const o = optMap.get(c);
-                        return s + (o?.ch ?? 0);
-                      }, 0);
-                      const aprovCH = aprovOpts.reduce((s, o) => s + o.ch, 0);
-                      const restante = Math.max(0, chOpt - selCH - aprovCH);
-                      return (
-                        <>
-                          {/* Approved optativas */}
-                          {aprovOpts.map((opt) => renderApprovedOptCard(opt))}
-                          {/* User-selected optativas */}
-                          {selCodigos.map((codigo) => {
-                            const opt = optMap.get(codigo);
-                            if (!opt) return null;
-                            return renderOptativaCard(opt, periodo.numero);
-                          })}
-                          {restante > 0 && (
-                            <div
-                              className={`${styles.discOptativasCard} ${styles.discOptativasClickable}`}
-                              role="button"
-                              tabIndex={0}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleOpenOptModal(periodo.numero);
-                              }}
-                            >
-                              <span className={styles.discNome}>Optativas</span>
-                              <span className={styles.discOptSep} />
-                              <span className={styles.discOptCH}>
-                                {restante}h a cumprir
-                              </span>
-                            </div>
-                          )}
-                        </>
-                      );
-                    })()}
+                    {periodo.disciplinas.map((disc) => renderDiscCard(disc))}
+                    {chOpt > 60 &&
+                      (() => {
+                        const selCodigos = selectedOptativas[periodo.numero] ?? [];
+                        const aprovOpts = approvedOptByPeriod[periodo.numero] ?? [];
+                        const selCH = selCodigos.reduce((s, c) => {
+                          const o = optMap.get(c);
+                          return s + (o?.ch ?? 0);
+                        }, 0);
+                        const aprovCH = aprovOpts.reduce((s, o) => s + o.ch, 0);
+                        const restante = Math.max(0, chOpt - selCH - aprovCH);
+                        return (
+                          <>
+                            {/* Approved optativas */}
+                            {aprovOpts.map((opt) => renderApprovedOptCard(opt))}
+                            {/* User-selected optativas */}
+                            {selCodigos.map((codigo) => {
+                              const opt = optMap.get(codigo);
+                              if (!opt) return null;
+                              return renderOptativaCard(opt, periodo.numero);
+                            })}
+                            {restante > 0 && (
+                              <div
+                                className={`${styles.discOptativasCard} ${styles.discOptativasClickable}`}
+                                role="button"
+                                tabIndex={0}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleOpenOptModal(periodo.numero);
+                                }}
+                              >
+                                <span className={styles.discNome}>Optativas</span>
+                                <span className={styles.discOptSep} />
+                                <span className={styles.discOptCH}>
+                                  {restante}h a cumprir
+                                </span>
+                              </div>
+                            )}
+                          </>
+                        );
+                      })()}
                   </div>
                 </div>
               );
@@ -856,10 +807,7 @@ export default function Roadmap() {
                       refY="2"
                       orient="auto"
                     >
-                      <path
-                        d="M0,0 L6,2 L0,4 Z"
-                        fill="var(--border-medium)"
-                      />
+                      <path d="M0,0 L6,2 L0,4 Z" fill="var(--border-medium)" />
                     </marker>
                     <marker
                       id="roadmap-arrow-active"
@@ -869,10 +817,7 @@ export default function Roadmap() {
                       refY="2"
                       orient="auto"
                     >
-                      <path
-                        d="M0,0 L6,2 L0,4 Z"
-                        fill="var(--accent)"
-                      />
+                      <path d="M0,0 L6,2 L0,4 Z" fill="var(--accent)" />
                     </marker>
                   </defs>
                   {connections.map((c) => {
@@ -884,16 +829,10 @@ export default function Roadmap() {
                       <path
                         key={c.id}
                         d={buildArrowPath(c)}
-                        className={
-                          isActive
-                            ? styles.arrowActive
-                            : styles.arrowIdle
-                        }
+                        className={isActive ? styles.arrowActive : styles.arrowIdle}
                         fill="none"
                         markerEnd={
-                          isActive
-                            ? "url(#roadmap-arrow-active)"
-                            : "url(#roadmap-arrow)"
+                          isActive ? "url(#roadmap-arrow-active)" : "url(#roadmap-arrow)"
                         }
                       />
                     );
@@ -987,9 +926,7 @@ export default function Roadmap() {
                 {/* Empty cells for remaining vacant slots */}
                 {periodos.map((periodo, colIdx) => {
                   const usedRows = new Set(
-                    periodo.disciplinas.map(
-                      (d) => rowMap.get(d.codigo) ?? 0
-                    )
+                    periodo.disciplinas.map((d) => rowMap.get(d.codigo) ?? 0)
                   );
                   // Mark rows used by approved + selected optativas
                   const selCodigos = selectedOptativas[periodo.numero] ?? [];
@@ -1023,8 +960,10 @@ export default function Roadmap() {
                     const o = optMap.get(c);
                     return s + (o?.ch ?? 0);
                   }, 0);
-                  const aprovCH = (approvedOptByPeriod[periodo.numero] ?? [])
-                    .reduce((s, o) => s + o.ch, 0);
+                  const aprovCH = (approvedOptByPeriod[periodo.numero] ?? []).reduce(
+                    (s, o) => s + o.ch,
+                    0
+                  );
                   const restante = Math.max(0, ch - selCH - aprovCH);
                   if (restante <= 0) return null;
                   return (
@@ -1051,9 +990,7 @@ export default function Roadmap() {
                     >
                       <span className={styles.discNome}>Optativas</span>
                       <span className={styles.discOptSep} />
-                      <span className={styles.discOptCH}>
-                        {restante}h a cumprir
-                      </span>
+                      <span className={styles.discOptCH}>{restante}h a cumprir</span>
                     </div>
                   );
                 })}
@@ -1096,10 +1033,7 @@ export default function Roadmap() {
           aria-modal="true"
           aria-label={`Detalhes de ${formatarNomeDisciplina(selectedDisc.nome)}`}
         >
-          <div
-            className={styles.modalPanel}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.modalPanel} onClick={(e) => e.stopPropagation()}>
             <button
               className={styles.modalClose}
               onClick={handleCloseModal}
@@ -1127,9 +1061,7 @@ export default function Roadmap() {
             <p className={styles.modalCodigo}>{selectedDisc.codigo}</p>
 
             <div className={styles.modalMeta}>
-              <span className={styles.modalCH}>
-                {selectedDisc.carga_horaria}h
-              </span>
+              <span className={styles.modalCH}>{selectedDisc.carga_horaria}h</span>
               {(() => {
                 const estado = calcularEstadoDisciplina(
                   selectedDisc.codigo,
@@ -1138,34 +1070,26 @@ export default function Roadmap() {
                 );
                 if (estado === "aprovado")
                   return (
-                    <span
-                      className={`${styles.badge} ${styles.badgeAprovado}`}
-                    >
+                    <span className={`${styles.badge} ${styles.badgeAprovado}`}>
                       Aprovado
                     </span>
                   );
                 if (estado === "desbloqueado")
                   return (
-                    <span
-                      className={`${styles.badge} ${styles.badgeDesbloqueado}`}
-                    >
+                    <span className={`${styles.badge} ${styles.badgeDesbloqueado}`}>
                       Desbloqueado
                     </span>
                   );
                 if (estado === "bloqueado")
                   return (
-                    <span
-                      className={`${styles.badge} ${styles.badgeBloqueado}`}
-                    >
+                    <span className={`${styles.badge} ${styles.badgeBloqueado}`}>
                       Bloqueado
                     </span>
                   );
                 return null;
               })()}
               {!selectedDisc.obrigatoria && (
-                <span
-                  className={`${styles.badge} ${styles.badgeOptativa}`}
-                >
+                <span className={`${styles.badge} ${styles.badgeOptativa}`}>
                   Optativa
                 </span>
               )}
@@ -1182,9 +1106,7 @@ export default function Roadmap() {
                       <li key={code} className={styles.modalPrereqItem}>
                         <span
                           className={
-                            isAprov
-                              ? styles.modalPrereqDone
-                              : styles.modalPrereqPending
+                            isAprov ? styles.modalPrereqDone : styles.modalPrereqPending
                           }
                           aria-label={isAprov ? "Aprovado" : "Pendente"}
                         >
@@ -1193,9 +1115,7 @@ export default function Roadmap() {
                         <span className={styles.modalPrereqNome}>
                           {d ? formatarNomeDisciplina(d.nome) : code}
                         </span>
-                        <span className={styles.modalPrereqCode}>
-                          {code}
-                        </span>
+                        <span className={styles.modalPrereqCode}>{code}</span>
                       </li>
                     );
                   })}
@@ -1246,9 +1166,7 @@ export default function Roadmap() {
               </svg>
             </button>
 
-            <h2 className={styles.modalNome}>
-              Optativas — {optModalPeriodo}° Período
-            </h2>
+            <h2 className={styles.modalNome}>Optativas — {optModalPeriodo}° Período</h2>
             <p className={styles.optModalSub}>
               Selecione as optativas que deseja cursar neste período.
             </p>
@@ -1307,9 +1225,7 @@ export default function Roadmap() {
                 </li>
               ))}
               {optativasFiltradas.length === 0 && (
-                <li className={styles.optEmpty}>
-                  Nenhuma optativa encontrada.
-                </li>
+                <li className={styles.optEmpty}>Nenhuma optativa encontrada.</li>
               )}
             </ul>
           </div>

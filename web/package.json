@@ -6,7 +6,19 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write 'app/**/*.{ts,tsx,css}' 'lib/**/*.ts' 'hooks/**/*.ts' 'stores/**/*.ts'",
+    "format:check": "prettier --check 'app/**/*.{ts,tsx,css}' 'lib/**/*.ts' 'hooks/**/*.ts' 'stores/**/*.ts'",
+    "prepare": "cd .. && husky web/.husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.css": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
@@ -27,6 +39,9 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
     "typescript": "^5"
   }
 }

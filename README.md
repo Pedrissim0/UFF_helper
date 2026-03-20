@@ -48,6 +48,10 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 - Layout responsivo: grid horizontal com scroll em desktop, vertical em mobile
 - Integra com `useDisciplinasStore` e `useCalculadoraStore` para refletir aprovações do aluno
 
+### Footer
+- Links de contato do desenvolvedor: [GitHub](https://github.com/Pedrissim0), [LinkedIn](https://www.linkedin.com/in/pedro-vitor-costa-770063188/), [WhatsApp](https://wa.me/5521986793427)
+- Presente em todas as páginas via `layout.tsx`
+
 ## Stack
 
 | Camada | Tecnologia |
@@ -57,6 +61,7 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 | Leitura de arquivos | papaparse (CSV), SheetJS/xlsx (Excel) |
 | Scraping | Python 3, requests, BeautifulSoup4 |
 | Parse de PDF | Claude Haiku 4.5 via API (streaming) |
+| Formatacao | Prettier + Husky pre-commit + lint-staged |
 | Deploy | Vercel (branch `main`) |
 
 ## Estrutura do Projeto
@@ -68,7 +73,10 @@ projeto_uff_helper/
 │   │   ├── page.tsx            # Grade Horária (Server Component)
 │   │   ├── layout.tsx
 │   │   ├── globals.css         # Variáveis CSS (light/dark + purple)
+│   │   ├── error.tsx             # Error boundary global
+│   │   ├── not-found.tsx         # Página 404 customizada
 │   │   ├── components/
+│   │   │   ├── Footer.tsx            # Footer global (GitHub, LinkedIn, WhatsApp)
 │   │   │   ├── GradeHoraria.tsx
 │   │   │   └── GradeHoraria.module.css
 │   │   ├── calculadora-cr/
@@ -215,3 +223,9 @@ O deploy é automático via Vercel a cada push na branch `main`.
 ## Privacidade
 
 Nenhum dado pessoal do aluno é enviado a servidores. Todo o processamento do histórico acadêmico ocorre no browser do usuário.
+
+## Contato
+
+- GitHub: [Pedrissim0](https://github.com/Pedrissim0)
+- LinkedIn: [Pedro Vitor Costa](https://www.linkedin.com/in/pedro-vitor-costa-770063188/)
+- WhatsApp: [+55 21 98679-3427](https://wa.me/5521986793427)

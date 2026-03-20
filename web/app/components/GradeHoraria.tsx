@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import Link from "next/link";
-import type { Materia } from "../page";
+import type { Materia } from "../grade/page";
 import styles from "./GradeHoraria.module.css";
 import { useUIStore } from "@/stores/useUIStore";
 import { useGradeStore } from "@/stores/useGradeStore";
@@ -37,8 +37,16 @@ function toggleSet<T>(set: Set<T>, val: T): Set<T> {
 }
 
 const PALETTE = [
-  "#6366f1", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6",
-  "#0ea5e9", "#f97316", "#14b8a6", "#ec4899", "#84cc16",
+  "#6366f1",
+  "#f59e0b",
+  "#10b981",
+  "#ef4444",
+  "#8b5cf6",
+  "#0ea5e9",
+  "#f97316",
+  "#14b8a6",
+  "#ec4899",
+  "#84cc16",
 ];
 
 const MIN_TIME = 7 * 60;
@@ -67,7 +75,12 @@ interface Props {
   difficultyMap?: Record<string, { avg: number; count: number }>;
 }
 
-export default function GradeHoraria({ materias, nomeCompletoMap = {}, professorEmailMap = {}, difficultyMap = {} }: Props) {
+export default function GradeHoraria({
+  materias,
+  nomeCompletoMap = {},
+  professorEmailMap = {},
+  difficultyMap = {},
+}: Props) {
   const gradeStore = useGradeStore();
   const { aprovadas: aprovadasArr } = useDisciplinasStore();
   const aprovadas = useMemo(() => new Set(aprovadasArr), [aprovadasArr]);
@@ -97,7 +110,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   const [tipoFiltro, setTipoFiltro] = useState<"obrigatoria" | "optativa" | null>(null);
   const [listaAnim, setListaAnim] = useState(false);
   const didMountAnim = useRef(false);
-  const [widgetPos, setWidgetPos] = useState<'center' | 'left' | 'right'>('right');
+  const [widgetPos, setWidgetPos] = useState<"center" | "left" | "right">("right");
   const [widgetWidth, setWidgetWidth] = useState(500);
   const [legendaVisivel, setLegendaVisivel] = useState(true);
   const { tema, toggleTema, _hydrateTheme } = useUIStore();
@@ -116,19 +129,31 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
   // Email crowdsourcing
   const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
-  const [emailModal, setEmailModal] = useState<{ displayName: string; docente: string } | null>(null);
+  const [emailModal, setEmailModal] = useState<{
+    displayName: string;
+    docente: string;
+  } | null>(null);
   const [modalEmail, setModalEmail] = useState("");
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [modalError, setModalError] = useState("");
 
   // Difficulty (Mamatômetro)
-  const [difficultySubmitted, setDifficultySubmitted] = useState<Record<string, boolean>>({});
-  const [difficultyModal, setDifficultyModal] = useState<{ displayName: string; docente: string; codigoDisciplina: string; nomeDisciplina: string } | null>(null);
+  const [difficultySubmitted, setDifficultySubmitted] = useState<Record<string, boolean>>(
+    {}
+  );
+  const [difficultyModal, setDifficultyModal] = useState<{
+    displayName: string;
+    docente: string;
+    codigoDisciplina: string;
+    nomeDisciplina: string;
+  } | null>(null);
   const [sliderValue, setSliderValue] = useState(3);
   const [difficultySubmitting, setDifficultySubmitting] = useState(false);
   const [difficultyError, setDifficultyError] = useState("");
 
-  useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
+  useEffect(() => {
+    _hydrateTheme();
+  }, [_hydrateTheme]);
 
   // Auto-ativa filtro "Já Cursado" quando há aprovadas, desativa quando aprovadas esvazia
   useEffect(() => {
@@ -141,7 +166,10 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
   // Anima a lista quando jaCursadoFiltro muda (não na montagem inicial)
   useEffect(() => {
-    if (!didMountAnim.current) { didMountAnim.current = true; return; }
+    if (!didMountAnim.current) {
+      didMountAnim.current = true;
+      return;
+    }
     setListaAnim(true);
     const t = setTimeout(() => setListaAnim(false), 300);
     return () => clearTimeout(t);
@@ -187,7 +215,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       });
 
       if (res.ok) {
-        setEmailSubmitted(prev => ({ ...prev, [emailModal.displayName]: true }));
+        setEmailSubmitted((prev) => ({ ...prev, [emailModal.displayName]: true }));
         closeEmailModal();
         showToast("Obrigado. Sua sugestão foi registrada.");
       } else {
@@ -201,11 +229,19 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     }
   }, [emailModal, modalEmail, closeEmailModal, showToast]);
 
-  const openDifficultyModal = useCallback((displayName: string, docente: string, codigoDisciplina: string, nomeDisciplina: string) => {
-    setDifficultyModal({ displayName, docente, codigoDisciplina, nomeDisciplina });
-    setSliderValue(3);
-    setDifficultyError("");
-  }, []);
+  const openDifficultyModal = useCallback(
+    (
+      displayName: string,
+      docente: string,
+      codigoDisciplina: string,
+      nomeDisciplina: string
+    ) => {
+      setDifficultyModal({ displayName, docente, codigoDisciplina, nomeDisciplina });
+      setSliderValue(3);
+      setDifficultyError("");
+    },
+    []
+  );
 
   const closeDifficultyModal = useCallback(() => {
     setDifficultyModal(null);
@@ -231,7 +267,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
       if (res.ok) {
         const key = `${difficultyModal.docente}:${difficultyModal.codigoDisciplina}`;
-        setDifficultySubmitted(prev => ({ ...prev, [key]: true }));
+        setDifficultySubmitted((prev) => ({ ...prev, [key]: true }));
         closeDifficultyModal();
         showToast("Obrigado! Seu voto foi registrado.");
       } else {
@@ -254,8 +290,8 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 300);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -264,22 +300,23 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     };
   }, []);
 
-  const isLateral = widgetPos === 'left' || widgetPos === 'right';
+  const isLateral = widgetPos === "left" || widgetPos === "right";
   const showLegenda = legendaVisivel && selecionadas.length > 0;
 
   const handleCopiar = useCallback(() => {
-    const text = selecionadas.map((m) => {
-      const horarios = DIAS
-        .filter((d) => m.horarios[d])
-        .map((d) => `${d}: ${m.horarios[d]}`)
-        .join(", ");
-      const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
-      const email = professorEmailMap[docente];
-      const profLine = email
-        ? `Prof: ${docente} | Email: ${email}`
-        : `Prof: ${docente}`;
-      return `${m.codigo} - ${m.nome} - Turma ${m.turma} - ${profLine} - ${horarios}`;
-    }).join("\n\n");
+    const text = selecionadas
+      .map((m) => {
+        const horarios = DIAS.filter((d) => m.horarios[d])
+          .map((d) => `${d}: ${m.horarios[d]}`)
+          .join(", ");
+        const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
+        const email = professorEmailMap[docente];
+        const profLine = email
+          ? `Prof: ${docente} | Email: ${email}`
+          : `Prof: ${docente}`;
+        return `${m.codigo} - ${m.nome} - Turma ${m.turma} - ${profLine} - ${horarios}`;
+      })
+      .join("\n\n");
     navigator.clipboard.writeText(text);
     showToast("Copiado!");
   }, [selecionadas, nomeCompletoMap, professorEmailMap, showToast]);
@@ -290,35 +327,39 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     requestAnimationFrame(() => window.print());
   }, []);
 
-  const handleResizeStart = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    resizingRef.current = true;
-    const startX = e.clientX;
-    const startWidth = widgetWidth;
+  const handleResizeStart = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      resizingRef.current = true;
+      const startX = e.clientX;
+      const startWidth = widgetWidth;
 
-    const onMouseMove = (ev: MouseEvent) => {
-      if (!resizingRef.current) return;
-      const delta = widgetPos === 'right'
-        ? startX - ev.clientX
-        : ev.clientX - startX;
-      const newWidth = Math.max(360, Math.min(window.innerWidth * 0.6, startWidth + delta));
-      setWidgetWidth(newWidth);
-    };
+      const onMouseMove = (ev: MouseEvent) => {
+        if (!resizingRef.current) return;
+        const delta = widgetPos === "right" ? startX - ev.clientX : ev.clientX - startX;
+        const newWidth = Math.max(
+          360,
+          Math.min(window.innerWidth * 0.6, startWidth + delta)
+        );
+        setWidgetWidth(newWidth);
+      };
 
-    const onMouseUp = () => {
-      resizingRef.current = false;
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    };
+      const onMouseUp = () => {
+        resizingRef.current = false;
+        document.removeEventListener("mousemove", onMouseMove);
+        document.removeEventListener("mouseup", onMouseUp);
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+      };
 
-    document.body.style.cursor = "col-resize";
-    document.body.style.userSelect = "none";
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
-  }, [widgetWidth, widgetPos]);
+      document.body.style.cursor = "col-resize";
+      document.body.style.userSelect = "none";
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
+    },
+    [widgetWidth, widgetPos]
+  );
 
   const colorMap = useMemo(() => {
     const map: Record<string, string> = {};
@@ -343,33 +384,58 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
   const periodos = useMemo(() => {
     const s = new Set<number>();
-    materias.forEach((m) => { if (m.periodo !== null) s.add(m.periodo); });
+    materias.forEach((m) => {
+      if (m.periodo !== null) s.add(m.periodo);
+    });
     return Array.from(s).sort((a, b) => a - b);
   }, [materias]);
 
-  const activeFilterCount = diasFiltro.size + turnosFiltro.size + deptosFiltro.size + periodosFiltro.size + (tipoFiltro ? 1 : 0) + (gradeStore.jaCursadoFiltro ? 1 : 0);
+  const activeFilterCount =
+    diasFiltro.size +
+    turnosFiltro.size +
+    deptosFiltro.size +
+    periodosFiltro.size +
+    (tipoFiltro ? 1 : 0) +
+    (gradeStore.jaCursadoFiltro ? 1 : 0);
 
-  const filtradas = useMemo(() => filtrarDisciplinas(
-    materias,
-    {
+  const filtradas = useMemo(
+    () =>
+      filtrarDisciplinas(
+        materias,
+        {
+          busca,
+          dias: diasFiltro,
+          turnos: turnosFiltro,
+          deptos: deptosFiltro,
+          periodos: periodosFiltro,
+          tipo: tipoFiltro,
+          jaCursado: gradeStore.jaCursadoFiltro,
+        },
+        aprovadas
+      ),
+    [
       busca,
-      dias: diasFiltro,
-      turnos: turnosFiltro,
-      deptos: deptosFiltro,
-      periodos: periodosFiltro,
-      tipo: tipoFiltro,
-      jaCursado: gradeStore.jaCursadoFiltro,
-    },
-    aprovadas
-  ), [busca, materias, diasFiltro, turnosFiltro, deptosFiltro, periodosFiltro, tipoFiltro, gradeStore.jaCursadoFiltro, aprovadas]);
+      materias,
+      diasFiltro,
+      turnosFiltro,
+      deptosFiltro,
+      periodosFiltro,
+      tipoFiltro,
+      gradeStore.jaCursadoFiltro,
+      aprovadas,
+    ]
+  );
 
   // Agrupa materias filtradas por periodo (chave composta)
   const periodoGroups = useMemo(() => {
     const groups: Map<string, Materia[]> = new Map();
     filtradas.forEach((m) => {
-      const key = m.periodo !== null
-        ? String(m.periodo)
-        : m.tipo === "obrigatoria" ? "obrig-np" : "optativas";
+      const key =
+        m.periodo !== null
+          ? String(m.periodo)
+          : m.tipo === "obrigatoria"
+            ? "obrig-np"
+            : "optativas";
       if (!groups.has(key)) groups.set(key, []);
       groups.get(key)!.push(m);
     });
@@ -406,7 +472,11 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
   function temConflito(candidata: Materia) {
     // Bloqueia mesmo código com turma diferente (impede duplicar disciplina)
-    if (selecionadas.some((s) => s.codigo === candidata.codigo && s.turma !== candidata.turma)) {
+    if (
+      selecionadas.some(
+        (s) => s.codigo === candidata.codigo && s.turma !== candidata.turma
+      )
+    ) {
       return true;
     }
     for (const dia of DIAS) {
@@ -430,43 +500,64 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
         if ((s.corequisitos ?? []).includes(m.codigo)) coReqCodes.add(s.codigo);
       }
       const novas = selecionadas.filter(
-        (s) => !(s.codigo === m.codigo && s.turma === m.turma) && !coReqCodes.has(s.codigo)
+        (s) =>
+          !(s.codigo === m.codigo && s.turma === m.turma) && !coReqCodes.has(s.codigo)
       );
-      gradeStore.setSelecionadas(novas.map((s) => ({ codigo: s.codigo, turma: s.turma })));
+      gradeStore.setSelecionadas(
+        novas.map((s) => ({ codigo: s.codigo, turma: s.turma }))
+      );
     } else {
       const toAdd: Materia[] = [m];
-      for (const coReqCode of (m.corequisitos ?? [])) {
+      for (const coReqCode of m.corequisitos ?? []) {
         if (selecionadas.some((s) => s.codigo === coReqCode)) continue;
 
         // Matching por turma: prefixo (1ª letra) + índice ordinal
         const prefix = m.turma[0];
 
         // Turmas únicas da disciplina selecionada com mesmo prefixo, ordenadas
-        const myTurmas = Array.from(new Set(
-          materias.filter((x) => x.codigo === m.codigo && x.turma[0] === prefix).map((x) => x.turma)
-        )).sort();
+        const myTurmas = Array.from(
+          new Set(
+            materias
+              .filter((x) => x.codigo === m.codigo && x.turma[0] === prefix)
+              .map((x) => x.turma)
+          )
+        ).sort();
         const myIdx = myTurmas.indexOf(m.turma);
 
         // Turmas únicas do co-req com mesmo prefixo, ordenadas
-        const coReqTurmas = Array.from(new Set(
-          materias.filter((x) => x.codigo === coReqCode && x.turma[0] === prefix).map((x) => x.turma)
-        )).sort();
+        const coReqTurmas = Array.from(
+          new Set(
+            materias
+              .filter((x) => x.codigo === coReqCode && x.turma[0] === prefix)
+              .map((x) => x.turma)
+          )
+        ).sort();
 
         let coReq: Materia | undefined;
         if (myIdx >= 0 && myIdx < coReqTurmas.length) {
-          coReq = materias.find((x) => x.codigo === coReqCode && x.turma === coReqTurmas[myIdx]);
+          coReq = materias.find(
+            (x) => x.codigo === coReqCode && x.turma === coReqTurmas[myIdx]
+          );
         } else {
           // Fallback: primeiro co-req com mesmo prefixo, ou qualquer turma
-          coReq = materias.find((x) => x.codigo === coReqCode && x.turma[0] === prefix)
-            || materias.find((x) => x.codigo === coReqCode);
+          coReq =
+            materias.find((x) => x.codigo === coReqCode && x.turma[0] === prefix) ||
+            materias.find((x) => x.codigo === coReqCode);
         }
 
         if (coReq) toAdd.push(coReq);
       }
       const novas = [...selecionadas, ...toAdd];
-      gradeStore.setSelecionadas(novas.map((s) => ({ codigo: s.codigo, turma: s.turma })));
+      gradeStore.setSelecionadas(
+        novas.map((s) => ({ codigo: s.codigo, turma: s.turma }))
+      );
       if (toAdd.length > 1) {
-        showToast(`Co-req adicionado: ${toAdd.slice(1).map((x) => x.nome).join(", ")}`);
+        showToast(
+          `Co-req adicionado: ${toAdd
+            .slice(1)
+            .map((x) => x.nome)
+            .join(", ")}`
+        );
       }
     }
     if (isLateral && !gradeAberta) {
@@ -476,9 +567,12 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
     }
   }
 
-  const togglePeriodo = useCallback((gKey: string) => {
-    gradeStore.togglePeriodo(gKey);
-  }, [gradeStore]);
+  const togglePeriodo = useCallback(
+    (gKey: string) => {
+      gradeStore.togglePeriodo(gKey);
+    },
+    [gradeStore]
+  );
 
   const temFiltroAtivo =
     busca.trim().length > 0 ||
@@ -497,11 +591,13 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       : "📅 Grade";
 
   const widgetPosClass =
-    widgetPos === 'center' ? styles.widget_center
-    : widgetPos === 'left' ? styles.widget_left
-    : styles.widget_right;
+    widgetPos === "center"
+      ? styles.widget_center
+      : widgetPos === "left"
+        ? styles.widget_left
+        : styles.widget_right;
 
-  function renderCard(m: Materia, keyPrefix: string = '') {
+  function renderCard(m: Materia, keyPrefix: string = "") {
     const key = `${m.codigo}-${m.turma}`;
     const sel = isSelecionada(m);
     const conflito = !sel && temConflito(m);
@@ -517,7 +613,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           sel ? styles.itemSel : "",
           conflito ? styles.itemConflito : "",
           aprovada ? styles.itemAprovado : "",
-        ].filter(Boolean).join(" ")}
+        ]
+          .filter(Boolean)
+          .join(" ")}
         onClick={() => !conflito && !aprovada && toggle(m)}
       >
         <div
@@ -529,21 +627,45 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
         <div className={styles.itemInfo}>
           <div className={styles.itemNomeRow}>
-            <span className={styles.itemNome}>
-              {m.nome}
-            </span>
+            <span className={styles.itemNome}>{m.nome}</span>
             {m.nome_exibicao && (
               <ProfTag
                 nomeExibicao={m.nome_exibicao}
                 nomeCompleto={nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}
-                confirmedEmail={professorEmailMap[nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao]}
+                confirmedEmail={
+                  professorEmailMap[nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao]
+                }
                 alreadySubmitted={emailSubmitted[m.nome_exibicao]}
-                onSuggestEmail={() => openEmailModal(m.nome_exibicao, nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao)}
+                onSuggestEmail={() =>
+                  openEmailModal(
+                    m.nome_exibicao,
+                    nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao
+                  )
+                }
                 codigoDisciplina={m.codigo}
-                difficultyAvg={difficultyMap[`${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`]?.avg}
-                difficultyCount={difficultyMap[`${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`]?.count}
-                difficultySubmitted={difficultySubmitted[`${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`]}
-                onContributeDifficulty={() => openDifficultyModal(m.nome_exibicao, nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao, m.codigo, m.nome)}
+                difficultyAvg={
+                  difficultyMap[
+                    `${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`
+                  ]?.avg
+                }
+                difficultyCount={
+                  difficultyMap[
+                    `${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`
+                  ]?.count
+                }
+                difficultySubmitted={
+                  difficultySubmitted[
+                    `${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`
+                  ]
+                }
+                onContributeDifficulty={() =>
+                  openDifficultyModal(
+                    m.nome_exibicao,
+                    nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao,
+                    m.codigo,
+                    m.nome
+                  )
+                }
                 onCopy={() => {
                   const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
                   const email = professorEmailMap[docente];
@@ -558,31 +680,29 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           </div>
           <div className={styles.itemMetaWrapper}>
             <div className={styles.itemMeta}>
-            <div className={styles.metaRow}>
-              <span className={styles.metaKey}>Cód.</span>
-              <span>{m.codigo}</span>
-            </div>
-            <div className={styles.metaRow}>
-              <span className={styles.metaKey}>Turma</span>
-              <span>{m.turma}</span>
-            </div>
-            <div className={styles.metaRow}>
-              <span className={styles.metaKey}>CH</span>
-              <span>{m.ch != null ? `${m.ch}h` : "—"}</span>
-            </div>
-            {diasAtivos.map((d) => (
-              <div key={d} className={styles.metaRow}>
-                <span className={styles.metaKey}>{DIAS_LABEL[d]}</span>
-                <span>{m.horarios[d]}</span>
+              <div className={styles.metaRow}>
+                <span className={styles.metaKey}>Cód.</span>
+                <span>{m.codigo}</span>
               </div>
-            ))}
-          </div>
-          <span className={styles.tipoBadge}>
-            {m.tipo === "obrigatoria" ? "Obrigatória" : "Optativa"}
-          </span>
-          {aprovada && (
-            <span className={styles.tipoBadgeAprovado}>Aprovado</span>
-          )}
+              <div className={styles.metaRow}>
+                <span className={styles.metaKey}>Turma</span>
+                <span>{m.turma}</span>
+              </div>
+              <div className={styles.metaRow}>
+                <span className={styles.metaKey}>CH</span>
+                <span>{m.ch != null ? `${m.ch}h` : "—"}</span>
+              </div>
+              {diasAtivos.map((d) => (
+                <div key={d} className={styles.metaRow}>
+                  <span className={styles.metaKey}>{DIAS_LABEL[d]}</span>
+                  <span>{m.horarios[d]}</span>
+                </div>
+              ))}
+            </div>
+            <span className={styles.tipoBadge}>
+              {m.tipo === "obrigatoria" ? "Obrigatória" : "Optativa"}
+            </span>
+            {aprovada && <span className={styles.tipoBadgeAprovado}>Aprovado</span>}
           </div>
           {m.link && (
             <a
@@ -603,10 +723,14 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
   return (
     <div
       className={styles.wrapper}
-      style={isLateral && expanded && !isMobile ? {
-        paddingRight: widgetPos === 'right' ? widgetWidth + 16 : undefined,
-        paddingLeft: widgetPos === 'left' ? widgetWidth + 16 : undefined,
-      } : undefined}
+      style={
+        isLateral && expanded && !isMobile
+          ? {
+              paddingRight: widgetPos === "right" ? widgetWidth + 16 : undefined,
+              paddingLeft: widgetPos === "left" ? widgetWidth + 16 : undefined,
+            }
+          : undefined
+      }
     >
       {/* Header */}
       <header className={styles.header}>
@@ -627,15 +751,33 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           <button
             className={styles.themeToggle}
             onClick={toggleTema}
-            aria-label={tema === 'light' ? 'Ativar modo noturno' : 'Ativar modo claro'}
-            title={tema === 'light' ? 'Modo noturno' : 'Modo claro'}
+            aria-label={tema === "light" ? "Ativar modo noturno" : "Ativar modo claro"}
+            title={tema === "light" ? "Modo noturno" : "Modo claro"}
           >
-            {tema === 'light' ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            {tema === "light" ? (
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
               </svg>
             ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <circle cx="12" cy="12" r="5" />
                 <line x1="12" y1="1" x2="12" y2="3" />
                 <line x1="12" y1="21" x2="12" y2="23" />
@@ -670,20 +812,30 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
         </div>
 
         {/* Filter panel — collapsible */}
-        <div className={`${styles.filtroPanel} ${filtrosAberto ? styles.filtroPanelAberto : ""}`}>
+        <div
+          className={`${styles.filtroPanel} ${filtrosAberto ? styles.filtroPanelAberto : ""}`}
+        >
           {aprovadas.size > 0 && (
             <div className={styles.filtroGrupo}>
               <span className={styles.filtroLabel}>Cursado</span>
               <div className={styles.filtroChips}>
                 <button
                   className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "nao" ? styles.filtroChipAtivo : ""}`}
-                  onClick={() => gradeStore.setJaCursadoFiltro(gradeStore.jaCursadoFiltro === "nao" ? null : "nao")}
+                  onClick={() =>
+                    gradeStore.setJaCursadoFiltro(
+                      gradeStore.jaCursadoFiltro === "nao" ? null : "nao"
+                    )
+                  }
                 >
                   Não
                 </button>
                 <button
                   className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "sim" ? styles.filtroChipAtivo : ""}`}
-                  onClick={() => gradeStore.setJaCursadoFiltro(gradeStore.jaCursadoFiltro === "sim" ? null : "sim")}
+                  onClick={() =>
+                    gradeStore.setJaCursadoFiltro(
+                      gradeStore.jaCursadoFiltro === "sim" ? null : "sim"
+                    )
+                  }
                 >
                   Sim
                 </button>
@@ -746,13 +898,17 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
             <div className={styles.filtroChips}>
               <button
                 className={`${styles.filtroChip} ${tipoFiltro === "obrigatoria" ? styles.filtroChipAtivo : ""}`}
-                onClick={() => setTipoFiltro((prev) => prev === "obrigatoria" ? null : "obrigatoria")}
+                onClick={() =>
+                  setTipoFiltro((prev) => (prev === "obrigatoria" ? null : "obrigatoria"))
+                }
               >
                 Obrigatória
               </button>
               <button
                 className={`${styles.filtroChip} ${tipoFiltro === "optativa" ? styles.filtroChipAtivo : ""}`}
-                onClick={() => setTipoFiltro((prev) => prev === "optativa" ? null : "optativa")}
+                onClick={() =>
+                  setTipoFiltro((prev) => (prev === "optativa" ? null : "optativa"))
+                }
               >
                 Optativa
               </button>
@@ -773,7 +929,6 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
               ))}
             </div>
           </div>
-
         </div>
 
         <div className={styles.statusBar}>
@@ -801,8 +956,8 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
             const label = gKey.match(/^\d+$/)
               ? `${gKey}° Período`
               : gKey === "obrig-np"
-              ? "Obrigatórias — Sem Período"
-              : "Optativas";
+                ? "Obrigatórias — Sem Período"
+                : "Optativas";
             const colapsado = !temFiltroAtivo && periodosColapsados.has(gKey);
             return (
               <React.Fragment key={gKey}>
@@ -815,16 +970,31 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
                 >
                   {label}
                   <svg
-                    className={[styles.chevronPeriodo, colapsado ? styles.chevronPeriodoCollapsed : ""].filter(Boolean).join(" ")}
-                    width="12" height="12" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor"
-                    strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    className={[
+                      styles.chevronPeriodo,
+                      colapsado ? styles.chevronPeriodoCollapsed : "",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </li>
                 <li
-                  className={[styles.periodItemsWrapper, colapsado ? styles.periodItemsWrapperCollapsed : ""].filter(Boolean).join(" ")}
+                  className={[
+                    styles.periodItemsWrapper,
+                    colapsado ? styles.periodItemsWrapperCollapsed : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
                   aria-hidden={colapsado}
                 >
                   <ul className={styles.periodItemsList}>
@@ -839,39 +1009,57 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
 
       {/* Floating grade widget */}
       <div
-        className={`${styles.widget} ${widgetPosClass} ${!expanded ? styles.widgetCollapsed : styles.widgetExpanded}${widgetPeeking && !expanded ? ` ${styles.widgetPeeking}` : ''}`}
+        className={`${styles.widget} ${widgetPosClass} ${!expanded ? styles.widgetCollapsed : styles.widgetExpanded}${widgetPeeking && !expanded ? ` ${styles.widgetPeeking}` : ""}`}
         style={isLateral ? { width: widgetWidth } : undefined}
       >
         {/* Resize handle for lateral mode */}
         {isLateral && (
           <div
-            className={`${styles.resizeHandle} ${widgetPos === 'left' ? styles.resizeHandleRight : styles.resizeHandleLeft}`}
+            className={`${styles.resizeHandle} ${widgetPos === "left" ? styles.resizeHandleRight : styles.resizeHandleLeft}`}
             onMouseDown={handleResizeStart}
           />
         )}
 
         {/* Handle — always visible */}
-        <div
-          className={styles.handle}
-          onClick={() => setGradeAberta((prev) => !prev)}
-        >
+        <div className={styles.handle} onClick={() => setGradeAberta((prev) => !prev)}>
           {handleLabel}
           <span className={styles.handleSpacer} />
           {selecionadas.length > 0 && (
             <div className={styles.actionBtns}>
               <button
-                className={`${styles.posBtn} ${legendaVisivel ? styles.posBtnAtivo : ''}`}
-                onClick={(e) => { e.stopPropagation(); setLegendaVisivel((v) => !v); }}
+                className={`${styles.posBtn} ${legendaVisivel ? styles.posBtnAtivo : ""}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLegendaVisivel((v) => !v);
+                }}
                 aria-label={legendaVisivel ? "Ocultar legenda" : "Exibir legenda"}
                 title={legendaVisivel ? "Ocultar legenda" : "Exibir legenda"}
               >
                 {legendaVisivel ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
                 ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" />
                     <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" />
                     <line x1="1" y1="1" x2="23" y2="23" />
@@ -880,16 +1068,37 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
               </button>
               <button
                 className={styles.posBtn}
-                onClick={(e) => { e.stopPropagation(); handleCopiar(); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCopiar();
+                }}
                 aria-label="Copiar grade"
                 title="Copiar grade"
               >
                 {toastMsg === "Copiado!" ? (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                 ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
                     <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
                   </svg>
@@ -897,11 +1106,23 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
               </button>
               <button
                 className={styles.posBtn}
-                onClick={(e) => { e.stopPropagation(); handleExportarPDF(); }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleExportarPDF();
+                }}
                 aria-label="Imprimir grade"
                 title="Imprimir grade"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8" />
                   <polyline points="16 6 12 2 8 6" />
                   <line x1="12" y1="2" x2="12" y2="15" />
@@ -911,20 +1132,35 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           )}
           <div className={styles.posBtns}>
             <button
-              className={`${styles.posBtn} ${widgetPos === 'left' ? styles.posBtnAtivo : ''}`}
-              onClick={(e) => { e.stopPropagation(); setWidgetPos('left'); }}
+              className={`${styles.posBtn} ${widgetPos === "left" ? styles.posBtnAtivo : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setWidgetPos("left");
+              }}
               aria-label="Mover para esquerda"
-            >←</button>
+            >
+              ←
+            </button>
             <button
-              className={`${styles.posBtn} ${widgetPos === 'center' ? styles.posBtnAtivo : ''}`}
-              onClick={(e) => { e.stopPropagation(); setWidgetPos('center'); }}
+              className={`${styles.posBtn} ${widgetPos === "center" ? styles.posBtnAtivo : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setWidgetPos("center");
+              }}
               aria-label="Centralizar"
-            >·</button>
+            >
+              ·
+            </button>
             <button
-              className={`${styles.posBtn} ${widgetPos === 'right' ? styles.posBtnAtivo : ''}`}
-              onClick={(e) => { e.stopPropagation(); setWidgetPos('right'); }}
+              className={`${styles.posBtn} ${widgetPos === "right" ? styles.posBtnAtivo : ""}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                setWidgetPos("right");
+              }}
               aria-label="Mover para direita"
-            >→</button>
+            >
+              →
+            </button>
           </div>
         </div>
 
@@ -978,7 +1214,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
                         return (
                           <div
                             key={key}
-                            className={`${styles.bloco} ${!showLegenda ? styles.blocoExpanded : ''}`}
+                            className={`${styles.bloco} ${!showLegenda ? styles.blocoExpanded : ""}`}
                             style={{
                               top: `${top}%`,
                               height: `${height}%`,
@@ -989,7 +1225,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
                           >
                             <div className={styles.blocoHora}>{time.label}</div>
                             <div className={styles.blocoNome}>
-                              {showLegenda ? m.nome.split(" ").slice(0, 3).join(" ") : m.nome}
+                              {showLegenda
+                                ? m.nome.split(" ").slice(0, 3).join(" ")
+                                : m.nome}
                             </div>
                             {!showLegenda && m.nome_exibicao && (
                               <div className={styles.blocoProf}>{m.nome_exibicao}</div>
@@ -1013,7 +1251,9 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
                     <div key={key} className={styles.legendaItem}>
                       <div className={styles.legendaCor} style={{ background: color }} />
                       <div className={styles.legendaTexto}>
-                        <span className={styles.legendaNome} style={{ color }}>{m.nome}</span>
+                        <span className={styles.legendaNome} style={{ color }}>
+                          {m.nome}
+                        </span>
                         <span className={styles.legendaProf}>{m.nome_exibicao}</span>
                       </div>
                     </div>
@@ -1029,11 +1269,20 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
       {showScrollTop && (
         <button
           className={styles.scrollTopBtn}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Voltar ao topo"
           title="Voltar ao topo"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
             <polyline points="17 11 12 6 7 11" />
             <polyline points="17 18 12 13 7 18" />
           </svg>
@@ -1047,10 +1296,7 @@ export default function GradeHoraria({ materias, nomeCompletoMap = {}, professor
           onClick={closeEmailModal}
           onKeyDown={(e) => e.key === "Escape" && closeEmailModal()}
         >
-          <div
-            className={styles.modalBox}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className={styles.modalBox} onClick={(e) => e.stopPropagation()}>
             <p className={styles.modalProf}>{emailModal.docente}</p>
             <input
               className={styles.modalInput}

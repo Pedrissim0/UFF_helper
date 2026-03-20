@@ -9,14 +9,18 @@ Site utilitário para alunos de Economia da UFF. Acesse em: **[uff-helper.vercel
 | `/` | Grade horária — monte sua grade semanal, detecte conflitos, veja co-requisitos |
 | `/calculadora-cr` | Calculadora de CR — importe o histórico (CSV/XLSX) ou preencha manualmente; projeções por período |
 | `/controlador-faltas` | Controlador de faltas — acompanhe faltas por disciplina com limite legal (25%) |
+| `/roadmap` | Roadmap curricular — fluxograma horizontal da matriz com optativas interativas |
 
 **Mamatômetro** — avaliação de dificuldade por professor/disciplina (escala 0–5), integrado ao tooltip do ProfTag na Grade Horária e no Controlador de Faltas.
+
+**Footer global** — links de contato (GitHub, LinkedIn, WhatsApp) presentes em todas as páginas.
 
 ## Stack
 
 - **Next.js 14** (App Router, TypeScript, CSS Modules)
 - **Zustand** — estado global persistido no localStorage
 - **Supabase** — banco de dados de disciplinas e professores (leitura pública)
+- **Prettier + Husky + lint-staged** — formatação automática no pre-commit
 - **Vercel** — deploy automático a partir da branch `main`
 
 ## Estrutura
@@ -57,3 +61,9 @@ python parse_csv.py          # CSV da UFF → db_disciplinas.json
 python enrich_materias.py    # adiciona dados da matriz curricular
 python upload_to_supabase.py # sincroniza com Supabase
 ```
+
+## Contato
+
+- GitHub: [Pedrissim0](https://github.com/Pedrissim0)
+- LinkedIn: [Pedro Vitor Costa](https://www.linkedin.com/in/pedro-vitor-costa-770063188/)
+- WhatsApp: [+55 21 98679-3427](https://wa.me/5521986793427)

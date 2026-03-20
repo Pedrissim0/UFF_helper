@@ -28,21 +28,18 @@ const CATALOG: CatalogItem[] = Object.values(
       horarios: Record<string, string>;
       nome_exibicao?: string;
     }[]
-  ).reduce(
-    (acc: Record<string, CatalogItem>, d) => {
-      if (!acc[d.codigo]) {
-        acc[d.codigo] = {
-          codigo: d.codigo,
-          nome: d.nome,
-          ch: d.ch ?? 60,
-          horarios: d.horarios,
-          nome_exibicao: d.nome_exibicao || "",
-        };
-      }
-      return acc;
-    },
-    {}
-  )
+  ).reduce((acc: Record<string, CatalogItem>, d) => {
+    if (!acc[d.codigo]) {
+      acc[d.codigo] = {
+        codigo: d.codigo,
+        nome: d.nome,
+        ch: d.ch ?? 60,
+        horarios: d.horarios,
+        nome_exibicao: d.nome_exibicao || "",
+      };
+    }
+    return acc;
+  }, {})
 );
 
 /* ── Helpers ─────────────────────────────────────── */
@@ -73,14 +70,18 @@ interface Props {
   difficultyMap?: Record<string, { avg: number; count: number }>;
 }
 
-export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, difficultyMap = {} }: Props) {
+export default function ControladorFaltas({
+  nomeCompletoMap,
+  professorEmailMap,
+  difficultyMap = {},
+}: Props) {
   const { tema, toggleTema, _hydrateTheme } = useUIStore();
   const faltasStore = useFaltasStore();
   const disciplinas = faltasStore.disciplinas;
 
   // Banner de migração (snackbar)
-  const [bannerShown, setBannerShown] = useState(false);   // controla renderização
-  const [bannerIn, setBannerIn] = useState(false);          // controla slide-in/out
+  const [bannerShown, setBannerShown] = useState(false); // controla renderização
+  const [bannerIn, setBannerIn] = useState(false); // controla slide-in/out
   const [migrationSnapshot, setMigrationSnapshot] = useState<DisciplinaFalta[]>([]);
   const bannerAutoRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const bannerExitRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -89,7 +90,9 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
   const [busca, setBusca] = useState("");
   const [sugestoes, setSugestoes] = useState<CatalogItem[]>([]);
   const [sugestaoVisivel, setSugestaoVisivel] = useState(false);
-  const [chipsSelecionados, setChipsSelecionados] = useState<Map<string, string>>(new Map()); // codigo → nome
+  const [chipsSelecionados, setChipsSelecionados] = useState<Map<string, string>>(
+    new Map()
+  ); // codigo → nome
   const buscaRef = useRef<HTMLInputElement>(null);
 
   // Toast
@@ -98,20 +101,32 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
   const toastKeyRef = useRef(0);
 
   // Modal de email
-  const [emailModal, setEmailModal] = useState<{ displayName: string; docente: string } | null>(null);
+  const [emailModal, setEmailModal] = useState<{
+    displayName: string;
+    docente: string;
+  } | null>(null);
   const [modalEmail, setModalEmail] = useState("");
   const [modalError, setModalError] = useState("");
   const [modalSubmitting, setModalSubmitting] = useState(false);
   const [emailSubmitted, setEmailSubmitted] = useState<Record<string, boolean>>({});
 
   // Difficulty (Mamatômetro)
-  const [difficultySubmitted, setDifficultySubmitted] = useState<Record<string, boolean>>({});
-  const [difficultyModal, setDifficultyModal] = useState<{ displayName: string; docente: string; codigoDisciplina: string; nomeDisciplina: string } | null>(null);
+  const [difficultySubmitted, setDifficultySubmitted] = useState<Record<string, boolean>>(
+    {}
+  );
+  const [difficultyModal, setDifficultyModal] = useState<{
+    displayName: string;
+    docente: string;
+    codigoDisciplina: string;
+    nomeDisciplina: string;
+  } | null>(null);
   const [sliderValue, setSliderValue] = useState(3);
   const [difficultySubmitting, setDifficultySubmitting] = useState(false);
   const [difficultyError, setDifficultyError] = useState("");
 
-  useEffect(() => { _hydrateTheme(); }, [_hydrateTheme]);
+  useEffect(() => {
+    _hydrateTheme();
+  }, [_hydrateTheme]);
 
   /* ── Toast ───────────────────────────────── */
   const showToast = useCallback((msg: string) => {
@@ -165,11 +180,19 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
     }
   }, [emailModal, modalEmail, closeEmailModal, showToast]);
 
-  const openDifficultyModal = useCallback((displayName: string, docente: string, codigoDisciplina: string, nomeDisciplina: string) => {
-    setDifficultyModal({ displayName, docente, codigoDisciplina, nomeDisciplina });
-    setSliderValue(3);
-    setDifficultyError("");
-  }, []);
+  const openDifficultyModal = useCallback(
+    (
+      displayName: string,
+      docente: string,
+      codigoDisciplina: string,
+      nomeDisciplina: string
+    ) => {
+      setDifficultyModal({ displayName, docente, codigoDisciplina, nomeDisciplina });
+      setSliderValue(3);
+      setDifficultyError("");
+    },
+    []
+  );
 
   const closeDifficultyModal = useCallback(() => {
     setDifficultyModal(null);
@@ -195,7 +218,7 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
 
       if (res.ok) {
         const key = `${difficultyModal.docente}:${difficultyModal.codigoDisciplina}`;
-        setDifficultySubmitted(prev => ({ ...prev, [key]: true }));
+        setDifficultySubmitted((prev) => ({ ...prev, [key]: true }));
         closeDifficultyModal();
         showToast("Obrigado! Seu voto foi registrado.");
       } else {
@@ -213,9 +236,9 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
   useEffect(() => {
     const tryMigrate = () => {
       if (useFaltasStore.getState().disciplinas.length > 0) return;
-      const projecoes = useCalculadoraStore.getState().disciplinas.filter(
-        (d) => d.isProjecao === true
-      );
+      const projecoes = useCalculadoraStore
+        .getState()
+        .disciplinas.filter((d) => d.isProjecao === true);
       if (projecoes.length > 0) {
         const migradas = projecoes.map((p) => {
           const cat = CATALOG.find((c) => c.codigo === p.codigo);
@@ -232,7 +255,7 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
     } else {
       return useFaltasStore.persist.onFinishHydration(tryMigrate);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* ── Autocomplete ────────────────────────── */
@@ -292,17 +315,26 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
   }, [chipsSelecionados, disciplinas, faltasStore]);
 
   /* ── Contador ────────────────────────────── */
-  const incrementar = useCallback((codigo: string) => {
-    faltasStore.incrementar(codigo);
-  }, [faltasStore]);
+  const incrementar = useCallback(
+    (codigo: string) => {
+      faltasStore.incrementar(codigo);
+    },
+    [faltasStore]
+  );
 
-  const decrementar = useCallback((codigo: string) => {
-    faltasStore.decrementar(codigo);
-  }, [faltasStore]);
+  const decrementar = useCallback(
+    (codigo: string) => {
+      faltasStore.decrementar(codigo);
+    },
+    [faltasStore]
+  );
 
-  const removerDisciplina = useCallback((codigo: string) => {
-    faltasStore.remover(codigo);
-  }, [faltasStore]);
+  const removerDisciplina = useCallback(
+    (codigo: string) => {
+      faltasStore.remover(codigo);
+    },
+    [faltasStore]
+  );
 
   /* ── Banner helpers ──────────────────────── */
   const dismissBanner = useCallback(() => {
@@ -345,7 +377,7 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
           <h1 className={styles.titulo}>Controlador de Faltas</h1>
         </div>
         <div className={styles.headerActions}>
-          <Link href="/" className={styles.navLink}>
+          <Link href="/grade" className={styles.navLink}>
             Grade Horária
           </Link>
           <Link href="/calculadora-cr" className={styles.navLink}>
@@ -361,11 +393,29 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
             title={tema === "light" ? "Modo noturno" : "Modo claro"}
           >
             {tema === "light" ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
               </svg>
             ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <circle cx="12" cy="12" r="5" />
                 <line x1="12" y1="1" x2="12" y2="3" />
                 <line x1="12" y1="21" x2="12" y2="23" />
@@ -449,9 +499,7 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
         {disciplinas.length === 0 ? (
           <div className={styles.empty}>
             <span className={styles.emptyIcon}>📋</span>
-            <p className={styles.emptyText}>
-              Nenhuma disciplina adicionada.
-            </p>
+            <p className={styles.emptyText}>Nenhuma disciplina adicionada.</p>
             <p className={styles.emptyHint}>
               Busque e selecione disciplinas para acompanhar suas faltas.
             </p>
@@ -469,31 +517,43 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
                   {/* Esquerda: nome + prof */}
                   <div className={styles.cardLeft}>
                     <span className={styles.cardNome}>{d.nome}</span>
-                    {d.professor_id && (() => {
-                      const docente = nomeCompletoMap[d.professor_id] || d.professor_id;
-                      const confirmedEmail = professorEmailMap[docente];
-                      return (
-                        <ProfTag
-                          nomeExibicao={d.professor_id}
-                          nomeCompleto={docente}
-                          confirmedEmail={confirmedEmail}
-                          alreadySubmitted={emailSubmitted[d.professor_id]}
-                          onSuggestEmail={() => openEmailModal(d.professor_id, docente)}
-                          codigoDisciplina={d.codigo}
-                          difficultyAvg={difficultyMap[`${docente}:${d.codigo}`]?.avg}
-                          difficultyCount={difficultyMap[`${docente}:${d.codigo}`]?.count}
-                          difficultySubmitted={difficultySubmitted[`${docente}:${d.codigo}`]}
-                          onContributeDifficulty={() => openDifficultyModal(d.professor_id, docente, d.codigo, d.nome)}
-                          onCopy={() => {
-                            const copyText = confirmedEmail
-                              ? `Professor: ${docente} | Email: ${confirmedEmail}`
-                              : docente;
-                            navigator.clipboard.writeText(copyText);
-                            showToast("Copiado!");
-                          }}
-                        />
-                      );
-                    })()}
+                    {d.professor_id &&
+                      (() => {
+                        const docente = nomeCompletoMap[d.professor_id] || d.professor_id;
+                        const confirmedEmail = professorEmailMap[docente];
+                        return (
+                          <ProfTag
+                            nomeExibicao={d.professor_id}
+                            nomeCompleto={docente}
+                            confirmedEmail={confirmedEmail}
+                            alreadySubmitted={emailSubmitted[d.professor_id]}
+                            onSuggestEmail={() => openEmailModal(d.professor_id, docente)}
+                            codigoDisciplina={d.codigo}
+                            difficultyAvg={difficultyMap[`${docente}:${d.codigo}`]?.avg}
+                            difficultyCount={
+                              difficultyMap[`${docente}:${d.codigo}`]?.count
+                            }
+                            difficultySubmitted={
+                              difficultySubmitted[`${docente}:${d.codigo}`]
+                            }
+                            onContributeDifficulty={() =>
+                              openDifficultyModal(
+                                d.professor_id,
+                                docente,
+                                d.codigo,
+                                d.nome
+                              )
+                            }
+                            onCopy={() => {
+                              const copyText = confirmedEmail
+                                ? `Professor: ${docente} | Email: ${confirmedEmail}`
+                                : docente;
+                              navigator.clipboard.writeText(copyText);
+                              showToast("Copiado!");
+                            }}
+                          />
+                        );
+                      })()}
                     <span className={styles.cardMeta}>
                       {d.carga_horaria}h · {d.aulas_por_semana}×/sem
                     </span>
@@ -554,7 +614,9 @@ export default function ControladorFaltas({ nomeCompletoMap, professorEmailMap, 
       {bannerShown && (
         <div className={`${styles.snackbar} ${bannerIn ? styles.snackbarIn : ""}`}>
           <span className={styles.snackbarText}>
-            {migrationSnapshot.length} disciplina{migrationSnapshot.length !== 1 ? "s" : ""} importada{migrationSnapshot.length !== 1 ? "s" : ""} das suas projeções.
+            {migrationSnapshot.length} disciplina
+            {migrationSnapshot.length !== 1 ? "s" : ""} importada
+            {migrationSnapshot.length !== 1 ? "s" : ""} das suas projeções.
           </span>
           <div className={styles.snackbarActions}>
             <button className={styles.snackbarUndo} onClick={desfazerMigracao}>
