@@ -1,4 +1,4 @@
-import type { Materia } from "@/app/page";
+import type { Materia } from "@/app/grade/page";
 
 type Dia = keyof Materia["horarios"];
 
@@ -40,9 +40,7 @@ export function filtrarDisciplinas(
   }
 
   if (filtros.dias.size > 0) {
-    result = result.filter((m) =>
-      DIAS.some((d) => filtros.dias.has(d) && m.horarios[d])
-    );
+    result = result.filter((m) => DIAS.some((d) => filtros.dias.has(d) && m.horarios[d]));
   }
 
   if (filtros.turnos.size > 0) {
