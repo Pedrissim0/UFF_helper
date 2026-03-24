@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./NameContest.module.css";
 
 const CONTEST_ACTIVE = true;
-const LS_KEY = "name-contest-dismissed";
+const SS_KEY = "name-contest-dismissed";
 
 interface Suggestion {
   id: string;
@@ -38,7 +38,7 @@ export default function NameContest({ suggestions: initialSuggestions }: Props) 
 
   useEffect(() => {
     if (!CONTEST_ACTIVE) return;
-    const dismissed = localStorage.getItem(LS_KEY);
+    const dismissed = sessionStorage.getItem(SS_KEY);
     if (dismissed !== "true") {
       setIsVisible(true);
     }
@@ -48,7 +48,7 @@ export default function NameContest({ suggestions: initialSuggestions }: Props) 
 
   function handleClose() {
     setIsVisible(false);
-    localStorage.setItem(LS_KEY, "true");
+    sessionStorage.setItem(SS_KEY, "true");
   }
 
   function handleOverlayClick(e: React.MouseEvent) {
