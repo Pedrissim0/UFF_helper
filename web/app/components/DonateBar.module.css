@@ -1,0 +1,302 @@
+/* ── Top bar ───────────────────────────────────── */
+.bar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-medium);
+  padding: 8px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.barInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.progressSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.progressTrack {
+  width: 120px;
+  height: 6px;
+  background: var(--border-medium);
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+  min-width: 2px;
+}
+
+.progressLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.donateBtn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.donateBtn:hover {
+  opacity: 0.85;
+}
+
+/* ── Modal ──────────────────────────────────────── */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 16px;
+}
+
+.modalBox {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 380px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="dark"] .modalBox {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.modalTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.closeBtn:hover {
+  color: var(--text-primary);
+}
+
+.modalDesc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+/* ── Amount selection ──────────────────────────── */
+.amountRow {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.amountBtn {
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+}
+
+.amountBtn:hover {
+  border-color: var(--accent);
+}
+
+.amountBtnActive {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Custom amount ─────────────────────────────── */
+.customRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: 0 10px;
+  transition: border-color 0.15s;
+}
+
+.customRow:focus-within {
+  border-color: var(--accent);
+}
+
+.currencyPrefix {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.customInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  padding: 8px 0;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.customInput::placeholder {
+  color: var(--text-placeholder);
+}
+
+/* ── Name input ────────────────────────────────── */
+.nameInput {
+  width: 100%;
+  font-size: 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  outline: none;
+  margin-bottom: 12px;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.nameInput:focus {
+  border-color: var(--accent);
+}
+
+.nameInput::placeholder {
+  color: var(--text-placeholder);
+}
+
+/* ── Submit ────────────────────────────────────── */
+.submitBtn {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitBtn:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.errorMsg {
+  font-size: 11px;
+  color: #e11d48;
+  margin: 0 0 8px;
+}
+
+[data-theme="dark"] .errorMsg {
+  color: #fb7185;
+}
+
+.footerNote {
+  font-size: 10px;
+  color: var(--text-placeholder);
+  text-align: center;
+  margin: 10px 0 0;
+}
+
+/* ── Mobile ────────────────────────────────────── */
+@media (max-width: 639px) {
+  .bar {
+    padding: 6px 16px;
+  }
+
+  .barInner {
+    gap: 10px;
+  }
+
+  .progressTrack {
+    width: 60px;
+  }
+
+  .progressLabel {
+    font-size: 10px;
+  }
+
+  .donateBtn {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
+  .modalBox {
+    max-width: 100%;
+    border-radius: 16px 16px 0 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 20px 36px;
+  }
+
+  .modalBackdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+}

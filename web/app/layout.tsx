@@ -3,6 +3,8 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Footer from "./components/Footer";
+import DonateBar from "./components/DonateBar";
+import { supabase } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://uff-helper.vercel.app"),
@@ -26,14 +28,24 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+const MONTHLY_COST_CENTS = Number(process.env.NEXT_PUBLIC_MONTHLY_COST_CENTS || "5000");
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { data } = await supabase.from("donations").select("amount").eq("status", "PAID");
+
+  const totalCents = (data ?? []).reduce(
+    (sum: number, row: { amount: number }) => sum + row.amount,
+    0
+  );
+
   return (
     <html lang="pt-BR">
       <body>
+        <DonateBar totalCents={totalCents} monthlyCostCents={MONTHLY_COST_CENTS} />
         {children}
         <Footer />
         <Analytics />
