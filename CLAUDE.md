@@ -83,6 +83,10 @@ Dados da matriz curricular usados pelo Roadmap:
 - /web/lib/calcularColunas.ts → alinhamento de cadeias de pré-requisitos
 - /web/lib/calcularEstadoDisciplina.ts → estado visual: aprovado/desbloqueado/bloqueado/normal
 - /web/lib/formatarNomeDisciplina.ts → Title Case com suporte a numerais romanos
+- /web/lib/hashFile.ts → SHA-256 hash para dedup de uploads
+- /web/types/discipline-files.ts → tipos do sistema de materiais
+- /web/app/roadmap/DisciplineDetailModal.tsx → modal de detalhes + aba materiais
+- /web/app/api/discipline-files/route.ts → upload de PDFs
 
 ## Mamatômetro — Avaliação de Dificuldade por Professor/Disciplina
 Crowdsourcing de dificuldade via tooltip do ProfTag → modal com slider → API route → Supabase.
@@ -107,12 +111,48 @@ O roadmap suporta seleção de optativas dentro de cada período:
 - Card inferior desaparece quando o período está completo
 - Legenda de cores no rodapé da página
 
+## Upload de Materiais por Disciplina
+Upload e download de provas, listas, resumos, apostilas e VS em PDF, vinculados a disciplina + professor.
+
+### Tabelas Supabase
+- `discipline_files`: metadados (id, disciplina_codigo, file_type, label, file_path, file_size, file_hash, ip, downloads_count, flagged, periodo, professor_nome, created_at) com UNIQUE(disciplina_codigo, file_hash)
+- `discipline_file_reports`: denúncias (file_id, ip, reason) com UNIQUE(file_id, ip); 3 reports → auto-flag
+
+### Storage
+- Bucket privado `discipline-files` no Supabase Storage
+- Download via signed URLs (60s) geradas server-side
+- `file_path`, `ip`, `file_hash` nunca expostos ao client
+
+### API Routes
+- `POST /api/discipline-files` — upload com rate limit (5/24h por IP), validação MIME (%PDF), dedup por SHA-256
+- `GET /api/discipline-files/[id]` — download (incrementa contador, redirect signed URL)
+- `POST /api/discipline-files/[id]/report` — denúncia com motivo, auto-flag em 3
+
+### Categorias de arquivo
+- `prova` (label obrigatório: "P1 - Nome da Disciplina"), `lista`, `resumo`, `apostila`, `vs`
+
+### Frontend
+- `web/app/roadmap/DisciplineDetailModal.tsx` — modal extraído do Roadmap com abas "Informações" + "Materiais"
+- Seletor de professor (todos que ofertaram a disciplina, via query em `disciplinas`)
+- Campo período (formato "2026.1")
+- Filtro por professor na listagem
+- Report com dropdown de motivos (fixo acima do modal)
+- `web/types/discipline-files.ts` — tipos FileMetadata, FilesMap, ProfessorsPerDiscMap
+- `web/lib/hashFile.ts` — SHA-256 client-side via crypto.subtle
+
+## Grade Horária — Ordenação por Dificuldade
+- Botão na statusBar cicla: null → "dificuldade-desc" → "dificuldade-asc" → null
+- Ordena disciplinas dentro de cada grupo de período pela média do Mamatômetro
+- Disciplinas sem avaliação vão pro final da lista
+
 ## Status
 - [x] Grade Horária (MVP completo)
 - [x] Calculadora de CR
 - [x] Controlador de Faltas
 - [x] Roadmap Curricular (fluxograma horizontal + optativas interativas)
 - [x] Mamatômetro (avaliação de dificuldade por professor/disciplina)
+- [x] Upload de Materiais (provas, listas, resumos, apostilas, VS por disciplina)
+- [x] Ordenação por dificuldade na grade horária
 - [x] Deploy na Vercel
 - [x] Error boundaries (error.tsx + not-found.tsx)
 - [x] Prettier + Husky + lint-staged

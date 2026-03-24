@@ -17,6 +17,8 @@ import {
 import { calcularColunas, calcularTotalColunas } from "@/lib/calcularColunas";
 import { formatarNomeDisciplina } from "@/lib/formatarNomeDisciplina";
 import { calcularEstadoDisciplina } from "@/lib/calcularEstadoDisciplina";
+import DisciplineDetailModal from "./DisciplineDetailModal";
+import type { FilesMap, ProfessorsPerDiscMap } from "@/types/discipline-files";
 
 const periodos = curriculoRaw.periodos as PeriodoData[];
 
@@ -115,7 +117,15 @@ function buildArrowPath(c: { x1: number; y1: number; x2: number; y2: number }): 
   return `M${c.x1},${c.y1} H${midX} V${c.y2} H${c.x2}`;
 }
 
-export default function Roadmap() {
+interface RoadmapProps {
+  initialFilesMap?: FilesMap;
+  professorsPerDisc?: ProfessorsPerDiscMap;
+}
+
+export default function Roadmap({
+  initialFilesMap = {},
+  professorsPerDisc = {},
+}: RoadmapProps) {
   const { tema, toggleTema, _hydrateTheme } = useUIStore();
   const aprovadas = useDisciplinasStore((s) => s.aprovadas);
 
@@ -1026,110 +1036,14 @@ export default function Roadmap() {
 
       {/* ── Detail modal / bottom sheet ── */}
       {selectedDisc && (
-        <div
-          className={styles.modalBackdrop}
-          onClick={handleCloseModal}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Detalhes de ${formatarNomeDisciplina(selectedDisc.nome)}`}
-        >
-          <div className={styles.modalPanel} onClick={(e) => e.stopPropagation()}>
-            <button
-              className={styles.modalClose}
-              onClick={handleCloseModal}
-              aria-label="Fechar"
-              title="Fechar"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            </button>
-
-            <h2 className={styles.modalNome}>
-              {formatarNomeDisciplina(selectedDisc.nome)}
-            </h2>
-            <p className={styles.modalCodigo}>{selectedDisc.codigo}</p>
-
-            <div className={styles.modalMeta}>
-              <span className={styles.modalCH}>{selectedDisc.carga_horaria}h</span>
-              {(() => {
-                const estado = calcularEstadoDisciplina(
-                  selectedDisc.codigo,
-                  selectedDisc.pre_requisitos,
-                  aprovadas
-                );
-                if (estado === "aprovado")
-                  return (
-                    <span className={`${styles.badge} ${styles.badgeAprovado}`}>
-                      Aprovado
-                    </span>
-                  );
-                if (estado === "desbloqueado")
-                  return (
-                    <span className={`${styles.badge} ${styles.badgeDesbloqueado}`}>
-                      Desbloqueado
-                    </span>
-                  );
-                if (estado === "bloqueado")
-                  return (
-                    <span className={`${styles.badge} ${styles.badgeBloqueado}`}>
-                      Bloqueado
-                    </span>
-                  );
-                return null;
-              })()}
-              {!selectedDisc.obrigatoria && (
-                <span className={`${styles.badge} ${styles.badgeOptativa}`}>
-                  Optativa
-                </span>
-              )}
-            </div>
-
-            {selectedDisc.pre_requisitos.length > 0 ? (
-              <div className={styles.modalSection}>
-                <h3 className={styles.modalSectionTitle}>Pré-requisitos</h3>
-                <ul className={styles.modalPrereqList}>
-                  {selectedDisc.pre_requisitos.map((code) => {
-                    const d = discMap.get(code);
-                    const isAprov = approvedSet.has(code);
-                    return (
-                      <li key={code} className={styles.modalPrereqItem}>
-                        <span
-                          className={
-                            isAprov ? styles.modalPrereqDone : styles.modalPrereqPending
-                          }
-                          aria-label={isAprov ? "Aprovado" : "Pendente"}
-                        >
-                          {isAprov ? "✓" : "○"}
-                        </span>
-                        <span className={styles.modalPrereqNome}>
-                          {d ? formatarNomeDisciplina(d.nome) : code}
-                        </span>
-                        <span className={styles.modalPrereqCode}>{code}</span>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ) : (
-              <div className={styles.modalSection}>
-                <p className={styles.modalNoPrereq}>
-                  Sem pré-requisitos — disponível a qualquer momento.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
+        <DisciplineDetailModal
+          disc={selectedDisc}
+          approvedSet={approvedSet}
+          aprovadas={aprovadas}
+          files={initialFilesMap[selectedDisc.codigo] ?? []}
+          professors={professorsPerDisc[selectedDisc.codigo] ?? []}
+          onClose={handleCloseModal}
+        />
       )}
 
       {/* ── Optativas selection modal ── */}

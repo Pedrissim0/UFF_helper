@@ -31,6 +31,19 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 - Barra visual de dificuldade média no tooltip do professor
 - 1 voto por IP por combinação professor+disciplina (upsert permite alterar voto)
 - Crowdsourcing: resultados agregados visíveis para todos os alunos
+- Ordenação por dificuldade na grade horária (mais difíceis / mais fáceis primeiro)
+
+### Upload de Materiais
+- Upload de provas, listas, resumos, apostilas e VS em PDF por disciplina e professor
+- Modal com abas "Informações" + "Materiais" no roadmap curricular
+- Seletor de professor (todos que já ofertaram a disciplina)
+- Campo de período (formato "2026.1") exibido no nome do arquivo
+- Prova exige label no formato "P1 - Nome da Disciplina"
+- Deduplicação via SHA-256 hash no client
+- Rate limit: 5 uploads/dia por IP
+- Sistema de denúncia com 7 motivos; 3 reports auto-flaggam o arquivo
+- Download via signed URLs (bucket privado no Supabase Storage)
+- Filtro por professor na listagem de materiais
 
 ### Roadmap Curricular
 - Fluxograma horizontal da matriz curricular (8 períodos como colunas)
@@ -87,10 +100,16 @@ projeto_uff_helper/
 │   │   │   ├── page.tsx
 │   │   │   ├── ControladorFaltas.tsx
 │   │   │   └── ControladorFaltas.module.css
-│   │   └── roadmap/
-│   │       ├── page.tsx
-│   │       ├── Roadmap.tsx         # Fluxograma horizontal
-│   │       └── Roadmap.module.css
+│   │   ├── roadmap/
+│   │   │   ├── page.tsx              # Server Component: fetch materiais + professores
+│   │   │   ├── Roadmap.tsx           # Fluxograma horizontal
+│   │   │   ├── DisciplineDetailModal.tsx  # Modal detalhes + aba Materiais
+│   │   │   └── Roadmap.module.css
+│   │   └── api/
+│   │       ├── discipline-files/     # Upload, download e report de materiais
+│   │       ├── difficulty-rating/    # Mamatômetro
+│   │       ├── email-submission/     # Crowdsourcing email
+│   │       └── name-contest/        # Concurso de nomes
 │   ├── data/
 │   │   ├── db_disciplinas.json     # 130+ disciplinas com horários
 │   │   ├── matriz_curricular.json
@@ -101,7 +120,10 @@ projeto_uff_helper/
 │   │   ├── supabase.ts
 │   │   ├── calcularColunas.ts       # Alinhamento de cadeias
 │   │   ├── calcularEstadoDisciplina.ts
-│   │   └── formatarNomeDisciplina.ts
+│   │   ├── formatarNomeDisciplina.ts
+│   │   └── hashFile.ts             # SHA-256 para dedup de uploads
+│   ├── types/
+│   │   └── discipline-files.ts     # Tipos do sistema de materiais
 │   └── stores/                     # Zustand (persist middleware)
 │       ├── useUIStore.ts
 │       ├── useGradeStore.ts
