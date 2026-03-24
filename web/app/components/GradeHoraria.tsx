@@ -121,6 +121,9 @@ export default function GradeHoraria({
   const [isMobile, setIsMobile] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [widgetPeeking, setWidgetPeeking] = useState(false);
+  const [ordenacao, setOrdenacao] = useState<
+    "dificuldade-asc" | "dificuldade-desc" | null
+  >(null);
 
   // Toast
   const [toastMsg, setToastMsg] = useState<string | null>(null);
@@ -426,6 +429,17 @@ export default function GradeHoraria({
     ]
   );
 
+  // Helper: dificuldade média de uma matéria (ou null se sem avaliação)
+  const getDificuldade = useCallback(
+    (m: Materia): number | null => {
+      if (!difficultyMap || !nomeCompletoMap) return null;
+      const key = `${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`;
+      const entry = difficultyMap[key];
+      return entry && entry.count > 0 ? entry.avg : null;
+    },
+    [difficultyMap, nomeCompletoMap]
+  );
+
   // Agrupa materias filtradas por periodo (chave composta)
   const periodoGroups = useMemo(() => {
     const groups: Map<string, Materia[]> = new Map();
@@ -445,8 +459,20 @@ export default function GradeHoraria({
           k.match(/^\d+$/) ? parseInt(k) : k === "obrig-np" ? 9998 : 9999;
         return order(a) - order(b);
       })
-      .map(([key, materias]) => ({ key, materias }));
-  }, [filtradas]);
+      .map(([key, materias]) => {
+        if (!ordenacao) return { key, materias };
+        const sorted = [...materias].sort((a, b) => {
+          const da = getDificuldade(a);
+          const db = getDificuldade(b);
+          // Sem avaliação vai pro final
+          if (da === null && db === null) return 0;
+          if (da === null) return 1;
+          if (db === null) return -1;
+          return ordenacao === "dificuldade-asc" ? da - db : db - da;
+        });
+        return { key, materias: sorted };
+      });
+  }, [filtradas, ordenacao, getDificuldade]);
 
   // Inicializar períodos colapsados: se store estiver vazia, auto-colapsar aprovados
   useEffect(() => {
@@ -935,11 +961,60 @@ export default function GradeHoraria({
           <span className={styles.statusTxt}>
             {filtradas.length} turmas · {selecionadas.length} selecionadas
           </span>
-          {selecionadas.length > 0 && (
-            <button className={styles.limpar} onClick={() => gradeStore.limpar()}>
-              Limpar
+          <div className={styles.statusActions}>
+            <button
+              className={`${styles.sortBtn} ${ordenacao ? styles.sortBtnAtivo : ""}`}
+              title={
+                ordenacao === "dificuldade-desc"
+                  ? "Mais difíceis primeiro"
+                  : ordenacao === "dificuldade-asc"
+                    ? "Mais fáceis primeiro"
+                    : "Ordenar por dificuldade"
+              }
+              onClick={() =>
+                setOrdenacao((prev) =>
+                  prev === null
+                    ? "dificuldade-desc"
+                    : prev === "dificuldade-desc"
+                      ? "dificuldade-asc"
+                      : null
+                )
+              }
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {ordenacao === "dificuldade-asc" ? (
+                  <>
+                    <path d="M12 5v14" />
+                    <path d="M5 12l7 7 7-7" />
+                  </>
+                ) : (
+                  <>
+                    <path d="M12 19V5" />
+                    <path d="M5 12l7-7 7 7" />
+                  </>
+                )}
+              </svg>
+              {ordenacao === "dificuldade-desc"
+                ? "Mais difíceis"
+                : ordenacao === "dificuldade-asc"
+                  ? "Mais fáceis"
+                  : "Dificuldade"}
             </button>
-          )}
+            {selecionadas.length > 0 && (
+              <button className={styles.limpar} onClick={() => gradeStore.limpar()}>
+                Limpar
+              </button>
+            )}
+          </div>
         </div>
 
         <ul className={`${styles.lista} ${listaAnim ? styles.listaAnim : ""}`}>

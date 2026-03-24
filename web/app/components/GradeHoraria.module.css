@@ -1,11 +1,13 @@
 /* ── Wrapper global ────────────────────────────── */
 .wrapper {
-  font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif;
+  font-family: "DM Sans", "Segoe UI", Arial, sans-serif;
   background: var(--bg-page);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: padding 0.3s ease, background 0.3s;
+  transition:
+    padding 0.3s ease,
+    background 0.3s;
   box-sizing: border-box;
 }
 
@@ -119,7 +121,9 @@
   color: var(--text-primary);
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
   box-sizing: border-box;
 }
 
@@ -176,7 +180,9 @@
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.25s ease, opacity 0.2s ease;
+  transition:
+    max-height 0.25s ease,
+    opacity 0.2s ease;
 }
 
 .filtroPanelAberto {
@@ -205,7 +211,6 @@
   gap: 4px;
   flex-wrap: wrap;
 }
-
 
 .filtroChip {
   padding: 3px 10px;
@@ -242,6 +247,41 @@
   font-size: 11px;
   color: var(--text-placeholder);
   font-variant-numeric: tabular-nums;
+}
+
+.statusActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sortBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-placeholder);
+  font-weight: 500;
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 3px 8px;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s;
+}
+
+.sortBtn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.sortBtnAtivo {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .limpar {
@@ -400,7 +440,7 @@
 }
 
 .selecionadasSeparator::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 2px;
   background: var(--accent-border);
@@ -428,7 +468,7 @@
 }
 
 .periodSeparator::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1px;
   background: var(--border-medium);
@@ -523,7 +563,11 @@
   background: var(--bg-card);
   border: 1px solid var(--border-strong);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, background 0.3s;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    opacity 0.3s ease,
+    background 0.3s;
   display: flex;
   flex-direction: column;
 }
@@ -626,7 +670,9 @@
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 0.25s ease, opacity 0.25s ease;
+  transition:
+    max-height 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .gradeContentExpanded {
@@ -891,7 +937,10 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 12px var(--shadow-widget);
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
 }
 
 .scrollTopBtn:hover {
@@ -1287,10 +1336,22 @@
 }
 
 @keyframes toastFadeMobile {
-  0% { opacity: 0; transform: translateY(8px); }
-  10% { opacity: 1; transform: translateY(0); }
-  80% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-8px); }
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 }
 
 /* ── Modal de email ───────────────────────────── */
@@ -1408,8 +1469,14 @@
 
 /* ── Lista: animação de transição de filtro ───── */
 @keyframes gradeItemIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .listaAnim .item {
@@ -1443,8 +1510,20 @@
 }
 
 @keyframes toastFade {
-  0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
-  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  80% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(8px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-8px);
+  }
 }
