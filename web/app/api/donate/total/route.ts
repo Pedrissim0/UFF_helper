@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
-export const revalidate = 300; // 5 min
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   const { data, error } = await supabase
@@ -23,7 +23,7 @@ export async function GET() {
     { totalCents },
     {
       status: 200,
-      headers: { "Cache-Control": "public, max-age=300, s-maxage=300" },
+      headers: { "Cache-Control": "no-cache, no-store" },
     }
   );
 }

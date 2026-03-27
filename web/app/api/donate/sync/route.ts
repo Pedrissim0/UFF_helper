@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
+interface AbacateBilling {
+  id: string;
+  status: string;
+}
+
 /**
  * GET /api/donate/sync
  *
@@ -14,45 +19,56 @@ export async function GET() {
     return NextResponse.json({ error: "API key not configured" }, { status: 503 });
   }
 
-  // Busca doações pendentes
+  // Busca doações pendentes no Supabase
   const { data: pending, error: fetchError } = await supabase
     .from("donations")
-    .select("billing_id, amount")
+    .select("billing_id")
     .eq("status", "PENDING");
 
   if (fetchError || !pending || pending.length === 0) {
     return NextResponse.json({ updated: 0 });
   }
 
-  let updated = 0;
+  // Busca todos os billings na AbacatePay (único endpoint disponível)
+  let billings: AbacateBilling[] = [];
+  try {
+    const res = await fetch("https://api.abacatepay.com/v1/billing/list", {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
 
-  for (const donation of pending) {
-    try {
-      // Consulta status do billing na AbacatePay
-      const res = await fetch(
-        `https://api.abacatepay.com/v1/billing/show/${donation.billing_id}`,
-        {
-          headers: { Authorization: `Bearer ${apiKey}` },
-        }
+    if (!res.ok) {
+      return NextResponse.json(
+        { error: "AbacatePay API error", status: res.status },
+        { status: 502 }
       );
+    }
 
-      if (!res.ok) continue;
+    const body = await res.json();
+    billings = body?.data ?? [];
+  } catch {
+    return NextResponse.json({ error: "Failed to reach AbacatePay" }, { status: 502 });
+  }
 
-      const body = await res.json();
-      const status = body?.data?.status;
+  // Mapeia billing_id → status para busca rápida
+  const statusMap = new Map<string, string>();
+  for (const b of billings) {
+    statusMap.set(b.id, b.status);
+  }
 
-      if (status === "PAID" || status === "COMPLETED") {
-        const { error: updateError } = await supabase
-          .from("donations")
-          .update({ status: "PAID", paid_at: new Date().toISOString() })
-          .eq("billing_id", donation.billing_id);
+  // Atualiza doações pendentes cujo billing já foi pago
+  let updated = 0;
+  for (const donation of pending) {
+    const status = statusMap.get(donation.billing_id);
 
-        if (!updateError) updated++;
-      }
-    } catch {
-      // Continua com o próximo billing
+    if (status === "PAID") {
+      const { error: updateError } = await supabase
+        .from("donations")
+        .update({ status: "PAID", paid_at: new Date().toISOString() })
+        .eq("billing_id", donation.billing_id);
+
+      if (!updateError) updated++;
     }
   }
 
-  return NextResponse.json({ updated });
+  return NextResponse.json({ updated, checked: pending.length });
 }
