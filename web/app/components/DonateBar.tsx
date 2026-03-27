@@ -54,14 +54,16 @@ export default function DonateBar({
     return () => window.removeEventListener("focus", onFocus);
   }, [refreshTotal]);
 
-  const monthsActive = monthlyCostCents > 0 ? totalCents / monthlyCostCents : 0;
+  const monthsGuaranteed = monthlyCostCents > 0 ? totalCents / monthlyCostCents : 0;
+  const fullMonths = Math.floor(monthsGuaranteed);
+  const remainingDays = Math.round((monthsGuaranteed - fullMonths) * 30);
   const monthsDisplay =
-    monthsActive >= 1
-      ? `${Math.floor(monthsActive)} ${Math.floor(monthsActive) === 1 ? "mês" : "meses"}`
-      : monthsActive > 0
-        ? `${(monthsActive * 30).toFixed(0)} dias`
+    fullMonths >= 1
+      ? `${fullMonths} ${fullMonths === 1 ? "mês" : "meses"}${remainingDays > 0 ? ` e ${remainingDays} dias` : ""}`
+      : remainingDays > 0
+        ? `${remainingDays} dias`
         : "0 meses";
-  const progressPct = Math.min(100, (monthsActive / 12) * 100);
+  const progressPct = Math.min(100, (monthsGuaranteed / 12) * 100);
 
   const isCustom = !QUICK_AMOUNTS.includes(selectedAmount);
 
@@ -114,7 +116,7 @@ export default function DonateBar({
             </div>
             <span className={styles.progressLabel}>
               {totalCents > 0
-                ? `${monthsDisplay} de projeto na ativa`
+                ? `${monthsDisplay} de funcionamento garantido`
                 : "Ajude a manter o projeto no ar"}
             </span>
           </div>
@@ -144,8 +146,20 @@ export default function DonateBar({
             </div>
 
             <p className={styles.modalDesc}>
-              Sua doação via Pix ajuda a manter o servidor e o desenvolvimento ativo.
-              Qualquer valor faz diferença!
+              {totalCents > 0 ? (
+                <>
+                  Já possuímos <strong>{monthsDisplay}</strong> de funcionamento
+                  garantido. O custo estimado é de{" "}
+                  <strong>{formatBRL(monthlyCostCents)}/mês</strong>. Sua doação via Pix
+                  ajuda a estender esse prazo!
+                </>
+              ) : (
+                <>
+                  O custo estimado do projeto é de{" "}
+                  <strong>{formatBRL(monthlyCostCents)}/mês</strong>. Sua doação via Pix
+                  ajuda a manter o servidor e o desenvolvimento ativo.
+                </>
+              )}
             </p>
 
             {/* Quick amounts */}

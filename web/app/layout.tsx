@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-const MONTHLY_COST_CENTS = Number(process.env.NEXT_PUBLIC_MONTHLY_COST_CENTS || "5000");
+const MONTHLY_COST_CENTS = Number(process.env.NEXT_PUBLIC_MONTHLY_COST_CENTS || "50000");
 
 export default async function RootLayout({
   children,
