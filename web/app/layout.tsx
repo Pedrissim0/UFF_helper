@@ -45,8 +45,11 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
+        <a href="#main" className="skip-link">
+          Pular para o conteúdo
+        </a>
         <DonateBar totalCents={totalCents} monthlyCostCents={MONTHLY_COST_CENTS} />
-        {children}
+        <main id="main">{children}</main>
         <Footer />
         <Analytics />
         <SpeedInsights />

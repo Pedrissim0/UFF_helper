@@ -22,7 +22,7 @@ Este documento descreve todas as melhorias planejadas, organizadas por prioridad
 
 ---
 
-## 1. Decomposicao de componentes grandes
+## 1. Decomposicao de componentes grandes ✅ CONCLUIDO
 
 **Prioridade:** CRITICA
 **Complexidade:** Alta
@@ -64,7 +64,7 @@ Extrair para `web/app/components/grade/`:
 
 ---
 
-## 2. Suite de testes
+## 2. Suite de testes ✅ CONCLUIDO (unitarios)
 
 **Prioridade:** CRITICA
 **Complexidade:** Media
@@ -136,7 +136,7 @@ Criar `error.tsx` em cada rota (`/calculadora-cr/error.tsx`, `/roadmap/error.tsx
 
 ---
 
-## 4. CI com GitHub Actions
+## 4. CI com GitHub Actions ✅ CONCLUIDO
 
 **Prioridade:** ALTA
 **Complexidade:** Baixa
@@ -204,7 +204,7 @@ Criar em `web/public/`:
 
 ---
 
-## 6. Validacao de input com Zod
+## 6. Validacao de input com Zod ✅ CONCLUIDO
 
 **Prioridade:** MEDIA
 **Complexidade:** Media
@@ -248,7 +248,7 @@ npm install zod
 
 ---
 
-## 8. Logging de erros em producao
+## 8. Logging de erros em producao ✅ CONCLUIDO
 
 **Prioridade:** MEDIA
 **Complexidade:** Baixa
@@ -324,7 +324,7 @@ Estrategia de cache:
 
 ---
 
-## 10. Acessibilidade WCAG 2.1 AA
+## 10. Acessibilidade WCAG 2.1 AA ✅ CONCLUIDO (parcial)
 
 **Prioridade:** BAIXA
 **Complexidade:** Media
@@ -368,19 +368,19 @@ Fase 1 — Fundacao ✅ CONCLUIDA
   [5] ✅ SEO e metadata por rota (faltam assets: favicon, og-image)
   [+] ✅ Footer global com links de contato (GitHub, LinkedIn, WhatsApp)
 
-Fase 2 — Qualidade (2-3 semanas)
-  [2] Setup de testes + testes unitarios das funcoes puras
-  [4] GitHub Actions CI
-  [6] Validacao com Zod no upload
+Fase 2 — Qualidade ✅ CONCLUIDA
+  [2] ✅ Setup de testes + testes unitarios das funcoes puras (48 testes, 6 suites)
+  [4] ✅ GitHub Actions CI (lint, typecheck, test, build)
+  [6] ✅ Validacao com Zod no upload + feedback de linhas ignoradas
 
-Fase 3 — Refatoracao (3-4 semanas)
-  [1.1] Decompor CalculadoraCR.tsx
-  [1.2] Decompor GradeHoraria.tsx
-  [2.3] Testes de integracao dos componentes extraidos
+Fase 3 — Refatoracao ✅ CONCLUIDA
+  [1.1] ✅ Decompor CalculadoraCR.tsx (1799 LOC → 8 arquivos + types.ts)
+  [1.2] ✅ Decompor GradeHoraria.tsx (1443 LOC → 5 arquivos + types.ts)
+  [2.3] ✅ Testes de integracao (TabelaDisciplinas, GradeSemanal, Legenda)
 
-Fase 4 — Producao (1-2 semanas)
-  [8] Sentry para logging de erros
-  [10] Auditoria de acessibilidade + correcoes
+Fase 4 — Producao ✅ CONCLUIDA
+  [8] ✅ Sentry (client/server/edge + error.tsx + global-error.tsx + instrumentation.ts)
+  [10] ✅ Acessibilidade (skip link, focus-visible, aria-hidden, aria-live, role=alert)
 
 Fase 5 — Extra (opcional)
   [9] PWA (manifest + service worker)

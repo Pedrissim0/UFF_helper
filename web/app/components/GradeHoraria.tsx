@@ -7,66 +7,14 @@ import styles from "./GradeHoraria.module.css";
 import { useUIStore } from "@/stores/useUIStore";
 import { useGradeStore } from "@/stores/useGradeStore";
 import { useDisciplinasStore } from "@/stores/useDisciplinasStore";
-import ProfTag from "./ProfTag";
 import { filtrarDisciplinas } from "@/lib/filtrarDisciplinas";
 
-type Dia = keyof Materia["horarios"];
-type Turno = "manha" | "tarde" | "noite";
-
-const DIAS: Dia[] = ["seg", "ter", "qua", "qui", "sex", "sab"];
-const DIAS_LABEL: Record<Dia, string> = {
-  seg: "SEG",
-  ter: "TER",
-  qua: "QUA",
-  qui: "QUI",
-  sex: "SEX",
-  sab: "SÁB",
-};
-
-const TURNOS: { key: Turno; label: string }[] = [
-  { key: "manha", label: "Manhã" },
-  { key: "tarde", label: "Tarde" },
-  { key: "noite", label: "Noite" },
-];
-
-function toggleSet<T>(set: Set<T>, val: T): Set<T> {
-  const next = new Set(set);
-  if (next.has(val)) next.delete(val);
-  else next.add(val);
-  return next;
-}
-
-const PALETTE = [
-  "#6366f1",
-  "#f59e0b",
-  "#10b981",
-  "#ef4444",
-  "#8b5cf6",
-  "#0ea5e9",
-  "#f97316",
-  "#14b8a6",
-  "#ec4899",
-  "#84cc16",
-];
-
-const MIN_TIME = 7 * 60;
-const MAX_TIME = 24 * 60;
-const TOTAL = MAX_TIME - MIN_TIME;
-const HOUR_MARKS = [8, 10, 12, 14, 16, 18, 20, 22, 23];
-
-function parseTime(str: string): { start: number; end: number; label: string } | null {
-  if (!str) return null;
-  const [startStr, endStr] = str.split("-");
-  const toMin = (t: string) => {
-    const [h, m] = t.split(":").map(Number);
-    return h * 60 + m;
-  };
-  return { start: toMin(startStr), end: toMin(endStr), label: str };
-}
-
-function toPercent(min: number) {
-  return ((min - MIN_TIME) / TOTAL) * 100;
-}
+import type { Dia, Turno } from "./grade/types";
+import { DIAS, PALETTE, parseTime } from "./grade/types";
+import FiltrosDisciplinas from "./grade/FiltrosDisciplinas";
+import CardDisciplina from "./grade/CardDisciplina";
+import GradeSemanal from "./grade/GradeSemanal";
+import Legenda from "./grade/Legenda";
 
 interface Props {
   materias: Materia[];
@@ -158,7 +106,6 @@ export default function GradeHoraria({
     _hydrateTheme();
   }, [_hydrateTheme]);
 
-  // Auto-ativa filtro "Já Cursado" quando há aprovadas, desativa quando aprovadas esvazia
   useEffect(() => {
     if (aprovadas.size > 0 && gradeStore.jaCursadoFiltro === null) {
       gradeStore.setJaCursadoFiltro("nao");
@@ -167,7 +114,6 @@ export default function GradeHoraria({
     }
   }, [aprovadas.size]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Anima a lista quando jaCursadoFiltro muda (não na montagem inicial)
   useEffect(() => {
     if (!didMountAnim.current) {
       didMountAnim.current = true;
@@ -429,7 +375,6 @@ export default function GradeHoraria({
     ]
   );
 
-  // Helper: dificuldade média de uma matéria (ou null se sem avaliação)
   const getDificuldade = useCallback(
     (m: Materia): number | null => {
       if (!difficultyMap || !nomeCompletoMap) return null;
@@ -440,7 +385,6 @@ export default function GradeHoraria({
     [difficultyMap, nomeCompletoMap]
   );
 
-  // Agrupa materias filtradas por periodo (chave composta)
   const periodoGroups = useMemo(() => {
     const groups: Map<string, Materia[]> = new Map();
     filtradas.forEach((m) => {
@@ -464,7 +408,6 @@ export default function GradeHoraria({
         const sorted = [...materias].sort((a, b) => {
           const da = getDificuldade(a);
           const db = getDificuldade(b);
-          // Sem avaliação vai pro final
           if (da === null && db === null) return 0;
           if (da === null) return 1;
           if (db === null) return -1;
@@ -474,7 +417,6 @@ export default function GradeHoraria({
       });
   }, [filtradas, ordenacao, getDificuldade]);
 
-  // Inicializar períodos colapsados: se store estiver vazia, auto-colapsar aprovados
   useEffect(() => {
     if (periodosIniciados.current) return;
     if (periodoGroups.length === 0) return;
@@ -497,7 +439,6 @@ export default function GradeHoraria({
   }
 
   function temConflito(candidata: Materia) {
-    // Bloqueia mesmo código com turma diferente (impede duplicar disciplina)
     if (
       selecionadas.some(
         (s) => s.codigo === candidata.codigo && s.turma !== candidata.turma
@@ -520,7 +461,6 @@ export default function GradeHoraria({
 
   function toggle(m: Materia) {
     if (isSelecionada(m)) {
-      // Coleta todos os códigos a remover: co-reqs diretos + reversos
       const coReqCodes = new Set<string>(m.corequisitos ?? []);
       for (const s of selecionadas) {
         if ((s.corequisitos ?? []).includes(m.codigo)) coReqCodes.add(s.codigo);
@@ -537,10 +477,7 @@ export default function GradeHoraria({
       for (const coReqCode of m.corequisitos ?? []) {
         if (selecionadas.some((s) => s.codigo === coReqCode)) continue;
 
-        // Matching por turma: prefixo (1ª letra) + índice ordinal
         const prefix = m.turma[0];
-
-        // Turmas únicas da disciplina selecionada com mesmo prefixo, ordenadas
         const myTurmas = Array.from(
           new Set(
             materias
@@ -550,7 +487,6 @@ export default function GradeHoraria({
         ).sort();
         const myIdx = myTurmas.indexOf(m.turma);
 
-        // Turmas únicas do co-req com mesmo prefixo, ordenadas
         const coReqTurmas = Array.from(
           new Set(
             materias
@@ -565,7 +501,6 @@ export default function GradeHoraria({
             (x) => x.codigo === coReqCode && x.turma === coReqTurmas[myIdx]
           );
         } else {
-          // Fallback: primeiro co-req com mesmo prefixo, ou qualquer turma
           coReq =
             materias.find((x) => x.codigo === coReqCode && x.turma[0] === prefix) ||
             materias.find((x) => x.codigo === coReqCode);
@@ -623,126 +558,37 @@ export default function GradeHoraria({
         ? styles.widget_left
         : styles.widget_right;
 
+  /* ── Helper: build CardDisciplina props for a materia ── */
   function renderCard(m: Materia, keyPrefix: string = "") {
-    const key = `${m.codigo}-${m.turma}`;
-    const sel = isSelecionada(m);
-    const conflito = !sel && temConflito(m);
-    const aprovada = aprovadas.has(m.codigo);
-    const color = colorMap[key];
-    const diasAtivos = DIAS.filter((d) => m.horarios[d]);
-
+    const key = `${keyPrefix}${m.codigo}-${m.turma}`;
+    const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
+    const diffKey = `${docente}:${m.codigo}`;
     return (
-      <li
-        key={keyPrefix + key}
-        className={[
-          styles.item,
-          sel ? styles.itemSel : "",
-          conflito ? styles.itemConflito : "",
-          aprovada ? styles.itemAprovado : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-        onClick={() => !conflito && !aprovada && toggle(m)}
-      >
-        <div
-          className={styles.checkbox}
-          style={sel ? { background: color, borderColor: color } : undefined}
-        >
-          {sel && <span className={styles.checkmark}>✓</span>}
-        </div>
-
-        <div className={styles.itemInfo}>
-          <div className={styles.itemNomeRow}>
-            <span className={styles.itemNome}>{m.nome}</span>
-            {m.nome_exibicao && (
-              <ProfTag
-                nomeExibicao={m.nome_exibicao}
-                nomeCompleto={nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}
-                confirmedEmail={
-                  professorEmailMap[nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao]
-                }
-                alreadySubmitted={emailSubmitted[m.nome_exibicao]}
-                onSuggestEmail={() =>
-                  openEmailModal(
-                    m.nome_exibicao,
-                    nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao
-                  )
-                }
-                codigoDisciplina={m.codigo}
-                difficultyAvg={
-                  difficultyMap[
-                    `${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`
-                  ]?.avg
-                }
-                difficultyCount={
-                  difficultyMap[
-                    `${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`
-                  ]?.count
-                }
-                difficultySubmitted={
-                  difficultySubmitted[
-                    `${nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao}:${m.codigo}`
-                  ]
-                }
-                onContributeDifficulty={() =>
-                  openDifficultyModal(
-                    m.nome_exibicao,
-                    nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao,
-                    m.codigo,
-                    m.nome
-                  )
-                }
-                onCopy={() => {
-                  const docente = nomeCompletoMap[m.nome_exibicao] || m.nome_exibicao;
-                  const email = professorEmailMap[docente];
-                  const copyText = email
-                    ? `Professor: ${docente} | Email: ${email}`
-                    : docente;
-                  navigator.clipboard.writeText(copyText);
-                  showToast("Copiado!");
-                }}
-              />
-            )}
-          </div>
-          <div className={styles.itemMetaWrapper}>
-            <div className={styles.itemMeta}>
-              <div className={styles.metaRow}>
-                <span className={styles.metaKey}>Cód.</span>
-                <span>{m.codigo}</span>
-              </div>
-              <div className={styles.metaRow}>
-                <span className={styles.metaKey}>Turma</span>
-                <span>{m.turma}</span>
-              </div>
-              <div className={styles.metaRow}>
-                <span className={styles.metaKey}>CH</span>
-                <span>{m.ch != null ? `${m.ch}h` : "—"}</span>
-              </div>
-              {diasAtivos.map((d) => (
-                <div key={d} className={styles.metaRow}>
-                  <span className={styles.metaKey}>{DIAS_LABEL[d]}</span>
-                  <span>{m.horarios[d]}</span>
-                </div>
-              ))}
-            </div>
-            <span className={styles.tipoBadge}>
-              {m.tipo === "obrigatoria" ? "Obrigatória" : "Optativa"}
-            </span>
-            {aprovada && <span className={styles.tipoBadgeAprovado}>Aprovado</span>}
-          </div>
-          {m.link && (
-            <a
-              href={m.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.itemLinkBtn}
-              onClick={(e) => e.stopPropagation()}
-            >
-              Ver no quadro de horários ↗
-            </a>
-          )}
-        </div>
-      </li>
+      <CardDisciplina
+        key={key}
+        materia={m}
+        selecionada={isSelecionada(m)}
+        conflito={!isSelecionada(m) && temConflito(m)}
+        aprovada={aprovadas.has(m.codigo)}
+        color={colorMap[`${m.codigo}-${m.turma}`]}
+        nomeCompleto={docente}
+        confirmedEmail={professorEmailMap[docente]}
+        alreadySubmittedEmail={emailSubmitted[m.nome_exibicao] || false}
+        difficultyAvg={difficultyMap[diffKey]?.avg}
+        difficultyCount={difficultyMap[diffKey]?.count}
+        difficultySubmitted={difficultySubmitted[diffKey] || false}
+        onToggle={() => toggle(m)}
+        onSuggestEmail={() => openEmailModal(m.nome_exibicao, docente)}
+        onContributeDifficulty={() =>
+          openDifficultyModal(m.nome_exibicao, docente, m.codigo, m.nome)
+        }
+        onCopyProf={() => {
+          const email = professorEmailMap[docente];
+          const copyText = email ? `Professor: ${docente} | Email: ${email}` : docente;
+          navigator.clipboard.writeText(copyText);
+          showToast("Copiado!");
+        }}
+      />
     );
   }
 
@@ -782,6 +628,7 @@ export default function GradeHoraria({
           >
             {tema === "light" ? (
               <svg
+                aria-hidden="true"
                 width="18"
                 height="18"
                 viewBox="0 0 24 24"
@@ -795,6 +642,7 @@ export default function GradeHoraria({
               </svg>
             ) : (
               <svg
+                aria-hidden="true"
                 width="18"
                 height="18"
                 viewBox="0 0 24 24"
@@ -819,7 +667,7 @@ export default function GradeHoraria({
         </div>
       </header>
 
-      {/* Full-width content */}
+      {/* Content */}
       <div className={styles.content}>
         <div className={styles.buscaRow}>
           <input
@@ -837,125 +685,22 @@ export default function GradeHoraria({
           </button>
         </div>
 
-        {/* Filter panel — collapsible */}
-        <div
-          className={`${styles.filtroPanel} ${filtrosAberto ? styles.filtroPanelAberto : ""}`}
-        >
-          {aprovadas.size > 0 && (
-            <div className={styles.filtroGrupo}>
-              <span className={styles.filtroLabel}>Cursado</span>
-              <div className={styles.filtroChips}>
-                <button
-                  className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "nao" ? styles.filtroChipAtivo : ""}`}
-                  onClick={() =>
-                    gradeStore.setJaCursadoFiltro(
-                      gradeStore.jaCursadoFiltro === "nao" ? null : "nao"
-                    )
-                  }
-                >
-                  Não
-                </button>
-                <button
-                  className={`${styles.filtroChip} ${gradeStore.jaCursadoFiltro === "sim" ? styles.filtroChipAtivo : ""}`}
-                  onClick={() =>
-                    gradeStore.setJaCursadoFiltro(
-                      gradeStore.jaCursadoFiltro === "sim" ? null : "sim"
-                    )
-                  }
-                >
-                  Sim
-                </button>
-              </div>
-            </div>
-          )}
-          <div className={styles.filtroGrupo}>
-            <span className={styles.filtroLabel}>Dia</span>
-            <div className={styles.filtroChips}>
-              {DIAS.map((d) => (
-                <button
-                  key={d}
-                  className={`${styles.filtroChip} ${diasFiltro.has(d) ? styles.filtroChipAtivo : ""}`}
-                  onClick={() => setDiasFiltro((prev) => toggleSet(prev, d))}
-                >
-                  {DIAS_LABEL[d]}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.filtroGrupo}>
-            <span className={styles.filtroLabel}>Turno</span>
-            <div className={styles.filtroChips}>
-              {TURNOS.map(({ key, label }) => (
-                <button
-                  key={key}
-                  className={`${styles.filtroChip} ${turnosFiltro.has(key) ? styles.filtroChipAtivo : ""}`}
-                  onClick={() => setTurnosFiltro((prev) => toggleSet(prev, key))}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.filtroGrupo}>
-            <span className={styles.filtroLabel}>Período</span>
-            <div className={styles.filtroChips}>
-              {periodos.map((p) => (
-                <button
-                  key={p}
-                  className={`${styles.filtroChip} ${periodosFiltro.has(String(p)) ? styles.filtroChipAtivo : ""}`}
-                  onClick={() => setPeriodosFiltro((prev) => toggleSet(prev, String(p)))}
-                >
-                  {p}°
-                </button>
-              ))}
-              <button
-                className={`${styles.filtroChip} ${periodosFiltro.has("np") ? styles.filtroChipAtivo : ""}`}
-                onClick={() => setPeriodosFiltro((prev) => toggleSet(prev, "np"))}
-              >
-                Não Periodizada
-              </button>
-            </div>
-          </div>
-
-          <div className={styles.filtroGrupo}>
-            <span className={styles.filtroLabel}>Tipo</span>
-            <div className={styles.filtroChips}>
-              <button
-                className={`${styles.filtroChip} ${tipoFiltro === "obrigatoria" ? styles.filtroChipAtivo : ""}`}
-                onClick={() =>
-                  setTipoFiltro((prev) => (prev === "obrigatoria" ? null : "obrigatoria"))
-                }
-              >
-                Obrigatória
-              </button>
-              <button
-                className={`${styles.filtroChip} ${tipoFiltro === "optativa" ? styles.filtroChipAtivo : ""}`}
-                onClick={() =>
-                  setTipoFiltro((prev) => (prev === "optativa" ? null : "optativa"))
-                }
-              >
-                Optativa
-              </button>
-            </div>
-          </div>
-
-          <div className={styles.filtroGrupo}>
-            <span className={styles.filtroLabel}>Depto</span>
-            <div className={styles.filtroChips}>
-              {departamentos.map(({ depto, count }) => (
-                <button
-                  key={depto}
-                  className={`${styles.filtroChip} ${deptosFiltro.has(depto) ? styles.filtroChipAtivo : ""}`}
-                  onClick={() => setDeptosFiltro((prev) => toggleSet(prev, depto))}
-                >
-                  {depto} ({count})
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+        <FiltrosDisciplinas
+          aberto={filtrosAberto}
+          aprovadas={aprovadas}
+          diasFiltro={diasFiltro}
+          setDiasFiltro={setDiasFiltro}
+          turnosFiltro={turnosFiltro}
+          setTurnosFiltro={setTurnosFiltro}
+          deptosFiltro={deptosFiltro}
+          setDeptosFiltro={setDeptosFiltro}
+          periodosFiltro={periodosFiltro}
+          setPeriodosFiltro={setPeriodosFiltro}
+          tipoFiltro={tipoFiltro}
+          setTipoFiltro={setTipoFiltro}
+          departamentos={departamentos}
+          periodos={periodos}
+        />
 
         <div className={styles.statusBar}>
           <span className={styles.statusTxt}>
@@ -982,6 +727,7 @@ export default function GradeHoraria({
               }
             >
               <svg
+                aria-hidden="true"
                 width="14"
                 height="14"
                 viewBox="0 0 24 24"
@@ -1051,6 +797,7 @@ export default function GradeHoraria({
                     ]
                       .filter(Boolean)
                       .join(" ")}
+                    aria-hidden="true"
                     width="12"
                     height="12"
                     viewBox="0 0 24 24"
@@ -1087,7 +834,6 @@ export default function GradeHoraria({
         className={`${styles.widget} ${widgetPosClass} ${!expanded ? styles.widgetCollapsed : styles.widgetExpanded}${widgetPeeking && !expanded ? ` ${styles.widgetPeeking}` : ""}`}
         style={isLateral ? { width: widgetWidth } : undefined}
       >
-        {/* Resize handle for lateral mode */}
         {isLateral && (
           <div
             className={`${styles.resizeHandle} ${widgetPos === "left" ? styles.resizeHandleRight : styles.resizeHandleLeft}`}
@@ -1095,7 +841,6 @@ export default function GradeHoraria({
           />
         )}
 
-        {/* Handle — always visible */}
         <div className={styles.handle} onClick={() => setGradeAberta((prev) => !prev)}>
           {handleLabel}
           <span className={styles.handleSpacer} />
@@ -1112,6 +857,7 @@ export default function GradeHoraria({
               >
                 {legendaVisivel ? (
                   <svg
+                    aria-hidden="true"
                     width="14"
                     height="14"
                     viewBox="0 0 24 24"
@@ -1126,6 +872,7 @@ export default function GradeHoraria({
                   </svg>
                 ) : (
                   <svg
+                    aria-hidden="true"
                     width="14"
                     height="14"
                     viewBox="0 0 24 24"
@@ -1152,6 +899,7 @@ export default function GradeHoraria({
               >
                 {toastMsg === "Copiado!" ? (
                   <svg
+                    aria-hidden="true"
                     width="14"
                     height="14"
                     viewBox="0 0 24 24"
@@ -1165,6 +913,7 @@ export default function GradeHoraria({
                   </svg>
                 ) : (
                   <svg
+                    aria-hidden="true"
                     width="14"
                     height="14"
                     viewBox="0 0 24 24"
@@ -1189,6 +938,7 @@ export default function GradeHoraria({
                 title="Imprimir grade"
               >
                 <svg
+                  aria-hidden="true"
                   width="14"
                   height="14"
                   viewBox="0 0 24 24"
@@ -1239,103 +989,16 @@ export default function GradeHoraria({
           </div>
         </div>
 
-        {/* Grade content — animates in/out */}
         <div
           className={`${styles.gradeContent} ${expanded ? styles.gradeContentExpanded : ""}`}
         >
           <div className={styles.gradeInner}>
-            <div className={styles.grade}>
-              <div className={styles.gradeHeader}>
-                <div className={styles.eixoSpacer} />
-                {DIAS.map((d) => (
-                  <div key={d} className={styles.diaHeader}>
-                    {DIAS_LABEL[d]}
-                  </div>
-                ))}
-              </div>
-
-              <div className={styles.gradeCols}>
-                <div className={styles.eixo}>
-                  {HOUR_MARKS.map((h) => (
-                    <div
-                      key={h}
-                      className={styles.horaLabel}
-                      style={{ top: `${toPercent(h * 60)}%` }}
-                    >
-                      {h}:00
-                    </div>
-                  ))}
-                </div>
-
-                {DIAS.map((dia) => (
-                  <div key={dia} className={styles.coluna}>
-                    {HOUR_MARKS.map((h) => (
-                      <div
-                        key={h}
-                        className={styles.linhaHora}
-                        style={{ top: `${toPercent(h * 60)}%` }}
-                      />
-                    ))}
-
-                    {selecionadas
-                      .filter((m) => m.horarios[dia])
-                      .map((m) => {
-                        const key = `${m.codigo}-${m.turma}`;
-                        const time = parseTime(m.horarios[dia]);
-                        if (!time) return null;
-                        const top = toPercent(time.start);
-                        const height = toPercent(time.end) - top;
-                        const color = colorMap[key];
-                        return (
-                          <div
-                            key={key}
-                            className={`${styles.bloco} ${!showLegenda ? styles.blocoExpanded : ""}`}
-                            style={{
-                              top: `${top}%`,
-                              height: `${height}%`,
-                              background: color + "18",
-                              borderLeftColor: color,
-                              color,
-                            }}
-                          >
-                            <div className={styles.blocoHora}>{time.label}</div>
-                            <div className={styles.blocoNome}>
-                              {showLegenda
-                                ? m.nome.split(" ").slice(0, 3).join(" ")
-                                : m.nome}
-                            </div>
-                            {!showLegenda && m.nome_exibicao && (
-                              <div className={styles.blocoProf}>{m.nome_exibicao}</div>
-                            )}
-                            <div className={styles.blocoTurma}>T. {m.turma}</div>
-                          </div>
-                        );
-                      })}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Legend */}
-            {showLegenda && (
-              <div className={styles.gradeLegenda}>
-                {selecionadas.map((m) => {
-                  const key = `${m.codigo}-${m.turma}`;
-                  const color = colorMap[key];
-                  return (
-                    <div key={key} className={styles.legendaItem}>
-                      <div className={styles.legendaCor} style={{ background: color }} />
-                      <div className={styles.legendaTexto}>
-                        <span className={styles.legendaNome} style={{ color }}>
-                          {m.nome}
-                        </span>
-                        <span className={styles.legendaProf}>{m.nome_exibicao}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            <GradeSemanal
+              selecionadas={selecionadas}
+              colorMap={colorMap}
+              showLegenda={showLegenda}
+            />
+            {showLegenda && <Legenda selecionadas={selecionadas} colorMap={colorMap} />}
           </div>
         </div>
       </div>
@@ -1349,6 +1012,7 @@ export default function GradeHoraria({
           title="Voltar ao topo"
         >
           <svg
+            aria-hidden="true"
             width="20"
             height="20"
             viewBox="0 0 24 24"
@@ -1382,7 +1046,11 @@ export default function GradeHoraria({
               onChange={(e) => setModalEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleModalSubmit()}
             />
-            {modalError && <p className={styles.modalError}>{modalError}</p>}
+            {modalError && (
+              <p className={styles.modalError} role="alert">
+                {modalError}
+              </p>
+            )}
             <button
               className={styles.modalSubmitBtn}
               onClick={handleModalSubmit}
@@ -1421,7 +1089,11 @@ export default function GradeHoraria({
               />
               <div className={styles.sliderValue}>{sliderValue}/5</div>
             </div>
-            {difficultyError && <p className={styles.modalError}>{difficultyError}</p>}
+            {difficultyError && (
+              <p className={styles.modalError} role="alert">
+                {difficultyError}
+              </p>
+            )}
             <button
               className={styles.modalSubmitBtn}
               onClick={handleDifficultySubmit}
@@ -1434,7 +1106,12 @@ export default function GradeHoraria({
       )}
 
       {toastMsg && (
-        <div key={toastKeyRef.current} className={styles.toast}>
+        <div
+          key={toastKeyRef.current}
+          className={styles.toast}
+          role="status"
+          aria-live="polite"
+        >
           {toastMsg}
         </div>
       )}
