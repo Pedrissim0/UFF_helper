@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import styles from "./DonateBar.module.css";
 
 const QUICK_AMOUNTS = [500, 1000, 2500]; // centavos: R$5, R$10, R$25
@@ -17,13 +17,42 @@ function formatBRL(cents: number): string {
   });
 }
 
-export default function DonateBar({ totalCents, monthlyCostCents }: Props) {
+export default function DonateBar({
+  totalCents: initialTotalCents,
+  monthlyCostCents,
+}: Props) {
+  const [totalCents, setTotalCents] = useState(initialTotalCents);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<number>(1000);
   const [customAmount, setCustomAmount] = useState("");
   const [donorName, setDonorName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Atualiza total ao montar e quando a janela ganha foco (retorno do checkout)
+  const refreshTotal = useCallback(async () => {
+    try {
+      // Sincroniza billings pendentes com AbacatePay (fallback do webhook)
+      await fetch("/api/donate/sync").catch(() => {});
+      // Busca total atualizado
+      const res = await fetch("/api/donate/total");
+      if (res.ok) {
+        const data = await res.json();
+        if (typeof data.totalCents === "number") {
+          setTotalCents(data.totalCents);
+        }
+      }
+    } catch {
+      // silencioso — mantém o valor atual
+    }
+  }, []);
+
+  useEffect(() => {
+    // Atualiza quando a aba ganha foco (usuário voltou do checkout)
+    const onFocus = () => refreshTotal();
+    window.addEventListener("focus", onFocus);
+    return () => window.removeEventListener("focus", onFocus);
+  }, [refreshTotal]);
 
   const monthsActive = monthlyCostCents > 0 ? totalCents / monthlyCostCents : 0;
   const monthsDisplay =
