@@ -70,8 +70,13 @@ Dados da matriz curricular usados pelo Roadmap:
 ## Qualidade de Codigo
 - Prettier: `web/.prettierrc` (semi, double quotes, printWidth 90)
 - Pre-commit: Husky + lint-staged (Prettier + ESLint em arquivos staged)
-- Error boundary: `web/app/error.tsx` (captura erros de runtime)
+- Testes: Jest + Testing Library (62 testes em 9 suites)
+- Validação: Zod schemas para upload CSV/XLSX e formulários
+- CI: GitHub Actions (lint, typecheck, test, build) em push/PR
+- Error boundary: `web/app/error.tsx` + `web/app/global-error.tsx` (Sentry + UI)
 - Pagina 404: `web/app/not-found.tsx`
+- Monitoramento: Sentry (client/server/edge) — DSN via `NEXT_PUBLIC_SENTRY_DSN`
+- Acessibilidade: skip link, `:focus-visible`, `aria-hidden` em SVGs, `aria-live` em toasts/erros
 - SEO: title template `"%s | UFF Helper"`, Open Graph, metadataBase
 - Footer global: `web/app/components/Footer.tsx` (GitHub, LinkedIn, WhatsApp)
 
@@ -84,9 +89,31 @@ Dados da matriz curricular usados pelo Roadmap:
 - /web/lib/calcularEstadoDisciplina.ts → estado visual: aprovado/desbloqueado/bloqueado/normal
 - /web/lib/formatarNomeDisciplina.ts → Title Case com suporte a numerais romanos
 - /web/lib/hashFile.ts → SHA-256 hash para dedup de uploads
+- /web/lib/schemas.ts → Zod schemas (DisciplinaUpload, FormDisciplina, FormProjecao)
 - /web/types/discipline-files.ts → tipos do sistema de materiais
 - /web/app/roadmap/DisciplineDetailModal.tsx → modal de detalhes + aba materiais
 - /web/app/api/discipline-files/route.ts → upload de PDFs
+
+## Decomposição de Componentes
+Componentes grandes foram extraídos em subcomponentes com props tipadas:
+
+### CalculadoraCR (web/app/calculadora-cr/)
+- `types.ts` — tipos, constantes, helpers compartilhados
+- `components/UploadArea.tsx` — drag-and-drop + validação Zod
+- `components/TabelaDisciplinas.tsx` — grid de disciplinas
+- `components/ModalDisciplina.tsx` — modal adicionar/editar
+- `components/ModalProjecao.tsx` — modal projeção em lote
+- `components/FormPeriodo.tsx` — pré-preencher por período
+- `components/WidgetEstatisticas.tsx` — widget flutuante CR
+- `components/GraficoHistorico.tsx` — SVG chart de CR
+- `components/Icons.tsx` — ícones SVG
+
+### GradeHoraria (web/app/components/grade/)
+- `types.ts` — tipos, constantes, helpers
+- `FiltrosDisciplinas.tsx` — painel de filtros colapsável
+- `CardDisciplina.tsx` — card individual reutilizável
+- `GradeSemanal.tsx` — visualização semanal
+- `Legenda.tsx` — legenda de cores
 
 ## Mamatômetro — Avaliação de Dificuldade por Professor/Disciplina
 Crowdsourcing de dificuldade via tooltip do ProfTag → modal com slider → API route → Supabase.
@@ -145,6 +172,34 @@ Upload e download de provas, listas, resumos, apostilas e VS em PDF, vinculados 
 - Ordena disciplinas dentro de cada grupo de período pela média do Mamatômetro
 - Disciplinas sem avaliação vão pro final da lista
 
+## Sistema de Doação (AbacatePay)
+Doações via Pix integradas com AbacatePay (API v1). Barra de sustentabilidade no topo de todas as páginas.
+
+### Fluxo
+- Botão "Apoiar o projeto" no header (DonateBar sticky) → modal com valores R$5/R$10/R$25/personalizado
+- `POST /api/donate` → cria billing ONE_TIME na AbacatePay → redirect para checkout Pix
+- Webhook `billing.paid` → `POST /api/donate/webhook?webhookSecret=...` → atualiza `donations` no Supabase
+- `GET /api/donate/sync` → fallback: consulta `/v1/billing/list` da AbacatePay e atualiza PENDING→PAID
+- DonateBar busca total via `/api/donate/total` ao ganhar foco (retorno do checkout)
+- Layout.tsx (async Server Component) busca total de doações no render inicial
+- Barra exibe "X meses e Y dias de funcionamento garantido" (custo estimado R$500/mês)
+
+### Tabela Supabase
+- `donations`: (billing_id UNIQUE, amount int centavos, donor_name, status PENDING/PAID, paid_at)
+
+### Variáveis de Ambiente
+- `ABACATEPAY_API_KEY` — chave da API (server-only)
+- `ABACATEPAY_WEBHOOK_SECRET` — validação do webhook
+- `NEXT_PUBLIC_MONTHLY_COST_CENTS` — meta mensal em centavos (default 50000 = R$500)
+- `NEXT_PUBLIC_SENTRY_DSN` — DSN do Sentry (opcional, desabilitado se ausente)
+
+### Arquivos
+- `web/app/components/DonateBar.tsx` + `.module.css` — barra + modal de doação
+- `web/app/api/donate/route.ts` — cria billing
+- `web/app/api/donate/webhook/route.ts` — webhook billing.paid
+- `web/app/api/donate/total/route.ts` — total arrecadado (force-dynamic)
+- `web/app/api/donate/sync/route.ts` — sincroniza pendentes com AbacatePay
+
 ## Status
 - [x] Grade Horária (MVP completo)
 - [x] Calculadora de CR
@@ -153,8 +208,15 @@ Upload e download de provas, listas, resumos, apostilas e VS em PDF, vinculados 
 - [x] Mamatômetro (avaliação de dificuldade por professor/disciplina)
 - [x] Upload de Materiais (provas, listas, resumos, apostilas, VS por disciplina)
 - [x] Ordenação por dificuldade na grade horária
+- [x] Sistema de Doação via Pix (AbacatePay + barra de sustentabilidade)
 - [x] Deploy na Vercel
-- [x] Error boundaries (error.tsx + not-found.tsx)
+- [x] Error boundaries (error.tsx + global-error.tsx + not-found.tsx)
+- [x] Sentry (client/server/edge)
+- [x] Testes (Jest + Testing Library, 62 testes, 9 suites)
+- [x] CI (GitHub Actions: lint, typecheck, test, build)
+- [x] Validação Zod no upload
+- [x] Decomposição de componentes (CalculadoraCR + GradeHoraria)
+- [x] Acessibilidade WCAG (skip link, focus-visible, aria)
 - [x] Prettier + Husky + lint-staged
 - [x] SEO / Open Graph por rota
 - [x] Footer global com links de contato

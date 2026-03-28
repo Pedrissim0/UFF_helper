@@ -61,6 +61,13 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 - Layout responsivo: grid horizontal com scroll em desktop, vertical em mobile
 - Integra com `useDisciplinasStore` e `useCalculadoraStore` para refletir aprovações do aluno
 
+### Sistema de Doação
+- Doações via Pix integradas com AbacatePay
+- Barra sticky no topo: "X meses e Y dias de funcionamento garantido"
+- Modal com valores rápidos (R$5, R$10, R$25) ou valor personalizado
+- Atualização automática ao voltar do checkout (sync com API da AbacatePay)
+- Custo mensal estimado: R$500/mês
+
 ### Footer
 - Links de contato do desenvolvedor: [GitHub](https://github.com/Pedrissim0), [LinkedIn](https://www.linkedin.com/in/pedro-vitor-costa-770063188/), [WhatsApp](https://wa.me/5521986793427)
 - Presente em todas as páginas via `layout.tsx`
@@ -70,11 +77,17 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 | Camada | Tecnologia |
 |--------|------------|
 | Frontend | Next.js 14, App Router, TypeScript, CSS Modules |
+| Estado global | Zustand (persist middleware) |
 | Dados disciplinas | Supabase (PostgreSQL) |
+| Validação | Zod (upload CSV/XLSX + formulários) |
+| Pagamentos | AbacatePay (Pix) |
 | Leitura de arquivos | papaparse (CSV), SheetJS/xlsx (Excel) |
 | Scraping | Python 3, requests, BeautifulSoup4 |
 | Parse de PDF | Claude Haiku 4.5 via API (streaming) |
-| Formatacao | Prettier + Husky pre-commit + lint-staged |
+| Testes | Jest + Testing Library (62 testes, 9 suites) |
+| CI | GitHub Actions (lint, typecheck, test, build) |
+| Monitoramento | Sentry (client/server/edge) |
+| Formatação | Prettier + Husky pre-commit + lint-staged |
 | Deploy | Vercel (branch `main`) |
 
 ## Estrutura do Projeto
@@ -83,33 +96,48 @@ Utilitário web para alunos do curso de **Economia da UFF** montarem sua grade d
 projeto_uff_helper/
 ├── web/                        # Aplicação Next.js
 │   ├── app/
-│   │   ├── page.tsx            # Grade Horária (Server Component)
-│   │   ├── layout.tsx
-│   │   ├── globals.css         # Variáveis CSS (light/dark + purple)
-│   │   ├── error.tsx             # Error boundary global
-│   │   ├── not-found.tsx         # Página 404 customizada
+│   │   ├── page.tsx            # Redirect → /grade
+│   │   ├── layout.tsx          # Server Component (skip link, DonateBar, Footer)
+│   │   ├── globals.css         # Variáveis CSS (light/dark) + acessibilidade
+│   │   ├── error.tsx           # Error boundary (Sentry + UI)
+│   │   ├── global-error.tsx    # Error boundary root layout (Sentry)
+│   │   ├── not-found.tsx       # Página 404 customizada
 │   │   ├── components/
-│   │   │   ├── Footer.tsx            # Footer global (GitHub, LinkedIn, WhatsApp)
-│   │   │   ├── GradeHoraria.tsx
-│   │   │   └── GradeHoraria.module.css
+│   │   │   ├── Footer.tsx
+│   │   │   ├── DonateBar.tsx         # Barra de doação + modal
+│   │   │   ├── GradeHoraria.tsx      # Orquestrador
+│   │   │   └── grade/                # Subcomponentes extraídos
+│   │   │       ├── CardDisciplina.tsx
+│   │   │       ├── FiltrosDisciplinas.tsx
+│   │   │       ├── GradeSemanal.tsx
+│   │   │       ├── Legenda.tsx
+│   │   │       └── types.ts
 │   │   ├── calculadora-cr/
 │   │   │   ├── page.tsx
-│   │   │   ├── CalculadoraCR.tsx
-│   │   │   └── CalculadoraCR.module.css
+│   │   │   ├── CalculadoraCR.tsx     # Orquestrador
+│   │   │   ├── types.ts             # Tipos + helpers compartilhados
+│   │   │   └── components/           # Subcomponentes extraídos
+│   │   │       ├── UploadArea.tsx
+│   │   │       ├── TabelaDisciplinas.tsx
+│   │   │       ├── ModalDisciplina.tsx
+│   │   │       ├── ModalProjecao.tsx
+│   │   │       ├── FormPeriodo.tsx
+│   │   │       ├── WidgetEstatisticas.tsx
+│   │   │       ├── GraficoHistorico.tsx
+│   │   │       └── Icons.tsx
 │   │   ├── controlador-faltas/
 │   │   │   ├── page.tsx
-│   │   │   ├── ControladorFaltas.tsx
-│   │   │   └── ControladorFaltas.module.css
+│   │   │   └── ControladorFaltas.tsx
 │   │   ├── roadmap/
-│   │   │   ├── page.tsx              # Server Component: fetch materiais + professores
-│   │   │   ├── Roadmap.tsx           # Fluxograma horizontal
-│   │   │   ├── DisciplineDetailModal.tsx  # Modal detalhes + aba Materiais
-│   │   │   └── Roadmap.module.css
+│   │   │   ├── page.tsx
+│   │   │   ├── Roadmap.tsx
+│   │   │   └── DisciplineDetailModal.tsx
 │   │   └── api/
-│   │       ├── discipline-files/     # Upload, download e report de materiais
-│   │       ├── difficulty-rating/    # Mamatômetro
-│   │       ├── email-submission/     # Crowdsourcing email
-│   │       └── name-contest/        # Concurso de nomes
+│   │       ├── donate/              # Doação (create, webhook, sync, total)
+│   │       ├── discipline-files/    # Upload, download e report de materiais
+│   │       ├── difficulty-rating/   # Mamatômetro
+│   │       ├── email-submission/    # Crowdsourcing email
+│   │       └── name-contest/       # Concurso de nomes
 │   ├── data/
 │   │   ├── db_disciplinas.json     # 130+ disciplinas com horários
 │   │   ├── matriz_curricular.json
@@ -118,10 +146,11 @@ projeto_uff_helper/
 │   │   └── useRoadmapConnections.ts # SVG prereq arrows
 │   ├── lib/
 │   │   ├── supabase.ts
-│   │   ├── calcularColunas.ts       # Alinhamento de cadeias
+│   │   ├── schemas.ts              # Zod schemas (upload, formulários)
+│   │   ├── calcularColunas.ts
 │   │   ├── calcularEstadoDisciplina.ts
 │   │   ├── formatarNomeDisciplina.ts
-│   │   └── hashFile.ts             # SHA-256 para dedup de uploads
+│   │   └── hashFile.ts
 │   ├── types/
 │   │   └── discipline-files.ts     # Tipos do sistema de materiais
 │   └── stores/                     # Zustand (persist middleware)
@@ -150,7 +179,7 @@ projeto_uff_helper/
 ## Instalação e Desenvolvimento
 
 ### Pré-requisitos
-- Node.js 18+
+- Node.js 20+
 - Python 3.10+
 
 ### Frontend
@@ -169,6 +198,10 @@ Acesse `http://localhost:3000`.
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://<projeto>.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=<chave>
+ABACATEPAY_API_KEY=<chave>
+ABACATEPAY_WEBHOOK_SECRET=<secret>
+NEXT_PUBLIC_SENTRY_DSN=<dsn>               # opcional
+NEXT_PUBLIC_MONTHLY_COST_CENTS=50000       # R$500/mês (default)
 ```
 
 ### Pipeline de dados (scraper)
